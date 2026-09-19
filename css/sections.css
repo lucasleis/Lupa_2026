@@ -68,7 +68,8 @@
   z-index: 7;
   top: calc(603.48 * var(--u));
   left: 50%;
-  width: calc(144 * var(--u));
+  width: auto;
+  white-space: nowrap;
   height: calc(35 * var(--u));
   color: var(--color-brown-dark);
   font-family: var(--font-display);

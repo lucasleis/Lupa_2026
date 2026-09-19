@@ -15,7 +15,7 @@ body {
   margin: 0 auto;
   background: var(--color-white-warm);
   color: var(--color-brown-dark);
-  font-family: var(--font-alt);
+  font-family: var(--font-display);
   font-size: var(--fs-p);
   line-height: 1.4;
   text-rendering: optimizeLegibility;

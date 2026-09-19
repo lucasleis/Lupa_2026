@@ -12,7 +12,7 @@
   --color-brown-mid: #b76123;
   --color-navy: #1b1e3c;
 
-  --font-display: "degular", sans-serif;
+  --font-display: "degular-display", sans-serif;
   --font-alt: "roca", sans-serif;
 
   --fs-display-1: calc(56 * var(--u));
