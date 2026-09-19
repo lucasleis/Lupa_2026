@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Página no encontrada</title>
+	<link rel="stylesheet" href="/buscandoconlupa/css/style.css">
+	<link rel="stylesheet" href="/buscandoconlupa/css/header.css">
+	<link rel="stylesheet" href="/buscandoconlupa/css/footer.css">
+	<link rel="stylesheet" href="/buscandoconlupa/css/despensa.css">
+</head>
+<body>
+	<div id="header"></div>
+
+	<main class="lupa-zona">
+		<section class="error-section" style="text-align: center; padding: 80px 20px;">
+			<h1>Página no encontrada</h1>
+			<p>Lo sentimos, pero la página que buscas no existe o fue movida.</p>
+			<a href="/buscandoconlupa/" class="button" style="margin-top: 30px; display: inline-block;">Volver al inicio</a>
+		</section>
+	</main>
+
+	<div id="footer"></div>
+
+	<script>
+		fetch("/buscandoconlupa/system/App/Views/header.html")
+			.then(response => response.text())
+			.then(data => document.getElementById("header").innerHTML = data);
+
+		fetch("/buscandoconlupa/system/App/Views/footer.html")
+			.then(response => response.text())
+			.then(data => document.getElementById("footer").innerHTML = data);
+	</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# Dependencies
+vendor/
+system/vendor/
+
+# Local configuration and credentials
+Config.php
+**/Config.php
+.env
+.env.*
+*.env
+*.key
+*.pem
+
+# Archived inherited repository
+_archivo/
+
+# Runtime/editor files
+system/logs/*
+.DS_Store
+.viminfo
+_referencia/
+Lupa_2026_svg/
+Lupa2026.txt

@@ -1,0 +1,17 @@
+# Remove the question mark from the request but maintain the query string
+RewriteEngine On
+RewriteRule ^.git(?:/|$) - [F,L]
+
+# Uncomment the following line if your public folder isn't the web server's root
+RewriteBase /buscandoconlupa/
+
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php74 .php .php7 .phtml
+</IfModule>
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d [OR]
+RewriteCond %{REQUEST_FILENAME} -l
+RewriteRule ^ - [L]
+
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]

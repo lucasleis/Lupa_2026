@@ -1,0 +1,70 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--color-sand);
+}
+
+body {
+  min-height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--color-white-warm);
+  color: var(--color-brown-dark);
+  font-family: var(--font-alt);
+  font-size: var(--fs-p);
+  line-height: 1.4;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+main {
+  min-height: 100svh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

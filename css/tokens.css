@@ -1,0 +1,31 @@
+:root {
+  --u: calc(100vw / 375);
+
+  --color-sky: #00a0dd;
+  --color-brown-dark: #3a2a24;
+  --color-sand: #f7d8aa;
+  --color-gold: #f5b223;
+  --color-white-warm: #fffaf3;
+  --color-orange: #e77408;
+  --color-orange-alt: #f58723;
+  --color-brown-mid: #b76123;
+  --color-navy: #1b1e3c;
+
+  --font-display: "degular", sans-serif;
+  --font-alt: "roca", sans-serif;
+
+  --fs-display-1: calc(56 * var(--u));
+  --fs-h1: calc(48 * var(--u));
+  --fs-acertijo: calc(36 * var(--u));
+  --fs-h2: calc(34 * var(--u));
+  --fs-h4: calc(26 * var(--u));
+  --fs-h5: calc(22 * var(--u));
+  --fs-p: calc(18 * var(--u));
+  --fs-small: calc(16 * var(--u));
+}
+
+@media (min-width: 480px) {
+  :root {
+    --u: calc(480px / 375);
+  }
+}
