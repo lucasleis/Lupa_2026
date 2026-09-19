@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-source_dir="${1:?Usage: $0 DIRECTORY [QUALITY]}"
-quality="${2:-80}"
+source_dir="${1:?Usage: $0 DIRECTORY [MAX_WIDTH] [QUALITY]}"
+max_width="${2:-900}"
+quality="${3:-80}"
 
 if ! command -v cwebp >/dev/null 2>&1; then
   echo "Error: cwebp no está instalado. Instalá el paquete webp y reintentá." >&2
@@ -22,8 +23,8 @@ with open(sys.argv[1], "rb") as image:
 PY
 )"
 
-  if (( width > 900 )); then
-    cwebp -resize 900 0 -q "$quality" "$source" -o "$target"
+  if (( width > max_width )); then
+    cwebp -resize "$max_width" 0 -q "$quality" "$source" -o "$target"
   else
     cwebp -q "$quality" "$source" -o "$target"
   fi

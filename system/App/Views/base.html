@@ -41,19 +41,32 @@
 
     <main>
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero__stage">
-          <h1 class="visually-hidden" id="hero-title">OFERTITI - LA REINA DE LAS OFERTAS</h1>
-          <img class="hero__clouds" src="img/hero/nubes.webp" alt="" width="507" height="141">
-          <img class="hero__lockup" src="img/hero/lockup-ofertiti.webp" alt="" width="900" height="596" fetchpriority="high">
-          <img class="hero__balloon" src="img/hero/globo.webp" alt="Desliza hacia abajo para continuar" width="691" height="300">
-          <img class="hero__sand" src="img/hero/arena.webp" alt="" width="900" height="145">
-          <img class="hero__sphinx" src="img/hero/esfinge.webp" alt="" width="683" height="319">
-          <img class="hero__ofertiti" src="img/hero/ofertiti.webp" alt="" width="711" height="1539" fetchpriority="high">
-          <!-- Este ancla llevará al formulario cuando exista esa sección. -->
-          <a class="hero__skip" href="#formulario">SALTAR INTRO</a>
+        <div class="hero__sticky">
+          <div class="hero__stage">
+            <h1 class="visually-hidden" id="hero-title">OFERTITI - LA REINA DE LAS OFERTAS</h1>
+            <img class="hero__clouds" src="img/intro/nube-1.webp" alt="" width="507" height="141">
+            <img class="hero__lockup" src="img/intro/lockup-ofertiti.webp" alt="" width="1029" height="681" fetchpriority="high">
+            <img class="hero__balloon" src="img/intro/globo.webp" alt="" width="1100" height="478">
+            <img class="hero__riddle-balloon" src="img/intro/globo.webp" alt="" width="1100" height="478">
+            <p class="hero__prompt">DESLIZA HACIA ABAJO PARA CONTINUAR</p>
+            <img class="hero__sand" src="img/intro/arena-lejos.webp" alt="" width="1503" height="241">
+            <img class="hero__sphinx" src="img/intro/esfinge.webp" alt="" width="2048" height="956">
+            <img class="hero__ofertiti" src="img/intro/ofertiti.webp" alt="" width="711" height="1539" fetchpriority="high">
+            <img class="hero__cloud-two" src="img/intro/nube-2.webp" alt="" width="437" height="202">
+            <img class="hero__cloud-three" src="img/intro/nube-2.webp" alt="" width="437" height="202">
+            <img class="hero__sand-close" src="img/intro/arena-cerca.webp" alt="" width="1503" height="354">
+            <p class="hero__riddle">Tres preguntas harás, y si aciertas el producto, a la pirámide entrarás</p>
+            <!-- Provisional: este botón abrirá el popup de los pergaminos. -->
+            <button class="hero__start" type="button">
+              <span>EMPEZAR</span>
+            </button>
+            <!-- Este ancla llevará al formulario cuando exista esa sección. -->
+            <a class="hero__skip" href="#formulario">SALTAR INTRO</a>
+          </div>
         </div>
       </section>
     </main>
     <script src="js/header.js"></script>
+    <script type="module" src="js/intro-scroll.js"></script>
   </body>
 </html>
