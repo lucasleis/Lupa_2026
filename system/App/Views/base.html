@@ -7,8 +7,38 @@
     <link rel="stylesheet" href="https://use.typekit.net/jrp0gtx.css">
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
   </head>
   <body>
+    <header class="site-header">
+      <a class="site-header__logo" href="./" aria-label="Volver al inicio de Lupa">
+        <img src="img/logo-lupa.svg" alt="Lupa">
+      </a>
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="site-menu"
+      >
+        <img class="menu-toggle__icon menu-toggle__icon--menu" src="img/hamburguer.svg" alt="" aria-hidden="true">
+        <!-- X PROVISIONAL: reemplazar cuando llegue el diseño del menú abierto de la agencia. -->
+        <img class="menu-toggle__icon menu-toggle__icon--close" src="img/close-x.svg" alt="" aria-hidden="true">
+      </button>
+    </header>
+
+    <!-- Placeholder provisional: reemplazar cuando llegue el diseño definitivo del menú 2026. -->
+    <nav class="site-menu" id="site-menu" aria-label="Menú principal" aria-hidden="true">
+      <ul class="site-menu__list">
+        <li><a href="./">Home</a></li>
+        <li><a href="#ofertas">Ofertas</a></li>
+        <li><a href="#cupones">Cupones</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
     <main></main>
+    <script src="js/header.js"></script>
   </body>
 </html>

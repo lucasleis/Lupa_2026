@@ -21,6 +21,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+body.menu-is-open {
+  overflow: hidden;
+}
+
 img,
 picture,
 svg,

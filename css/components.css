@@ -33,8 +33,8 @@
 
 .menu-toggle {
   position: absolute;
-  top: calc(11 * var(--u));
-  right: calc(28.69 * var(--u));
+  top: 11px;
+  right: 29px;
   width: 40px;
   height: 40px;
   padding: 0;
@@ -49,45 +49,25 @@
   content: "";
 }
 
-.menu-toggle__bar {
+.menu-toggle__icon {
   position: absolute;
-  right: 8px;
+  inset: 0;
+  width: 40px;
+  height: 40px;
   display: block;
-  height: 2px;
-  background: #01154a;
-  transform-origin: right center;
-  transition: transform 300ms ease, opacity 300ms ease;
+  transition: opacity 200ms ease;
 }
 
-.menu-toggle__bar--top,
-.menu-toggle__bar--middle {
-  width: 27px;
-}
-
-.menu-toggle__bar--top {
-  top: 9px;
-}
-
-.menu-toggle__bar--middle {
-  top: 19px;
-}
-
-.menu-toggle__bar--bottom {
-  top: 29px;
-  width: 12px;
-}
-
-.menu-toggle[aria-expanded="true"] .menu-toggle__bar--top {
-  transform: rotate(45deg) translateY(-7.07px);
-}
-
-.menu-toggle[aria-expanded="true"] .menu-toggle__bar--middle {
+.menu-toggle__icon--close {
   opacity: 0;
 }
 
-.menu-toggle[aria-expanded="true"] .menu-toggle__bar--bottom {
-  width: 27px;
-  transform: rotate(-45deg) translateY(7.07px);
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon--menu {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon--close {
+  opacity: 1;
 }
 
 .site-menu {
