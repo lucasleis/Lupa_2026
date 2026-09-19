@@ -26,6 +26,10 @@ body.menu-is-open {
   overflow: hidden;
 }
 
+body.acertijo-is-open {
+  overflow: hidden;
+}
+
 img,
 picture,
 svg,
