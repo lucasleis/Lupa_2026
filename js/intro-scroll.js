@@ -18,6 +18,26 @@ if (heroTrack) {
 
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
+  const progresoDeRiel = (rail, {
+    inicio = 0,
+    fin = 1,
+    destino,
+    propiedad,
+  } = {}) => {
+    const rect = rail?.getBoundingClientRect();
+    const range = rect ? rect.height - window.innerHeight : 0;
+    const progresoDelRiel = rect && range > 0 ? -rect.top / range : 0;
+    const tramo = fin - inicio;
+    const progreso = tramo > 0 ? (progresoDelRiel - inicio) / tramo : 0;
+    const resultado = clamp(progreso);
+
+    if (destino && propiedad) {
+      destino.style.setProperty(propiedad, String(resultado));
+    }
+
+    return resultado;
+  };
+
   const setSceneState = (state) => {
     if (state === currentState) return;
     currentState = state;
@@ -26,15 +46,10 @@ if (heroTrack) {
   };
 
   const setProgress = (progress) => {
-    const progressForRail = (rail) => {
-      const rect = rail?.getBoundingClientRect();
-      const range = rect ? rect.height - window.innerHeight : 0;
-      return rect && range > 0 ? clamp(-rect.top / range) : 0;
-    };
-    const entryProgress = progressForRail(entryRail);
-    const exitProgress = puzzleComplete ? progressForRail(exitRail) : 0;
+    const entryProgress = progresoDeRiel(entryRail);
+    const exitProgress = puzzleComplete ? progresoDeRiel(exitRail) : 0;
     const quizProgress = puzzleComplete && exitProgress >= 1
-      ? progressForRail(quizRail)
+      ? progresoDeRiel(quizRail, { destino: heroStage, propiedad: '--quiz-p' })
       : 0;
     panelProgress = entryProgress * 0.5 + exitProgress * 0.5;
     const effectivePanelProgress = panelProgress;
@@ -43,7 +58,9 @@ if (heroTrack) {
     }
     document.body.style.setProperty('--intro-progress', String(progress));
     document.body.style.setProperty('--panel-progress', String(effectivePanelProgress));
-    heroStage?.style.setProperty('--quiz-p', String(quizProgress));
+    if (!puzzleComplete || exitProgress < 1) {
+      heroStage?.style.setProperty('--quiz-p', String(quizProgress));
+    }
 
     if (puzzleStarted) {
       if (puzzleComplete && exitProgress <= 0.001) {
@@ -74,10 +91,7 @@ if (heroTrack) {
 
   const updateProgress = () => {
     framePending = false;
-    const rect = introRail?.getBoundingClientRect();
-    const scrollRange = rect ? rect.height - window.innerHeight : 0;
-    const progress = rect && scrollRange > 0 ? (-rect.top) / scrollRange : 0;
-    setProgress(clamp(progress));
+    setProgress(progresoDeRiel(introRail));
   };
 
   const requestProgressUpdate = () => {
