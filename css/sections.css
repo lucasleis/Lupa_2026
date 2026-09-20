@@ -107,11 +107,26 @@
   transform-origin: center;
 }
 
+.hero__stage[data-estado="pregunta"] .hero__riddle-group {
+  top: calc(99.11 * var(--u));
+}
+
 .hero__riddle-balloon {
   inset: 0;
   width: 100%;
   transform: scaleX(-1);
   transform-origin: center;
+}
+
+.hero__riddle-balloon--answer {
+  inset: 0;
+  width: 100%;
+}
+
+/* Cada estado usa su propio globo para conservar la orientación de la cola. */
+.hero__stage[data-estado="intro"] .hero__riddle-balloon--answer,
+.hero__stage[data-estado="pregunta"] .hero__riddle-balloon {
+  visibility: hidden;
 }
 
 .hero__riddle {
@@ -221,9 +236,129 @@
   z-index: 1;
 }
 
+.hero__options {
+  position: absolute;
+  z-index: 12;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__option {
+  position: absolute;
+  left: calc(42.08 * var(--u));
+  width: calc(292 * var(--u));
+  height: calc(59 * var(--u));
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  background-image: url("../img/acertijo/opcion.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color: var(--color-brown-dark);
+  font-family: var(--font-display);
+  font-size: calc(22 * var(--u));
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  transform: translateX(-120%);
+  transition: transform 300ms ease-out, background-image 0ms;
+  pointer-events: auto;
+}
+
+/* La máquina de estados mantiene fuera de juego los controles del estado inactivo. */
+.hero__stage[data-estado="intro"] .hero__options,
+.hero__stage[data-estado="intro"] .hero__continue,
+.hero__stage[data-estado="pregunta"] .hero__start {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.hero__stage[data-estado="pregunta"] .hero__options {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.hero__stage[data-estado="intro"] .hero__option,
+.hero__stage[data-estado="intro"] .hero__continue {
+  transform: translateY(120%);
+}
+
+.hero__stage[data-estado="pregunta"] .hero__option,
+.hero__stage[data-estado="pregunta"] .hero__continue {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.hero__stage[data-estado="pregunta"] .hero__continue {
+  transform: translateY(0);
+}
+
+.hero__option:nth-child(1) { top: calc(264.71 * var(--u)); }
+.hero__option:nth-child(2) { top: calc(333.21 * var(--u)); }
+.hero__option:nth-child(3) { top: calc(401.71 * var(--u)); }
+.hero__option:nth-child(4) { top: calc(470.21 * var(--u)); }
+
+.hero__stage[data-estado="pregunta"] .hero__option:nth-child(2) { transition-delay: 100ms; }
+.hero__stage[data-estado="pregunta"] .hero__option:nth-child(3) { transition-delay: 200ms; }
+.hero__stage[data-estado="pregunta"] .hero__option:nth-child(4) { transition-delay: 300ms; }
+
+.hero__option.is-selected {
+  background-image: url("../img/acertijo/opcion-seleccionada.webp");
+}
+
+.hero__continue {
+  position: absolute;
+  z-index: 13;
+  top: calc(557.8 * var(--u));
+  left: calc(68 * var(--u));
+  width: calc(239 * var(--u));
+  height: calc(55 * var(--u));
+  padding: 0;
+  border: 0;
+  border-radius: calc(40.34 * var(--u));
+  background: #3a3a39;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: calc(22 * var(--u));
+  font-weight: 600;
+  transform: translateY(120%);
+  transition: transform 300ms ease-out;
+}
+
+.hero__continue::before {
+  position: absolute;
+  top: calc(5.73 * var(--u));
+  left: calc(5.97 * var(--u));
+  width: calc(226.9 * var(--u));
+  height: calc(41.08 * var(--u));
+  border: calc(5.5 * var(--u)) solid #828282;
+  border-radius: calc(40.34 * var(--u));
+  background: #b2b2b2;
+  content: "";
+}
+
+.hero__continue span {
+  position: relative;
+  z-index: 1;
+}
+
+.hero__continue:disabled {
+  cursor: not-allowed;
+}
+
+.hero__continue:not(:disabled) {
+  background: #c38809;
+}
+
+.hero__continue:not(:disabled)::before {
+  border-color: var(--color-gold);
+  background: var(--color-navy);
+}
+
 .hero__skip {
   position: absolute;
-  z-index: 11;
+  z-index: 20;
   top: calc(603.48 * var(--u));
   left: 50%;
   width: auto;
@@ -237,6 +372,10 @@
   text-align: center;
   text-decoration-line: underline;
   transform: translateX(-50%);
+}
+
+.hero__stage[data-estado="pregunta"] .hero__skip {
+  top: calc(620 * var(--u));
 }
 
 .visually-hidden {
