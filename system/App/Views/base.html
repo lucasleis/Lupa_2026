@@ -59,10 +59,13 @@
             <img class="hero__cloud-three" src="img/intro/nube-2.webp" alt="" width="437" height="202">
             <div class="hero__riddle-group">
               <img class="hero__riddle-balloon" src="img/intro/globo.webp" alt="" width="1100" height="478">
-              <img class="hero__riddle-balloon--answer" src="img/acertijo/nube-rta.webp" alt="" width="1025" height="445">
-              <p class="hero__riddle">Tres preguntas harás, y si aciertas el producto, a la pirámide entrarás</p>
+              <p class="hero__riddle hero__riddle--intro">Tres preguntas harás, y si aciertas el producto, a la pirámide entrarás</p>
             </div>
             <div class="hero__question-ui" inert aria-hidden="true">
+              <div class="hero__riddle-group">
+                <img class="hero__riddle-balloon--answer" src="img/acertijo/nube-rta.webp" alt="" width="1025" height="445">
+                <p class="hero__riddle hero__riddle--answer">SE ACABARON LAS PREGUNTAS. ¿CUÁL ES?</p>
+              </div>
               <div class="hero__options" role="radiogroup" aria-label="Opciones de respuesta"></div>
               <button class="hero__continue" type="button" disabled>
                 <span>PUEDES CONTINUAR</span>
@@ -76,6 +79,10 @@
             </button>
           </div>
         </div>
+        <div class="acertijo-panel-rail acertijo-panel-rail--intro" aria-hidden="true"></div>
+        <div class="acertijo-panel-rail acertijo-panel-rail--entrada" aria-hidden="true"></div>
+        <div class="acertijo-panel-rail acertijo-panel-rail--salida" aria-hidden="true"></div>
+        <div class="acertijo-panel-rail acertijo-panel-rail--quiz" aria-hidden="true"></div>
       </section>
     </main>
     <section class="acertijo-panel" aria-label="Acertijo de Ofertiti" aria-hidden="true">

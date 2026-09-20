@@ -6,7 +6,8 @@ const opciones = [
 ];
 
 const hero = document.querySelector('.hero');
-const riddle = document.querySelector('.hero__riddle');
+const introRiddle = document.querySelector('.hero__riddle--intro');
+const answerRiddle = document.querySelector('.hero__riddle--answer');
 const startButton = document.querySelector('.hero__start');
 const optionsRoot = document.querySelector('.hero__options');
 const continueButton = document.querySelector('.hero__continue');
@@ -62,14 +63,24 @@ if (hero && optionsRoot && continueButton) {
   });
 
   document.addEventListener('acertijo:completado', () => {
-    puzzlePanel?.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('acertijo-is-open');
-    stage?.setAttribute('data-estado', 'pregunta');
-    questionUi?.removeAttribute('inert');
-    questionUi?.setAttribute('aria-hidden', 'false');
-    startButton?.setAttribute('inert', '');
-    startButton?.setAttribute('aria-hidden', 'true');
-    if (riddle) riddle.textContent = 'SE ACABARON LAS PREGUNTAS. ¿CUÁL ES?';
+    // La transición visual reversible la gobierna intro-scroll según el progreso.
+  });
+
+  document.addEventListener('intro:estado', (event) => {
+    const isQuestion = event.detail.estado === 'pregunta';
+    if (isQuestion) {
+      questionUi?.removeAttribute('inert');
+      questionUi?.setAttribute('aria-hidden', 'false');
+      startButton?.setAttribute('inert', '');
+      startButton?.setAttribute('aria-hidden', 'true');
+      if (answerRiddle) answerRiddle.textContent = 'SE ACABARON LAS PREGUNTAS. ¿CUÁL ES?';
+    } else {
+      questionUi?.setAttribute('inert', '');
+      questionUi?.setAttribute('aria-hidden', 'true');
+      startButton?.removeAttribute('inert');
+      startButton?.removeAttribute('aria-hidden');
+      if (introRiddle) introRiddle.textContent = 'Tres preguntas harás, y si aciertas el producto, a la pirámide entrarás';
+    }
   });
 
   continueButton.addEventListener('click', () => {

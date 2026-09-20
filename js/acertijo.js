@@ -62,6 +62,5 @@ if (panel && questionsRoot) {
 }
 
 startButton?.addEventListener('click', () => {
-  panel?.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('acertijo-is-open');
+  document.dispatchEvent(new CustomEvent('acertijo:iniciado'));
 });
