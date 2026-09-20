@@ -38,6 +38,9 @@ if (heroTrack) {
       : 0;
     panelProgress = entryProgress * 0.5 + exitProgress * 0.5;
     const effectivePanelProgress = panelProgress;
+    if (skipLink) {
+      skipLink.dataset.panelActive = String(puzzleStarted && effectivePanelProgress < 1);
+    }
     document.body.style.setProperty('--intro-progress', String(progress));
     document.body.style.setProperty('--panel-progress', String(effectivePanelProgress));
     heroStage?.style.setProperty('--quiz-p', String(quizProgress));

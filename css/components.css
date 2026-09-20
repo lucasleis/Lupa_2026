@@ -109,7 +109,3 @@
   line-height: 1;
   text-decoration: none;
 }
-
-main {
-  padding-top: calc(59 * var(--u));
-}

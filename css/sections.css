@@ -408,11 +408,16 @@
   pointer-events: none;
 }
 
+.hero__stage[data-estado="intro"] .hero__skip:not([data-panel-active="true"]),
 .hero__stage[data-estado="pregunta"] .hero__skip[data-quiz-active="true"] {
   top: calc(620 * var(--u));
   transform: translateX(-50%) scale(1);
   visibility: visible;
   pointer-events: auto;
+}
+
+.hero__stage[data-estado="intro"] .hero__skip:not([data-panel-active="true"]) {
+  top: calc(603.48 * var(--u));
 }
 
 .visually-hidden {
