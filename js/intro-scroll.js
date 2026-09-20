@@ -6,6 +6,8 @@ const introRail = document.querySelector('.acertijo-panel-rail--intro');
 const entryRail = document.querySelector('.acertijo-panel-rail--entrada');
 const exitRail = document.querySelector('.acertijo-panel-rail--salida');
 const quizRail = document.querySelector('.acertijo-panel-rail--quiz');
+const resultRail = document.querySelector('.acertijo-panel-rail--resultado');
+const pyramidRail = document.querySelector('.acertijo-panel-rail--piramide');
 const skipLink = document.querySelector('.hero__skip');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -15,6 +17,8 @@ if (heroTrack) {
   let currentState = 'intro';
   let framePending = false;
   let panelProgress = 0;
+  let answerSubmitted = false;
+  let pyramidRailEnabled = false;
 
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
@@ -69,6 +73,22 @@ if (heroTrack) {
         setSceneState('pregunta');
       }
       const controlsVisible = currentState === 'pregunta' && quizProgress > 0.001;
+      const resultExitProgress = answerSubmitted
+        ? progresoDeRiel(resultRail, { inicio: 0, fin: 0.5 })
+        : 0;
+      const resultProgress = answerSubmitted ? progresoDeRiel(resultRail) : 0;
+      const resultEntryProgress = answerSubmitted
+        ? progresoDeRiel(resultRail, { inicio: 0.5, fin: 1 })
+        : 0;
+      const quizExitProgress = 1 - resultExitProgress;
+      heroStage?.style.setProperty('--resultado-salida-p', String(resultExitProgress));
+      heroStage?.style.setProperty('--resultado-entrada-p', String(resultEntryProgress));
+
+      if (answerSubmitted && resultProgress >= 0.999 && !pyramidRailEnabled) {
+        pyramidRailEnabled = true;
+        pyramidRail?.style.setProperty('--piramide-rail-height', '200svh');
+      }
+
       if (questionUi) {
         questionUi.inert = !controlsVisible;
         questionUi.setAttribute('aria-hidden', String(!controlsVisible));
@@ -76,12 +96,24 @@ if (heroTrack) {
 
         const optionStarts = [0.30, 0.42, 0.54, 0.66];
         questionUi.querySelectorAll('.hero__option').forEach((option, index) => {
-          option.dataset.quizActive = String(controlsVisible && quizProgress >= (optionStarts[index] ?? 1));
+          option.dataset.quizActive = String(
+            controlsVisible && (answerSubmitted
+              ? quizExitProgress >= (optionStarts[index] ?? 1)
+              : quizProgress >= (optionStarts[index] ?? 1))
+          );
         });
         const continueButton = questionUi.querySelector('.hero__continue');
         if (continueButton) {
-          continueButton.dataset.quizActive = String(controlsVisible && quizProgress >= 0.8);
+          continueButton.dataset.quizActive = String(
+            controlsVisible && (answerSubmitted ? quizExitProgress >= 0.8 : quizProgress >= 0.8)
+          );
         }
+        questionUi.querySelectorAll('.hero__result').forEach((result) => {
+          result.dataset.resultadoActive = String(answerSubmitted && controlsVisible && resultEntryProgress > 0);
+          result.setAttribute('aria-hidden', String(
+            !(answerSubmitted && controlsVisible && resultEntryProgress > 0)
+          ));
+        });
       }
       if (skipLink) {
         skipLink.dataset.quizActive = String(currentState === 'pregunta' && quizProgress >= 0.84);
@@ -100,13 +132,17 @@ if (heroTrack) {
     window.requestAnimationFrame(updateProgress);
   };
 
-  const enableEntryRail = (targetProgress) => {
-    entryRail?.style.setProperty('--panel-entry-rail-height', '200svh');
+  const habilitarRielYDesplazar = (rail, {
+    propiedad,
+    altura,
+    progreso = 1,
+  }) => {
+    rail?.style.setProperty(propiedad, altura);
     window.requestAnimationFrame(() => {
-      if (targetProgress !== null) {
-        const rect = entryRail?.getBoundingClientRect();
+      if (progreso !== null) {
+        const rect = rail?.getBoundingClientRect();
         const scrollRange = (rect?.height ?? 0) - window.innerHeight;
-        const targetScroll = window.scrollY + (rect?.top ?? 0) + targetProgress * scrollRange;
+        const targetScroll = window.scrollY + (rect?.top ?? 0) + progreso * scrollRange;
         window.scrollTo({ top: targetScroll, behavior: 'smooth' });
       }
       requestProgressUpdate();
@@ -118,7 +154,10 @@ if (heroTrack) {
     puzzleStarted = true;
     panel?.setAttribute('aria-hidden', 'false');
     // Sticky (100svh) + riel de entrada (200svh), sin espacio posterior.
-    enableEntryRail(1);
+    habilitarRielYDesplazar(entryRail, {
+      propiedad: '--panel-entry-rail-height',
+      altura: '200svh',
+    });
   });
 
   document.addEventListener('acertijo:completado', () => {
@@ -129,6 +168,17 @@ if (heroTrack) {
     quizRail?.style.setProperty('--quiz-rail-height', '400svh');
     // El cambio ocurre detrás del panel, en su máxima cobertura.
     setSceneState('pregunta');
+  });
+
+  document.addEventListener('pregunta:respondida', (event) => {
+    if (answerSubmitted) return;
+    answerSubmitted = true;
+    heroStage?.setAttribute('data-respondido', 'true');
+    heroStage?.setAttribute('data-resultado', event.detail.acierto ? 'acierto' : 'error');
+    habilitarRielYDesplazar(resultRail, {
+      propiedad: '--resultado-rail-height',
+      altura: '200svh',
+    });
   });
 
   if (reducedMotion.matches) {

@@ -81,7 +81,8 @@ if (hero && optionsRoot && continueButton) {
 
   continueButton.addEventListener('click', () => {
     if (selected < 0) return;
-    // Punto de enganche para las pantallas de resultado, todavía inexistentes.
+    optionsRoot.setAttribute('inert', '');
+    continueButton.setAttribute('inert', '');
     document.dispatchEvent(new CustomEvent('pregunta:respondida', {
       detail: { acierto: opciones[selected].correcta }
     }));

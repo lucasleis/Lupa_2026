@@ -111,6 +111,10 @@
   transform: scale(clamp(0, calc(var(--quiz-p) / 0.3), 1));
 }
 
+.hero__stage[data-respondido="true"] .hero__question-ui > .hero__riddle-group {
+  transform: scale(clamp(0, calc((1 - var(--resultado-salida-p, 0)) / 0.3), 1));
+}
+
 .hero__stage[data-estado="pregunta"] .hero__riddle-group {
   top: calc(99.11 * var(--u));
 }
@@ -386,6 +390,68 @@
   background: var(--color-navy);
 }
 
+.hero__result {
+  position: absolute;
+  z-index: 14;
+  top: calc(99.11 * var(--u));
+  left: calc(10.57 * var(--u));
+  width: calc(341.6 * var(--u));
+  aspect-ratio: 1025 / 445;
+  box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(clamp(0, calc(var(--resultado-entrada-p, 0) / 0.3), 1));
+}
+
+.hero__result-balloon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  aspect-ratio: 1025 / 445;
+}
+
+.hero__result-title,
+.hero__result-copy {
+  position: absolute;
+  left: 7.04%;
+  right: 8.5%;
+  z-index: 1;
+  margin: 0;
+  color: var(--color-brown-dark);
+  font-family: var(--font-display);
+  text-align: center;
+}
+
+.hero__result-title {
+  top: 24.49%;
+  font-size: calc(26 * var(--u));
+  font-weight: 800;
+  line-height: 80%;
+  text-transform: uppercase;
+}
+
+.hero__result-copy {
+  top: 41.37%;
+  font-size: calc(18 * var(--u));
+  font-weight: 500;
+  line-height: 105%;
+}
+
+.hero__stage[data-respondido="true"] .hero__options,
+.hero__stage[data-respondido="true"] .hero__continue,
+.hero__stage[data-respondido="true"] .hero__question-ui > .hero__riddle-group {
+  pointer-events: none;
+}
+
+.hero__stage[data-resultado="acierto"] .hero__result[data-resultado="acierto"][data-resultado-active="true"],
+.hero__stage[data-resultado="error"] .hero__result[data-resultado="error"][data-resultado-active="true"] {
+  opacity: 1;
+  visibility: visible;
+}
+
 .hero__skip {
   position: absolute;
   z-index: 30;
@@ -467,6 +533,14 @@
 
 .acertijo-panel-rail--quiz {
   height: var(--quiz-rail-height, 0svh);
+}
+
+.acertijo-panel-rail--resultado {
+  height: var(--resultado-rail-height, 0svh);
+}
+
+.acertijo-panel-rail--piramide {
+  height: var(--piramide-rail-height, 0svh);
 }
 
 .acertijo-panel[aria-hidden="true"] {
