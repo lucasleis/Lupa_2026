@@ -6,8 +6,6 @@ const opciones = [
 ];
 
 const hero = document.querySelector('.hero');
-const introRiddle = document.querySelector('.hero__riddle--intro');
-const answerRiddle = document.querySelector('.hero__riddle--answer');
 const startButton = document.querySelector('.hero__start');
 const optionsRoot = document.querySelector('.hero__options');
 const continueButton = document.querySelector('.hero__continue');
@@ -73,13 +71,11 @@ if (hero && optionsRoot && continueButton) {
       questionUi?.setAttribute('aria-hidden', 'false');
       startButton?.setAttribute('inert', '');
       startButton?.setAttribute('aria-hidden', 'true');
-      if (answerRiddle) answerRiddle.textContent = 'SE ACABARON LAS PREGUNTAS. ¿CUÁL ES?';
     } else {
       questionUi?.setAttribute('inert', '');
       questionUi?.setAttribute('aria-hidden', 'true');
       startButton?.removeAttribute('inert');
       startButton?.removeAttribute('aria-hidden');
-      if (introRiddle) introRiddle.textContent = 'Tres preguntas harás, y si aciertas el producto, a la pirámide entrarás';
     }
   });
 
