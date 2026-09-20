@@ -62,16 +62,18 @@
               <img class="hero__riddle-balloon--answer" src="img/acertijo/nube-rta.webp" alt="" width="1025" height="445">
               <p class="hero__riddle">Tres preguntas harás, y si aciertas el producto, a la pirámide entrarás</p>
             </div>
-            <div class="hero__options" role="radiogroup" aria-label="Opciones de respuesta"></div>
-            <button class="hero__continue" type="button" disabled>
-              <span>PUEDES CONTINUAR</span>
-            </button>
+            <div class="hero__question-ui" inert aria-hidden="true">
+              <div class="hero__options" role="radiogroup" aria-label="Opciones de respuesta"></div>
+              <button class="hero__continue" type="button" disabled>
+                <span>PUEDES CONTINUAR</span>
+              </button>
+            </div>
+            <!-- Salida permanente de la experiencia: visible en todos los estados. -->
+            <a class="hero__skip" href="#formulario">SALTAR INTRO</a>
             <!-- Provisional: este botón abrirá el popup de los pergaminos. -->
             <button class="hero__start" type="button">
               <span>EMPEZAR</span>
             </button>
-            <!-- Este ancla llevará al formulario cuando exista esa sección. -->
-            <a class="hero__skip" href="#formulario">SALTAR INTRO</a>
           </div>
         </div>
       </section>

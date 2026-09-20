@@ -236,6 +236,30 @@
   z-index: 1;
 }
 
+.hero__question-ui {
+  --p-question: clamp(0, calc((var(--p) - 0.85) / 0.15), 1);
+  position: absolute;
+  z-index: 20;
+  inset: 0;
+  transform: none;
+  transform-origin: center;
+}
+
+.hero__stage[data-estado="pregunta"] .hero__question-ui {
+  transform: scale(var(--p-question));
+}
+
+.hero__stage[data-estado="intro"] .hero__question-ui,
+.hero__stage[data-estado="pregunta"] .hero__start {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.hero__stage[data-estado="pregunta"] .hero__question-ui {
+  visibility: visible;
+  pointer-events: auto;
+}
+
 .hero__options {
   position: absolute;
   z-index: 12;
@@ -358,7 +382,7 @@
 
 .hero__skip {
   position: absolute;
-  z-index: 20;
+  z-index: 30;
   top: calc(603.48 * var(--u));
   left: 50%;
   width: auto;

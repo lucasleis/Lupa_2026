@@ -1,9 +1,16 @@
 const heroTrack = document.querySelector('.hero');
+const heroStage = document.querySelector('.hero__stage');
+const questionUi = document.querySelector('.hero__question-ui');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 if (heroTrack) {
   const setProgress = (progress) => {
     document.body.style.setProperty('--intro-progress', String(progress));
+    if (questionUi && heroStage?.dataset.estado === 'pregunta') {
+      const visible = progress >= 0.85;
+      questionUi.inert = !visible;
+      questionUi.setAttribute('aria-hidden', String(!visible));
+    }
   };
 
   if (reducedMotion.matches) {

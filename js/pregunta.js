@@ -12,6 +12,7 @@ const optionsRoot = document.querySelector('.hero__options');
 const continueButton = document.querySelector('.hero__continue');
 const puzzlePanel = document.querySelector('.acertijo-panel');
 const stage = document.querySelector('.hero__stage');
+const questionUi = document.querySelector('.hero__question-ui');
 
 if (hero && optionsRoot && continueButton) {
   let selected = -1;
@@ -64,6 +65,10 @@ if (hero && optionsRoot && continueButton) {
     puzzlePanel?.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('acertijo-is-open');
     stage?.setAttribute('data-estado', 'pregunta');
+    questionUi?.removeAttribute('inert');
+    questionUi?.setAttribute('aria-hidden', 'false');
+    startButton?.setAttribute('inert', '');
+    startButton?.setAttribute('aria-hidden', 'true');
     if (riddle) riddle.textContent = 'SE ACABARON LAS PREGUNTAS. ¿CUÁL ES?';
   });
 
