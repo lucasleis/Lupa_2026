@@ -8,6 +8,7 @@ const exitRail = document.querySelector('.acertijo-panel-rail--salida');
 const quizRail = document.querySelector('.acertijo-panel-rail--quiz');
 const resultRail = document.querySelector('.acertijo-panel-rail--resultado');
 const pyramidRail = document.querySelector('.acertijo-panel-rail--piramide');
+const pyramidScene = document.querySelector('.piramide-escena');
 const skipLink = document.querySelector('.hero__skip');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -19,6 +20,14 @@ if (heroTrack) {
   let panelProgress = 0;
   let answerSubmitted = false;
   let pyramidRailEnabled = false;
+
+  const RAIL_HEIGHTS = {
+    entrada: '200svh',
+    salida: '200svh',
+    quiz: '400svh',
+    resultado: '200svh',
+    piramide: '400svh',
+  };
 
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
@@ -55,6 +64,12 @@ if (heroTrack) {
     const quizProgress = puzzleComplete && exitProgress >= 1
       ? progresoDeRiel(quizRail, { destino: heroStage, propiedad: '--quiz-p' })
       : 0;
+    const pyramidProgress = pyramidRailEnabled
+      ? progresoDeRiel(pyramidRail, { inicio: 0, fin: 0.5, destino: heroStage, propiedad: '--piramide-p' })
+      : 0;
+    const doorProgress = pyramidRailEnabled
+      ? progresoDeRiel(pyramidRail, { inicio: 0.5, fin: 1, destino: heroStage, propiedad: '--puerta-p' })
+      : 0;
     panelProgress = entryProgress * 0.5 + exitProgress * 0.5;
     const effectivePanelProgress = panelProgress;
     if (skipLink) {
@@ -72,7 +87,9 @@ if (heroTrack) {
       } else if (puzzleComplete && exitProgress > 0.001) {
         setSceneState('pregunta');
       }
-      const controlsVisible = currentState === 'pregunta' && quizProgress > 0.001;
+      const controlsVisible = currentState === 'pregunta'
+        && quizProgress > 0.001
+        && pyramidProgress <= 0;
       const resultExitProgress = answerSubmitted
         ? progresoDeRiel(resultRail, { inicio: 0, fin: 0.5 })
         : 0;
@@ -86,7 +103,10 @@ if (heroTrack) {
 
       if (answerSubmitted && resultProgress >= 0.999 && !pyramidRailEnabled) {
         pyramidRailEnabled = true;
-        pyramidRail?.style.setProperty('--piramide-rail-height', '200svh');
+        habilitarRiel(pyramidRail, '--piramide-rail-height', RAIL_HEIGHTS.piramide);
+      }
+      if (pyramidScene) {
+        pyramidScene.dataset.piramideActive = String(pyramidProgress > 0);
       }
 
       if (questionUi) {
@@ -132,12 +152,16 @@ if (heroTrack) {
     window.requestAnimationFrame(updateProgress);
   };
 
+  const habilitarRiel = (rail, propiedad, altura) => {
+    rail?.style.setProperty(propiedad, altura);
+  };
+
   const habilitarRielYDesplazar = (rail, {
     propiedad,
     altura,
     progreso = 1,
   }) => {
-    rail?.style.setProperty(propiedad, altura);
+    habilitarRiel(rail, propiedad, altura);
     window.requestAnimationFrame(() => {
       if (progreso !== null) {
         const rect = rail?.getBoundingClientRect();
@@ -156,7 +180,7 @@ if (heroTrack) {
     // Sticky (100svh) + riel de entrada (200svh), sin espacio posterior.
     habilitarRielYDesplazar(entryRail, {
       propiedad: '--panel-entry-rail-height',
-      altura: '200svh',
+      altura: RAIL_HEIGHTS.entrada,
     });
   });
 
@@ -164,8 +188,8 @@ if (heroTrack) {
     if (puzzleComplete) return;
     puzzleComplete = true;
     // Se agrega únicamente el riel de salida al completar la compuerta.
-    exitRail?.style.setProperty('--panel-exit-rail-height', '200svh');
-    quizRail?.style.setProperty('--quiz-rail-height', '400svh');
+    habilitarRiel(exitRail, '--panel-exit-rail-height', RAIL_HEIGHTS.salida);
+    habilitarRiel(quizRail, '--quiz-rail-height', RAIL_HEIGHTS.quiz);
     // El cambio ocurre detrás del panel, en su máxima cobertura.
     setSceneState('pregunta');
   });
@@ -177,9 +201,63 @@ if (heroTrack) {
     heroStage?.setAttribute('data-resultado', event.detail.acierto ? 'acierto' : 'error');
     habilitarRielYDesplazar(resultRail, {
       propiedad: '--resultado-rail-height',
-      altura: '200svh',
+      altura: RAIL_HEIGHTS.resultado,
     });
   });
+
+  const saltarAInicioDeTramo = () => {
+    const params = new URLSearchParams(window.location.search);
+    const tramo = params.get('saltar');
+    const tramos = ['acertijo', 'quiz', 'resultado', 'piramide', 'puerta'];
+    if (!tramos.includes(tramo)) return false;
+
+    const respuesta = params.get('rta') === 'error' ? 'error' : 'acierto';
+    puzzleStarted = true;
+    panel?.setAttribute('aria-hidden', 'false');
+    habilitarRiel(entryRail, '--panel-entry-rail-height', RAIL_HEIGHTS.entrada);
+
+    if (tramo === 'acertijo') {
+      window.scrollTo({ top: entryRail?.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+      return true;
+    }
+
+    puzzleComplete = true;
+    habilitarRiel(exitRail, '--panel-exit-rail-height', RAIL_HEIGHTS.salida);
+    habilitarRiel(quizRail, '--quiz-rail-height', RAIL_HEIGHTS.quiz);
+    setSceneState('pregunta');
+
+    if (tramo === 'quiz') {
+      window.scrollTo({ top: quizRail?.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+      return true;
+    }
+
+    answerSubmitted = true;
+    heroStage?.setAttribute('data-respondido', 'true');
+    heroStage?.setAttribute('data-resultado', respuesta);
+    habilitarRiel(resultRail, '--resultado-rail-height', RAIL_HEIGHTS.resultado);
+
+    if (tramo === 'resultado') {
+      window.scrollTo({ top: resultRail?.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+      return true;
+    }
+
+    pyramidRailEnabled = true;
+    habilitarRiel(pyramidRail, '--piramide-rail-height', RAIL_HEIGHTS.piramide);
+    if (tramo === 'piramide') {
+      window.scrollTo({ top: pyramidRail?.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+      return true;
+    }
+
+    const pyramidRect = pyramidRail?.getBoundingClientRect();
+    const pyramidScrollRange = (pyramidRect?.height ?? 0) - window.innerHeight;
+    const puertaScrollTop = window.scrollY + (pyramidRect?.top ?? 0) + 0.5 * pyramidScrollRange;
+    window.scrollTo({ top: puertaScrollTop, behavior: 'auto' });
+    return true;
+  };
+
+  if (saltarAInicioDeTramo()) {
+    requestProgressUpdate();
+  }
 
   if (reducedMotion.matches) {
     setProgress(1);
