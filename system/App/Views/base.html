@@ -102,16 +102,18 @@
         <!-- Riel provisional: se reserva espacio para la futura aproximación a la pirámide. -->
         <div class="acertijo-panel-rail acertijo-panel-rail--piramide" aria-hidden="true"></div>
       </section>
-    <section class="prueba-superada" aria-labelledby="prueba-superada-title">
-      <div class="prueba-superada__sticky">
-        <div class="prueba-superada__stage">
+    <section class="escena prueba-superada" aria-labelledby="prueba-superada-title">
+      <div class="escena__sticky">
+        <div class="escena__stage prueba-superada__stage">
           <h2 class="visually-hidden" id="prueba-superada-title">Has pasado la prueba de la Esfinge</h2>
-          <img class="prueba-superada__glifo prueba-superada__glifo--uno" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
-          <img class="prueba-superada__glifo prueba-superada__glifo--dos" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
-          <img class="prueba-superada__glifo prueba-superada__glifo--tres" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
-          <img class="prueba-superada__columna prueba-superada__columna--izquierda" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798">
-          <img class="prueba-superada__columna prueba-superada__columna--derecha" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798">
-          <img class="prueba-superada__cenefa prueba-superada__cenefa--superior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
+          <div class="marco-papiro">
+          <img class="marco-papiro__glifo marco-papiro__glifo--uno" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
+          <img class="marco-papiro__glifo marco-papiro__glifo--dos" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
+          <img class="marco-papiro__glifo marco-papiro__glifo--tres" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
+          <img class="marco-papiro__columna marco-papiro__columna--izquierda" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798">
+          <img class="marco-papiro__columna marco-papiro__columna--derecha" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798">
+          <img class="marco-papiro__cenefa marco-papiro__cenefa--superior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
+          </div>
           <img class="prueba-superada__ofertiti" src="img/prueba-superada/ofertiti-celebra.webp" alt="" width="713" height="1465">
           <div class="prueba-superada__globo">
             <img src="img/acertijo/nube-rta.webp" alt="" width="287" height="124">
@@ -119,10 +121,41 @@
           </div>
           <!-- Provisional: destino pendiente, la página de cupones no está hecha. -->
           <a class="prueba-superada__cupones" href="#" aria-disabled="false"><span>VER CUPONES</span></a>
-          <img class="prueba-superada__cenefa prueba-superada__cenefa--inferior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
+          <img class="marco-papiro__cenefa marco-papiro__cenefa--inferior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
         </div>
       </div>
       <div class="prueba-superada-rail" aria-hidden="true"></div>
+    </section>
+    <section class="escena cupones" aria-labelledby="cupones-title">
+      <div class="escena__sticky">
+        <div class="escena__stage cupones__stage">
+          <div class="marco-papiro" aria-hidden="true">
+            <img class="marco-papiro__glifo marco-papiro__glifo--uno" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
+            <img class="marco-papiro__glifo marco-papiro__glifo--dos" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
+            <img class="marco-papiro__glifo marco-papiro__glifo--tres" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
+            <img class="marco-papiro__columna marco-papiro__columna--izquierda" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798">
+            <img class="marco-papiro__columna marco-papiro__columna--derecha" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798">
+            <img class="marco-papiro__cenefa marco-papiro__cenefa--superior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
+            <img class="marco-papiro__cenefa marco-papiro__cenefa--inferior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
+          </div>
+          <h2 class="cupones__title" id="cupones-title">CUPONES</h2>
+          <!-- Figma declara Inter, pero el sistema visual usa Degular. -->
+          <p class="cupones__subtitle">Guarda los que quieras y Ofertiti te los manda al correo.</p>
+          <div class="cupones__carousel" role="region" aria-roledescription="carousel" aria-label="Cupones disponibles">
+            <div class="cupones__track"></div>
+          </div>
+          <button class="cupones__arrow cupones__arrow--prev" type="button" aria-label="Cupón anterior">
+            <span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21"></span>
+          </button>
+          <button class="cupones__arrow cupones__arrow--next" type="button" aria-label="Cupón siguiente">
+            <span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21"></span>
+          </button>
+          <!-- Pendiente de verificar contra el diseño: posición derivada del origen del carrusel. -->
+          <div class="cupones__dots" role="tablist" aria-label="Seleccionar cupón"></div>
+          <!-- Provisional: el comportamiento de LOS QUIERO está sin definir. -->
+          <button class="cupones__want" type="button"><span>LOS QUIERO</span></button>
+        </div>
+      </div>
     </section>
     </main>
     <section class="acertijo-panel" aria-label="Acertijo de Ofertiti" aria-hidden="true">
@@ -132,6 +165,7 @@
     <script src="js/header.js"></script>
     <script type="module" src="js/intro-scroll.js"></script>
     <script type="module" src="js/prueba-superada.js"></script>
+    <script type="module" src="js/cupones.js"></script>
     <script type="module" src="js/acertijo.js"></script>
     <script type="module" src="js/pregunta.js"></script>
   </body>
