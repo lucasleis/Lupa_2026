@@ -2,6 +2,74 @@
   position: relative;
 }
 
+.prueba-superada {
+  position: relative;
+  background: var(--color-sand);
+}
+
+.prueba-superada__sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100svh;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--color-sand);
+}
+
+.prueba-superada__stage {
+  --prueba-p: 0;
+  /* El globo ocupa de 44 a 331 unidades: 375 - 88 = 287 es el ancho mínimo visible sin cortarlo. */
+  --u: clamp(
+    calc(min(100vw, 480px) / 375),
+    calc(100svh / 667),
+    calc(min(100vw, 480px) / 287)
+  );
+  position: relative;
+  width: calc(375 * var(--u));
+  aspect-ratio: 375 / 667;
+  flex: 0 0 auto;
+  opacity: var(--prueba-p);
+  /* Provisional: el pasaje definitivo desde la puerta está sin definir. */
+  transform: translateY(calc((1 - var(--prueba-p)) * calc(12 * var(--u))));
+}
+
+.prueba-superada__stage img,
+.prueba-superada__globo img {
+  position: absolute;
+  display: block;
+  height: auto;
+  max-width: none;
+}
+
+.prueba-superada__glifo { width: calc(605.22 * var(--u)); }
+.prueba-superada__glifo--uno { left: calc(-88.1 * var(--u)); top: calc(9.29 * var(--u)); }
+.prueba-superada__glifo--dos { left: calc(15.56 * var(--u)); top: calc(317.82 * var(--u)); }
+.prueba-superada__glifo--tres { left: calc(-215.26 * var(--u)); top: calc(577.29 * var(--u)); }
+
+.prueba-superada__columna { width: calc(125.38 * var(--u)); top: calc(39.27 * var(--u)); }
+.prueba-superada__columna--izquierda { left: calc(-62.69 * var(--u)); transform: scaleX(-1); }
+.prueba-superada__columna--derecha { left: calc(310.37 * var(--u)); }
+
+.prueba-superada__cenefa { width: calc(704.43 * var(--u)); }
+.prueba-superada__cenefa--superior { left: calc(-207.06 * var(--u)); top: calc(-2.76 * var(--u)); }
+.prueba-superada__cenefa--inferior { left: calc(-221.54 * var(--u)); top: calc(622.92 * var(--u)); z-index: 9; transform: scaleY(-1); }
+
+.prueba-superada__ofertiti { left: calc(50% - (236.81 * var(--u)) / 2 - 0.41 * var(--u)); top: calc(207.07 * var(--u)); z-index: 5; width: calc(236.81 * var(--u)); }
+
+.prueba-superada__globo { position: absolute; left: calc(50% - (287 * var(--u)) / 2); top: calc(74.24 * var(--u)); width: calc(287 * var(--u)); height: calc(124 * var(--u)); z-index: 6; }
+.prueba-superada__globo img { inset: 0; width: 100%; transform: scaleX(-1); }
+.prueba-superada__globo p { position: absolute; top: calc(0.22 * var(--u)); left: calc((287 - 199.99) * var(--u) / 2); width: calc(199.99 * var(--u)); height: calc(124 * var(--u)); display: flex; align-items: center; justify-content: center; margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 800; line-height: calc(22 * var(--u)); text-align: center; }
+
+.prueba-superada__cupones { position: absolute; left: calc(50% - (239 * var(--u)) / 2); top: calc(530.24 * var(--u)); z-index: 8; width: calc(239 * var(--u)); height: calc(55 * var(--u)); color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; line-height: calc(29 * var(--u)); text-align: center; text-decoration: none; }
+.prueba-superada__cupones::before { content: ""; position: absolute; left: calc(-0.12 * var(--u)); top: calc(0.82 * var(--u)); width: calc(239.07 * var(--u)); height: calc(54.33 * var(--u)); background: var(--color-gold-mid); border-radius: calc(40.34 * var(--u)); }
+.prueba-superada__cupones::after { content: ""; position: absolute; left: calc(5.97 * var(--u)); top: calc(5.73 * var(--u)); width: calc(226.9 * var(--u)); height: calc(41.08 * var(--u)); background: var(--color-sky); border: calc(5.5 * var(--u)) solid var(--color-gold); border-radius: calc(40.34 * var(--u)); }
+.prueba-superada__cupones span { position: relative; z-index: 1; }
+.prueba-superada__cupones { display: flex; align-items: center; justify-content: center; }
+
+.prueba-superada-rail { height: var(--prueba-rail-height, 0svh); pointer-events: none; }
+
 .hero__sticky {
   position: sticky;
   top: 0;
@@ -576,6 +644,11 @@
 }
 
 .acertijo-panel[aria-hidden="true"] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.acertijo-panel[data-progress-state="reposo"] {
   visibility: hidden;
   pointer-events: none;
 }

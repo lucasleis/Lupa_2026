@@ -1,3 +1,26 @@
+export const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+
+export const progresoDeRiel = (rail, {
+  inicio = 0,
+  fin = 1,
+  destino,
+  propiedad,
+} = {}) => {
+  const rect = rail?.getBoundingClientRect();
+  const range = rect ? rect.height - window.innerHeight : 0;
+  const progresoDelRiel = rect && range > 0 ? -rect.top / range : 0;
+  const tramo = fin - inicio;
+  const progreso = tramo > 0 ? (progresoDelRiel - inicio) / tramo : 0;
+  const resultado = clamp(progreso);
+
+  if (destino && propiedad) destino.style.setProperty(propiedad, String(resultado));
+  return resultado;
+};
+
+export const habilitarRiel = (rail, propiedad, altura) => {
+  rail?.style.setProperty(propiedad, altura);
+};
+
 const heroTrack = document.querySelector('.hero');
 const heroStage = document.querySelector('.hero__stage');
 const questionUi = document.querySelector('.hero__question-ui');
@@ -29,28 +52,6 @@ if (heroTrack) {
     piramide: '400svh',
   };
 
-  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-
-  const progresoDeRiel = (rail, {
-    inicio = 0,
-    fin = 1,
-    destino,
-    propiedad,
-  } = {}) => {
-    const rect = rail?.getBoundingClientRect();
-    const range = rect ? rect.height - window.innerHeight : 0;
-    const progresoDelRiel = rect && range > 0 ? -rect.top / range : 0;
-    const tramo = fin - inicio;
-    const progreso = tramo > 0 ? (progresoDelRiel - inicio) / tramo : 0;
-    const resultado = clamp(progreso);
-
-    if (destino && propiedad) {
-      destino.style.setProperty(propiedad, String(resultado));
-    }
-
-    return resultado;
-  };
-
   const setSceneState = (state) => {
     if (state === currentState) return;
     currentState = state;
@@ -77,6 +78,8 @@ if (heroTrack) {
     }
     document.body.style.setProperty('--intro-progress', String(progress));
     document.body.style.setProperty('--panel-progress', String(effectivePanelProgress));
+    panel?.setAttribute('data-progress-state',
+      effectivePanelProgress > 0.001 && effectivePanelProgress < 0.999 ? 'activo' : 'reposo');
     if (!puzzleComplete || exitProgress < 1) {
       heroStage?.style.setProperty('--quiz-p', String(quizProgress));
     }
@@ -150,10 +153,6 @@ if (heroTrack) {
     if (framePending) return;
     framePending = true;
     window.requestAnimationFrame(updateProgress);
-  };
-
-  const habilitarRiel = (rail, propiedad, altura) => {
-    rail?.style.setProperty(propiedad, altura);
   };
 
   const habilitarRielYDesplazar = (rail, {
