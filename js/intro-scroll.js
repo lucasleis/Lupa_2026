@@ -121,7 +121,9 @@ if (heroTrack) {
       }
       const controlsVisible = currentState === 'pregunta'
         && quizProgress > 0.001
-        && pyramidProgress <= 0;
+        // Apareado con la rampa 0.15 de .piramide-escena para que el resultado
+        // siga visible mientras la piramide lo tapa progresivamente.
+        && pyramidProgress < 0.15;
       const resultExitProgress = answerSubmitted
         ? progresoDeRiel(resultRail, { desdeElTope: true, inicio: 0, fin: 0.5 })
         : 0;
