@@ -62,7 +62,7 @@ if (heroTrack) {
   const RAIL_HEIGHTS = {
     entrada: '200svh',
     salida: '200svh',
-    quiz: '400svh',
+    quiz: '150svh',
     resultado: '200svh',
     piramide: '400svh',
   };
@@ -85,7 +85,7 @@ if (heroTrack) {
       ? progresoDeRiel(exitRail, { desdeElTope: true })
       : 0;
     const quizProgress = puzzleComplete && exitProgress >= 1
-      ? progresoDeRiel(quizRail, { destino: heroStage, propiedad: '--quiz-p' })
+      ? progresoDeRiel(quizRail, { desdeElTope: true, destino: heroStage, propiedad: '--quiz-p' })
       : 0;
     const pyramidProgress = pyramidRailEnabled
       ? progresoDeRiel(pyramidRail, { inicio: 0, fin: 0.5, destino: heroStage, propiedad: '--piramide-p' })
@@ -144,17 +144,21 @@ if (heroTrack) {
         questionUi.dataset.quizVisible = String(controlsVisible);
 
         const optionStarts = [0.30, 0.42, 0.54, 0.66];
+        // optionStarts queda SOLO para la salida (orden inverso sobre el riel de
+        // resultado). La entrada ya no usa umbrales: las opciones entran juntas y
+        // el escalonado lo hace transition-delay en CSS.
+        const ENTRADA_CONTROLES = 0.5; // el globo termina de escalar acá
         questionUi.querySelectorAll('.hero__option').forEach((option, index) => {
           option.dataset.quizActive = String(
             controlsVisible && (answerSubmitted
               ? quizExitProgress >= (optionStarts[index] ?? 1)
-              : quizProgress >= (optionStarts[index] ?? 1))
+              : quizProgress >= ENTRADA_CONTROLES)
           );
         });
         const continueButton = questionUi.querySelector('.hero__continue');
         if (continueButton) {
           continueButton.dataset.quizActive = String(
-            controlsVisible && (answerSubmitted ? quizExitProgress >= 0.8 : quizProgress >= 0.8)
+            controlsVisible && (answerSubmitted ? quizExitProgress >= 0.8 : quizProgress >= ENTRADA_CONTROLES)
           );
         }
         questionUi.querySelectorAll('.hero__result').forEach((result) => {
