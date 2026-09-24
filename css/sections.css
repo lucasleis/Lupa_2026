@@ -623,7 +623,9 @@
   transform: scale(0);
   transform-origin: center;
   transition: transform 220ms ease-out, background-image 0ms;
-  visibility: hidden;
+  /* El ocultamiento lo dan transform: scale(0) y pointer-events: none; el
+     contenedor .hero__options conserva visibility: hidden en estado intro,
+     y la accesibilidad la manejan inert y aria-hidden sobre .hero__question-ui. */
   pointer-events: none;
 }
 
@@ -642,7 +644,6 @@
 
 .hero__stage[data-estado="pregunta"] .hero__option[data-quiz-active="true"] {
   transform: scale(1);
-  visibility: visible;
   pointer-events: auto;
 }
 
@@ -659,6 +660,13 @@
 .hero__option[data-quiz-active="true"]:nth-child(3) { transition-delay: 180ms; }
 .hero__option[data-quiz-active="true"]:nth-child(4) { transition-delay: 270ms; }
 .hero__continue[data-quiz-active="true"] { transition-delay: 400ms; }
+
+/* Salida simétrica, en orden inverso: primero CONTINUAR, después 4 → 1. */
+.hero__continue[data-quiz-active="false"] { transition-delay: 0ms; }
+.hero__option[data-quiz-active="false"]:nth-child(4) { transition-delay: 90ms; }
+.hero__option[data-quiz-active="false"]:nth-child(3) { transition-delay: 180ms; }
+.hero__option[data-quiz-active="false"]:nth-child(2) { transition-delay: 270ms; }
+.hero__option[data-quiz-active="false"]:nth-child(1) { transition-delay: 360ms; }
 
 .hero__option.is-selected {
   background-image: url("../img/acertijo/opcion-seleccionada.webp");
@@ -682,13 +690,11 @@
   transform: scale(0);
   transform-origin: center;
   transition: transform 220ms ease-out;
-  visibility: hidden;
   pointer-events: none;
 }
 
 .hero__stage[data-estado="pregunta"] .hero__continue[data-quiz-active="true"] {
   transform: scale(1);
-  visibility: visible;
   pointer-events: auto;
 }
 

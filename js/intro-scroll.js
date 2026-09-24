@@ -120,11 +120,11 @@ if (heroTrack) {
         && quizProgress > 0.001
         && pyramidProgress <= 0;
       const resultExitProgress = answerSubmitted
-        ? progresoDeRiel(resultRail, { inicio: 0, fin: 0.5 })
+        ? progresoDeRiel(resultRail, { desdeElTope: true, inicio: 0, fin: 0.5 })
         : 0;
-      const resultProgress = answerSubmitted ? progresoDeRiel(resultRail) : 0;
+      const resultProgress = answerSubmitted ? progresoDeRiel(resultRail, { desdeElTope: true }) : 0;
       const resultEntryProgress = answerSubmitted
-        ? progresoDeRiel(resultRail, { inicio: 0.5, fin: 1 })
+        ? progresoDeRiel(resultRail, { desdeElTope: true, inicio: 0.5, fin: 1 })
         : 0;
       const quizExitProgress = 1 - resultExitProgress;
       heroStage?.style.setProperty('--resultado-salida-p', String(resultExitProgress));
@@ -143,22 +143,20 @@ if (heroTrack) {
         questionUi.setAttribute('aria-hidden', String(!controlsVisible));
         questionUi.dataset.quizVisible = String(controlsVisible);
 
-        const optionStarts = [0.30, 0.42, 0.54, 0.66];
-        // optionStarts queda SOLO para la salida (orden inverso sobre el riel de
-        // resultado). La entrada ya no usa umbrales: las opciones entran juntas y
-        // el escalonado lo hace transition-delay en CSS.
         const ENTRADA_CONTROLES = 0.5; // el globo termina de escalar acá
         questionUi.querySelectorAll('.hero__option').forEach((option, index) => {
           option.dataset.quizActive = String(
             controlsVisible && (answerSubmitted
-              ? quizExitProgress >= (optionStarts[index] ?? 1)
+              ? quizExitProgress >= 0.999
               : quizProgress >= ENTRADA_CONTROLES)
           );
         });
         const continueButton = questionUi.querySelector('.hero__continue');
         if (continueButton) {
           continueButton.dataset.quizActive = String(
-            controlsVisible && (answerSubmitted ? quizExitProgress >= 0.8 : quizProgress >= ENTRADA_CONTROLES)
+            controlsVisible && (answerSubmitted
+              ? quizExitProgress >= 0.999
+              : quizProgress >= ENTRADA_CONTROLES)
           );
         }
         questionUi.querySelectorAll('.hero__result').forEach((result) => {
