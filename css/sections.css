@@ -39,6 +39,13 @@
   transform: translateY(calc((1 - var(--prueba-p)) * calc(12 * var(--u))));
 }
 
+/* La entrada ocupa el primer 30% del riel; el resto es reposo de lectura. */
+.prueba-superada__stage {
+  --prueba-entrada-p: clamp(0, calc(var(--prueba-p) / 0.30), 1);
+  opacity: var(--prueba-entrada-p);
+  transform: translateY(calc((1 - var(--prueba-entrada-p)) * 12 * var(--u)));
+}
+
 .escena__stage img,
 .prueba-superada__globo img {
   position: absolute;

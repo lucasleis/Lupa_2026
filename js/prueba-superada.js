@@ -11,6 +11,7 @@ if (section && stage && rail) {
   const actualizar = () => {
     framePending = false;
     progresoDeRiel(rail, {
+      desdeElTope: true,
       destino: stage,
       propiedad: '--prueba-p',
     });
