@@ -1,14 +1,19 @@
 export const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
+// Sin desdeElTope: riel que contiene a su sticky. Con desdeElTope: riel posterior
+// al sticky que mide su recorrido completo.
 export const progresoDeRiel = (rail, {
   inicio = 0,
   fin = 1,
   destino,
   propiedad,
+  desdeElTope = false,
 } = {}) => {
   const rect = rail?.getBoundingClientRect();
   const range = rect ? rect.height - window.innerHeight : 0;
-  const progresoDelRiel = rect && range > 0 ? -rect.top / range : 0;
+  const progresoDelRiel = desdeElTope
+    ? (rect && rect.height > 0 ? (window.innerHeight - rect.top) / rect.height : 0)
+    : (rect && range > 0 ? -rect.top / range : 0);
   const tramo = fin - inicio;
   const progreso = tramo > 0 ? (progresoDelRiel - inicio) / tramo : 0;
   const resultado = clamp(progreso);
@@ -146,7 +151,7 @@ if (heroTrack) {
 
   const updateProgress = () => {
     framePending = false;
-    setProgress(progresoDeRiel(introRail));
+    setProgress(progresoDeRiel(introRail, { desdeElTope: true }));
   };
 
   const requestProgressUpdate = () => {

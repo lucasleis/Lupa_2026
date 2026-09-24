@@ -298,13 +298,13 @@
   position: relative;
   --p: var(--intro-progress);
   /* Tramos: 0–.15 sale intro; 0–.30 entra Ofertiti; 0–.40 entra lockup;
-     .30–.55 cierran nubes; .50–.75 entra evento; .65–.85 entra EMPEZAR. */
+     .30–.55 cierran nubes; .45–.70 entra evento; .55–.75 entra EMPEZAR. */
   --p-exit-early:   clamp(0, calc(var(--p) / 0.15), 1);
   --p-ofertiti:     clamp(0, calc(var(--p) / 0.30), 1);
   --p-lockup:       clamp(0, calc(var(--p) / 0.40), 1);
   --p-clouds-close: clamp(0, calc((var(--p) - 0.30) / 0.25), 1);
-  --p-event:        clamp(0, calc((var(--p) - 0.50) / 0.25), 1);
-  --p-start-event:  clamp(0, calc((var(--p) - 0.65) / 0.20), 1);
+  --p-event:        clamp(0, calc((var(--p) - 0.45) / 0.25), 1);
+  --p-start-event:  clamp(0, calc((var(--p) - 0.55) / 0.20), 1);
   width: 100%;
   aspect-ratio: 375 / 667;
   flex: 0 0 auto;
