@@ -1023,7 +1023,9 @@
   transition: opacity 700ms ease;
 }
 
-.pase-puerta[data-activa="true"] { opacity: 1; }
+/* Al entrar gana el transition: none del estado activo (marron sobre marron);
+   al salir deja de matchear y vuelve al transition base de 700ms. */
+.pase-puerta[data-activa="true"] { opacity: 1; transition: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .pase-puerta { transition: none; }

@@ -1,16 +1,14 @@
 const cortina = document.querySelector('.pase-puerta');
 const ofertas = document.querySelector('.ofertas');
+const popup = document.querySelector('.popup');
 
-// Se arma solo si el popup realmente se abrio. Si yaAparecio corto la
-// apertura, tampoco va a haber cierre, y el usuario baja scrolleando normal.
-document.addEventListener('popup:abierto', () => {
-  if (!cortina) return;
-  cortina.dataset.activa = 'true';
-});
+let armada = false;
 
-document.addEventListener('popup:cerrado', () => {
-  if (!cortina || !ofertas || cortina.dataset.activa !== 'true') return;
+const revelar = () => {
+  if (!cortina || !ofertas || !armada) return;
+  armada = false;
   const top = window.scrollY + ofertas.getBoundingClientRect().top;
+  document.documentElement.style.overflow = '';
   window.scrollTo({ top, behavior: 'auto' });
   // Dos frames: el primero aplica el salto, el segundo le da a la transicion
   // un estado inicial del que partir.
@@ -19,4 +17,22 @@ document.addEventListener('popup:cerrado', () => {
       delete cortina.dataset.activa;
     });
   });
+};
+
+document.addEventListener('puerta:final', () => {
+  if (!cortina || armada) return;
+  armada = true;
+  cortina.dataset.activa = 'true';
+  // El popup abre en este mismo evento. Se resuelve en el siguiente
+  // macrotask y leyendo el DOM, para no depender del orden en que popup.js
+  // y este modulo registraron sus listeners.
+  window.setTimeout(() => {
+    if (popup?.getAttribute('aria-hidden') === 'false') return;
+    // Sin popup no hay lock de scroll: lo toma la cortina, porque saltar el
+    // scroll mientras el usuario lo esta empujando pelea con el momentum.
+    document.documentElement.style.overflow = 'hidden';
+    window.setTimeout(revelar, 200);
+  }, 0);
 });
+
+document.addEventListener('popup:cerrado', revelar);
