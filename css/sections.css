@@ -144,11 +144,11 @@
 .carrusel__track--sin-transicion { transition: none; }
 .carrusel__slide { position: relative; flex: 0 0 calc(var(--carrusel-slide-ancho) * var(--u)); width: calc(var(--carrusel-slide-ancho) * var(--u)); height: calc(var(--carrusel-slide-alto) * var(--u)); }
 .cupones__card { position: absolute; z-index: 0; left: calc(14.5 * var(--u)); top: 0; width: calc(251 * var(--u)); height: calc(326 * var(--u)); }
-.cupones__discount { position: absolute; z-index: 2; /* Valores de calibración óptica, no medidas del diseño. */ --precio-size: 68; --precio-cc-size: 44; --precio-dto-size: 24; --precio-gap-x: -4; --precio-cc-y: -6; --precio-y: 12; --precio-x: 8; left: calc(1.98 * var(--u)); top: calc(-8.89 * var(--u)); width: calc(143.05 * var(--u)); height: calc(121.79 * var(--u)); transform: rotate(-7.24deg); }
+.cupones__discount { position: absolute; z-index: 2; /* Valores de calibración óptica, no medidas del diseño; portados desde .vales__discount con factor 1.217. */ --precio-size: 68; --precio-entero-y: 18; --precio-cc-size: 41; --precio-dto-size: 24; --precio-gap-x: 2; --precio-cc-y: -7; --precio-y: 10; left: calc(1.98 * var(--u)); top: calc(-8.89 * var(--u)); width: calc(143.05 * var(--u)); height: calc(121.79 * var(--u)); transform: rotate(-7.24deg); }
 .cupones__hexagon { position: absolute; left: 0; top: 0; width: calc(143.05 * var(--u)); height: calc(118.37 * var(--u)); }
 .cupones__hexagon--shadow { left: calc(3.83 * var(--u)); top: calc(1.28 * var(--u)); width: calc(129.2 * var(--u)); height: calc(121.77 * var(--u)); }
-.cupones__price { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: row; align-items: baseline; justify-content: center; gap: calc(var(--precio-gap-x) * var(--u)); padding-top: calc(var(--precio-y) * var(--u)); padding-right: calc(var(--precio-x) * var(--u)); color: var(--color-navy); font-family: var(--font-display); font-weight: 800; transform: rotate(-6.98deg); pointer-events: none; }
-.cupones__price-euros { font-size: calc(var(--precio-size) * var(--u)); line-height: 0.85; }
+.cupones__price { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: row; align-items: baseline; justify-content: center; gap: calc(var(--precio-gap-x) * var(--u)); padding-top: calc(var(--precio-y) * var(--u)); color: var(--color-navy); font-family: var(--font-display); font-weight: 800; transform: rotate(-6.98deg); pointer-events: none; }
+.cupones__price-euros { font-size: calc(var(--precio-size) * var(--u)); line-height: 0.85; transform: translateY(calc(var(--precio-entero-y) * var(--u))); }
 .cupones__price-resto { display: flex; flex-direction: column; align-items: flex-start; transform: translateY(calc(var(--precio-cc-y) * var(--u))); }
 .cupones__price-centavos { font-size: calc(var(--precio-cc-size) * var(--u)); line-height: 1; }
 .cupones__price-dto { font-size: calc(var(--precio-dto-size) * var(--u)); line-height: 1; white-space: nowrap; }

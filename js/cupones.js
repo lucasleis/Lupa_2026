@@ -17,7 +17,7 @@ const hexagon = (shadow = false) => `<svg class="cupones__hexagon${shadow ? ' cu
 const renderCoupon = (coupon, index) => `<article class="carrusel__slide cupones__slide" role="group" aria-roledescription="slide" aria-label="Cupón ${index + 1} de ${cupones.length}">
   <!-- Decisión de diseño: el SVG ya está orientado; se ignora el rect rotado del dump. -->
   <img class="cupones__card" src="img/cupones/tarjeta.svg" alt="">
-  <div class="cupones__discount">${hexagon(true)}${hexagon()}<div class="cupones__price" aria-label="${coupon.euros}${coupon.centavos ? `,${coupon.centavos}` : ''} € de descuento"><span class="cupones__price-euros" aria-hidden="true">${coupon.euros}${coupon.centavos ? ',' : ''}</span>${coupon.centavos ? `<span class="cupones__price-resto" aria-hidden="true"><span class="cupones__price-centavos">${coupon.centavos}</span><span class="cupones__price-dto">${coupon.unidad}</span></span>` : ''}</div></div>
+  <div class="cupones__discount">${hexagon(true)}${hexagon()}<div class="cupones__price" aria-label="${coupon.euros}${coupon.centavos ? `,${coupon.centavos}` : ''} € de descuento"><span class="cupones__price-euros" aria-hidden="true">${coupon.euros}</span>${coupon.centavos ? `<span class="cupones__price-resto" aria-hidden="true"><span class="cupones__price-centavos">${coupon.centavos}</span><span class="cupones__price-dto">${coupon.unidad}</span></span>` : ''}</div></div>
   <img class="cupones__product" src="${coupon.imagen}" alt="">
   <h3 class="cupones__product-title">${coupon.titulo}</h3>
   <p class="cupones__detail">${coupon.detalle}</p>
