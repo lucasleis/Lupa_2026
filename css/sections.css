@@ -9,7 +9,7 @@
 
 .prueba-superada {
   --escena-background: var(--color-sand);
-  --escena-track: 150svh;
+  --escena-track: 220svh;
 }
 
 .escena__sticky {
@@ -45,6 +45,9 @@
 
 .prueba-superada__stage {
   --prueba-p: 0;
+  /* 0.20 sobre 220svh mantiene el fade en ~44svh, igual que el 0.30 sobre
+     150svh de antes. Los 176svh restantes son freno. */
+  --escena-entrada-tramo: 0.20;
 }
 
 .escena__stage img,

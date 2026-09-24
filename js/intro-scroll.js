@@ -90,11 +90,14 @@ if (heroTrack) {
     const quizProgress = puzzleComplete && exitProgress >= 1
       ? progresoDeRiel(quizRail, { desdeElTope: true, destino: heroStage, propiedad: '--quiz-p' })
       : 0;
+    // El zoom de la puerta termina acá; el resto del riel es freno, con la
+    // escena sostenida en su zoom final antes de que el hero se suelte.
+    const FRENO_PIRAMIDE = 0.88;
     const pyramidProgress = pyramidRailEnabled
       ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0, fin: 0.5, destino: heroStage, propiedad: '--piramide-p' })
       : 0;
     const doorProgress = pyramidRailEnabled
-      ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0.5, fin: 1, destino: heroStage, propiedad: '--puerta-p' })
+      ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0.5, fin: FRENO_PIRAMIDE, destino: heroStage, propiedad: '--puerta-p' })
       : 0;
     // Checkpoint final: se revela el resto de la pagina detras del fundido
     // de la puerta (--puerta-p 0.85 a 1), asi el contenido nuevo aparece con
