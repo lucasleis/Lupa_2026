@@ -1009,3 +1009,22 @@
 .acertijo-scroll.is-open .acertijo-scroll__closed {
   transform: translateX(calc(217.56 * var(--u)));
 }
+
+/* z-index 35: debajo de .popup (40) y encima de .hero__skip (30).
+   SIN visibility a propósito: no se interpola, y al desactivar la cortina
+   saltaría a hidden en el primer frame matando el fade de salida. */
+.pase-puerta {
+  position: fixed;
+  z-index: 35;
+  inset: 0;
+  background: #3E2416;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 700ms ease;
+}
+
+.pase-puerta[data-activa="true"] { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pase-puerta { transition: none; }
+}

@@ -15,6 +15,7 @@ const cerrar = () => {
   document.documentElement.style.overflow = '';
   window.scrollTo(0, scrollPosition);
   document.querySelectorAll('body > *:not(.popup)').forEach((element) => { element.inert = false; });
+  document.dispatchEvent(new CustomEvent('popup:cerrado'));
 };
 
 const abrir = () => {
@@ -38,6 +39,7 @@ const abrir = () => {
   } else {
     window.setTimeout(mostrarContenido, 750);
   }
+  document.dispatchEvent(new CustomEvent('popup:abierto'));
 };
 
 document.addEventListener('puerta:final', abrir);
