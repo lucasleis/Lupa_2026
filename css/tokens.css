@@ -11,6 +11,7 @@
   --color-white-warm: #fffaf3;
   --color-orange: #e77408;
   --color-orange-hex: #F17F36; /* naranja del hexágono de descuento */
+  --color-wall: #AD5207; /* Valor aproximado del muro, pendiente de confirmar contra Figma. */
   --color-orange-alt: #f58723;
   --color-brown-mid: #b76123;
   --color-navy: #1b1e3c;
@@ -19,6 +20,8 @@
   --font-alt: "roca", sans-serif;
   --intro-track: 300svh;
   --prueba-track: 150svh;
+  --puerta-track: 300svh;
+  --puerta-zoom-factor: 1;
 
   --fs-display-1: calc(56 * var(--u));
   --fs-h1: calc(48 * var(--u));
@@ -40,5 +43,7 @@
   :root {
     --intro-track: 100svh;
     --prueba-track: 100svh;
+    --puerta-track: 100svh;
+    --puerta-zoom-factor: 0.35;
   }
 }
