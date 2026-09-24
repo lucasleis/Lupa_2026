@@ -12,6 +12,8 @@
   --color-orange: #e77408;
   --color-orange-hex: #F17F36; /* naranja del hexágono de descuento */
   --color-wall: #AD5207; /* Valor aproximado del muro, pendiente de confirmar contra Figma. */
+  --color-field: #392822; /* Marrón de los campos, distinto de brown-dark. */
+  --color-link: #3C8AFD;
   --color-orange-alt: #f58723;
   --color-brown-mid: #b76123;
   --color-navy: #1b1e3c;

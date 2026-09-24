@@ -193,6 +193,55 @@
         </div>
       </div>
     </section>
+    <section class="formulario" id="formulario" aria-labelledby="formulario-title">
+      <div class="formulario__glifos" aria-hidden="true">
+        <img class="formulario__banda formulario__banda--uno" src="img/formulario/banda-glifos.svg" alt="" width="821.2" height="164.8">
+        <img class="formulario__banda formulario__banda--dos" src="img/formulario/banda-glifos.svg" alt="" width="821.2" height="164.8">
+        <img class="formulario__banda formulario__banda--tres" src="img/formulario/banda-glifos.svg" alt="" width="821.2" height="164.8">
+        <img class="formulario__banda formulario__banda--cuatro" src="img/formulario/banda-glifos.svg" alt="" width="821.2" height="164.8">
+      </div>
+      <header class="formulario__header">
+        <h2 id="formulario-title">Los cupones y el sorteo, en un sitio</h2>
+        <!-- El dump declara Inter, pero el sistema visual usa Degular. -->
+        <p>Regístrate para recibir tus descuentos y además entra en el sorteo de 2 vales diarios de 50€.</p>
+      </header>
+      <!-- Provisional: el envío del formulario se implementa en otro commit. -->
+      <form class="formulario__form" aria-labelledby="formulario-title">
+        <div class="formulario__fields">
+          <!-- Los name son provisionales hasta confirmar el contrato del backend. -->
+          <div class="formulario__field">
+            <label class="visually-hidden" for="formulario-nombre">Nombre</label>
+            <img class="formulario__field-bg" src="img/formulario/campo.svg" alt="" width="342" height="58" aria-hidden="true">
+            <input class="formulario__input" id="formulario-nombre" type="text" name="nombre" autocomplete="name" placeholder="Nombre">
+          </div>
+          <div class="formulario__field">
+            <label class="visually-hidden" for="formulario-email">Correo electrónico</label>
+            <img class="formulario__field-bg" src="img/formulario/campo.svg" alt="" width="342" height="58" aria-hidden="true">
+            <input class="formulario__input" id="formulario-email" type="email" name="email" autocomplete="email" placeholder="Correo electrónico">
+          </div>
+          <div class="formulario__field">
+            <label class="visually-hidden" for="formulario-codigo-postal">Código postal</label>
+            <img class="formulario__field-bg" src="img/formulario/campo.svg" alt="" width="342" height="58" aria-hidden="true">
+            <input class="formulario__input" id="formulario-codigo-postal" type="text" name="codigo_postal" autocomplete="postal-code" inputmode="numeric" placeholder="Código postal">
+          </div>
+          <div class="formulario__field">
+            <label class="visually-hidden" for="formulario-telefono">Número de teléfono</label>
+            <img class="formulario__field-bg" src="img/formulario/campo.svg" alt="" width="342" height="58" aria-hidden="true">
+            <input class="formulario__input" id="formulario-telefono" type="tel" name="telefono" autocomplete="tel" placeholder="Número de teléfono">
+          </div>
+        </div>
+        <div class="formulario__terms">
+          <label class="formulario__checkbox-label" for="formulario-terminos">
+            <span class="formulario__checkbox-control">
+              <input class="formulario__checkbox" id="formulario-terminos" type="checkbox" required>
+              <span class="formulario__checkbox-visual"><img src="img/formulario/checkbox.svg" alt="" width="20" height="20"><span aria-hidden="true"></span></span>
+            </span>
+            <span class="formulario__terms-text">Acepto los <!-- Provisional: destino pendiente; podría ser privacidad o aviso legal. --><a href="#">términos y condiciones</a></span>
+          </label>
+        </div>
+        <button class="formulario__submit" type="submit"><span>QUIERO MIS CUPONES</span></button>
+      </form>
+    </section>
     </main>
     <section class="acertijo-panel" aria-label="Acertijo de Ofertiti" aria-hidden="true">
       <img class="acertijo-panel__background" src="img/acertijo/panel-papiro.webp" alt="" width="1125" height="1972">
