@@ -1,0 +1,70 @@
+const popup = document.querySelector('.popup');
+const closeButton = popup?.querySelector('.popup__close');
+const focusables = () => [...popup.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])')];
+let lastFocused = null;
+let scrollPosition = 0;
+let yaAparecio = false; // Decisión provisional: una aparición por carga; luego podrá pasar a localStorage.
+
+const cerrar = () => {
+  if (!popup || popup.getAttribute('aria-hidden') === 'true') return;
+  popup.classList.remove('popup--visible', 'popup--contenido');
+  popup.setAttribute('aria-hidden', 'true');
+  document.documentElement.style.overflow = '';
+  window.scrollTo(0, scrollPosition);
+  document.querySelectorAll('body > *:not(.popup)').forEach((element) => { element.inert = false; });
+  lastFocused?.focus?.();
+};
+
+const abrir = () => {
+  if (!popup || yaAparecio) return;
+  yaAparecio = true;
+  lastFocused = document.activeElement;
+  scrollPosition = window.scrollY;
+  document.querySelectorAll('body > *:not(.popup)').forEach((element) => { element.inert = true; });
+  document.documentElement.style.overflow = 'hidden';
+  popup.setAttribute('aria-hidden', 'false');
+  popup.classList.add('popup--visible');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mostrarContenido = () => {
+    popup.classList.add('popup--contenido');
+  };
+  popup.focus({ preventScroll: true });
+  if (reduced) {
+    popup.classList.add('popup--reduced');
+    mostrarContenido();
+  } else {
+    window.setTimeout(mostrarContenido, 750);
+  }
+};
+
+document.addEventListener('puerta:final', abrir);
+
+popup?.addEventListener('click', (event) => {
+  if (event.target === popup) cerrar();
+});
+closeButton?.addEventListener('click', cerrar);
+popup?.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    cerrar();
+    return;
+  }
+  if (event.key !== 'Tab') return;
+  const items = focusables();
+  if (items.length === 0) return;
+  const first = items[0];
+  const last = items[items.length - 1];
+  if (!event.shiftKey && document.activeElement === popup) {
+    event.preventDefault();
+    first.focus();
+  } else if (event.shiftKey && document.activeElement === popup) {
+    event.preventDefault();
+    last.focus();
+  } else if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+});

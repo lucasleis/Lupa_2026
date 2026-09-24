@@ -141,17 +141,17 @@
           <h2 class="cupones__title" id="cupones-title">CUPONES</h2>
           <!-- Figma declara Inter, pero el sistema visual usa Degular. -->
           <p class="cupones__subtitle">Guarda los que quieras y Ofertiti te los manda al correo.</p>
-          <div class="cupones__carousel" role="region" aria-roledescription="carousel" aria-label="Cupones disponibles">
-            <div class="cupones__track"></div>
+          <div class="carrusel__viewport" role="region" aria-roledescription="carousel" aria-label="Cupones disponibles">
+            <div class="carrusel__track"></div>
           </div>
-          <button class="cupones__arrow cupones__arrow--prev" type="button" aria-label="Cupón anterior">
+          <button class="carrusel__arrow carrusel__arrow--prev" type="button" aria-label="Cupón anterior">
             <span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21"></span>
           </button>
-          <button class="cupones__arrow cupones__arrow--next" type="button" aria-label="Cupón siguiente">
+          <button class="carrusel__arrow carrusel__arrow--next" type="button" aria-label="Cupón siguiente">
             <span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21"></span>
           </button>
           <!-- Pendiente de verificar contra el diseño: posición derivada del origen del carrusel. -->
-          <div class="cupones__dots" role="tablist" aria-label="Seleccionar cupón"></div>
+          <div class="carrusel__dots" role="tablist" aria-label="Seleccionar cupón"></div>
           <!-- Provisional: el comportamiento de LOS QUIERO está sin definir. -->
           <button class="cupones__want" type="button"><span>LOS QUIERO</span></button>
         </div>
@@ -172,16 +172,58 @@
       </div>
       <div class="puerta-rail" aria-hidden="true"></div>
     </section>
+    <section class="escena ofertas" aria-labelledby="ofertas-title">
+      <div class="escena__sticky">
+        <div class="escena__stage ofertas__stage">
+          <h2 class="visually-hidden" id="ofertas-title">Ofertas</h2>
+          <div class="ofertas__decorado" aria-hidden="true">
+            <div class="ofertas__glifos"></div>
+            <img class="ofertas__cenefa" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
+          </div>
+          <!-- El dump declara Inter, pero el sistema visual usa Degular. -->
+          <header class="ofertas__header">
+            <h3>OFERTAS</h3>
+            <p>Porcentajes que se aplican solos en caja, hayas pasado por aquí o no. Están para que sepas lo que hay antes de coger el carro.</p>
+          </header>
+          <div class="carrusel__viewport ofertas__viewport" role="region" aria-roledescription="carousel" aria-label="Ofertas disponibles">
+            <div class="carrusel__track"></div>
+          </div>
+          <button class="carrusel__arrow carrusel__arrow--prev ofertas__arrow" type="button" aria-label="Oferta anterior"><span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21"></span></button>
+          <button class="carrusel__arrow carrusel__arrow--next ofertas__arrow" type="button" aria-label="Oferta siguiente"><span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21"></span></button>
+        </div>
+      </div>
+    </section>
     </main>
     <section class="acertijo-panel" aria-label="Acertijo de Ofertiti" aria-hidden="true">
       <img class="acertijo-panel__background" src="img/acertijo/panel-papiro.webp" alt="" width="1125" height="1972">
       <div class="acertijo-panel__questions"></div>
     </section>
+    <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-hidden="true" tabindex="-1">
+      <div class="popup__paper">
+        <img class="popup__paper-body" src="img/popup/papel-papiro.svg" alt="" width="324" height="293">
+        <img class="popup__roll popup__roll--izq" src="img/popup/papiro-rollo-izq.svg" alt="" width="62" height="318">
+        <img class="popup__roll popup__roll--der" src="img/popup/papiro-rollo-der.svg" alt="" width="64" height="320">
+        <img class="popup__lazo popup__lazo--izq" src="img/popup/papiro-lazo-izq.svg" alt="" width="69" height="58">
+        <img class="popup__lazo popup__lazo--der" src="img/popup/papiro-lazo-der.svg" alt="" width="49" height="68">
+        <div class="popup__content">
+          <h2 class="popup__title" id="popup-title">¡GANA LA COMPRA GRATIS DURANTE UN AÑO!</h2>
+          <!-- El dump declara Inter, pero el sistema visual usa Degular. -->
+          <p class="popup__copy">Descubre cada semana los juegos y desafíos...</p>
+          <!-- Provisional: la URL de Instagram todavía no está definida. -->
+          <a class="popup__instagram" href="#" target="_blank" rel="noopener noreferrer"><span>IR A INSTAGRAM</span></a>
+          <button class="popup__close" type="button" aria-label="Cerrar">
+            <img src="img/popup/cerrar.svg" alt="" width="31.48" height="31.37">
+          </button>
+        </div>
+      </div>
+    </div>
     <script src="js/header.js"></script>
     <script type="module" src="js/intro-scroll.js"></script>
     <script type="module" src="js/prueba-superada.js"></script>
     <script type="module" src="js/cupones.js"></script>
+    <script type="module" src="js/ofertas.js"></script>
     <script type="module" src="js/puerta.js"></script>
+    <script type="module" src="js/popup.js"></script>
     <script type="module" src="js/acertijo.js"></script>
     <script type="module" src="js/pregunta.js"></script>
   </body>

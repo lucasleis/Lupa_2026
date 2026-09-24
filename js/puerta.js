@@ -10,7 +10,8 @@ if (section && stage && rail) {
 
   const actualizar = () => {
     framePending = false;
-    progresoDeRiel(rail, { destino: stage, propiedad: '--puerta-p' });
+    const progress = progresoDeRiel(rail, { destino: stage, propiedad: '--puerta-p' });
+    if (progress >= 0.999) document.dispatchEvent(new CustomEvent('puerta:final'));
   };
 
   const solicitarActualizacion = () => {
@@ -21,6 +22,7 @@ if (section && stage && rail) {
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     stage.style.setProperty('--puerta-p', '1');
+    document.dispatchEvent(new CustomEvent('puerta:final'));
   } else {
     window.addEventListener('scroll', solicitarActualizacion, { passive: true });
     window.addEventListener('resize', solicitarActualizacion);
