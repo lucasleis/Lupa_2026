@@ -58,13 +58,16 @@ if (heroTrack) {
   // riel se habilita al cumplirse su condicion:
   //   EMPEZAR -> entrada | 3 papiros -> salida + quiz
   //   respuesta -> resultado | resultado al 100% -> piramide
-  //   puerta al 85% -> se revela el resto de la pagina
+  //   piramide (300svh), con --puerta-p del hero al 85% -> se revela el resto
+  //   de la pagina. Este --puerta-p del hero no es el de la seccion .puerta:
+  //   son variables homonimas en scopes distintos; puerta.js escribe la segunda
+  //   sobre .puerta__stage y es la unica que lee .puerta__fundido.
   const RAIL_HEIGHTS = {
     entrada: '200svh',
     salida: '200svh',
     quiz: '150svh',
     resultado: '200svh',
-    piramide: '400svh',
+    piramide: '300svh',
   };
 
   if (!reducedMotion.matches) {
@@ -88,10 +91,10 @@ if (heroTrack) {
       ? progresoDeRiel(quizRail, { desdeElTope: true, destino: heroStage, propiedad: '--quiz-p' })
       : 0;
     const pyramidProgress = pyramidRailEnabled
-      ? progresoDeRiel(pyramidRail, { inicio: 0, fin: 0.5, destino: heroStage, propiedad: '--piramide-p' })
+      ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0, fin: 0.5, destino: heroStage, propiedad: '--piramide-p' })
       : 0;
     const doorProgress = pyramidRailEnabled
-      ? progresoDeRiel(pyramidRail, { inicio: 0.5, fin: 1, destino: heroStage, propiedad: '--puerta-p' })
+      ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0.5, fin: 1, destino: heroStage, propiedad: '--puerta-p' })
       : 0;
     // Checkpoint final: se revela el resto de la pagina detras del fundido
     // de la puerta (--puerta-p 0.85 a 1), asi el contenido nuevo aparece con
