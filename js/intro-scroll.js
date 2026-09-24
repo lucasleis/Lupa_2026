@@ -49,6 +49,10 @@ if (heroTrack) {
   let answerSubmitted = false;
   let pyramidRailEnabled = false;
 
+  const liberarScroll = () => {
+    delete document.body.dataset.introBloqueado;
+  };
+
   const RAIL_HEIGHTS = {
     entrada: '200svh',
     salida: '200svh',
@@ -56,6 +60,10 @@ if (heroTrack) {
     resultado: '200svh',
     piramide: '400svh',
   };
+
+  if (!reducedMotion.matches) {
+    document.body.dataset.introBloqueado = 'true';
+  }
 
   const setSceneState = (state) => {
     if (state === currentState) return;
@@ -177,7 +185,15 @@ if (heroTrack) {
     });
   };
 
+  // Sin esto, SALTAR INTRO y el menú hamburguesa apuntan a secciones en display:none y no hacen nada.
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('.hero__skip, .site-menu a[href^="#"]')) {
+      liberarScroll();
+    }
+  });
+
   document.addEventListener('acertijo:iniciado', () => {
+    liberarScroll();
     if (puzzleStarted) return;
     puzzleStarted = true;
     panel?.setAttribute('aria-hidden', 'false');
@@ -214,6 +230,7 @@ if (heroTrack) {
     const tramo = params.get('saltar');
     const tramos = ['acertijo', 'quiz', 'resultado', 'piramide', 'puerta'];
     if (!tramos.includes(tramo)) return false;
+    liberarScroll();
 
     const respuesta = params.get('rta') === 'error' ? 'error' : 'acierto';
     puzzleStarted = true;
