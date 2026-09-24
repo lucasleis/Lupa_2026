@@ -73,8 +73,11 @@ if (heroTrack) {
   };
 
   const setProgress = (progress) => {
+    // Entry conserva el punto cero antiguo: habilitarRielYDesplazar calcula su smooth-scroll con esa geometría.
     const entryProgress = progresoDeRiel(entryRail);
-    const exitProgress = puzzleComplete ? progresoDeRiel(exitRail) : 0;
+    const exitProgress = puzzleComplete
+      ? progresoDeRiel(exitRail, { desdeElTope: true })
+      : 0;
     const quizProgress = puzzleComplete && exitProgress >= 1
       ? progresoDeRiel(quizRail, { destino: heroStage, propiedad: '--quiz-p' })
       : 0;
