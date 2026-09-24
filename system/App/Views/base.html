@@ -193,6 +193,28 @@
         </div>
       </div>
     </section>
+    <section class="escena vales" aria-labelledby="vales-title">
+      <div class="escena__sticky">
+        <div class="escena__stage vales__stage">
+          <h2 class="visually-hidden" id="vales-title">Vales</h2>
+          <div class="vales__decorado" aria-hidden="true">
+            <div class="vales__glifos"></div>
+            <img class="vales__cenefa" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
+          </div>
+          <!-- El dump declara Inter, pero el sistema visual usa Degular. -->
+          <header class="vales__header">
+            <h3>VALES</h3>
+            <p>Aprende la frase de la ficha, dísela a quien te cobre y te lo aplica.</p>
+          </header>
+          <!-- Provisional: gap y top derivados, pendientes de verificar contra el diseño. -->
+          <div class="carrusel__viewport vales__viewport" role="region" aria-roledescription="carousel" aria-label="Vales disponibles">
+            <div class="carrusel__track"></div>
+          </div>
+          <button class="carrusel__arrow carrusel__arrow--prev vales__arrow" type="button" aria-label="Vale anterior"><span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21"></span></button>
+          <button class="carrusel__arrow carrusel__arrow--next vales__arrow" type="button" aria-label="Vale siguiente"><span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21"></span></button>
+        </div>
+      </div>
+    </section>
     <section class="formulario" id="formulario" aria-labelledby="formulario-title">
       <div class="formulario__glifos" aria-hidden="true">
         <img class="formulario__banda formulario__banda--uno" src="img/formulario/banda-glifos.svg" alt="" width="821.2" height="164.8">
@@ -247,7 +269,7 @@
       <img class="acertijo-panel__background" src="img/acertijo/panel-papiro.webp" alt="" width="1125" height="1972">
       <div class="acertijo-panel__questions"></div>
     </section>
-    <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-hidden="true" tabindex="-1">
+    <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-hidden="true" inert tabindex="-1">
       <div class="popup__paper">
         <img class="popup__paper-body" src="img/popup/papel-papiro.svg" alt="" width="324" height="293">
         <img class="popup__roll popup__roll--izq" src="img/popup/papiro-rollo-izq.svg" alt="" width="62" height="318">
@@ -271,6 +293,7 @@
     <script type="module" src="js/prueba-superada.js"></script>
     <script type="module" src="js/cupones.js"></script>
     <script type="module" src="js/ofertas.js"></script>
+    <script type="module" src="js/vales.js"></script>
     <script type="module" src="js/puerta.js"></script>
     <script type="module" src="js/popup.js"></script>
     <script type="module" src="js/acertijo.js"></script>

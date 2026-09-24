@@ -7,12 +7,14 @@ let yaAparecio = false; // Decisión provisional: una aparición por carga; lueg
 
 const cerrar = () => {
   if (!popup || popup.getAttribute('aria-hidden') === 'true') return;
+  const returnFocus = lastFocused && !popup.contains(lastFocused) ? lastFocused : document.body;
+  returnFocus.focus?.({ preventScroll: true });
   popup.classList.remove('popup--visible', 'popup--contenido');
   popup.setAttribute('aria-hidden', 'true');
+  popup.inert = true;
   document.documentElement.style.overflow = '';
   window.scrollTo(0, scrollPosition);
   document.querySelectorAll('body > *:not(.popup)').forEach((element) => { element.inert = false; });
-  lastFocused?.focus?.();
 };
 
 const abrir = () => {
@@ -22,6 +24,7 @@ const abrir = () => {
   scrollPosition = window.scrollY;
   document.querySelectorAll('body > *:not(.popup)').forEach((element) => { element.inert = true; });
   document.documentElement.style.overflow = 'hidden';
+  popup.inert = false;
   popup.setAttribute('aria-hidden', 'false');
   popup.classList.add('popup--visible');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
