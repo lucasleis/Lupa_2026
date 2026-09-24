@@ -134,7 +134,8 @@
   .popup__paper, .popup__paper-body, .popup__roll, .popup__lazo, .popup__title, .popup__copy, .popup__instagram, .popup__close { transition: none; }
 }
 
-.cupones { --escena-background: var(--color-sand); }
+.cupones { --escena-background: var(--color-sand); --escena-track: 120svh; }
+.cupones__stage { --prueba-p: 0; }
 .marco-papiro { position: absolute; z-index: 0; inset: 0; }
 .cupones__title { position: absolute; z-index: 1; top: calc(50.4 * var(--u)); left: calc(50% - (338.8 * var(--u)) / 2); width: calc(338.8 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(48 * var(--u)); font-weight: 800; line-height: calc(48 * var(--u)); letter-spacing: 0.02em; text-align: center; text-transform: uppercase; }
 .cupones__subtitle { position: absolute; z-index: 1; top: calc(112.39 * var(--u)); left: calc(50% - (307.62 * var(--u)) / 2); width: calc(307.62 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 400; line-height: calc(18.9 * var(--u)); text-align: center; }
