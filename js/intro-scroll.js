@@ -53,6 +53,12 @@ if (heroTrack) {
     delete document.body.dataset.introBloqueado;
   };
 
+  // Checkpoints: un riel en 0svh no aporta altura al documento, asi que el
+  // scroll hacia adelante se detiene solo y el de vuelta queda libre. Cada
+  // riel se habilita al cumplirse su condicion:
+  //   EMPEZAR -> entrada | 3 papiros -> salida + quiz
+  //   respuesta -> resultado | resultado al 100% -> piramide
+  //   puerta al 85% -> se revela el resto de la pagina
   const RAIL_HEIGHTS = {
     entrada: '200svh',
     salida: '200svh',
@@ -87,6 +93,10 @@ if (heroTrack) {
     const doorProgress = pyramidRailEnabled
       ? progresoDeRiel(pyramidRail, { inicio: 0.5, fin: 1, destino: heroStage, propiedad: '--puerta-p' })
       : 0;
+    // Checkpoint final: se revela el resto de la pagina detras del fundido
+    // de la puerta (--puerta-p 0.85 a 1), asi el contenido nuevo aparece con
+    // la pantalla ya oscurecida y el scroll no topa con una pared.
+    if (doorProgress >= 0.85) liberarScroll();
     panelProgress = entryProgress * 0.5 + exitProgress * 0.5;
     const effectivePanelProgress = panelProgress;
     if (skipLink) {
@@ -196,7 +206,6 @@ if (heroTrack) {
   });
 
   document.addEventListener('acertijo:iniciado', () => {
-    liberarScroll();
     if (puzzleStarted) return;
     puzzleStarted = true;
     panel?.setAttribute('aria-hidden', 'false');
