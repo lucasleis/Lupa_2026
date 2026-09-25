@@ -141,7 +141,11 @@
    en js/popup.js esta apareado con este valor. */
 .popup { --papiro-apertura: 900ms; position: fixed; inset: 0; z-index: 40; display: none; align-items: center; justify-content: center; /* Provisional: el color del overlay no vino en el diseño. */ background: rgba(0, 0, 0, 0.6); opacity: 0; pointer-events: none; }
 .popup:focus { outline: none; }
-.popup--visible { display: flex; opacity: 1; pointer-events: auto; transition: opacity 250ms ease; }
+/* Solo monta el elemento. El estado animado va en --visible, dos frames
+   despues: sin estilo previo renderizado el navegador no interpola y ninguna
+   transicion de entrada se ejecuta. */
+.popup--montado { display: flex; }
+.popup--visible { opacity: 1; pointer-events: auto; transition: opacity 250ms ease; }
 /* La caja es exactamente el bounding box del dibujo de las cinco capas
    (357.61 x 327, origen en 10.45/24.34 del frame de Figma). Todos los hijos
    estan rebasados a ese origen, asi que el centrado horizontal es 50% pelado,
