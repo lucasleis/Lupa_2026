@@ -21,3 +21,9 @@ system/logs/*
 _referencia/
 Lupa_2026_svg/
 Lupa2026.txt
+
+# Entregas de la agencia sin descomprimir
+img/**/*.zip
+
+# Entregas de la agencia sin descomprimir
+img/**/*.zip
