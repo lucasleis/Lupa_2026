@@ -156,9 +156,13 @@
 .popup--contenido .popup__copy { transition-delay: 80ms; }
 .popup--contenido .popup__instagram { transition-delay: 160ms; }
 .popup--contenido .popup__close { transition-delay: 240ms; }
-.popup__title { position: absolute; top: calc(107.32 * var(--u)); left: calc(50% - (237.95 * var(--u)) / 2 + 14.21 * var(--u)); width: calc(237.95 * var(--u)); margin: 0; color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 800; line-height: calc(22 * var(--u)); text-align: center; }
-.popup__copy { position: absolute; top: calc(144.46 * var(--u)); left: calc(64.06 * var(--u)); width: calc(248.6 * var(--u)); height: calc(95 * var(--u)); margin: 0; color: var(--color-navy); font-family: var(--font-display); font-size: calc(16 * var(--u)); font-weight: 400; line-height: calc(19 * var(--u)); text-align: center; }
-.popup__instagram { position: absolute; left: calc(50% - (239 * var(--u)) / 2 + 2.22 * var(--u)); top: calc(230.13 * var(--u)); display: flex; align-items: center; justify-content: center; width: calc(239 * var(--u)); height: calc(55 * var(--u)); color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; line-height: calc(29 * var(--u)); text-decoration: none; pointer-events: auto; }
+/* Valores calibrados a ojo para el titulo en dos lineas, no medidas de Figma.
+   Si cambia el texto y pasa a una o tres lineas, recalibrar los tres juntos.
+   El +14.21 del boton alinea con titulo y bajada sobre el centro optico del
+   area de escritura (~189), que no es el centro de .popup__paper. */
+.popup__title { position: absolute; top: calc(100 * var(--u)); left: calc(50% - (237.95 * var(--u)) / 2 + 14.21 * var(--u)); width: calc(237.95 * var(--u)); margin: 0; color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 800; line-height: calc(22 * var(--u)); text-align: center; }
+.popup__copy { position: absolute; top: calc(150 * var(--u)); left: calc(64.06 * var(--u)); width: calc(248.6 * var(--u)); height: calc(95 * var(--u)); margin: 0; color: var(--color-navy); font-family: var(--font-display); font-size: calc(16 * var(--u)); font-weight: 400; line-height: calc(19 * var(--u)); text-align: center; }
+.popup__instagram { position: absolute; left: calc(50% - (239 * var(--u)) / 2 + 14.21 * var(--u)); top: calc(210 * var(--u)); display: flex; align-items: center; justify-content: center; width: calc(239 * var(--u)); height: calc(55 * var(--u)); color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; line-height: calc(29 * var(--u)); text-decoration: none; pointer-events: auto; }
 .popup__instagram::before, .popup__instagram::after { content: ""; position: absolute; border-radius: calc(40.34 * var(--u)); }
 .popup__instagram::before { left: calc(-0.12 * var(--u)); top: calc(0.82 * var(--u)); width: calc(239.07 * var(--u)); height: calc(54.33 * var(--u)); background: var(--color-gold-mid); }
 .popup__instagram::after { left: calc(5.97 * var(--u)); top: calc(5.73 * var(--u)); width: calc(226.9 * var(--u)); height: calc(41.08 * var(--u)); background: var(--color-sky); border: calc(5.5 * var(--u)) solid var(--color-gold); }
