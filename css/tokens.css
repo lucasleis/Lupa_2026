@@ -1,6 +1,7 @@
 :root {
   /* Regla geométrica: líneas, bordes y detalles de 1–2px usan px fijos para evitar antialiasing desigual. */
   --u: calc(100vw / 375);
+  --escena-ar: 375 / 667;
 
   --color-sky: #00a0dd;
   --color-brown-dark: #3a2a24;

@@ -35,7 +35,7 @@
   );
   position: relative;
   width: calc(375 * var(--u));
-  aspect-ratio: 375 / 667;
+  aspect-ratio: var(--escena-ar);
   flex: 0 0 auto;
   /* Una sección nueva se ve por defecto; solo las que animan su entrada
      declaran --escena-p: 0. */
