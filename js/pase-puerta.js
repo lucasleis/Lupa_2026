@@ -3,6 +3,11 @@ const ofertas = document.querySelector('.ofertas');
 const popup = document.querySelector('.popup');
 
 let armada = false;
+// Enfriamiento: el pase puede repetirse, pero no dos veces seguidas al toque.
+// Es defensa contra un re-disparo en rafaga desde el origen, que al tomar el
+// lock de scroll dejaria la pagina encerrada.
+const ENFRIAMIENTO = 1200;
+let ultimoPase = 0;
 
 const revelar = () => {
   if (!cortina || !ofertas || !armada) return;
@@ -26,6 +31,8 @@ const revelar = () => {
 
 document.addEventListener('puerta:final', () => {
   if (!cortina || armada) return;
+  if (Date.now() - ultimoPase < ENFRIAMIENTO) return;
+  ultimoPase = Date.now();
   armada = true;
   cortina.dataset.activa = 'true';
   // El popup abre en este mismo evento. Se resuelve en el siguiente
