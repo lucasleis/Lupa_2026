@@ -67,7 +67,7 @@ if (heroTrack) {
     salida: '200svh',
     quiz: '150svh',
     resultado: '200svh',
-    piramide: '300svh',
+    piramide: '400svh',
   };
 
   if (!reducedMotion.matches) {
@@ -90,18 +90,23 @@ if (heroTrack) {
     const quizProgress = puzzleComplete && exitProgress >= 1
       ? progresoDeRiel(quizRail, { desdeElTope: true, destino: heroStage, propiedad: '--quiz-p' })
       : 0;
+    // Reparto del riel de piramide: primera parte es la aproximacion
+    // (--piramide-p, scale 1 a 1.66), el resto la entrada a la puerta
+    // (--puerta-p, scale 1.66 a 4.28). Bajarlo le da mas recorrido a la puerta.
+    const REPARTO_PIRAMIDE = 0.5;
     // El zoom de la puerta termina acá; el resto del riel es freno, con la
     // escena sostenida en su zoom final antes de que el hero se suelte.
     const FRENO_PIRAMIDE = 0.88;
     const pyramidProgress = pyramidRailEnabled
-      ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0, fin: 0.5, destino: heroStage, propiedad: '--piramide-p' })
+      ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0, fin: REPARTO_PIRAMIDE, destino: heroStage, propiedad: '--piramide-p' })
       : 0;
     const doorProgress = pyramidRailEnabled
-      ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0.5, fin: FRENO_PIRAMIDE, destino: heroStage, propiedad: '--puerta-p' })
+      ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: REPARTO_PIRAMIDE, fin: FRENO_PIRAMIDE, destino: heroStage, propiedad: '--puerta-p' })
       : 0;
-    // Checkpoint final: se revela el resto de la pagina detras del fundido
-    // de la puerta (--puerta-p 0.85 a 1), asi el contenido nuevo aparece con
-    // la pantalla ya oscurecida y el scroll no topa con una pared.
+    // Checkpoint final: se revela el resto de la pagina poco antes del fin del
+    // riel. No hay fundido en .piramide-escena (el de .puerta__fundido usa otro
+    // --puerta-p, el de .puerta__stage); es seguro porque el contenido aparece
+    // por debajo del viewport y no desplaza nada de lo que se esta mirando.
     if (doorProgress >= 0.85) liberarScroll();
     panelProgress = entryProgress * 0.5 + exitProgress * 0.5;
     const effectivePanelProgress = panelProgress;

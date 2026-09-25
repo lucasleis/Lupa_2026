@@ -21,7 +21,7 @@
   --font-display: "degular-display", sans-serif;
   --font-alt: "roca", sans-serif;
   /* El recorrido efectivo de intro es el alto completo del riel. */
-  --intro-rail-height: 120svh;
+  --intro-rail-height: 150svh;
   --intro-track: 300svh;
   --puerta-track: 300svh;
   --puerta-zoom-factor: 1;
