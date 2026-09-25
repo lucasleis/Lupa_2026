@@ -849,6 +849,14 @@
   text-align: center;
 }
 
+/* DEBUG: borrar */
+@media (min-width: 900px) {
+  .escena__stage,
+  .hero__stage {
+    outline: 1px solid magenta;
+  }
+}
+
 .hero__result-title {
   top: 24.49%;
   font-size: calc(26 * var(--u));
