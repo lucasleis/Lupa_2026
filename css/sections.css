@@ -184,8 +184,8 @@
   .carrusel__track { transition: none; }
 }
 
-.ofertas { --escena-background: var(--color-brown-dark); }
-.ofertas__stage { background: var(--color-brown-dark); }
+.ofertas { --escena-background: var(--color-brown-dark); --escena-track: 160svh; }
+.ofertas__stage { --prueba-p: 0; --escena-entrada-tramo: 0.30; background: var(--color-brown-dark); }
 .ofertas__decorado { position: absolute; z-index: 0; inset: 0; }
 .ofertas__glifos { position: absolute; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; /* Opacidad calibrada contra el fondo marrón. */ opacity: 0.1; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); transform: translateX(-50%); }
 .ofertas__cenefa { position: absolute; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: auto; max-width: none; }
@@ -213,8 +213,8 @@
 .ofertas__repisa .ofertas__estrias img { position: static; width: calc(var(--ofertas-estria-ancho) * var(--u)); height: calc(var(--ofertas-estrias-alto) * var(--u)); max-width: none; flex-shrink: 0; }
 .ofertas__estria + .ofertas__estria { margin-left: calc(var(--ofertas-estria-gap) * var(--u)); }
 
-.vales { --escena-background: var(--color-brown-dark); }
-.vales__stage { background: var(--color-brown-dark); }
+.vales { --escena-background: var(--color-brown-dark); --escena-track: 160svh; }
+.vales__stage { --prueba-p: 0; --escena-entrada-tramo: 0.30; background: var(--color-brown-dark); }
 .vales__decorado { position: absolute; z-index: 0; inset: 0; }
 .vales__glifos { position: absolute; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); opacity: 0.1; transform: translateX(-50%); }
 .vales__cenefa { position: absolute; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: calc(46.08 * var(--u)); max-width: none; }

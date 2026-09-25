@@ -7,7 +7,12 @@ let armada = false;
 const revelar = () => {
   if (!cortina || !ofertas || !armada) return;
   armada = false;
-  const top = window.scrollY + ofertas.getBoundingClientRect().top;
+  // El alto del riel es lo que la seccion mide de mas sobre el viewport.
+  // 0.35 va apareado con el --escena-entrada-tramo de .ofertas (0.30): aterriza
+  // apenas pasado el final del fade, con la seccion ya visible. Si .ofertas se
+  // queda sin riel, riel vale 0 y esto se comporta como antes.
+  const riel = Math.max(0, ofertas.offsetHeight - window.innerHeight);
+  const top = window.scrollY + ofertas.getBoundingClientRect().top + riel * 0.35;
   document.documentElement.style.overflow = '';
   window.scrollTo({ top, behavior: 'auto' });
   // Dos frames: el primero aplica el salto, el segundo le da a la transicion
