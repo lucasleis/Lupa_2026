@@ -404,6 +404,11 @@
   transform: translateY(calc(-700 * var(--p-lockup) * var(--u)));
 }
 
+.hero__stage .hero__lockup-word,
+.hero__stage .hero__lockup-banner {
+  display: none;
+}
+
 .hero__prompt-group {
   position: absolute;
   z-index: 3;
@@ -1120,6 +1125,28 @@
     top: calc(133.99 * var(--ud));
     left: calc(667.83 * var(--ud));
     width: calc(359.65 * var(--ud));
+  }
+
+  .hero__stage .hero__lockup {
+    display: none;
+  }
+
+  .hero__stage .hero__lockup-word {
+    display: block;
+    z-index: 2;
+    top: calc(167.55 * var(--ud));
+    left: calc(36.95 * var(--ud));
+    width: calc(443.15 * var(--ud));
+  }
+
+  .hero__stage .hero__lockup-banner {
+    display: block;
+    z-index: 2;
+    top: calc(337.8 * var(--ud));
+    left: calc(101.42 * var(--ud));
+    width: calc(322.4 * var(--ud));
+    transform: rotate(-1.32deg);
+    transform-origin: center;
   }
 
   .hero__cloud-two {
