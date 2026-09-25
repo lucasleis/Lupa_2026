@@ -37,7 +37,9 @@ const abrir = () => {
     popup.classList.add('popup--reduced');
     mostrarContenido();
   } else {
-    window.setTimeout(mostrarContenido, 750);
+    // Apareado con --papiro-apertura en css/sections.css (duracion + 250ms).
+    // Si se mueve uno, se mueve el otro.
+    window.setTimeout(mostrarContenido, 1150);
   }
   document.dispatchEvent(new CustomEvent('popup:abierto'));
 };

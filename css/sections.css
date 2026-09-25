@@ -135,7 +135,11 @@
 
 .puerta-rail { height: var(--puerta-rail-height, 0svh); pointer-events: none; }
 
-.popup { position: fixed; inset: 0; z-index: 40; display: none; align-items: center; justify-content: center; /* Provisional: el color del overlay no vino en el diseño. */ background: rgba(0, 0, 0, 0.6); opacity: 0; pointer-events: none; }
+/* Duracion del desenrollado. La comparten el clip-path del cuerpo y el
+   transform de rodillos y lazos: si se separan, el rodillo deja de quedar
+   pegado al borde del papel que se revela. El setTimeout de mostrarContenido
+   en js/popup.js esta apareado con este valor. */
+.popup { --papiro-apertura: 900ms; position: fixed; inset: 0; z-index: 40; display: none; align-items: center; justify-content: center; /* Provisional: el color del overlay no vino en el diseño. */ background: rgba(0, 0, 0, 0.6); opacity: 0; pointer-events: none; }
 .popup:focus { outline: none; }
 .popup--visible { display: flex; opacity: 1; pointer-events: auto; transition: opacity 250ms ease; }
 /* La caja es exactamente el bounding box del dibujo de las cinco capas
@@ -143,10 +147,10 @@
    estan rebasados a ese origen, asi que el centrado horizontal es 50% pelado,
    sin offsets de correccion. Si se agrega una capa que sobresalga de esa
    caja, hay que ampliar el contenedor y rebasar todo de nuevo. */
-.popup__paper { position: relative; width: calc(357.61 * var(--u)); height: calc(327 * var(--u)); overflow: visible; opacity: 0; transform: scale(0.92); transition: opacity 250ms ease, transform 250ms ease; }
+.popup__paper { position: relative; width: calc(357.61 * var(--u)); height: calc(327 * var(--u)); overflow: visible; opacity: 0; transform: scale(0.92); transition: opacity 300ms ease, transform 300ms ease; }
 .popup--visible .popup__paper { opacity: 1; transform: scale(1); }
-.popup__paper-body { position: absolute; z-index: 0; left: calc(1.87 * var(--u)); top: 0; width: calc(324 * var(--u)); height: calc(293 * var(--u)); clip-path: inset(0 50% 0 50%); transition: clip-path 500ms ease; }
-.popup__roll, .popup__lazo { position: absolute; max-width: none; transition: transform 500ms ease; }
+.popup__paper-body { position: absolute; z-index: 0; left: calc(1.87 * var(--u)); top: 0; width: calc(324 * var(--u)); height: calc(293 * var(--u)); clip-path: inset(0 50% 0 50%); transition: clip-path var(--papiro-apertura) cubic-bezier(0.16, 1, 0.3, 1); }
+.popup__roll, .popup__lazo { position: absolute; max-width: none; transition: transform var(--papiro-apertura) cubic-bezier(0.16, 1, 0.3, 1); }
 .popup__roll { z-index: 1; }
 .popup__lazo { z-index: 2; }
 .popup__roll--izq { left: calc(1.48 * var(--u)); top: calc(1.55 * var(--u)); width: calc(62 * var(--u)); height: calc(318 * var(--u)); transform: translateX(calc(131.39 * var(--u))); }
