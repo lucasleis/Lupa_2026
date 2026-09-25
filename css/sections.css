@@ -9,7 +9,8 @@
 
 .prueba-superada {
   --escena-background: var(--color-sand);
-  --escena-track: 220svh;
+  --escena-track-k: 2.2;
+  --escena-track: calc(var(--escena-track-k) * 100svh);
 }
 
 .escena__sticky {
@@ -195,7 +196,7 @@
   .popup__paper, .popup__paper-body, .popup__roll, .popup__lazo, .popup__title, .popup__copy, .popup__instagram, .popup__close { transition: none; }
 }
 
-.cupones { --escena-background: var(--color-sand); --escena-track: 120svh; }
+.cupones { --escena-background: var(--color-sand); --escena-track-k: 1.2; --escena-track: calc(var(--escena-track-k) * 100svh); }
 .cupones__stage { --escena-p: 0; }
 .marco-papiro { position: absolute; z-index: 0; inset: 0; }
 .cupones__title { position: absolute; z-index: 1; top: calc(50.4 * var(--u)); left: calc(50% - (338.8 * var(--u)) / 2); width: calc(338.8 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(48 * var(--u)); font-weight: 800; line-height: calc(48 * var(--u)); letter-spacing: 0.02em; text-align: center; text-transform: uppercase; }
@@ -242,7 +243,7 @@
   .carrusel__track { transition: none; }
 }
 
-.ofertas { --escena-background: var(--color-brown-dark); --escena-track: 160svh; }
+.ofertas { --escena-background: var(--color-brown-dark); --escena-track-k: 1.6; --escena-track: calc(var(--escena-track-k) * 100svh); }
 .ofertas__stage { --escena-p: 0; --escena-entrada-tramo: 0.30; background: var(--color-brown-dark); }
 .ofertas__decorado { position: absolute; z-index: 0; inset: 0; }
 .ofertas__glifos { position: absolute; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; /* Opacidad calibrada contra el fondo marrón. */ opacity: 0.1; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); transform: translateX(-50%); }
@@ -271,7 +272,7 @@
 .ofertas__repisa .ofertas__estrias img { position: static; width: calc(var(--ofertas-estria-ancho) * var(--u)); height: calc(var(--ofertas-estrias-alto) * var(--u)); max-width: none; flex-shrink: 0; }
 .ofertas__estria + .ofertas__estria { margin-left: calc(var(--ofertas-estria-gap) * var(--u)); }
 
-.vales { --escena-background: var(--color-brown-dark); --escena-track: 160svh; }
+.vales { --escena-background: var(--color-brown-dark); --escena-track-k: 1.6; --escena-track: calc(var(--escena-track-k) * 100svh); }
 .vales__stage { --escena-p: 0; --escena-entrada-tramo: 0.30; background: var(--color-brown-dark); }
 .vales__decorado { position: absolute; z-index: 0; inset: 0; }
 .vales__glifos { position: absolute; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); opacity: 0.1; transform: translateX(-50%); }
