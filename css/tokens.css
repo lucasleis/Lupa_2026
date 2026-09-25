@@ -57,7 +57,7 @@
 
     --escena-ar: 1440 / 900;
 
-    /* Color temporal de las barras laterales, tomado de la paleta. */
+    /* Default de lienzo para las secciones de papiro. */
     --lienzo-fondo: var(--color-sand);
   }
 }

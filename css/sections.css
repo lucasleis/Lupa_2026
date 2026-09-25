@@ -833,6 +833,10 @@
     background: var(--lienzo-fondo);
   }
 
+  .hero__sticky {
+    --lienzo-fondo: var(--color-sky);
+  }
+
   .escena__stage,
   .hero__stage {
     width: var(--stage-w);
