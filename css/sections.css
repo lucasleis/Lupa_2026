@@ -377,7 +377,7 @@
   --p-event:        clamp(0, calc((var(--p) - 0.45) / 0.25), 1);
   --p-start-event:  clamp(0, calc((var(--p) - 0.55) / 0.20), 1);
   width: 100%;
-  aspect-ratio: 375 / 667;
+  aspect-ratio: var(--escena-ar);
   flex: 0 0 auto;
 }
 
@@ -818,6 +818,23 @@
   height: auto;
   max-width: none;
   aspect-ratio: 1025 / 445;
+}
+
+@media (min-width: 900px) {
+  .escena__sticky,
+  .hero__sticky {
+    align-items: center;
+    justify-content: center;
+    background: var(--lienzo-fondo);
+  }
+
+  .escena__stage,
+  .hero__stage {
+    width: var(--stage-w);
+    height: var(--stage-h);
+    margin-inline: auto;
+    aspect-ratio: var(--escena-ar);
+  }
 }
 
 .hero__result-title,

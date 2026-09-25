@@ -63,6 +63,12 @@ main {
   min-height: 100svh;
 }
 
+@media (min-width: 900px) {
+  body {
+    max-width: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

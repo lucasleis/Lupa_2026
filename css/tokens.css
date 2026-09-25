@@ -43,6 +43,25 @@
   }
 }
 
+@media (min-width: 900px) {
+  :root {
+    /* Escalar tipo "contain": elige el eje que aprieta.
+       Con relación 1,6 el término de altura gana casi siempre;
+       el de ancho queda como guarda para ventanas angostas. */
+    /* Límite de diseño inferior (0.65px): prioriza legibilidad aunque desborde en alto. */
+    /* Límite de diseño superior (1.30px): evita inflar el stage en pantallas 4K. */
+    --ud: clamp(0.65px, min(100vw / 1440, 100svh / 900), 1.30px);
+
+    --stage-w: calc(1440 * var(--ud));
+    --stage-h: calc(900  * var(--ud));
+
+    --escena-ar: 1440 / 900;
+
+    /* Color temporal de las barras laterales, tomado de la paleta. */
+    --lienzo-fondo: var(--color-sand);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --intro-track: 100svh;
