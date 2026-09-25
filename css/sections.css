@@ -1114,3 +1114,56 @@
 @media (prefers-reduced-motion: reduce) {
   .pase-puerta { transition: none; }
 }
+
+@media (min-width: 900px) {
+  .hero__clouds {
+    top: calc(133.99 * var(--ud));
+    left: calc(667.83 * var(--ud));
+    width: calc(359.65 * var(--ud));
+  }
+
+  .hero__cloud-two {
+    top: calc(268 * var(--ud));
+    left: calc(1204.82 * var(--ud));
+    width: calc(184.41 * var(--ud));
+  }
+
+  .hero__prompt-group {
+    top: calc(253.42 * var(--ud));
+    left: calc(572.6 * var(--ud));
+    width: calc(487.17 * var(--ud));
+    height: calc(211.42 * var(--ud));
+  }
+
+  .hero__prompt {
+    top: 27.94%;
+    left: 5.72%;
+    width: 88.55%;
+    height: 43.51%;
+    font-size: calc(44 * var(--ud));
+    line-height: calc(46 * var(--ud));
+  }
+
+  .hero__ofertiti {
+    top: calc(372.08 * var(--ud));
+    left: calc(273.39 * var(--ud));
+    width: calc(459.09 * var(--ud));
+  }
+
+  .hero__stage[data-estado="intro"] .hero__skip:not([data-panel-active="true"]) {
+    top: calc(830 * var(--ud));
+    left: 50%;
+    width: calc(344 * var(--ud));
+    height: calc(26 * var(--ud));
+    color: #3A2A24;
+    font-size: calc(24 * var(--ud));
+    font-weight: 500;
+    line-height: calc(26 * var(--ud));
+    text-decoration-line: underline;
+  }
+
+  /* TODO desktop: faltan X/Y de Figma para .hero__sphinx-group. */
+  /* TODO desktop: faltan X/Y de Figma para .hero__sphinx-ground. */
+  /* TODO desktop: faltan X/Y de Figma para .hero__sphinx. */
+  /* TODO desktop: faltan X/Y de Figma para .hero__cloud-three. */
+}
