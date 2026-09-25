@@ -1162,8 +1162,31 @@
     text-decoration-line: underline;
   }
 
-  /* TODO desktop: faltan X/Y de Figma para .hero__sphinx-group. */
-  /* TODO desktop: faltan X/Y de Figma para .hero__sphinx-ground. */
-  /* TODO desktop: faltan X/Y de Figma para .hero__sphinx. */
-  /* TODO desktop: faltan X/Y de Figma para .hero__cloud-three. */
+  .hero__sphinx-group {
+    /* Desktop: el grupo cubre el stage; las hijas van en coords de frame.
+       El transform de acercamiento sigue calibrado para mobile. */
+    top: 0;
+    left: 0;
+    width: var(--stage-w);
+    height: var(--stage-h);
+  }
+
+  .hero__sphinx {
+    inset: auto;
+    top: calc(402.32 * var(--ud));
+    left: calc(719.68 * var(--ud));
+    width: calc(931.46 * var(--ud));
+  }
+
+  .hero__sphinx-ground {
+    top: calc(683.99 * var(--ud));
+    left: calc(-25.31 * var(--ud));
+    width: calc(1477.59 * var(--ud));
+  }
+  /* TODO: verificar si esta capa es arena-cerca o arena-lejos. */
+
+  .hero__cloud-three {
+    display: none;
+  }
+  /* Desktop tiene dos nubes; la tercera es de mobile. */
 }
