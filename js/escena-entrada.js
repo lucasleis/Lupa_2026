@@ -10,7 +10,7 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
   // Sin movimiento: la seccion se ve entera y el riel queda en 0, asi que no
   // cobra scroll vacio.
   if (reducedMotion.matches) {
-    stage.style.setProperty('--prueba-p', '1');
+    stage.style.setProperty('--escena-p', '1');
     return;
   }
 
@@ -19,7 +19,7 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
 
   const actualizar = () => {
     framePending = false;
-    progresoDeRiel(rail, { desdeElTope: true, destino: stage, propiedad: '--prueba-p' });
+    progresoDeRiel(rail, { desdeElTope: true, destino: stage, propiedad: '--escena-p' });
   };
   const solicitarActualizacion = () => {
     if (framePending) return;

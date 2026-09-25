@@ -24,9 +24,9 @@
 }
 
 .escena__stage {
-  --prueba-p: 1;
+  --escena-p: 1;
   --escena-entrada-tramo: 0.30;
-  --prueba-entrada-p: clamp(0, calc(var(--prueba-p) / var(--escena-entrada-tramo)), 1);
+  --escena-entrada-p: clamp(0, calc(var(--escena-p) / var(--escena-entrada-tramo)), 1);
   /* El globo ocupa de 44 a 331 unidades: 375 - 88 = 287 es el ancho mínimo visible sin cortarlo. */
   --u: clamp(
     calc(min(100vw, 480px) / 375),
@@ -38,13 +38,13 @@
   aspect-ratio: 375 / 667;
   flex: 0 0 auto;
   /* Una sección nueva se ve por defecto; solo las que animan su entrada
-     declaran --prueba-p: 0. */
-  opacity: var(--prueba-entrada-p);
-  transform: translateY(calc((1 - var(--prueba-entrada-p)) * 12 * var(--u)));
+     declaran --escena-p: 0. */
+  opacity: var(--escena-entrada-p);
+  transform: translateY(calc((1 - var(--escena-entrada-p)) * 12 * var(--u)));
 }
 
 .prueba-superada__stage {
-  --prueba-p: 0;
+  --escena-p: 0;
   /* 0.20 sobre 220svh mantiene el fade en ~44svh, igual que el 0.30 sobre
      150svh de antes. Los 176svh restantes son freno. */
   --escena-entrada-tramo: 0.20;
@@ -196,7 +196,7 @@
 }
 
 .cupones { --escena-background: var(--color-sand); --escena-track: 120svh; }
-.cupones__stage { --prueba-p: 0; }
+.cupones__stage { --escena-p: 0; }
 .marco-papiro { position: absolute; z-index: 0; inset: 0; }
 .cupones__title { position: absolute; z-index: 1; top: calc(50.4 * var(--u)); left: calc(50% - (338.8 * var(--u)) / 2); width: calc(338.8 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(48 * var(--u)); font-weight: 800; line-height: calc(48 * var(--u)); letter-spacing: 0.02em; text-align: center; text-transform: uppercase; }
 .cupones__subtitle { position: absolute; z-index: 1; top: calc(112.39 * var(--u)); left: calc(50% - (307.62 * var(--u)) / 2); width: calc(307.62 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 400; line-height: calc(18.9 * var(--u)); text-align: center; }
@@ -243,7 +243,7 @@
 }
 
 .ofertas { --escena-background: var(--color-brown-dark); --escena-track: 160svh; }
-.ofertas__stage { --prueba-p: 0; --escena-entrada-tramo: 0.30; background: var(--color-brown-dark); }
+.ofertas__stage { --escena-p: 0; --escena-entrada-tramo: 0.30; background: var(--color-brown-dark); }
 .ofertas__decorado { position: absolute; z-index: 0; inset: 0; }
 .ofertas__glifos { position: absolute; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; /* Opacidad calibrada contra el fondo marrón. */ opacity: 0.1; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); transform: translateX(-50%); }
 .ofertas__cenefa { position: absolute; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: auto; max-width: none; }
@@ -272,7 +272,7 @@
 .ofertas__estria + .ofertas__estria { margin-left: calc(var(--ofertas-estria-gap) * var(--u)); }
 
 .vales { --escena-background: var(--color-brown-dark); --escena-track: 160svh; }
-.vales__stage { --prueba-p: 0; --escena-entrada-tramo: 0.30; background: var(--color-brown-dark); }
+.vales__stage { --escena-p: 0; --escena-entrada-tramo: 0.30; background: var(--color-brown-dark); }
 .vales__decorado { position: absolute; z-index: 0; inset: 0; }
 .vales__glifos { position: absolute; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); opacity: 0.1; transform: translateX(-50%); }
 .vales__cenefa { position: absolute; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: calc(46.08 * var(--u)); max-width: none; }
