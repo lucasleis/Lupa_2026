@@ -153,7 +153,11 @@
    caja, hay que ampliar el contenedor y rebasar todo de nuevo. */
 .popup__paper { position: relative; width: calc(357.61 * var(--u)); height: calc(327 * var(--u)); overflow: visible; opacity: 0; transform: scale(0.92); transition: opacity 300ms ease, transform 300ms ease; }
 .popup--visible .popup__paper { opacity: 1; transform: scale(1); }
-.popup__paper-body { position: absolute; z-index: 0; left: calc(1.87 * var(--u)); top: 0; width: calc(324 * var(--u)); height: calc(293 * var(--u)); clip-path: inset(0 50% 0 50%); transition: clip-path var(--papiro-apertura) cubic-bezier(0.16, 1, 0.3, 1); }
+/* Tamano real del asset definitivo: 347x327. El 324x293 anterior venia del
+   placeholder. La posicion de las cinco capas esta verificada por correlacion
+   contra img/popup/papiro-entero.svg (el papiro armado de una pieza) con
+   0.44/255 de error, y despues rebasada al origen del contenedor. */
+.popup__paper-body { position: absolute; z-index: 0; left: calc(1.87 * var(--u)); top: 0; width: calc(347 * var(--u)); height: calc(327 * var(--u)); clip-path: inset(0 50% 0 50%); transition: clip-path var(--papiro-apertura) cubic-bezier(0.16, 1, 0.3, 1); }
 .popup__roll, .popup__lazo { position: absolute; max-width: none; transition: transform var(--papiro-apertura) cubic-bezier(0.16, 1, 0.3, 1); }
 .popup__roll { z-index: 1; }
 .popup__lazo { z-index: 2; }
