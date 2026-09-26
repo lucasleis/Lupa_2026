@@ -1199,6 +1199,34 @@
     line-height: calc(46 * var(--ud));
   }
 
+  .hero__stage[data-estado] > .hero__riddle-group {
+    top: calc(221.13 * var(--ud));
+    left: calc(118.03 * var(--ud));
+    width: calc(614.94 * var(--ud));
+    height: calc(266.87 * var(--ud));
+  }
+
+  .hero__stage[data-estado] > .hero__riddle-group > .hero__riddle-balloon {
+    width: 100%;
+    height: auto;
+  }
+
+  .hero__stage[data-estado] > .hero__riddle-group .hero__riddle-balloon {
+    transform: none;
+  }
+
+  .hero__stage[data-estado] > .hero__riddle-group > .hero__riddle {
+    top: calc(50% - (69 * var(--ud)));
+    left: 6.93%;
+    width: 84.45%;
+    height: calc(138 * var(--ud));
+    color: #3A2A24;
+    font-size: calc(44 * var(--ud));
+    font-weight: 800;
+    line-height: calc(46 * var(--ud));
+    text-align: center;
+  }
+
   .hero__ofertiti {
     top: calc(372.08 * var(--ud));
     left: calc(273.39 * var(--ud));
