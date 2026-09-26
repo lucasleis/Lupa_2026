@@ -381,18 +381,25 @@
   flex: 0 0 auto;
 }
 
-.hero__stage img {
+.hero__stage img,
+.hero__stage picture {
   position: absolute;
   display: block;
   height: auto;
   max-width: none;
 }
 
-.hero__sphinx-ground img {
+.hero__sphinx-group .hero__sphinx-ground img {
   position: static;
   display: block;
   width: 100%;
   height: auto;
+}
+
+@media (max-width: 899px) {
+  .hero__stage .hero__sphinx-ground {
+    max-width: 100%;
+  }
 }
 
 .hero__clouds {
@@ -1216,6 +1223,20 @@
     left: 0;
     width: var(--stage-w);
     height: var(--stage-h);
+    /* La esfinge va de 719.68/402.32 (931.46 ancho) a 376/268 (1228.32).
+       Escala 1.3187 uniforme. El grupo está en el origen, así que la
+       traslación se calcula como destino - origen * escala, no como delta. */
+    transform-origin: 0 0;
+    transform:
+      translate(calc(-573.04 * var(--p) * var(--ud)),
+                calc(-262.54 * var(--p) * var(--ud)))
+      scale(calc(1 + 0.3187 * var(--p)));
+  }
+
+  /* .hero__clouds es hija del stage, no del grupo: acá el delta sí aplica. */
+  .hero__clouds {
+    transform: translate(calc(-142.29 * var(--p) * var(--ud)),
+                         calc(-60.99 * var(--p) * var(--ud)));
   }
 
   .hero__sphinx {
