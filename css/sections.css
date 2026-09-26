@@ -75,7 +75,7 @@
 .prueba-superada__ofertiti { left: calc(50% - (236.81 * var(--u)) / 2 - 0.41 * var(--u)); top: calc(207.07 * var(--u)); z-index: 5; width: calc(236.81 * var(--u)); }
 
 .prueba-superada__globo { position: absolute; left: calc(50% - (287 * var(--u)) / 2); top: calc(74.24 * var(--u)); width: calc(287 * var(--u)); height: calc(124 * var(--u)); z-index: 6; }
-.prueba-superada__globo img { inset: 0; width: 100%; transform: scaleX(-1); }
+.prueba-superada__globo img { inset: 0; width: 100%; --cola: -1; }
 .prueba-superada__globo p { position: absolute; top: calc(0.22 * var(--u)); left: calc((287 - 199.99) * var(--u) / 2); width: calc(199.99 * var(--u)); height: calc(124 * var(--u)); display: flex; align-items: center; justify-content: center; margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 800; line-height: calc(22 * var(--u)); text-align: center; }
 
 .prueba-superada__cupones { position: absolute; left: calc(50% - (239 * var(--u)) / 2); top: calc(530.24 * var(--u)); z-index: 8; width: calc(239 * var(--u)); height: calc(55 * var(--u)); color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; line-height: calc(29 * var(--u)); text-align: center; text-decoration: none; }
@@ -539,6 +539,7 @@
 .hero__riddle-balloon--answer {
   inset: 0;
   width: 100%;
+  --cola: 1;
 }
 
 /* Cada estado usa su propio globo para conservar la orientación de la cola. */
@@ -847,6 +848,18 @@
   height: auto;
   max-width: none;
   aspect-ratio: 1025 / 445;
+  --cola: 1;
+}
+
+/* Orientación de la cola del globo, explícita por instancia.
+   --cola: 1 = como viene el archivo; --cola: -1 = espejado.
+   Antes esto eran scaleX(-1) sueltos en cuatro lugares y la orientación
+   dependía de qué archivo había cargado el <picture>, no de una decisión. */
+.hero__riddle-balloon--answer,
+.hero__result-balloon,
+.prueba-superada__globo img {
+  transform: scaleX(var(--cola, 1));
+  transform-origin: center;
 }
 
 @media (min-width: 900px) {
@@ -994,6 +1007,10 @@
 
 .acertijo-panel-rail--salida {
   height: var(--panel-exit-rail-height, 0svh);
+}
+
+.acertijo-panel-rail--anuncio {
+  height: var(--anuncio-rail-height, 0svh);
 }
 
 .acertijo-panel-rail--quiz {
@@ -1149,6 +1166,10 @@
 }
 
 @media (min-width: 900px) {
+  .hero__stage {
+    --p-anuncio-out: clamp(0, calc((var(--anuncio-p, 1) - 0.6) / 0.4), 1);
+  }
+
   .hero__clouds {
     top: calc(133.99 * var(--ud));
     left: calc(667.83 * var(--ud));
@@ -1205,6 +1226,12 @@
     left: calc(118.03 * var(--ud));
     width: calc(614.94 * var(--ud));
     height: calc(266.87 * var(--ud));
+    transform: scale(calc(
+      (0.7 * var(--p-event) + 0.3 * var(--p-event) * var(--p-event)
+       + 0.08 * var(--p-event) * (1 - var(--p-event)))
+      * (1 - var(--p-anuncio-out))
+    ));
+    transform-origin: center;
   }
 
   .hero__stage[data-estado] > .hero__riddle-group > .hero__riddle-balloon {
@@ -1303,6 +1330,10 @@
     left: calc(118.03 * var(--ud));
     width: calc(614.94 * var(--ud));
     height: calc(266.87 * var(--ud));
+    --p-globo-in: clamp(0, calc(var(--quiz-p) / 0.30), 1);
+    --p-globo-out: clamp(0, calc((var(--quiz-p) - 0.50) / 0.12), 1);
+    transform: scale(calc(var(--p-globo-in) * (1 - var(--p-globo-out))));
+    transform-origin: center;
   }
 
   .hero__stage[data-estado] .hero__question-ui > .hero__riddle-group .hero__riddle {
@@ -1315,9 +1346,27 @@
   }
 
   .hero__stage[data-estado] .hero__riddle-balloon--answer {
-    transform: scaleX(-1);
-    transform-origin: center;
+    --cola: 1;
   }
+
+  .hero__stage .hero__option {
+    left: calc(128.77 * var(--ud));
+    width: calc(547.23 * var(--ud));
+    height: calc(82 * var(--ud));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* El nudge óptico de +3.29 del diseño: en un flex centrado, un padding-top
+       de 2×3.29 corre el centro 3.29 hacia abajo. */
+    padding-top: calc(6.58 * var(--ud));
+    font-size: calc(32 * var(--ud));
+    line-height: calc(36 * var(--ud));
+  }
+
+  .hero__stage .hero__option:nth-child(1) { top: calc(247 * var(--ud)); }
+  .hero__stage .hero__option:nth-child(2) { top: calc(343 * var(--ud)); }
+  .hero__stage .hero__option:nth-child(3) { top: calc(439 * var(--ud)); }
+  .hero__stage .hero__option:nth-child(4) { top: calc(535 * var(--ud)); }
 }
 
 /* Rendimiento de scroll desktop (ver docs/rendimiento-scroll.md).

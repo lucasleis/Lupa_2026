@@ -16,10 +16,10 @@ variante por separado; no heredar las medidas del globo inicial.
 
 ## Orientación de los globos del hero
 
-- `img/intro/globo.webp` y `img/intro/desktop/globo.svg` están espejados entre
-  sí. La orientación de la cola depende del archivo que cargue el `<picture>`,
-  no de una decisión explícita. Esto ya causó dos bugs: la cola del intro
-  desktop y la del acertijo desktop.
-- Salida limpia: usar `globo.svg` en las dos instancias desktop y fijar la
-  orientación con un transform explícito por instancia, en vez de que sea un
-  efecto secundario de la elección del asset.
+- `img/acertijo/nube-rta.webp` ya tiene la orientación de la cola declarada
+  explícitamente con `--cola` en sus tres instancias: respuesta, resultado y
+  prueba superada.
+- Sigue abierto el par `img/intro/globo.webp` / `img/intro/desktop/globo.svg`:
+  están espejados entre sí y la orientación todavía depende de cuál resuelva
+  el `<picture>`. Fijar esa orientación por instancia y resolver el par sigue
+  pendiente.

@@ -33,6 +33,7 @@ const panel = document.querySelector('.acertijo-panel');
 const introRail = document.querySelector('.acertijo-panel-rail--intro');
 const entryRail = document.querySelector('.acertijo-panel-rail--entrada');
 const exitRail = document.querySelector('.acertijo-panel-rail--salida');
+const anuncioRail = document.querySelector('.acertijo-panel-rail--anuncio');
 const quizRail = document.querySelector('.acertijo-panel-rail--quiz');
 const resultRail = document.querySelector('.acertijo-panel-rail--resultado');
 const pyramidRail = document.querySelector('.acertijo-panel-rail--piramide');
@@ -43,12 +44,15 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 if (heroTrack) {
   const panelRailsDesktop = window.matchMedia('(min-width: 900px)');
   const alturaRielPanel = () => panelRailsDesktop.matches ? '0svh' : '200svh';
+  const alturaRielQuiz = () => panelRailsDesktop.matches ? '250svh' : '150svh';
+  let ENTRADA_CONTROLES = panelRailsDesktop.matches ? 0.62 : 0.5;
 
   // La participacion del panel se deriva de sus rieles, no del breakpoint.
   const RAIL_HEIGHTS = {
     entrada: alturaRielPanel(),
     salida: alturaRielPanel(),
-    quiz: '150svh',
+    anuncio: '150svh',
+    quiz: alturaRielQuiz(),
     resultado: '200svh',
     piramide: '400svh',
   };
@@ -57,7 +61,10 @@ if (heroTrack) {
   let panelEnJuego = panelEstaEnJuego();
   let puzzleStarted = !panelEnJuego;
   let puzzleComplete = !panelEnJuego;
-  if (!panelEnJuego) habilitarRiel(quizRail, '--quiz-rail-height', RAIL_HEIGHTS.quiz);
+  if (!panelEnJuego) {
+    habilitarRiel(anuncioRail, '--anuncio-rail-height', RAIL_HEIGHTS.anuncio);
+    habilitarRiel(quizRail, '--quiz-rail-height', RAIL_HEIGHTS.quiz);
+  }
   let currentState = 'intro';
   let framePending = false;
   let panelProgress = 0;
@@ -80,14 +87,17 @@ if (heroTrack) {
   const recalcularAlturasRielesPanel = () => {
     RAIL_HEIGHTS.entrada = alturaRielPanel();
     RAIL_HEIGHTS.salida = alturaRielPanel();
+    RAIL_HEIGHTS.quiz = alturaRielQuiz();
+    ENTRADA_CONTROLES = panelRailsDesktop.matches ? 0.62 : 0.5;
     panelEnJuego = panelEstaEnJuego();
     puzzleStarted = !panelEnJuego;
     puzzleComplete = !panelEnJuego;
     habilitarRiel(entryRail, '--panel-entry-rail-height', puzzleStarted ? RAIL_HEIGHTS.entrada : '0svh');
     habilitarRiel(exitRail, '--panel-exit-rail-height', puzzleComplete ? RAIL_HEIGHTS.salida : '0svh');
+    habilitarRiel(anuncioRail, '--anuncio-rail-height', panelEnJuego ? '0svh' : RAIL_HEIGHTS.anuncio);
     habilitarRiel(quizRail, '--quiz-rail-height', panelEnJuego ? '0svh' : RAIL_HEIGHTS.quiz);
     panel?.setAttribute('aria-hidden', 'true');
-    setSceneState(panelEnJuego ? 'intro' : 'pregunta');
+    setSceneState('intro');
   };
 
   // Mantener scrollY evita manipularlo a mano y reescribir esto cuando entre Lenis.
@@ -111,6 +121,10 @@ if (heroTrack) {
     const exitProgress = puzzleComplete
       ? (exitRailHeight === 0 ? 1 : progresoDeRiel(exitRail, { desdeElTope: true }))
       : 0;
+    const anuncioProgress = panelEnJuego
+      ? 1
+      : progresoDeRiel(anuncioRail, { desdeElTope: true, destino: heroStage, propiedad: '--anuncio-p' });
+    const anuncioListo = anuncioProgress >= 0.999;
     const quizProgress = (!panelEnJuego || (puzzleComplete && exitProgress >= 1))
       ? progresoDeRiel(quizRail, { desdeElTope: true, destino: heroStage, propiedad: '--quiz-p' })
       : 0;
@@ -146,9 +160,9 @@ if (heroTrack) {
     }
 
     if (puzzleStarted) {
-      if (puzzleComplete && exitProgress <= 0.001) {
+      if (puzzleComplete && (exitProgress <= 0.001 || !anuncioListo)) {
         setSceneState('intro');
-      } else if (puzzleComplete && exitProgress > 0.001) {
+      } else if (puzzleComplete && exitProgress > 0.001 && anuncioListo) {
         setSceneState('pregunta');
       }
       const controlsVisible = currentState === 'pregunta'
@@ -180,7 +194,6 @@ if (heroTrack) {
         questionUi.setAttribute('aria-hidden', String(!controlsVisible));
         questionUi.dataset.quizVisible = String(controlsVisible);
 
-        const ENTRADA_CONTROLES = 0.5; // el globo termina de escalar acá
         questionUi.querySelectorAll('.hero__option').forEach((option, index) => {
           option.dataset.quizActive = String(
             controlsVisible && (answerSubmitted
