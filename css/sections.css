@@ -1319,3 +1319,29 @@
     transform-origin: center;
   }
 }
+
+/* Rendimiento de scroll desktop (ver docs/rendimiento-scroll.md).
+   Sin capa propia, cada cambio de transform ligado al scroll obliga a Chrome
+   a re-rasterizar el stage entero en cada frame.
+   1) Traslaciones sin escala: capa permanente; mover una capa no re-rasteriza.
+   2) Elementos que ESCALAN: capa solo mientras hay scroll (html[data-scrolling],
+      lo pone js/scroll-activo.js). Con capa fija se rasterizan a escala 1 y el
+      zoom los muestra borrosos; así en reposo vuelven a quedar nítidos. */
+@media (min-width: 900px) {
+  .hero__clouds,
+  .hero__stage .hero__lockup-word,
+  .hero__stage .hero__lockup-banner,
+  .hero__prompt-group,
+  .hero__ofertiti,
+  .hero__cloud-two,
+  .escena__stage {
+    will-change: transform;
+  }
+
+  html[data-scrolling] .hero__sphinx-group,
+  html[data-scrolling] .hero__sphinx-ground,
+  html[data-scrolling] .piramide-escena,
+  html[data-scrolling] .puerta__escena {
+    will-change: transform;
+  }
+}
