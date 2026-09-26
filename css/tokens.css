@@ -1,7 +1,12 @@
 :root {
   /* Regla geométrica: líneas, bordes y detalles de 1–2px usan px fijos para evitar antialiasing desigual. */
   --u: calc(100vw / 375);
+  --frame-w: calc(375 * var(--u));
+  --frame-h: calc(667 * var(--u));
   --escena-ar: 375 / 667;
+  --salida-x: calc(-1.0667 * var(--frame-w));
+  --salida-y: calc(-1.0495 * var(--frame-h));
+  --entrada-y: calc(-0.3598 * var(--frame-h));
 
   --color-sky: #00a0dd;
   --color-brown-dark: #3a2a24;
@@ -54,6 +59,8 @@
 
     --stage-w: calc(1440 * var(--ud));
     --stage-h: calc(900  * var(--ud));
+    --frame-w: calc(1440 * var(--ud));
+    --frame-h: calc(900 * var(--ud));
 
     --escena-ar: 1440 / 900;
 
