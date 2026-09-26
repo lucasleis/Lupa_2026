@@ -1297,4 +1297,25 @@
     display: none;
   }
   /* Desktop tiene dos nubes; la tercera es de mobile. */
+
+  .hero__stage[data-estado] .hero__question-ui > .hero__riddle-group {
+    top: calc(221.13 * var(--ud));
+    left: calc(118.03 * var(--ud));
+    width: calc(614.94 * var(--ud));
+    height: calc(266.87 * var(--ud));
+  }
+
+  .hero__stage[data-estado] .hero__question-ui > .hero__riddle-group .hero__riddle {
+    left: 6.93%;
+    width: 84.45%;
+    height: calc(138 * var(--ud));
+    top: calc(50% - (69 * var(--ud)));
+    font-size: calc(44 * var(--ud));
+    line-height: calc(46 * var(--ud));
+  }
+
+  .hero__stage[data-estado] .hero__riddle-balloon--answer {
+    transform: scaleX(-1);
+    transform-origin: center;
+  }
 }
