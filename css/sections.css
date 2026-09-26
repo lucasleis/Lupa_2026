@@ -388,6 +388,13 @@
   max-width: none;
 }
 
+.hero__sphinx-ground img {
+  position: static;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .hero__clouds {
   z-index: 1;
   top: calc(71 * var(--u));
@@ -569,6 +576,8 @@
 }
 
 .hero__sphinx-ground {
+  position: absolute;
+  display: block;
   z-index: 0;
   top: calc(67.79 * var(--u));
   left: calc(-255 * var(--u));
@@ -1204,17 +1213,18 @@
 
   .hero__sphinx {
     inset: auto;
+    z-index: 1;
     top: calc(402.32 * var(--ud));
     left: calc(719.68 * var(--ud));
     width: calc(931.46 * var(--ud));
   }
 
   .hero__sphinx-ground {
+    z-index: 0;
     top: calc(683.99 * var(--ud));
     left: calc(-25.31 * var(--ud));
     width: calc(1477.59 * var(--ud));
   }
-  /* TODO: verificar si esta capa es arena-cerca o arena-lejos. */
 
   .hero__cloud-three {
     display: none;
