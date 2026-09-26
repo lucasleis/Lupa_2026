@@ -436,7 +436,14 @@
 }
 
 .hero__balloon {
+  position: absolute;
+  display: block;
   inset: 0;
+  width: 100%;
+}
+
+.hero__balloon img {
+  position: static;
   width: 100%;
 }
 
