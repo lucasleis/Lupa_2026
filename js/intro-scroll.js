@@ -41,8 +41,23 @@ const skipLink = document.querySelector('.hero__skip');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 if (heroTrack) {
-  let puzzleStarted = false;
-  let puzzleComplete = false;
+  const panelRailsDesktop = window.matchMedia('(min-width: 900px)');
+  const alturaRielPanel = () => panelRailsDesktop.matches ? '0svh' : '200svh';
+
+  // La participacion del panel se deriva de sus rieles, no del breakpoint.
+  const RAIL_HEIGHTS = {
+    entrada: alturaRielPanel(),
+    salida: alturaRielPanel(),
+    quiz: '150svh',
+    resultado: '200svh',
+    piramide: '400svh',
+  };
+  const panelEstaEnJuego = () => Number.parseFloat(RAIL_HEIGHTS.entrada) > 0
+    || Number.parseFloat(RAIL_HEIGHTS.salida) > 0;
+  let panelEnJuego = panelEstaEnJuego();
+  let puzzleStarted = !panelEnJuego;
+  let puzzleComplete = !panelEnJuego;
+  if (!panelEnJuego) habilitarRiel(quizRail, '--quiz-rail-height', RAIL_HEIGHTS.quiz);
   let currentState = 'intro';
   let framePending = false;
   let panelProgress = 0;
@@ -62,13 +77,21 @@ if (heroTrack) {
   //   de la pagina. Este --puerta-p del hero no es el de la seccion .puerta:
   //   son variables homonimas en scopes distintos; puerta.js escribe la segunda
   //   sobre .puerta__stage y es la unica que lee .puerta__fundido.
-  const RAIL_HEIGHTS = {
-    entrada: '200svh',
-    salida: '200svh',
-    quiz: '150svh',
-    resultado: '200svh',
-    piramide: '400svh',
+  const recalcularAlturasRielesPanel = () => {
+    RAIL_HEIGHTS.entrada = alturaRielPanel();
+    RAIL_HEIGHTS.salida = alturaRielPanel();
+    panelEnJuego = panelEstaEnJuego();
+    puzzleStarted = !panelEnJuego;
+    puzzleComplete = !panelEnJuego;
+    habilitarRiel(entryRail, '--panel-entry-rail-height', puzzleStarted ? RAIL_HEIGHTS.entrada : '0svh');
+    habilitarRiel(exitRail, '--panel-exit-rail-height', puzzleComplete ? RAIL_HEIGHTS.salida : '0svh');
+    habilitarRiel(quizRail, '--quiz-rail-height', panelEnJuego ? '0svh' : RAIL_HEIGHTS.quiz);
+    panel?.setAttribute('aria-hidden', 'true');
+    setSceneState(panelEnJuego ? 'intro' : 'pregunta');
   };
+
+  // Mantener scrollY evita manipularlo a mano y reescribir esto cuando entre Lenis.
+  panelRailsDesktop.addEventListener('change', recalcularAlturasRielesPanel);
 
   if (!reducedMotion.matches) {
     document.body.dataset.introBloqueado = 'true';
@@ -84,10 +107,11 @@ if (heroTrack) {
   const setProgress = (progress) => {
     // Entry conserva el punto cero antiguo: habilitarRielYDesplazar calcula su smooth-scroll con esa geometría.
     const entryProgress = progresoDeRiel(entryRail);
+    const exitRailHeight = exitRail?.getBoundingClientRect().height;
     const exitProgress = puzzleComplete
-      ? progresoDeRiel(exitRail, { desdeElTope: true })
+      ? (exitRailHeight === 0 ? 1 : progresoDeRiel(exitRail, { desdeElTope: true }))
       : 0;
-    const quizProgress = puzzleComplete && exitProgress >= 1
+    const quizProgress = (!panelEnJuego || (puzzleComplete && exitProgress >= 1))
       ? progresoDeRiel(quizRail, { desdeElTope: true, destino: heroStage, propiedad: '--quiz-p' })
       : 0;
     // Reparto del riel de piramide: primera parte es la aproximacion
@@ -108,10 +132,10 @@ if (heroTrack) {
     // --puerta-p, el de .puerta__stage); es seguro porque el contenido aparece
     // por debajo del viewport y no desplaza nada de lo que se esta mirando.
     if (doorProgress >= 0.85) liberarScroll();
-    panelProgress = entryProgress * 0.5 + exitProgress * 0.5;
+    panelProgress = panelEnJuego ? entryProgress * 0.5 + exitProgress * 0.5 : 1;
     const effectivePanelProgress = panelProgress;
     if (skipLink) {
-      skipLink.dataset.panelActive = String(puzzleStarted && effectivePanelProgress < 1);
+      skipLink.dataset.panelActive = String(panelEnJuego && puzzleStarted && effectivePanelProgress < 1);
     }
     document.body.style.setProperty('--intro-progress', String(progress));
     document.body.style.setProperty('--panel-progress', String(effectivePanelProgress));
