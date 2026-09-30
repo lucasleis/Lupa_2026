@@ -47,7 +47,7 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
     window.requestAnimationFrame(actualizar);
   };
 
-  window.addEventListener('scroll', solicitarActualizacion, { passive: true });
+  window.lenis.on('scroll', actualizar);
   window.addEventListener('resize', solicitarActualizacion);
   window.addEventListener('orientationchange', solicitarActualizacion);
   solicitarActualizacion();

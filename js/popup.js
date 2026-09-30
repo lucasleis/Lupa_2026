@@ -2,7 +2,6 @@ const popup = document.querySelector('.popup');
 const closeButton = popup?.querySelector('.popup__close');
 const focusables = () => [...popup.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])')];
 let lastFocused = null;
-let scrollPosition = 0;
 let yaAparecio = false; // Decisión provisional: una aparición por carga; luego podrá pasar a localStorage.
 
 const cerrar = () => {
@@ -12,8 +11,7 @@ const cerrar = () => {
   popup.classList.remove('popup--visible', 'popup--contenido', 'popup--montado', 'popup--reduced');
   popup.setAttribute('aria-hidden', 'true');
   popup.inert = true;
-  document.documentElement.style.overflow = '';
-  window.scrollTo(0, scrollPosition);
+  window.lenis.start();
   document.querySelectorAll('body > *:not(.popup)').forEach((element) => { element.inert = false; });
   document.dispatchEvent(new CustomEvent('popup:cerrado'));
 };
@@ -22,9 +20,8 @@ const abrir = () => {
   if (!popup || yaAparecio) return;
   yaAparecio = true;
   lastFocused = document.activeElement;
-  scrollPosition = window.scrollY;
+  window.lenis.stop();
   document.querySelectorAll('body > *:not(.popup)').forEach((element) => { element.inert = true; });
-  document.documentElement.style.overflow = 'hidden';
   popup.inert = false;
   popup.setAttribute('aria-hidden', 'false');
   popup.classList.add('popup--montado');

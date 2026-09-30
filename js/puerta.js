@@ -49,7 +49,7 @@ if (section && stage && rail) {
     enFinal = true;
     document.dispatchEvent(new CustomEvent('puerta:final'));
   } else {
-    window.addEventListener('scroll', solicitarActualizacion, { passive: true });
+    window.lenis.on('scroll', actualizar);
     window.addEventListener('resize', solicitarActualizacion);
     window.addEventListener('orientationchange', solicitarActualizacion);
     solicitarActualizacion();

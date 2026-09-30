@@ -1,3 +1,5 @@
+import { irA } from './lenis.js';
+
 const cortina = document.querySelector('.pase-puerta');
 const ofertas = document.querySelector('.ofertas');
 const popup = document.querySelector('.popup');
@@ -17,7 +19,7 @@ const revelar = () => {
   document.body.style.removeProperty('--puerta-progress');
   delete cortina.dataset.entrada;
   document.documentElement.style.overflow = '';
-  window.scrollTo({ top, behavior: 'auto' });
+  irA(top, { immediate: true });
   // Dos frames: el primero aplica el salto, el segundo le da a la transicion
   // un estado inicial del que partir.
   window.requestAnimationFrame(() => {

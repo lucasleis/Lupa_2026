@@ -1,3 +1,5 @@
+import { irA } from './lenis.js';
+
 export const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
 // Sin desdeElTope: riel que contiene a su sticky. Con desdeElTope: riel posterior
@@ -50,7 +52,7 @@ if (heroTrack) {
   const ALTURA_QUIZ_MOBILE = 200;
   const GLOBO_COMPLETO_EN = 0.5;
   const PAUSA_GLOBO_SVH = 50;
-  const ENTRADA_CONTROLES_DESKTOP = 0.62;
+  const ENTRADA_CONTROLES_DESKTOP = 0.64;
   const RESULTADO_TRAMOS = { quizSalidaFin: 0.29, resultadoEntradaInicio: 0.29, resultadoEntradaFin: 0.57 };
   const RESULTADO_TRAMOS_DESKTOP = { quizSalidaFin: 0.5, resultadoEntradaInicio: 0.5, resultadoEntradaFin: 1 };
   const alturaRielPanel = () => panelRailsDesktop.matches ? '0svh' : '200svh';
@@ -126,7 +128,6 @@ if (heroTrack) {
     setSceneState('intro');
   };
 
-  // Mantener scrollY evita manipularlo a mano y reescribir esto cuando entre Lenis.
   panelRailsDesktop.addEventListener('change', recalcularAlturasRielesPanel);
 
   if (!reducedMotion.matches) {
@@ -285,9 +286,9 @@ if (heroTrack) {
         const rect = rail?.getBoundingClientRect();
         const scrollRange = (rect?.height ?? 0) - window.innerHeight;
         const targetScroll = window.scrollY + (rect?.top ?? 0) + progreso * scrollRange;
-        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+        irA(targetScroll);
       }
-      requestProgressUpdate();
+      updateProgress();
     });
   };
 
@@ -343,7 +344,7 @@ if (heroTrack) {
     habilitarRiel(entryRail, '--panel-entry-rail-height', RAIL_HEIGHTS.entrada);
 
     if (tramo === 'acertijo') {
-      window.scrollTo({ top: entryRail?.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+      irA(entryRail?.getBoundingClientRect().top + window.scrollY, { immediate: true });
       return true;
     }
 
@@ -353,7 +354,7 @@ if (heroTrack) {
     setSceneState('pregunta');
 
     if (tramo === 'quiz') {
-      window.scrollTo({ top: quizRail?.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+      irA(quizRail?.getBoundingClientRect().top + window.scrollY, { immediate: true });
       return true;
     }
 
@@ -363,32 +364,30 @@ if (heroTrack) {
     habilitarRiel(resultRail, '--resultado-rail-height', RAIL_HEIGHTS.resultado);
 
     if (tramo === 'resultado') {
-      window.scrollTo({ top: resultRail?.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+      irA(resultRail?.getBoundingClientRect().top + window.scrollY, { immediate: true });
       return true;
     }
 
     pyramidRailEnabled = true;
     habilitarRiel(pyramidRail, '--piramide-rail-height', RAIL_HEIGHTS.piramide);
     if (tramo === 'piramide') {
-      window.scrollTo({ top: pyramidRail?.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+      irA(pyramidRail?.getBoundingClientRect().top + window.scrollY, { immediate: true });
       return true;
     }
 
     const pyramidRect = pyramidRail?.getBoundingClientRect();
     const pyramidScrollRange = (pyramidRect?.height ?? 0) - window.innerHeight;
     const puertaScrollTop = window.scrollY + (pyramidRect?.top ?? 0) + 0.5 * pyramidScrollRange;
-    window.scrollTo({ top: puertaScrollTop, behavior: 'auto' });
+    irA(puertaScrollTop, { immediate: true });
     return true;
   };
 
-  if (saltarAInicioDeTramo()) {
-    requestProgressUpdate();
-  }
+  saltarAInicioDeTramo();
 
   if (reducedMotion.matches) {
     setProgress(1);
   } else {
-    window.addEventListener('scroll', requestProgressUpdate, { passive: true });
+    window.lenis.on('scroll', updateProgress);
     window.addEventListener('resize', requestProgressUpdate);
     window.addEventListener('orientationchange', requestProgressUpdate);
     updateProgress();
