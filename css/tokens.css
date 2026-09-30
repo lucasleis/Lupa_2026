@@ -1,6 +1,9 @@
 :root {
   /* Regla geométrica: líneas, bordes y detalles de 1–2px usan px fijos para evitar antialiasing desigual. */
   --u: calc(100vw / 375);
+  --cta-border-width: calc(5 * var(--u));
+  --cta-shadow-depth: calc(3 * var(--u));
+  --cta-radius: calc(40.34 * var(--u));
   --frame-w: calc(375 * var(--u));
   --frame-h: calc(667 * var(--u));
   --escena-ar: 375 / 667;

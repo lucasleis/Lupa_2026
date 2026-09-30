@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/sections.css">
   </head>
   <body>
+    <div class="sala-fondo" aria-hidden="true"></div>
     <header class="site-header">
       <a class="site-header__logo" href="./" aria-label="Volver al inicio de Lupa">
         <img src="img/logo-lupa.svg" alt="Lupa">
@@ -71,7 +72,21 @@
             </div>
             <div class="piramide-escena" aria-hidden="true">
               <img class="piramide-escena__nube-sol" src="img/piramide/nube-sol.webp" alt="" width="683" height="268">
+              <img class="piramide-escena__nube-alta" src="img/intro/nube-1.webp" alt="" width="507" height="141">
+              <img class="piramide-escena__nube-der" src="img/intro/nube-2.webp" alt="" width="437" height="202">
+              <img class="piramide-escena__nube-izq" src="img/intro/nube-2.webp" alt="" width="437" height="202">
               <img class="piramide-escena__piramide" src="img/piramide/piramide.webp" alt="" width="4096" height="1723">
+              <!-- Puerta de la piramide: calza exactamente sobre la puerta
+                   dibujada en piramide.webp (nativo 1941,1055.5 de 360x297).
+                   El interior asoma al abrirse las hojas; el marco de alrededor
+                   es el de la imagen de fondo, no se repite aca. -->
+              <div class="piramide-puerta">
+                <div class="piramide-puerta__vano">
+                  <img class="piramide-puerta__interior" src="img/interior-claro.jpeg" alt="" width="1152" height="2048">
+                </div>
+                <img class="piramide-puerta__hoja piramide-puerta__hoja--izq" src="img/puerta/hojas.svg" alt="" width="73" height="60">
+                <img class="piramide-puerta__hoja piramide-puerta__hoja--der" src="img/puerta/hojas.svg" alt="" width="73" height="60">
+              </div>
               <img class="piramide-escena__arena" src="img/piramide/arena.webp" alt="" width="2213" height="405">
             </div>
             <div class="hero__question-ui" inert aria-hidden="true">
@@ -80,7 +95,7 @@
                 <p class="hero__riddle hero__riddle--answer">SE ACABARON LAS PREGUNTAS. ¿CUÁL ES?</p>
               </div>
               <div class="hero__options" role="radiogroup" aria-label="Opciones de respuesta"></div>
-              <button class="hero__continue" type="button" disabled>
+              <button class="hero__continue cta-layers" type="button" disabled>
                 <span>PUEDES CONTINUAR</span>
               </button>
               <div class="hero__result hero__result--acierto" data-resultado="acierto" data-resultado-active="false" aria-hidden="true">
@@ -97,7 +112,7 @@
             <!-- Salida permanente de la experiencia: visible en todos los estados. -->
             <a class="hero__skip" href="#formulario">SALTAR INTRO</a>
             <!-- Provisional: este botón abrirá el popup de los pergaminos. -->
-            <button class="hero__start" type="button">
+            <button class="hero__start cta-layers" type="button">
               <span>EMPEZAR</span>
             </button>
           </div>
@@ -129,7 +144,7 @@
             <p aria-hidden="true">Has pasado la prueba de la Esfinge</p>
           </div>
           <!-- Provisional: destino pendiente, la página de cupones no está hecha. -->
-          <a class="prueba-superada__cupones" href="#" aria-disabled="false"><span>VER CUPONES</span></a>
+          <a class="prueba-superada__cupones cta-layers" href="#" aria-disabled="false"><span>VER CUPONES</span></a>
           <img class="marco-papiro__cenefa marco-papiro__cenefa--inferior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
         </div>
       </div>
@@ -162,7 +177,7 @@
           <!-- Pendiente de verificar contra el diseño: posición derivada del origen del carrusel. -->
           <div class="carrusel__dots" role="tablist" aria-label="Seleccionar cupón"></div>
           <!-- Provisional: el comportamiento de LOS QUIERO está sin definir. -->
-          <button class="cupones__want" type="button"><span>LOS QUIERO</span></button>
+          <button class="cupones__want cta-layers" type="button"><span>LOS QUIERO</span></button>
         </div>
       </div>
       <div class="escena-rail" aria-hidden="true"></div>
@@ -281,7 +296,7 @@
             <span class="formulario__terms-text">Acepto los <!-- Provisional: destino pendiente; podría ser privacidad o aviso legal. --><a href="#">términos y condiciones</a></span>
           </label>
         </div>
-        <button class="formulario__submit" type="submit"><span>QUIERO MIS CUPONES</span></button>
+        <button class="formulario__submit cta-layers" type="submit"><span>QUIERO MIS CUPONES</span></button>
       </form>
     </section>
     </main>
@@ -328,7 +343,7 @@
           <!-- El dump declara Inter, pero el sistema visual usa Degular. -->
           <p class="popup__copy">Descubre cada semana los juegos y desafíos...</p>
           <!-- Provisional: la URL de Instagram todavía no está definida. -->
-          <a class="popup__instagram" href="#" target="_blank" rel="noopener noreferrer"><span>IR A INSTAGRAM</span></a>
+          <a class="popup__instagram cta-layers" href="#" target="_blank" rel="noopener noreferrer"><span>IR A INSTAGRAM</span></a>
           <button class="popup__close" type="button" aria-label="Cerrar">
             <img src="img/popup/cerrar.svg" alt="" width="31.48" height="31.37">
           </button>

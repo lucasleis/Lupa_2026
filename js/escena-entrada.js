@@ -19,7 +19,12 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
 
   const actualizar = () => {
     framePending = false;
-    progresoDeRiel(rail, { desdeElTope: true, destino: stage, propiedad: '--escena-p' });
+    const p = progresoDeRiel(rail, { desdeElTope: true, destino: stage, propiedad: '--escena-p' });
+    // La capa fija del interior vive fuera de la seccion, asi que su fundido
+    // de salida necesita este progreso en el body.
+    if (section.classList.contains('prueba-superada')) {
+      document.body.style.setProperty('--sala-salida-p', String(p));
+    }
   };
   const solicitarActualizacion = () => {
     if (framePending) return;

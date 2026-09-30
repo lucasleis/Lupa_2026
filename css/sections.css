@@ -1,4 +1,8 @@
 /* Los SVG exportados de Figma suelen traer opacity interna; neutralizarla en el archivo antes de controlarla desde CSS. */
+.cta-layers { position: relative; display: flex; box-sizing: border-box; align-items: center; justify-content: center; border: var(--cta-border-width) solid var(--color-gold); border-radius: var(--cta-radius); background: var(--color-sky); color: var(--color-navy); box-shadow: 0 var(--cta-shadow-depth) 0 var(--color-gold-dark); line-height: 1; }
+.cta-layers span { line-height: 1; }
+.cta-layers:focus-visible { outline: calc(2 * var(--u)) solid var(--color-navy); outline-offset: calc(3 * var(--u)); }
+
 .hero {
   position: relative;
 }
@@ -46,9 +50,9 @@
 
 .prueba-superada__stage {
   --escena-p: 0;
-  /* 0.20 sobre 220svh mantiene el fade en ~44svh, igual que el 0.30 sobre
-     150svh de antes. Los 176svh restantes son freno. */
-  --escena-entrada-tramo: 0.20;
+  /* Corto a propósito: entra oculta detrás de .sala-fondo, así que lo único
+     que se ve es el fundido de salida del interior sobre ella ya armada. */
+  --escena-entrada-tramo: 0.10;
 }
 
 .escena__stage img,
@@ -78,11 +82,7 @@
 .prueba-superada__globo img { inset: 0; width: 100%; --cola: -1; }
 .prueba-superada__globo p { position: absolute; top: calc(0.22 * var(--u)); left: calc((287 - 199.99) * var(--u) / 2); width: calc(199.99 * var(--u)); height: calc(124 * var(--u)); display: flex; align-items: center; justify-content: center; margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 800; line-height: calc(22 * var(--u)); text-align: center; }
 
-.prueba-superada__cupones { position: absolute; left: calc(50% - (239 * var(--u)) / 2); top: calc(530.24 * var(--u)); z-index: 8; width: calc(239 * var(--u)); height: calc(55 * var(--u)); color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; line-height: calc(29 * var(--u)); text-align: center; text-decoration: none; }
-.prueba-superada__cupones::before { content: ""; position: absolute; left: calc(-0.12 * var(--u)); top: calc(0.82 * var(--u)); width: calc(239.07 * var(--u)); height: calc(54.33 * var(--u)); background: var(--color-gold-mid); border-radius: calc(40.34 * var(--u)); }
-.prueba-superada__cupones::after { content: ""; position: absolute; left: calc(5.97 * var(--u)); top: calc(5.73 * var(--u)); width: calc(226.9 * var(--u)); height: calc(41.08 * var(--u)); background: var(--color-sky); border: calc(5.5 * var(--u)) solid var(--color-gold); border-radius: calc(40.34 * var(--u)); }
-.prueba-superada__cupones span { position: relative; z-index: 1; }
-.prueba-superada__cupones { display: flex; align-items: center; justify-content: center; }
+.prueba-superada__cupones { position: absolute; left: calc(50% - (239 * var(--u)) / 2); top: calc(530.24 * var(--u)); z-index: 8; width: calc(239 * var(--u)); height: calc(55 * var(--u)); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; text-align: center; text-decoration: none; }
 
 .escena-rail { height: 0svh; pointer-events: none; }
 .escena[data-entrada-activa="true"] .escena-rail { height: var(--escena-track, 0svh); }
@@ -178,11 +178,7 @@
    Si cambia el texto y pasa a una o tres lineas, recalibrar los tres juntos. */
 .popup__title { position: absolute; top: calc(75.66 * var(--u)); left: calc(50% - (237.95 * var(--u)) / 2); width: calc(237.95 * var(--u)); margin: 0; color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 800; line-height: calc(22 * var(--u)); text-align: center; }
 .popup__copy { position: absolute; top: calc(125.66 * var(--u)); left: calc(50% - (248.6 * var(--u)) / 2); width: calc(248.6 * var(--u)); height: calc(95 * var(--u)); margin: 0; color: var(--color-navy); font-family: var(--font-display); font-size: calc(16 * var(--u)); font-weight: 400; line-height: calc(19 * var(--u)); text-align: center; }
-.popup__instagram { position: absolute; left: calc(50% - (239 * var(--u)) / 2); top: calc(185.66 * var(--u)); display: flex; align-items: center; justify-content: center; width: calc(239 * var(--u)); height: calc(55 * var(--u)); color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; line-height: calc(29 * var(--u)); text-decoration: none; pointer-events: auto; }
-.popup__instagram::before, .popup__instagram::after { content: ""; position: absolute; border-radius: calc(40.34 * var(--u)); }
-.popup__instagram::before { left: calc(-0.12 * var(--u)); top: calc(0.82 * var(--u)); width: calc(239.07 * var(--u)); height: calc(54.33 * var(--u)); background: var(--color-gold-mid); }
-.popup__instagram::after { left: calc(5.97 * var(--u)); top: calc(5.73 * var(--u)); width: calc(226.9 * var(--u)); height: calc(41.08 * var(--u)); background: var(--color-sky); border: calc(5.5 * var(--u)) solid var(--color-gold); }
-.popup__instagram span { position: relative; z-index: 1; }
+.popup__instagram { position: absolute; left: calc(50% - (239 * var(--u)) / 2); top: calc(185.66 * var(--u)); width: calc(239 * var(--u)); height: calc(55 * var(--u)); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; text-decoration: none; pointer-events: auto; }
 .popup__close { position: absolute; top: calc(25.66 * var(--u)); left: calc(260.07 * var(--u)); width: calc(44 * var(--u)); height: calc(44 * var(--u)); padding: 0; border: 0; background: transparent; pointer-events: auto; }
 .popup__close img { position: absolute; left: calc(6.48 * var(--u)); top: calc(6.32 * var(--u)); width: calc(31.48 * var(--u)); height: calc(31.37 * var(--u)); border: 0; outline: none; }
 .popup :is(button, a):focus:not(:focus-visible) { outline: none; }
@@ -233,11 +229,7 @@
 .carrusel__dots { position: absolute; z-index: 1; top: calc(540.43 * var(--u)); left: calc(50% - (82 * var(--u)) / 2); display: flex; gap: calc(6 * var(--u)); width: calc(82 * var(--u)); height: calc(16.22 * var(--u)); }
 .carrusel__dots button { width: calc(16 * var(--u)); height: calc(16.22 * var(--u)); padding: 0; border: 0; border-radius: 50%; background: var(--color-white-warm); }
 .carrusel__dots button[aria-selected="true"] { background: var(--color-brown-dark); }
-.cupones__want { position: absolute; left: calc(50% - (239 * var(--u)) / 2 + 0.46 * var(--u)); top: calc(566.26 * var(--u)); z-index: 8; display: flex; align-items: center; justify-content: center; width: calc(239 * var(--u)); height: calc(55 * var(--u)); padding: 0; border: 0; background: transparent; color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; line-height: calc(29 * var(--u)); }
-.cupones__want::before, .cupones__want::after { content: ""; position: absolute; border-radius: calc(40.34 * var(--u)); }
-.cupones__want::before { left: calc(-0.12 * var(--u)); top: calc(0.82 * var(--u)); width: calc(239.07 * var(--u)); height: calc(54.33 * var(--u)); background: var(--color-gold-mid); }
-.cupones__want::after { left: calc(5.97 * var(--u)); top: calc(5.73 * var(--u)); width: calc(226.9 * var(--u)); height: calc(41.08 * var(--u)); background: var(--color-sky); border: calc(5.5 * var(--u)) solid var(--color-gold); }
-.cupones__want span { position: relative; z-index: 1; }
+.cupones__want { position: absolute; left: calc(50% - (239 * var(--u)) / 2 + 0.46 * var(--u)); top: calc(566.26 * var(--u)); z-index: 8; width: calc(239 * var(--u)); height: calc(55 * var(--u)); padding: 0; font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; }
 
 @media (prefers-reduced-motion: reduce) {
   .carrusel__track { transition: none; }
@@ -330,11 +322,7 @@
 .formulario__checkbox:focus-visible + .formulario__checkbox-visual { outline: calc(2 * var(--u)) solid var(--color-gold); outline-offset: calc(2 * var(--u)); }
 .formulario__terms-text { white-space: nowrap; }
 .formulario__terms-text a { color: var(--color-link); }
-.formulario__submit { position: relative; width: calc(239 * var(--u)); height: calc(55 * var(--u)); padding: 0; border: 0; background: transparent; color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; line-height: calc(29 * var(--u)); }
-.formulario__submit::before, .formulario__submit::after { position: absolute; content: ""; border-radius: calc(40.34 * var(--u)); }
-.formulario__submit::before { left: calc(-0.12 * var(--u)); top: calc(0.82 * var(--u)); width: calc(239.07 * var(--u)); height: calc(54.33 * var(--u)); background: var(--color-gold-mid); }
-.formulario__submit::after { left: calc(5.97 * var(--u)); top: calc(5.73 * var(--u)); width: calc(226.9 * var(--u)); height: calc(41.08 * var(--u)); border: calc(5.5 * var(--u)) solid var(--color-gold); background: var(--color-sky); }
-.formulario__submit span { position: relative; z-index: 1; }
+.formulario__submit { width: calc(239 * var(--u)); height: calc(55 * var(--u)); padding: 0; font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; }
 .formulario__submit:focus-visible { outline: calc(2 * var(--u)) solid var(--color-navy); outline-offset: calc(3 * var(--u)); }
 
 .footer { position: relative; display: flex; width: 100%; min-height: calc(618.52 * var(--u)); padding-inline: calc(24 * var(--u)); overflow: hidden; flex-direction: column; align-items: center; gap: calc(24 * var(--u)); background: var(--color-orange-hex); }
@@ -502,7 +490,7 @@
      controlsVisible en intro-scroll.js: si se mueve uno, se mueve el otro. */
   opacity: clamp(0, calc(var(--piramide-p, 0) / 0.15), 1);
   transform-origin: 0 0;
-  transform: translate(calc((-123.13 * var(--piramide-p, 0) - 528.05 * var(--puerta-p, 0)) * var(--u)), calc((-445.26 * var(--piramide-p, 0) - 1541.18 * var(--puerta-p, 0)) * var(--u))) scale(calc(1 + 0.6587 * var(--piramide-p, 0) + 2.6233 * var(--puerta-p, 0)));
+  transform: translate(calc((-123.13 * var(--piramide-p, 0) - 1200.10 * var(--puerta-p, 0) - 100.71 * var(--entrada-p, 0)) * var(--u)), calc((-445.26 * var(--piramide-p, 0) - 3242.59 * var(--puerta-p, 0) - 214.27 * var(--entrada-p, 0)) * var(--u))) scale(calc(1 + 0.6587 * var(--piramide-p, 0) + 5.8413 * var(--puerta-p, 0) + 0.5 * var(--entrada-p, 0)));
   visibility: hidden;
   pointer-events: none;
 }
@@ -511,6 +499,12 @@
   top: calc(91.61 * var(--u));
   left: calc(104.07 * var(--u));
   width: calc(227.51 * var(--u));
+}
+
+.piramide-escena__nube-alta,
+.piramide-escena__nube-der,
+.piramide-escena__nube-izq {
+  display: none;
 }
 
 .piramide-escena__piramide {
@@ -523,6 +517,71 @@
   top: calc(541.61 * var(--u));
   left: calc(-130.96 * var(--u));
   width: calc(737.57 * var(--u));
+  transform: translateY(calc(120 * var(--entrada-p, 0) * var(--u)));
+}
+
+/* La puerta se abre y luego la cámara entra al interior durante los dos
+   últimos tramos del riel (intro-scroll.js). */
+.piramide-puerta {
+  position: absolute;
+  top: calc(506.25 * var(--u));
+  left: calc(164.44 * var(--u));
+  /* Maquetado 8x y contra-escalado: obliga a rasterizar hojas.svg a 605px
+     en vez de a 75px, que con el zoom x8 del ancestro se veía borroso. */
+  width: calc(605.36 * var(--u));
+  height: calc(497.52 * var(--u));
+  perspective: calc(1520 * var(--u));
+  transform: scale(0.125);
+  transform-origin: 0 0;
+}
+
+.piramide-puerta img {
+  position: absolute;
+  display: block;
+  max-width: none;
+}
+
+.piramide-puerta .piramide-puerta__hoja {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* El envoltorio lleva el recorte del vano y la profundidad. Se abre con
+   --entrada-p hasta cubrir la pantalla: a partir de ahí ya estamos adentro
+   y el marco deja de encuadrar. */
+.piramide-puerta__vano {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(
+    calc(3.01% - 200% * var(--entrada-p, 0)) calc(9.08% - 200% * var(--entrada-p, 0)),
+    calc(94.75% + 200% * var(--entrada-p, 0)) calc(3.98% - 200% * var(--entrada-p, 0)),
+    calc(94.75% + 200% * var(--entrada-p, 0)) calc(94.25% + 200% * var(--entrada-p, 0)),
+    calc(3.01% - 200% * var(--entrada-p, 0)) calc(99.37% + 200% * var(--entrada-p, 0))
+  );
+  transform: translateZ(calc(-480 * var(--u))) scale(1.3158);
+  transform-origin: center;
+}
+
+.piramide-puerta .piramide-puerta__interior {
+  left: calc(18.22 * var(--u));
+  top: calc(-236.55 * var(--u));
+  width: calc(555.36 * var(--u));
+  height: calc(987.3 * var(--u));
+}
+
+/* Cada hoja es el SVG completo recortado a su mitad, con bisagra en su borde
+   exterior. Abren hacia adentro: la izquierda gira en positivo. */
+.piramide-puerta__hoja--izq {
+  clip-path: inset(0 50% 0 0);
+  transform-origin: 3.01% 50%;
+  transform: rotateY(calc(80deg * var(--apertura-p, 0)));
+}
+
+.piramide-puerta__hoja--der {
+  clip-path: inset(0 0 0 50%);
+  transform-origin: 94.75% 50%;
+  transform: rotateY(calc(-80deg * var(--apertura-p, 0)));
 }
 
 .piramide-escena[data-piramide-active="true"] {
@@ -641,32 +700,13 @@
   width: calc(284.32 * var(--u));
   height: calc(59.26 * var(--u));
   padding: 0;
-  border: 0;
-  border-radius: calc(44 * var(--u));
-  background: var(--color-gold-dark);
   color: var(--color-navy);
   font-family: var(--font-display);
   font-size: calc(26 * var(--u));
+  line-height: 1;
   font-weight: 600;
   transform-origin: center;
   transform: scale(calc(0.7 * var(--p-start-event) + 0.3 * var(--p-start-event) * var(--p-start-event) + 0.08 * var(--p-start-event) * (1 - var(--p-start-event))));
-}
-
-.hero__start::before {
-  position: absolute;
-  top: calc(5.69 * var(--u));
-  left: calc(10.33 * var(--u));
-  width: calc(269.83 * var(--u));
-  height: calc(44.81 * var(--u));
-  border: calc(6 * var(--u)) solid var(--color-gold);
-  border-radius: calc(44 * var(--u));
-  background: var(--color-sky);
-  content: "";
-}
-
-.hero__start span {
-  position: relative;
-  z-index: 1;
 }
 
 .hero__question-ui {
@@ -779,12 +819,11 @@
   width: calc(239 * var(--u));
   height: calc(55 * var(--u));
   padding: 0;
-  border: 0;
-  border-radius: calc(40.34 * var(--u));
-  background: #3a3a39;
+  background: var(--color-navy);
   color: #ffffff;
   font-family: var(--font-display);
   font-size: calc(22 * var(--u));
+  line-height: 1;
   font-weight: 600;
   transform: scale(0);
   transform-origin: center;
@@ -797,34 +836,10 @@
   pointer-events: auto;
 }
 
-.hero__continue::before {
-  position: absolute;
-  top: calc(5.73 * var(--u));
-  left: calc(5.97 * var(--u));
-  width: calc(226.9 * var(--u));
-  height: calc(41.08 * var(--u));
-  border: calc(5.5 * var(--u)) solid #828282;
-  border-radius: calc(40.34 * var(--u));
-  background: #b2b2b2;
-  content: "";
-}
-
-.hero__continue span {
-  position: relative;
-  z-index: 1;
-}
+.hero__continue:disabled { background: #b2b2b2; }
 
 .hero__continue:disabled {
   cursor: not-allowed;
-}
-
-.hero__continue:not(:disabled) {
-  background: #c38809;
-}
-
-.hero__continue:not(:disabled)::before {
-  border-color: var(--color-gold);
-  background: var(--color-navy);
 }
 
 .hero__result {
@@ -1170,10 +1185,45 @@
     --p-anuncio-out: clamp(0, calc((var(--anuncio-p, 1) - 0.6) / 0.4), 1);
   }
 
+  .piramide-escena {
+    transform: none;
+  }
+
   .hero__clouds {
     top: calc(133.99 * var(--ud));
     left: calc(667.83 * var(--ud));
     width: calc(359.65 * var(--ud));
+  }
+
+  .piramide-escena__nube-sol {
+    display: none;
+  }
+
+  .piramide-escena__nube-alta {
+    display: block;
+    top: calc(73 * var(--ud));
+    left: calc(525.54 * var(--ud));
+    width: calc(359.65 * var(--ud));
+  }
+
+  .piramide-escena__nube-der {
+    display: block;
+    top: calc(268 * var(--ud));
+    left: calc(1204.82 * var(--ud));
+    width: calc(184.41 * var(--ud));
+  }
+
+  .piramide-escena__nube-izq {
+    display: block;
+    top: calc(364.72 * var(--ud));
+    left: calc(154 * var(--ud));
+    width: calc(184.41 * var(--ud));
+  }
+
+  .piramide-escena__piramide {
+    top: calc(330.93 * var(--ud));
+    left: calc(115.06 * var(--ud));
+    width: calc(1209.90 * var(--ud));
   }
 
   .hero__stage .hero__lockup {
@@ -1273,6 +1323,19 @@
     text-decoration-line: underline;
   }
 
+  .hero__stage[data-estado="pregunta"] .hero__skip[data-quiz-active] {
+    top: calc(815 * var(--ud));
+    left: 50%;
+    width: calc(484 * var(--ud));
+    height: calc(36 * var(--ud));
+    color: var(--color-brown-dark);
+    font-size: calc(32 * var(--ud));
+    font-weight: 600;
+    line-height: calc(36 * var(--ud));
+    text-decoration-line: underline;
+    text-align: center;
+  }
+
   .hero__sphinx-group {
     /* Desktop: el grupo cubre el stage; las hijas van en coords de frame.
        El transform de acercamiento sigue calibrado para mobile. */
@@ -1367,6 +1430,23 @@
   .hero__stage .hero__option:nth-child(2) { top: calc(343 * var(--ud)); }
   .hero__stage .hero__option:nth-child(3) { top: calc(439 * var(--ud)); }
   .hero__stage .hero__option:nth-child(4) { top: calc(535 * var(--ud)); }
+
+  .hero__stage .hero__continue {
+    top: calc(725 * var(--ud));
+    left: calc(479 * var(--ud));
+    width: calc(482 * var(--ud));
+    height: calc(76 * var(--ud));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero__stage .hero__continue span {
+    font-size: calc(32 * var(--ud));
+    line-height: calc(36 * var(--ud));
+    font-weight: 600;
+    color: #fff;
+  }
 }
 
 /* Rendimiento de scroll desktop (ver docs/rendimiento-scroll.md).
@@ -1393,4 +1473,44 @@
   html[data-scrolling] .puerta__escena {
     will-change: transform;
   }
+}
+
+/* Relevo del interior de la pirámide: una vez que la cámara del hero
+   terminó de entrar, esta capa fija toma la posta con el mismo encuadre
+   exacto, así el hero puede irse scrolleando sin que se note el corte.
+   Los números salen de la posición final de .piramide-puerta__interior:
+   555.36 x 987.30 unidades con su esquina en (-90.20u, -88.67u). */
+.sala-fondo {
+  position: fixed;
+  z-index: 9;
+  /* Misma columna que el body, igual que .site-header: si no, en viewports de
+     más de 480px la capa queda centrada distinto que el hero y se ve el salto. */
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  max-width: 480px;
+  transform: translateX(-50%);
+  background-color: #2A1A0E;
+  background-image: url("../img/interior-claro.jpeg");
+  background-repeat: no-repeat;
+  background-size: calc(555.36 * var(--u)) calc(987.30 * var(--u));
+  /* La x va desde el borde de la columna, igual que en el stage. La y suma el
+     desplazamiento del stage dentro del viewport: .hero__sticky lo ancla abajo,
+     así que su tope está en 100svh - 667u, y el interior arranca 88.67u más
+     arriba todavía. */
+  background-position: calc(-90.20 * var(--u)) calc(100svh - 755.67 * var(--u));
+  visibility: hidden;
+  pointer-events: none;
+  /* Smoothstep sobre el riel de prueba-superada: arranca en 0.12 (ya armada
+     detrás) y termina en 0.55, ~95svh. La curva t*t*(3-2t) suaviza los dos
+     extremos; con rampa lineal el principio y el final se leen como corte. */
+  --t: clamp(0, calc((0.55 - var(--sala-salida-p, 0)) / 0.43), 1);
+  opacity: calc(var(--t) * var(--t) * (3 - 2 * var(--t)));
+}
+
+body[data-en-sala="true"] .sala-fondo { visibility: visible; }
+
+@media (min-width: 900px) {
+  .sala-fondo { display: none; }
 }

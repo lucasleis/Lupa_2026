@@ -43,18 +43,39 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 if (heroTrack) {
   const panelRailsDesktop = window.matchMedia('(min-width: 900px)');
+  const ALTURA_RESULTADO_MOBILE = 350;
+  const ALTURA_RESULTADO_DESKTOP = 200;
+  const ALTURA_MOVIMIENTO_SALIDA = 200;
+  const INICIO_MOVIMIENTO_SALIDA = 0.3;
+  const ALTURA_QUIZ_MOBILE = 200;
+  const GLOBO_COMPLETO_EN = 0.5;
+  const PAUSA_GLOBO_SVH = 50;
+  const ENTRADA_CONTROLES_DESKTOP = 0.62;
+  const RESULTADO_TRAMOS = { quizSalidaFin: 0.29, resultadoEntradaInicio: 0.29, resultadoEntradaFin: 0.57 };
+  const RESULTADO_TRAMOS_DESKTOP = { quizSalidaFin: 0.5, resultadoEntradaInicio: 0.5, resultadoEntradaFin: 1 };
   const alturaRielPanel = () => panelRailsDesktop.matches ? '0svh' : '200svh';
-  const alturaRielQuiz = () => panelRailsDesktop.matches ? '250svh' : '150svh';
-  let ENTRADA_CONTROLES = panelRailsDesktop.matches ? 0.62 : 0.5;
+  const alturaRielSalida = () => panelRailsDesktop.matches
+    ? '0svh'
+    : `${ALTURA_MOVIMIENTO_SALIDA / (1 - INICIO_MOVIMIENTO_SALIDA)}svh`;
+  const alturaRielQuiz = () => panelRailsDesktop.matches ? '250svh' : `${ALTURA_QUIZ_MOBILE}svh`;
+  const alturaRielResultado = () => panelRailsDesktop.matches
+    ? `${ALTURA_RESULTADO_DESKTOP}svh`
+    : `${ALTURA_RESULTADO_MOBILE}svh`;
+  const tramosResultado = () => panelRailsDesktop.matches ? RESULTADO_TRAMOS_DESKTOP : RESULTADO_TRAMOS;
+  const alturaRielPiramide = () => panelRailsDesktop.matches ? '150svh' : '800svh';
+  const entradaControles = () => panelRailsDesktop.matches
+    ? ENTRADA_CONTROLES_DESKTOP
+    : GLOBO_COMPLETO_EN + PAUSA_GLOBO_SVH / ALTURA_QUIZ_MOBILE;
+  let ENTRADA_CONTROLES = entradaControles();
 
   // La participacion del panel se deriva de sus rieles, no del breakpoint.
   const RAIL_HEIGHTS = {
     entrada: alturaRielPanel(),
-    salida: alturaRielPanel(),
+    salida: alturaRielSalida(),
     anuncio: '150svh',
     quiz: alturaRielQuiz(),
-    resultado: '200svh',
-    piramide: '400svh',
+    resultado: alturaRielResultado(),
+    piramide: alturaRielPiramide(),
   };
   const panelEstaEnJuego = () => Number.parseFloat(RAIL_HEIGHTS.entrada) > 0
     || Number.parseFloat(RAIL_HEIGHTS.salida) > 0;
@@ -80,15 +101,18 @@ if (heroTrack) {
   // riel se habilita al cumplirse su condicion:
   //   EMPEZAR -> entrada | 3 papiros -> salida + quiz
   //   respuesta -> resultado | resultado al 100% -> piramide
-  //   piramide (300svh), con --puerta-p del hero al 85% -> se revela el resto
-  //   de la pagina. Este --puerta-p del hero no es el de la seccion .puerta:
+  //   Desktop libera con --piramide-p al 85%; mobile con --puerta-p al 85%.
+  //   El riel piramide mide 150svh en desktop y 500svh en mobile. Se revela
+  //   el resto de la pagina. Este --puerta-p del hero no es el de la seccion .puerta:
   //   son variables homonimas en scopes distintos; puerta.js escribe la segunda
   //   sobre .puerta__stage y es la unica que lee .puerta__fundido.
   const recalcularAlturasRielesPanel = () => {
     RAIL_HEIGHTS.entrada = alturaRielPanel();
-    RAIL_HEIGHTS.salida = alturaRielPanel();
+    RAIL_HEIGHTS.salida = alturaRielSalida();
     RAIL_HEIGHTS.quiz = alturaRielQuiz();
-    ENTRADA_CONTROLES = panelRailsDesktop.matches ? 0.62 : 0.5;
+    RAIL_HEIGHTS.resultado = alturaRielResultado();
+    RAIL_HEIGHTS.piramide = alturaRielPiramide();
+    ENTRADA_CONTROLES = entradaControles();
     panelEnJuego = panelEstaEnJuego();
     puzzleStarted = !panelEnJuego;
     puzzleComplete = !panelEnJuego;
@@ -96,6 +120,8 @@ if (heroTrack) {
     habilitarRiel(exitRail, '--panel-exit-rail-height', puzzleComplete ? RAIL_HEIGHTS.salida : '0svh');
     habilitarRiel(anuncioRail, '--anuncio-rail-height', panelEnJuego ? '0svh' : RAIL_HEIGHTS.anuncio);
     habilitarRiel(quizRail, '--quiz-rail-height', panelEnJuego ? '0svh' : RAIL_HEIGHTS.quiz);
+    habilitarRiel(resultRail, '--resultado-rail-height', answerSubmitted ? RAIL_HEIGHTS.resultado : '0svh');
+    habilitarRiel(pyramidRail, '--piramide-rail-height', pyramidRailEnabled ? RAIL_HEIGHTS.piramide : '0svh');
     panel?.setAttribute('aria-hidden', 'true');
     setSceneState('intro');
   };
@@ -118,34 +144,48 @@ if (heroTrack) {
     // Entry conserva el punto cero antiguo: habilitarRielYDesplazar calcula su smooth-scroll con esa geometría.
     const entryProgress = progresoDeRiel(entryRail);
     const exitRailHeight = exitRail?.getBoundingClientRect().height;
-    const exitProgress = puzzleComplete
+    const exitRailProgress = puzzleComplete
       ? (exitRailHeight === 0 ? 1 : progresoDeRiel(exitRail, { desdeElTope: true }))
       : 0;
+    const exitProgress = panelRailsDesktop.matches
+      ? exitRailProgress
+      : clamp((exitRailProgress - INICIO_MOVIMIENTO_SALIDA) / (1 - INICIO_MOVIMIENTO_SALIDA));
     const anuncioProgress = panelEnJuego
       ? 1
       : progresoDeRiel(anuncioRail, { desdeElTope: true, destino: heroStage, propiedad: '--anuncio-p' });
     const anuncioListo = anuncioProgress >= 0.999;
-    const quizProgress = (!panelEnJuego || (puzzleComplete && exitProgress >= 1))
+    const quizProgress = (!panelEnJuego || (puzzleComplete && exitRailProgress >= 1))
       ? progresoDeRiel(quizRail, { desdeElTope: true, destino: heroStage, propiedad: '--quiz-p' })
       : 0;
-    // Reparto del riel de piramide: primera parte es la aproximacion
-    // (--piramide-p, scale 1 a 1.66), el resto la entrada a la puerta
-    // (--puerta-p, scale 1.66 a 4.28). Bajarlo le da mas recorrido a la puerta.
+    // Reparto: aproximacion (--piramide-p), entrada a la puerta
+    // (--puerta-p, hasta 0.78), apertura (0.78 a 0.88) y entrada al interior
+    // (--entrada-p, 0.88 a 1), con escala de 1 a 8.
     const REPARTO_PIRAMIDE = 0.5;
     // El zoom de la puerta termina acá; el resto del riel es freno, con la
     // escena sostenida en su zoom final antes de que el hero se suelte.
-    const FRENO_PIRAMIDE = 0.88;
+    const FRENO_PIRAMIDE = 0.78;
+    const APERTURA_FIN = 0.88;
     const pyramidProgress = pyramidRailEnabled
       ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0, fin: REPARTO_PIRAMIDE, destino: heroStage, propiedad: '--piramide-p' })
       : 0;
     const doorProgress = pyramidRailEnabled
       ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: REPARTO_PIRAMIDE, fin: FRENO_PIRAMIDE, destino: heroStage, propiedad: '--puerta-p' })
       : 0;
-    // Checkpoint final: se revela el resto de la pagina poco antes del fin del
-    // riel. No hay fundido en .piramide-escena (el de .puerta__fundido usa otro
-    // --puerta-p, el de .puerta__stage); es seguro porque el contenido aparece
-    // por debajo del viewport y no desplaza nada de lo que se esta mirando.
-    if (doorProgress >= 0.85) liberarScroll();
+    // Terminado el zoom, el freno abre las hojas y luego acerca al interior.
+    if (pyramidRailEnabled) {
+      progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: FRENO_PIRAMIDE, fin: APERTURA_FIN, destino: heroStage, propiedad: '--apertura-p' });
+      const entradaProgress = progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: APERTURA_FIN, fin: 1, destino: heroStage, propiedad: '--entrada-p' });
+      document.body.dataset.enSala = String(entradaProgress >= 0.999);
+    }
+    // Checkpoint final: desktop usa --piramide-p y mobile --puerta-p. No hay
+    // fundido en .piramide-escena (el de .puerta__fundido usa otro --puerta-p,
+    // el de .puerta__stage); el contenido aparece por debajo del viewport y no
+    // desplaza nada de lo que se esta mirando.
+    if (panelRailsDesktop.matches) {
+      if (pyramidProgress >= 0.85) liberarScroll();
+    } else if (doorProgress >= 0.85) {
+      liberarScroll();
+    }
     panelProgress = panelEnJuego ? entryProgress * 0.5 + exitProgress * 0.5 : 1;
     const effectivePanelProgress = panelProgress;
     if (skipLink) {
@@ -160,7 +200,7 @@ if (heroTrack) {
     }
 
     if (puzzleStarted) {
-      if (puzzleComplete && (exitProgress <= 0.001 || !anuncioListo)) {
+      if (puzzleComplete && (exitRailProgress <= 0.001 || !anuncioListo)) {
         setSceneState('intro');
       } else if (puzzleComplete && exitProgress > 0.001 && anuncioListo) {
         setSceneState('pregunta');
@@ -170,12 +210,13 @@ if (heroTrack) {
         // Apareado con la rampa 0.15 de .piramide-escena para que el resultado
         // siga visible mientras la piramide lo tapa progresivamente.
         && pyramidProgress < 0.15;
+      const resultadoRielTramos = tramosResultado();
       const resultExitProgress = answerSubmitted
-        ? progresoDeRiel(resultRail, { desdeElTope: true, inicio: 0, fin: 0.5 })
+        ? progresoDeRiel(resultRail, { desdeElTope: true, inicio: 0, fin: resultadoRielTramos.quizSalidaFin })
         : 0;
       const resultProgress = answerSubmitted ? progresoDeRiel(resultRail, { desdeElTope: true }) : 0;
       const resultEntryProgress = answerSubmitted
-        ? progresoDeRiel(resultRail, { desdeElTope: true, inicio: 0.5, fin: 1 })
+        ? progresoDeRiel(resultRail, { desdeElTope: true, inicio: resultadoRielTramos.resultadoEntradaInicio, fin: resultadoRielTramos.resultadoEntradaFin })
         : 0;
       const quizExitProgress = 1 - resultExitProgress;
       heroStage?.style.setProperty('--resultado-salida-p', String(resultExitProgress));
