@@ -3,11 +3,6 @@ const ofertas = document.querySelector('.ofertas');
 const popup = document.querySelector('.popup');
 
 let armada = false;
-// Enfriamiento: el pase puede repetirse, pero no dos veces seguidas al toque.
-// Es defensa contra un re-disparo en rafaga desde el origen, que al tomar el
-// lock de scroll dejaria la pagina encerrada.
-const ENFRIAMIENTO = 1200;
-let ultimoPase = 0;
 
 const revelar = () => {
   if (!cortina || !ofertas || !armada) return;
@@ -18,6 +13,9 @@ const revelar = () => {
   // queda sin riel, riel vale 0 y esto se comporta como antes.
   const riel = Math.max(0, ofertas.offsetHeight - window.innerHeight);
   const top = window.scrollY + ofertas.getBoundingClientRect().top + riel * 0.35;
+  document.body.dataset.puertaRevelada = 'true';
+  document.body.style.removeProperty('--puerta-progress');
+  delete cortina.dataset.entrada;
   document.documentElement.style.overflow = '';
   window.scrollTo({ top, behavior: 'auto' });
   // Dos frames: el primero aplica el salto, el segundo le da a la transicion
@@ -29,10 +27,11 @@ const revelar = () => {
   });
 };
 
-document.addEventListener('puerta:final', () => {
+document.addEventListener('interior:final', () => {
   if (!cortina || armada) return;
-  if (Date.now() - ultimoPase < ENFRIAMIENTO) return;
-  ultimoPase = Date.now();
+  // El popup solo se muestra una vez por carga. En recorridos posteriores,
+  // deja que el usuario continúe desplazándose sin volver a bloquearlo.
+  if (popup?.classList.contains('popup--montado') && popup.getAttribute('aria-hidden') !== 'false') return;
   armada = true;
   cortina.dataset.activa = 'true';
   // El popup abre en este mismo evento. Se resuelve en el siguiente

@@ -53,7 +53,7 @@ const abrir = () => {
   document.dispatchEvent(new CustomEvent('popup:abierto'));
 };
 
-document.addEventListener('puerta:final', abrir);
+document.addEventListener('interior:final', abrir);
 
 popup?.addEventListener('click', (event) => {
   if (event.target === popup) cerrar();

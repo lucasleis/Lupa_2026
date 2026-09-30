@@ -11,11 +11,17 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
   // cobra scroll vacio.
   if (reducedMotion.matches) {
     stage.style.setProperty('--escena-p', '1');
+    if (section.classList.contains('interior')) {
+      window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
+        document.dispatchEvent(new CustomEvent('interior:final'));
+      }));
+    }
     return;
   }
 
   section.dataset.entradaActiva = 'true';
   let framePending = false;
+  let interiorEnFinal = false;
 
   const actualizar = () => {
     framePending = false;
@@ -24,6 +30,15 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
     // de salida necesita este progreso en el body.
     if (section.classList.contains('prueba-superada')) {
       document.body.style.setProperty('--sala-salida-p', String(p));
+    }
+    if (section.classList.contains('interior')) {
+      document.body.style.setProperty('--interior-p', String(p));
+      if (p >= 0.999 && !interiorEnFinal) {
+        interiorEnFinal = true;
+        document.dispatchEvent(new CustomEvent('interior:final'));
+      } else if (p < 0.9) {
+        interiorEnFinal = false;
+      }
     }
   };
   const solicitarActualizacion = () => {
