@@ -7,6 +7,20 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
   const rail = section.querySelector('.escena-rail');
   if (!stage || !rail) return;
 
+  const stagePanel = stage.closest('.escena__panel');
+  const couponsPanel = section.querySelector('.cupones__stage')?.closest('.escena__panel');
+  const setCouponsOpen = (open) => {
+    section.dataset.cupones = String(open);
+    stagePanel.inert = open;
+    stagePanel.setAttribute('aria-hidden', String(open));
+    couponsPanel.inert = !open;
+    couponsPanel.setAttribute('aria-hidden', String(!open));
+  };
+  section.querySelector('.prueba-superada__cupones')?.addEventListener('click', () => setCouponsOpen(true));
+  section.querySelector('.cupones__back')?.addEventListener('click', () => setCouponsOpen(false));
+  document.querySelector('.site-menu a[href="#cupones"]')?.addEventListener('click', () => setCouponsOpen(true));
+  setCouponsOpen(false);
+
   // Sin movimiento: la seccion se ve entera y el riel queda en 0, asi que no
   // cobra scroll vacio.
   if (reducedMotion.matches) {

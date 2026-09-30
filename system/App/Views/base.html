@@ -126,8 +126,10 @@
         <!-- Riel provisional: se reserva espacio para la futura aproximación a la pirámide. -->
         <div class="acertijo-panel-rail acertijo-panel-rail--piramide" aria-hidden="true"></div>
       </section>
-    <section class="escena prueba-superada" data-entrada aria-labelledby="prueba-superada-title">
+    <section class="escena prueba-superada cupones" id="cupones" data-entrada data-cupones="false" aria-labelledby="prueba-superada-title">
       <div class="escena__sticky">
+        <div class="escena__track">
+        <div class="escena__panel" aria-hidden="false">
         <div class="escena__stage prueba-superada__stage">
           <h2 class="visually-hidden" id="prueba-superada-title">Has pasado la prueba de la Esfinge</h2>
           <div class="marco-papiro">
@@ -143,16 +145,12 @@
             <img src="img/acertijo/nube-rta.webp" alt="" width="287" height="124">
             <p aria-hidden="true">Has pasado la prueba de la Esfinge</p>
           </div>
-          <!-- Provisional: destino pendiente, la página de cupones no está hecha. -->
-          <a class="prueba-superada__cupones cta-layers" href="#" aria-disabled="false"><span>VER CUPONES</span></a>
+          <button class="prueba-superada__cupones cta-layers" type="button"><span>VER CUPONES</span></button>
           <img class="marco-papiro__cenefa marco-papiro__cenefa--inferior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
         </div>
-      </div>
-      <div class="escena-rail" aria-hidden="true"></div>
-    </section>
-    <section class="escena cupones" aria-labelledby="cupones-title">
-      <div class="escena__sticky">
-        <div class="escena__stage cupones__stage">
+        </div>
+        <div class="escena__panel" aria-hidden="true" inert>
+        <div class="escena__stage cupones__stage" aria-labelledby="cupones-title">
           <div class="marco-papiro" aria-hidden="true">
             <img class="marco-papiro__glifo marco-papiro__glifo--uno" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
             <img class="marco-papiro__glifo marco-papiro__glifo--dos" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
@@ -178,8 +176,14 @@
           <div class="carrusel__dots" role="tablist" aria-label="Seleccionar cupón"></div>
           <!-- Provisional: el comportamiento de LOS QUIERO está sin definir. -->
           <button class="cupones__want cta-layers" type="button"><span>LOS QUIERO</span></button>
+          <button class="carrusel__arrow carrusel__arrow--prev cupones__back" type="button" aria-label="Volver">
+            <span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21"></span>
+          </button>
+        </div>
         </div>
       </div>
+      </div>
+      <div class="escena-rail" aria-hidden="true"></div>
     </section>
     <section class="escena puerta" aria-labelledby="puerta-title">
       <div class="escena__sticky">
