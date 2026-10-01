@@ -4,6 +4,11 @@ export const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, va
 
 // Sin desdeElTope: riel que contiene a su sticky. Con desdeElTope: riel posterior
 // al sticky que mide su recorrido completo.
+// ponytail: los rieles que pasan desdeElTope miden más de 100svh, así
+// que su progreso llega a 1 una ventana antes de que el riel termine y arranca
+// con el riel todavía bajo el fold. La animación está calibrada a ojo
+// contra ese mapeo; alinearlo con la duración del sticky obliga a recalibrar el
+// hero.
 export const progresoDeRiel = (rail, {
   inicio = 0,
   fin = 1,
