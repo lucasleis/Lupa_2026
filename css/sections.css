@@ -1343,7 +1343,7 @@
     text-decoration-line: underline;
   }
 
-  .hero__stage[data-estado="pregunta"] .hero__skip[data-quiz-active] {
+  .hero__stage[data-estado="pregunta"] .hero__skip[data-quiz-active="true"] {
     top: calc(815 * var(--ud));
     left: 50%;
     width: calc(484 * var(--ud));
