@@ -520,6 +520,11 @@
   width: calc(860.93 * var(--u));
 }
 
+/* ponytail: la arena quedó fuera de la migración a unidades ud del
+   breakpoint de escritorio. Como u se congela en 480/375 desde los
+   480px, su ancho queda clavado en ~944px y a partir de ~950px de viewport
+   deja un hueco a la derecha. En móvil cubre de sobra. Se arregla cuando se
+   reescriba el encuadre de escritorio, no antes. */
 .piramide-escena__arena {
   top: calc(541.61 * var(--u));
   left: calc(-130.96 * var(--u));
