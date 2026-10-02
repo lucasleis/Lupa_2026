@@ -1169,19 +1169,19 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
   }
 
   .marco-papiro__glifo {
-    width: calc(1615.16 * var(--ud));
-    opacity: 0.1;
+    content: url("../img/prueba-superada/glifos-fondo-desktop.svg");
+    left: 0;
+    width: calc(1440 * var(--ud));
+    height: calc(332 * var(--ud));
   }
 
   .marco-papiro__glifo--uno {
     top: calc(110 * var(--ud));
-    left: calc(-30.65 * var(--ud));
+    transform: scaleX(-1);
   }
 
   .marco-papiro__glifo--dos {
     top: calc(489.84 * var(--ud));
-    left: calc(-30.65 * var(--ud));
-    transform: scaleX(-1);
   }
 
   .marco-papiro__glifo--tres {
