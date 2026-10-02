@@ -1142,6 +1142,115 @@
 body[data-en-sala="true"] .pase-puerta { opacity: 1; }
 
 @media (min-width: 900px) {
+  .marco-papiro__cenefa--superior {
+    top: calc(-20.03 * var(--ud));
+    left: calc(-68.31 * var(--ud));
+    width: calc(1516.16 * var(--ud));
+  }
+
+  .marco-papiro__cenefa--inferior {
+    top: calc(839.15 * var(--ud));
+    left: calc(-4.50 * var(--ud));
+    width: calc(1441 * var(--ud));
+  }
+
+  .marco-papiro__columna {
+    top: calc(-5.06 * var(--ud));
+    width: calc(189.39 * var(--ud));
+  }
+
+  .marco-papiro__columna--izquierda {
+    left: calc(-96.50 * var(--ud));
+  }
+
+  .marco-papiro__columna--derecha {
+    left: calc(1353.15 * var(--ud));
+  }
+
+  .marco-papiro__glifo {
+    width: calc(1615.16 * var(--ud));
+    opacity: 0.1;
+  }
+
+  .marco-papiro__glifo--uno {
+    top: calc(110 * var(--ud));
+    left: calc(-30.65 * var(--ud));
+  }
+
+  .marco-papiro__glifo--dos {
+    top: calc(489.84 * var(--ud));
+    left: calc(-30.65 * var(--ud));
+    transform: scaleX(-1);
+  }
+
+  .marco-papiro__glifo--tres {
+    display: none;
+  }
+
+  .prueba-superada__stage .prueba-superada__ofertiti {
+    top: calc(204.05 * var(--ud));
+    left: calc(238.75 * var(--ud));
+    width: calc(402.30 * var(--ud));
+  }
+
+  .prueba-superada__stage .prueba-superada__globo {
+    top: calc(138 * var(--ud));
+    left: calc(619 * var(--ud));
+    width: calc(575.22 * var(--ud));
+    height: calc(249.64 * var(--ud));
+  }
+
+  .prueba-superada__stage .prueba-superada__globo p {
+    top: 27.94%;
+    left: 50%;
+    width: calc(509.37 * var(--ud));
+    height: auto;
+    color: #3A2A24;
+    font-family: var(--font-display);
+    font-size: calc(51.95 * var(--ud));
+    font-weight: 800;
+    line-height: calc(54 * var(--ud));
+    text-align: center;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+  }
+
+  .prueba-superada__stage .prueba-superada__cupones {
+    top: calc(675 * var(--ud));
+    left: calc(670.5 * var(--ud));
+    width: calc(482 * var(--ud));
+    height: calc(76 * var(--ud));
+    border: 0;
+    border-radius: calc(56.54 * var(--ud));
+    background: #C38809;
+    box-shadow: none;
+    color: #1B1E3C;
+    font-family: var(--font-display);
+    font-size: calc(32 * var(--ud));
+    font-weight: 600;
+    line-height: calc(36 * var(--ud));
+  }
+
+  .prueba-superada__stage .prueba-superada__cupones::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(462.52 * var(--ud));
+    height: calc(57.58 * var(--ud));
+    box-sizing: border-box;
+    border: calc(7.71 * var(--ud)) solid #F5B223;
+    border-radius: calc(56.54 * var(--ud));
+    background: #00A0DD;
+    content: "";
+    transform: translate(-50%, -50%);
+  }
+
+  .prueba-superada__stage .prueba-superada__cupones span {
+    position: relative;
+    z-index: 1;
+    line-height: calc(36 * var(--ud));
+  }
+
   .hero__stage {
     --p-anuncio-out: clamp(0, calc((var(--anuncio-p, 1) - 0.6) / 0.4), 1);
   }
