@@ -110,9 +110,7 @@ if (heroTrack) {
   //   respuesta -> resultado | resultado al 100% -> piramide
   //   Desktop libera con --piramide-p al 85%; mobile con --puerta-p al 85%.
   //   El riel piramide mide 150svh en desktop y 500svh en mobile. Se revela
-  //   el resto de la pagina. Este --puerta-p del hero no es el de la seccion .puerta:
-  //   son variables homonimas en scopes distintos; puerta.js escribe la segunda
-  //   sobre .puerta__stage y es la unica que lee .puerta__fundido.
+  //   el resto de la pagina.
   const recalcularAlturasRielesPanel = () => {
     RAIL_HEIGHTS.entrada = alturaRielPanel();
     RAIL_HEIGHTS.salida = alturaRielSalida();
