@@ -337,18 +337,22 @@ if (heroTrack) {
   const saltarAInicioDeTramo = () => {
     const params = new URLSearchParams(window.location.search);
     const tramo = params.get('saltar');
-    const tramos = ['acertijo', 'quiz', 'resultado', 'piramide', 'puerta'];
-    if (!tramos.includes(tramo)) return false;
+    if (!['intro', 'panel', 'quiz', 'resultado', 'piramide', 'interior', 'ofertas'].includes(tramo)) return;
     liberarScroll();
+
+    if (tramo === 'intro') {
+      irA(0, { immediate: true });
+      return;
+    }
 
     const respuesta = params.get('rta') === 'error' ? 'error' : 'acierto';
     puzzleStarted = true;
     panel?.setAttribute('aria-hidden', 'false');
     habilitarRiel(entryRail, '--panel-entry-rail-height', RAIL_HEIGHTS.entrada);
 
-    if (tramo === 'acertijo') {
+    if (tramo === 'panel') {
       irA(entryRail?.getBoundingClientRect().top + window.scrollY, { immediate: true });
-      return true;
+      return;
     }
 
     puzzleComplete = true;
@@ -358,7 +362,7 @@ if (heroTrack) {
 
     if (tramo === 'quiz') {
       irA(quizRail?.getBoundingClientRect().top + window.scrollY, { immediate: true });
-      return true;
+      return;
     }
 
     answerSubmitted = true;
@@ -368,21 +372,24 @@ if (heroTrack) {
 
     if (tramo === 'resultado') {
       irA(resultRail?.getBoundingClientRect().top + window.scrollY, { immediate: true });
-      return true;
+      return;
     }
 
     pyramidRailEnabled = true;
     habilitarRiel(pyramidRail, '--piramide-rail-height', RAIL_HEIGHTS.piramide);
     if (tramo === 'piramide') {
       irA(pyramidRail?.getBoundingClientRect().top + window.scrollY, { immediate: true });
-      return true;
+      return;
     }
 
-    const pyramidRect = pyramidRail?.getBoundingClientRect();
-    const pyramidScrollRange = (pyramidRect?.height ?? 0) - window.innerHeight;
-    const puertaScrollTop = window.scrollY + (pyramidRect?.top ?? 0) + 0.5 * pyramidScrollRange;
-    irA(puertaScrollTop, { immediate: true });
-    return true;
+    const escenaDestino = document.querySelector(tramo === 'interior' ? '.interior' : '.ofertas');
+    let antesDelDestino = true;
+    document.querySelectorAll('.escena[data-entrada]').forEach((escena) => {
+      if (!antesDelDestino) return;
+      escena.dataset.entradaActiva = 'true';
+      if (escena === escenaDestino) antesDelDestino = false;
+    });
+    irA(escenaDestino.getBoundingClientRect().top + window.scrollY, { immediate: true });
   };
 
   saltarAInicioDeTramo();
