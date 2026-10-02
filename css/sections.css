@@ -93,6 +93,7 @@
 
 .puerta { --escena-background: var(--color-wall); }
 .puerta__stage { --puerta-p: 0; background: var(--color-wall); }
+.puerta__encuadre { position: absolute; inset: 0; }
 .puerta__escena { position: absolute; inset: 0; transform-origin: calc(190.29 * var(--u)) calc(516.48 * var(--u)); transform: scale(calc(1 + 1.117 * var(--puerta-p) * var(--puerta-zoom-factor))); }
 .puerta__glifos { position: absolute; z-index: 1; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; /* El SVG fue editado a mano tras exportarlo para centralizar la opacidad en CSS. */ opacity: 0.3; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); transform: translateX(-50%); }
 .puerta__cenefa { position: absolute; z-index: 2; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: auto; max-width: none; }
@@ -1187,6 +1188,13 @@
 }
 body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
   visibility: visible;
+}
+
+@media (min-width: 900px) {
+  .puerta__encuadre {
+    transform-origin: 0 0;
+    transform: scale(calc(var(--ud) / var(--u) * 3));
+  }
 }
 
 @media (min-width: 900px) {
