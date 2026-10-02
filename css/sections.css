@@ -473,11 +473,6 @@
   width: calc(860.93 * var(--u));
 }
 
-/* ponytail: la arena quedó fuera de la migración a unidades ud del
-   breakpoint de escritorio. Como u se congela en 480/375 desde los
-   480px, su ancho queda clavado en ~944px y a partir de ~950px de viewport
-   deja un hueco a la derecha. En móvil cubre de sobra. Se arregla cuando se
-   reescriba el encuadre de escritorio, no antes. */
 .piramide-escena__arena {
   top: calc(541.61 * var(--u));
   left: calc(-130.96 * var(--u));
@@ -1190,6 +1185,32 @@ body[data-en-sala="true"] .pase-puerta { opacity: 1; }
     top: calc(330.93 * var(--ud));
     left: calc(115.06 * var(--ud));
     width: calc(1209.90 * var(--ud));
+  }
+
+  .piramide-escena__arena {
+    top: calc(639.65 * var(--ud));
+    left: calc(-474 * var(--ud));
+    width: calc(1948.56 * var(--ud));
+    transform: translateY(calc(120 * var(--entrada-p, 0) * var(--ud)));
+  }
+
+  .piramide-puerta {
+    top: calc(642.60 * var(--ud));
+    left: calc(688.50 * var(--ud));
+    width: calc(850.70 * var(--ud));
+    height: calc(699.10 * var(--ud));
+    perspective: calc(2136 * var(--ud));
+  }
+
+  .piramide-puerta__vano {
+    transform: translateZ(calc(-674.40 * var(--ud))) scale(1.3158);
+  }
+
+  .piramide-puerta .piramide-puerta__interior {
+    top: calc(-332.60 * var(--ud));
+    left: calc(25.60 * var(--ud));
+    width: calc(780.50 * var(--ud));
+    height: calc(1387.60 * var(--ud));
   }
 
   .hero__stage .hero__lockup {
