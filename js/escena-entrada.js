@@ -44,6 +44,7 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
     // de salida necesita este progreso en el body.
     if (section.classList.contains('prueba-superada')) {
       document.body.style.setProperty('--sala-salida-p', String(p));
+      document.body.dataset.salaSaliendo = String(p > 0);
     }
     if (section.classList.contains('interior')) {
       document.body.style.setProperty('--interior-p', String(p));

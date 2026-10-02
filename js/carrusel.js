@@ -15,10 +15,13 @@ export const inicializarCarrusel = (root, {
   const slides = [...track.children];
   const realSlides = slides.slice(0, cantidad);
   const viewport = root.querySelector('.carrusel__viewport');
+  const desktopCoupons = root.classList.contains('cupones') ? window.matchMedia('(min-width: 900px)') : null;
 
   if (circular) {
     const last = realSlides[realSlides.length - 1].cloneNode(true);
     const first = realSlides[0].cloneNode(true);
+    last.dataset.carruselClon = 'true';
+    first.dataset.carruselClon = 'true';
     last.setAttribute('aria-hidden', 'true');
     last.inert = true;
     first.setAttribute('aria-hidden', 'true');
@@ -34,9 +37,11 @@ export const inicializarCarrusel = (root, {
   const actualizarEstado = () => {
     track.style.setProperty('--carrusel-index', String(current));
     track.querySelectorAll('.carrusel__slide').forEach((slide, index) => {
-      const active = circular
-        ? index === current && index > 0 && index <= cantidad
-        : index === current;
+      const active = desktopCoupons?.matches
+        ? !slide.hasAttribute('data-carrusel-clon')
+        : circular
+          ? index === current && index > 0 && index <= cantidad
+          : index === current;
       slide.inert = !active;
       slide.setAttribute('aria-hidden', String(!active));
     });
@@ -87,6 +92,7 @@ export const inicializarCarrusel = (root, {
   let axis = null;
   let startTime = 0;
   track.addEventListener('touchstart', (event) => {
+    if (desktopCoupons?.matches) return;
     const touch = event.changedTouches[0];
     startX = touch.clientX;
     startY = touch.clientY;
@@ -94,6 +100,7 @@ export const inicializarCarrusel = (root, {
     axis = null;
   }, { passive: true });
   track.addEventListener('touchmove', (event) => {
+    if (desktopCoupons?.matches) return;
     const touch = event.changedTouches[0];
     const dx = touch.clientX - startX;
     const dy = touch.clientY - startY;
@@ -101,10 +108,15 @@ export const inicializarCarrusel = (root, {
     if (axis === 'horizontal') event.preventDefault();
   }, { passive: false });
   track.addEventListener('touchend', (event) => {
+    if (desktopCoupons?.matches) return;
     if (axis !== 'horizontal') return;
     const dx = event.changedTouches[0].clientX - startX;
     const elapsed = performance.now() - startTime;
     if (Math.abs(dx) > viewport.getBoundingClientRect().width * 0.25 || Math.abs(dx) / Math.max(elapsed, 1) > 0.5) irA(current + (dx < 0 ? 1 : -1));
   }, { passive: true });
+  desktopCoupons?.addEventListener('change', () => {
+    transitioning = false;
+    actualizarEstado();
+  });
   actualizarEstado();
 };
