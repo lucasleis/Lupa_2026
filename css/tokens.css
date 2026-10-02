@@ -32,6 +32,8 @@
   /* El recorrido efectivo de intro es el alto completo del riel. */
   --intro-rail-height: 150svh;
   --intro-track: 300svh;
+  --puerta-track: 300svh;
+  --puerta-zoom-factor: 1;
 
   --fs-display-1: calc(56 * var(--u));
   --fs-h1: calc(48 * var(--u));
@@ -73,5 +75,7 @@
 @media (prefers-reduced-motion: reduce) {
   :root {
     --intro-track: 100svh;
+    --puerta-track: 100svh;
+    --puerta-zoom-factor: 0.35;
   }
 }
