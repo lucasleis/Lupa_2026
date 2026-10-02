@@ -1191,6 +1191,12 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
 }
 
 @media (min-width: 900px) {
+  /* ponytail: provisional. Estira la composición de móvil, que está en
+     unidades u congeladas en 480/375, para que llene el stage de 1440. No es
+     el encuadre del diseño: en el frame de escritorio la pared de glifos
+     son dos bandas de 1439.67 x 378.26 al 5% de opacidad, y acá hay una
+     columna de 370u repetida al 30%. Se rehace cuando llegue el SVG del grupo
+     Capa_1 y se defina dónde termina el zoom de la pirámide. */
   .puerta__encuadre {
     transform-origin: 0 0;
     transform: scale(calc(var(--ud) / var(--u) * 3));
