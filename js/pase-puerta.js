@@ -16,17 +16,8 @@ const revelar = () => {
   const riel = Math.max(0, ofertas.offsetHeight - window.innerHeight);
   const top = window.scrollY + ofertas.getBoundingClientRect().top + riel * 0.35;
   document.body.dataset.puertaRevelada = 'true';
-  document.body.style.removeProperty('--puerta-progress');
-  delete cortina.dataset.entrada;
   document.documentElement.style.overflow = '';
   irA(top, { immediate: true });
-  // Dos frames: el primero aplica el salto, el segundo le da a la transicion
-  // un estado inicial del que partir.
-  window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => {
-      delete cortina.dataset.activa;
-    });
-  });
 };
 
 document.addEventListener('interior:final', () => {
@@ -35,7 +26,6 @@ document.addEventListener('interior:final', () => {
   // deja que el usuario continúe desplazándose sin volver a bloquearlo.
   if (popup?.classList.contains('popup--montado') && popup.getAttribute('aria-hidden') !== 'false') return;
   armada = true;
-  cortina.dataset.activa = 'true';
   // El popup abre en este mismo evento. Se resuelve en el siguiente
   // macrotask y leyendo el DOM, para no depender del orden en que popup.js
   // y este modulo registraron sus listeners.

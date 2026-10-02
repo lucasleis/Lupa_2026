@@ -1122,16 +1122,13 @@
   transform: translateX(calc(217.56 * var(--u)));
 }
 
-/* z-index 35: debajo de .popup (40) y encima de .hero__skip (30).
-   SIN visibility a propósito: no se interpola, y al desactivar la cortina
-   saltaría a hidden en el primer frame matando el fade de salida. */
+/* z-index 35: debajo de .popup (40) y encima de .hero__skip (30). */
 .pase-puerta {
   position: fixed;
   z-index: 35;
   inset: 0;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 700ms ease;
 }
 .pase-puerta::before {
   content: "";
@@ -1147,14 +1144,7 @@
   background-size: calc(555.36 * var(--u)) calc(987.30 * var(--u));
   background-position: calc(-90.20 * var(--u)) calc(100svh - 755.67 * var(--u));
 }
-.pase-puerta[data-entrada="true"] { opacity: clamp(0, calc((var(--puerta-progress, 0) - 0.85) / 0.15), 1); transition: none; }
-
-/* El fondo sigue fijo de la puerta a interior; al salir cubre el salto a ofertas. */
-.pase-puerta[data-activa="true"] { opacity: 1; transition: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .pase-puerta { transition: none; }
-}
+body[data-en-sala="true"] .pase-puerta { opacity: 1; }
 
 @media (min-width: 900px) {
   .hero__stage {
