@@ -303,6 +303,7 @@
 /* Editado a mano tras exportar el SVG: se neutralizó su opacity interna para calibrarla solo desde CSS. */
 .formulario__glifos { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; opacity: 0.1; }
 .formulario__banda { position: absolute; width: calc(821.2 * var(--u)); height: calc(164.8 * var(--u)); max-width: none; }
+.formulario__cenefa { display: none; }
 .formulario__banda--uno { left: calc(1.7 * var(--u)); top: -1.61%; }
 .formulario__banda--dos { left: calc(-11.6 * var(--u)); top: 26.33%; }
 .formulario__banda--tres { left: calc(-175.2 * var(--u)); top: 46.65%; }
@@ -2273,6 +2274,171 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
   .vales__stage .carrusel__arrow,
   .vales__stage .carrusel__dots {
     display: none;
+  }
+
+  /* ---- FORMULARIO, escritorio. Coordenadas del frame 1440x900. ---- */
+
+  .formulario {
+    --formulario-y0: calc((100svh - 900 * var(--ud)) / 2);
+    position: relative;
+    display: block;
+    height: 100svh;
+    gap: 0;
+    padding: 0;
+  }
+
+  .formulario__cenefa {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    max-width: none;
+    width: calc(1516.16 * var(--ud));
+    height: calc(91.45 * var(--ud));
+    left: calc(50% - (1516.16 * var(--ud)) / 2 - 26.23 * var(--ud));
+    top: calc(-59.02 * var(--ud));
+  }
+
+  .formulario__banda {
+    width: calc(1615.16 * var(--ud));
+    height: calc(331.37 * var(--ud));
+    left: calc(50% - (1615.16 * var(--ud)) / 2 + 60.93 * var(--ud));
+  }
+
+  .formulario__banda--uno { top: calc(71 * var(--ud)); }
+  .formulario__banda--dos { top: calc(450.84 * var(--ud)); transform: scaleX(-1); }
+  .formulario__banda--tres,
+  .formulario__banda--cuatro { display: none; }
+
+  .formulario__header {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    width: 100%;
+    height: auto;
+    top: calc(var(--formulario-y0) + 113.04 * var(--ud));
+    gap: calc(11.52 * var(--ud));
+  }
+
+  .formulario__header h2 {
+    width: calc(675.41 * var(--ud));
+    height: calc(120 * var(--ud));
+    font-size: calc(56 * var(--ud));
+    font-weight: 800;
+    line-height: calc(60 * var(--ud));
+  }
+
+  .formulario__header p {
+    width: calc(636.42 * var(--ud));
+    height: calc(52 * var(--ud));
+    margin-left: calc(1.7 * var(--ud));
+    font-size: calc(20 * var(--ud));
+    line-height: calc(26 * var(--ud));
+  }
+
+  .formulario__form {
+    position: absolute;
+    z-index: 1;
+    top: calc(var(--formulario-y0) + 330.96 * var(--ud));
+    left: calc(50% - (640 * var(--ud)) / 2);
+    width: calc(640 * var(--ud));
+    height: calc(458 * var(--ud));
+    gap: calc(32 * var(--ud));
+  }
+
+  .formulario__fields {
+    width: calc(640 * var(--ud));
+    height: calc(296 * var(--ud));
+    gap: calc(20 * var(--ud));
+  }
+
+  .formulario__field {
+    width: calc(640 * var(--ud));
+    height: calc(59 * var(--ud));
+    flex: 0 0 calc(59 * var(--ud));
+  }
+
+  .formulario__field-bg {
+    inset: calc(0.5 * var(--ud)) 0 auto;
+    width: calc(640 * var(--ud));
+    height: calc(58 * var(--ud));
+  }
+
+  .formulario__input {
+    left: calc(68.35 * var(--ud));
+    width: calc(503.3 * var(--ud));
+    padding-inline: 0;
+    font-size: calc(18 * var(--ud));
+    line-height: calc(18.9 * var(--ud));
+  }
+
+  .formulario__input:focus-visible {
+    outline-width: calc(2 * var(--ud));
+    outline-offset: calc(2 * var(--ud));
+  }
+
+  .formulario__terms {
+    width: calc(640 * var(--ud));
+    height: calc(22 * var(--ud));
+  }
+
+  .formulario__checkbox-label {
+    min-height: calc(22 * var(--ud));
+    gap: calc(11 * var(--ud));
+    font-size: calc(18 * var(--ud));
+    line-height: calc(22 * var(--ud));
+  }
+
+  .formulario__checkbox-control {
+    width: calc(20 * var(--ud));
+    height: calc(20 * var(--ud));
+    flex: 0 0 calc(20 * var(--ud));
+  }
+
+  .formulario__checkbox {
+    inset: calc(-12 * var(--ud));
+    width: auto;
+    height: auto;
+  }
+
+  .formulario__checkbox-visual {
+    box-sizing: border-box;
+    width: calc(20 * var(--ud));
+    height: calc(20 * var(--ud));
+    border: calc(2 * var(--ud)) solid #1B1E3C;
+  }
+
+  .formulario__checkbox-visual img { display: none; }
+
+  .formulario__checkbox:checked + .formulario__checkbox-visual > span::after {
+    top: calc(3 * var(--ud));
+    left: calc(5 * var(--ud));
+    width: calc(8 * var(--ud));
+    height: calc(12 * var(--ud));
+    border-right-width: calc(2 * var(--ud));
+    border-bottom-width: calc(2 * var(--ud));
+  }
+
+  .formulario__terms-text {
+    width: calc(519 * var(--ud));
+    height: calc(22 * var(--ud));
+  }
+
+  .formulario__checkbox:focus-visible + .formulario__checkbox-visual {
+    outline-width: calc(2 * var(--ud));
+    outline-offset: calc(2 * var(--ud));
+  }
+
+  .formulario .formulario__submit {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: calc(482 * var(--ud));
+    height: calc(76 * var(--ud));
+  }
+
+  .formulario .formulario__submit:focus-visible {
+    outline-width: calc(2 * var(--ud));
+    outline-offset: calc(3 * var(--ud));
   }
 }
 
