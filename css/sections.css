@@ -2326,6 +2326,7 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
     font-size: calc(56 * var(--ud));
     font-weight: 800;
     line-height: calc(60 * var(--ud));
+    text-transform: none;
   }
 
   .formulario__header p {
