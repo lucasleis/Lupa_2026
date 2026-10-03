@@ -2526,11 +2526,10 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
     position: absolute;
     z-index: 1;
     content: "";
-    left: calc(-7 * var(--ud));
-    width: calc(1447 * var(--ud));
+    left: 0;
+    width: calc(1440 * var(--ud));
     height: calc(51 * var(--ud));
-    background: #3A2A24 url("../img/footer/cenefa.svg") repeat-x left top;
-    background-size: calc(1102.91 * var(--ud)) calc(50.9 * var(--ud));
+    background: url("../img/section.svg") no-repeat left top / 100% 100%;
   }
 
   .footer::before { top: calc(1 * var(--ud)); }
