@@ -2545,7 +2545,7 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
   }
 
   .footer__columna--izquierda { left: calc(50% - 720 * var(--ud)); right: auto; }
-  .footer__columna--derecha { left: calc(50% + 639 * var(--ud)); right: auto; }
+  .footer__columna--derecha { left: calc(50% + 639 * var(--ud)); right: auto; transform: scaleX(-1); }
 
   .footer__title {
     position: absolute;
