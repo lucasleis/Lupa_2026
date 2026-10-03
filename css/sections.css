@@ -2017,17 +2017,17 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
 
   .ofertas__precio {
     --ofertas-precio-size: 48;
-    --ofertas-precio-cc-size: 30;
-    --ofertas-precio-unidad-size: 16;
-    left: calc(134.1 * var(--ud));
-    top: calc(358 * var(--ud));
-    width: calc(103 * var(--ud));
-    height: calc(68 * var(--ud));
+    --ofertas-precio-cc-size: 39;
+    --ofertas-precio-unidad-size: 21;
+    left: calc(132.6 * var(--ud));
+    top: calc(347 * var(--ud));
+    width: calc(136 * var(--ud));
+    height: calc(90 * var(--ud));
   }
 
   .ofertas__stage .ofertas__precio > img {
-    width: calc(103 * var(--ud));
-    height: calc(68 * var(--ud));
+    width: calc(136 * var(--ud));
+    height: calc(90 * var(--ud));
   }
 
   .ofertas__stage .ofertas__price {
@@ -2036,8 +2036,8 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
   }
 
   .ofertas__stage .ofertas__price-entero {
-    font-size: calc(48 * var(--ud));
-    transform: translateY(calc(11 * var(--ud)));
+    font-size: calc(63 * var(--ud));
+    transform: translateY(calc(14.5 * var(--ud)));
   }
 
   .ofertas__stage .ofertas__price-resto {
@@ -2045,11 +2045,11 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
   }
 
   .ofertas__stage .ofertas__price-centavos {
-    font-size: calc(30 * var(--ud));
+    font-size: calc(39 * var(--ud));
   }
 
   .ofertas__stage .ofertas__price-unidad {
-    font-size: calc(16 * var(--ud));
+    font-size: calc(21 * var(--ud));
   }
 
   .ofertas__repisa {
