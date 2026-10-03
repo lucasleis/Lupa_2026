@@ -2536,15 +2536,16 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
   .footer::after { top: calc(508 * var(--ud)); }
 
   .footer__columna {
-    width: calc(117.05 * var(--ud));
+    content: url("../img/columna-footer.svg");
+    width: calc(81 * var(--ud));
     top: 0;
-    height: 100%;
+    height: calc(559 * var(--ud));
     object-fit: fill;
     z-index: 2;
   }
 
-  .footer__columna--izquierda { left: calc(-37 * var(--ud)); }
-  .footer__columna--derecha { left: calc(1357.54 * var(--ud)); }
+  .footer__columna--izquierda { left: 0; }
+  .footer__columna--derecha { left: auto; right: 0; }
 
   .footer__title {
     position: absolute;
