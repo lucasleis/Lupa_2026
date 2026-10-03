@@ -2298,16 +2298,24 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
     top: calc(-59.02 * var(--ud));
   }
 
-  .formulario__banda {
-    width: calc(1615.16 * var(--ud));
-    height: calc(331.37 * var(--ud));
-    left: calc(50% - (1615.16 * var(--ud)) / 2 + 60.93 * var(--ud));
+  .formulario__glifos {
+    background-image:
+      url("../img/puerta/pared-glifos-desktop.svg"),
+      url("../img/puerta/pared-glifos-desktop.svg"),
+      url("../img/puerta/pared-glifos-desktop.svg");
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size:
+      calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
+      calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
+      calc(1439.67 * var(--ud)) calc(378.26 * var(--ud));
+    background-position:
+      calc(0.33 * var(--ud)) calc(16.27 * var(--ud)),
+      calc(0.33 * var(--ud)) calc(406.74 * var(--ud)),
+      calc(0.33 * var(--ud)) calc(790 * var(--ud));
+    transform: none;
   }
 
-  .formulario__banda--uno { top: calc(71 * var(--ud)); }
-  .formulario__banda--dos { top: calc(450.84 * var(--ud)); transform: scaleX(-1); }
-  .formulario__banda--tres,
-  .formulario__banda--cuatro { display: none; }
+  .formulario__banda { display: none; }
 
   .formulario__header {
     position: absolute;
