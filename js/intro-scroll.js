@@ -337,7 +337,7 @@ if (heroTrack) {
   const saltarAInicioDeTramo = () => {
     const params = new URLSearchParams(window.location.search);
     const tramo = params.get('saltar');
-    if (!['intro', 'panel', 'quiz', 'resultado', 'piramide', 'interior', 'ofertas'].includes(tramo)) return;
+    if (!['intro', 'panel', 'quiz', 'resultado', 'piramide', 'interior', 'ofertas', 'vales'].includes(tramo)) return;
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     liberarScroll();
 
@@ -383,7 +383,7 @@ if (heroTrack) {
       return;
     }
 
-    const escenaDestino = document.querySelector(tramo === 'interior' ? '.interior' : '.ofertas');
+    const escenaDestino = document.querySelector('.' + tramo);
     let antesDelDestino = true;
     document.querySelectorAll('.escena[data-entrada]').forEach((escena) => {
       if (!antesDelDestino) return;

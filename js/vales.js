@@ -2,9 +2,9 @@ import { inicializarCarrusel } from './carrusel.js';
 
 const vales = [
   { frase: '«Tú tanjamón y yo tan pimiento»', entero: '1', centavos: ',50', unidad: '€ DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Jamón cocido extra', peso: '250 g' },
-  { frase: '«Más vale tarde que nunca»', entero: '2', centavos: ',00', unidad: '€ DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Pimientos asados', peso: '300 g' },
-  { frase: '«A buen hambre no hay pan duro»', entero: '1', centavos: ',50', unidad: '€ DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Pan de pueblo', peso: '500 g' },
-  { frase: '«Sobre gustos no hay nada escrito»', entero: '3', centavos: ',00', unidad: '€ DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Selección gourmet', peso: '250 g' },
+  { frase: '«Tú tanjamón y yo tan pimiento»', entero: '2', centavos: ',00', unidad: '€ DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Jamón cocido extra', peso: '300 g' },
+  { frase: '«Tú tanjamón y yo tan pimiento»', entero: '1', centavos: ',50', unidad: '€ DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Jamón cocido extra', peso: '500 g' },
+  { frase: '«Tú tanjamón y yo tan pimiento»', entero: '3', centavos: ',00', unidad: '€ DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Jamón cocido extra', peso: '250 g' },
 ];
 
 const hexagono = (clase, fill) => `<svg class="vales__hexagono ${clase}" viewBox="0 0 131 118" aria-hidden="true" focusable="false"><path d="M120.198 23.7749L127.186 78.7861L72.222 114.173L10.1581 93.6508L3.17059 38.6396L58.1331 3.25324L120.198 23.7749Z" fill="${fill}" stroke="var(--color-gold)" stroke-width="5.9185"/></svg>`;
