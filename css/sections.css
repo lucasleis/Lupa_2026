@@ -2537,8 +2537,9 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
 
   .footer__columna {
     width: calc(117.05 * var(--ud));
-    height: calc(559.36 * var(--ud));
     top: 0;
+    bottom: 0;
+    height: auto;
     z-index: 2;
   }
 
