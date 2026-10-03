@@ -4,11 +4,8 @@ export const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, va
 
 // Sin desdeElTope: riel que contiene a su sticky. Con desdeElTope: riel posterior
 // al sticky que mide su recorrido completo.
-// ponytail: los rieles que pasan desdeElTope miden más de 100svh, así
-// que su progreso llega a 1 una ventana antes de que el riel termine y arranca
-// con el riel todavía bajo el fold. La animación está calibrada a ojo
-// contra ese mapeo; alinearlo con la duración del sticky obliga a recalibrar el
-// hero.
+// DesdeElTope recorre el riel entre su tope entrando y quedando completamente
+// arriba del viewport.
 export const progresoDeRiel = (rail, {
   inicio = 0,
   fin = 1,
@@ -19,7 +16,7 @@ export const progresoDeRiel = (rail, {
   const rect = rail?.getBoundingClientRect();
   const range = rect ? rect.height - window.innerHeight : 0;
   const progresoDelRiel = desdeElTope
-    ? (rect && rect.height > 0 ? (window.innerHeight - rect.top) / rect.height : 0)
+    ? (rect && rect.height > 0 ? -rect.top / rect.height : 0)
     : (rect && range > 0 ? -rect.top / range : 0);
   const tramo = fin - inicio;
   const progreso = tramo > 0 ? (progresoDelRiel - inicio) / tramo : 0;
@@ -51,15 +48,19 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 if (heroTrack) {
   const panelRailsDesktop = window.matchMedia('(min-width: 900px)');
   const ALTURA_RESULTADO_MOBILE = 350;
-  const ALTURA_RESULTADO_DESKTOP = 200;
+  const ALTURA_RESULTADO_DESKTOP = 300;
   const ALTURA_MOVIMIENTO_SALIDA = 200;
   const INICIO_MOVIMIENTO_SALIDA = 0.3;
   const ALTURA_QUIZ_MOBILE = 200;
   const GLOBO_COMPLETO_EN = 0.5;
   const PAUSA_GLOBO_SVH = 50;
-  const ENTRADA_CONTROLES_DESKTOP = 0.64;
+  const ENTRADA_CONTROLES_DESKTOP = 0.60; // 150svh en el riel de 250svh.
   const RESULTADO_TRAMOS = { quizSalidaFin: 0.29, resultadoEntradaInicio: 0.29, resultadoEntradaFin: 0.57 };
-  const RESULTADO_TRAMOS_DESKTOP = { quizSalidaFin: 0.5, resultadoEntradaInicio: 0.5, resultadoEntradaFin: 1 };
+  const RESULTADO_TRAMOS_DESKTOP = {
+    quizSalidaFin: 0.40, // salida: 0-120svh.
+    resultadoEntradaInicio: 0.40, // entrada: empieza a 120svh.
+    resultadoEntradaFin: 1, // entrada: termina a 300svh.
+  };
   const alturaRielPanel = () => panelRailsDesktop.matches ? '0svh' : '200svh';
   const alturaRielSalida = () => panelRailsDesktop.matches
     ? '0svh'
@@ -69,7 +70,7 @@ if (heroTrack) {
     ? `${ALTURA_RESULTADO_DESKTOP}svh`
     : `${ALTURA_RESULTADO_MOBILE}svh`;
   const tramosResultado = () => panelRailsDesktop.matches ? RESULTADO_TRAMOS_DESKTOP : RESULTADO_TRAMOS;
-  const alturaRielPiramide = () => panelRailsDesktop.matches ? '150svh' : '800svh';
+  const alturaRielPiramide = () => panelRailsDesktop.matches ? '400svh' : '800svh';
   const entradaControles = () => panelRailsDesktop.matches
     ? ENTRADA_CONTROLES_DESKTOP
     : GLOBO_COMPLETO_EN + PAUSA_GLOBO_SVH / ALTURA_QUIZ_MOBILE;
@@ -161,14 +162,12 @@ if (heroTrack) {
     const quizProgress = (!panelEnJuego || (puzzleComplete && exitRailProgress >= 1))
       ? progresoDeRiel(quizRail, { desdeElTope: true, destino: heroStage, propiedad: '--quiz-p' })
       : 0;
-    // Reparto: aproximacion (--piramide-p), entrada a la puerta
-    // (--puerta-p, hasta 0.78), apertura (0.78 a 0.88) y entrada al interior
-    // (--entrada-p, 0.88 a 1), con escala de 1 a 8.
-    const REPARTO_PIRAMIDE = 0.5;
+    // Reparto: acercamiento (--piramide-p), puerta (--puerta-p), apertura y entrada.
+    const REPARTO_PIRAMIDE = panelRailsDesktop.matches ? 0.40 : 0.5; // Desktop: acercamiento, 0-160svh.
     // El zoom de la puerta termina acá; el resto del riel es freno, con la
     // escena sostenida en su zoom final antes de que el hero se suelte.
-    const FRENO_PIRAMIDE = 0.78;
-    const APERTURA_FIN = 0.88;
+    const FRENO_PIRAMIDE = panelRailsDesktop.matches ? 0.70 : 0.78; // Desktop: puerta, 160-280svh.
+    const APERTURA_FIN = panelRailsDesktop.matches ? 0.85 : 0.88; // Desktop: apertura 280-340svh; entrada 340-400svh.
     const pyramidProgress = pyramidRailEnabled
       ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0, fin: REPARTO_PIRAMIDE, destino: heroStage, propiedad: '--piramide-p' })
       : 0;
