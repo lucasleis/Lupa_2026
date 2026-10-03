@@ -2299,6 +2299,11 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
   }
 
   .formulario__glifos {
+    inset: auto;
+    left: calc(50% - 720 * var(--ud));
+    top: var(--formulario-y0);
+    width: calc(1440 * var(--ud));
+    height: calc(900 * var(--ud));
     background-image:
       url("../img/puerta/pared-glifos-desktop.svg"),
       url("../img/puerta/pared-glifos-desktop.svg"),
