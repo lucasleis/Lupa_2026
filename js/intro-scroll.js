@@ -338,6 +338,7 @@ if (heroTrack) {
     const params = new URLSearchParams(window.location.search);
     const tramo = params.get('saltar');
     if (!['intro', 'panel', 'quiz', 'resultado', 'piramide', 'interior', 'ofertas'].includes(tramo)) return;
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     liberarScroll();
 
     if (tramo === 'intro') {
@@ -387,12 +388,24 @@ if (heroTrack) {
     document.querySelectorAll('.escena[data-entrada]').forEach((escena) => {
       if (!antesDelDestino) return;
       escena.dataset.entradaActiva = 'true';
+      escena.querySelector('.escena__stage')?.style.setProperty('--escena-p', '1');
       if (escena === escenaDestino) antesDelDestino = false;
     });
     irA(escenaDestino.getBoundingClientRect().top + window.scrollY, { immediate: true });
   };
 
-  saltarAInicioDeTramo();
+  const saltarCuandoHayaLayout = () => {
+    const saltar = () => {
+      window.lenis?.resize?.();
+      saltarAInicioDeTramo();
+    };
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      saltar();
+      requestAnimationFrame(() => requestAnimationFrame(saltar));
+    }));
+  };
+  if (document.readyState === 'complete') saltarCuandoHayaLayout();
+  else window.addEventListener('load', saltarCuandoHayaLayout, { once: true });
 
   if (reducedMotion.matches) {
     setProgress(1);

@@ -2,9 +2,9 @@ import { inicializarCarrusel } from './carrusel.js';
 
 const ofertas = [
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '5', centavos: ',99', unidad: 'KG/€', precioTexto: '5,99 euros el kilo', imagen: 'img/ofertas/oferta.webp', titulo: 'Alas de pollo adobadas Granja Gourmet', peso: '500G' },
-  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',49', unidad: 'KG/€', precioTexto: '3,49 euros el kilo', imagen: 'img/cupones/producto-ejemplo.png', titulo: 'Tomate rama ecológico', peso: '1KG' },
-  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '7', centavos: ',25', unidad: 'KG/€', precioTexto: '7,25 euros el kilo', imagen: 'img/cupones/producto-ejemplo.png', titulo: 'Selección de quesos curados', peso: '300G' },
-  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '2', centavos: ',99', unidad: 'KG/€', precioTexto: '2,99 euros el kilo', imagen: 'img/cupones/producto-ejemplo.png', titulo: 'Yogur natural', peso: '4 X 125G' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',49', unidad: 'KG/€', precioTexto: '3,49 euros el kilo', imagen: 'img/ofertas/oferta.webp', titulo: 'Alas de pollo adobadas Granja Gourmet', peso: '500G' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '7', centavos: ',25', unidad: 'KG/€', precioTexto: '7,25 euros el kilo', imagen: 'img/ofertas/oferta.webp', titulo: 'Alas de pollo adobadas Granja Gourmet', peso: '500G' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '2', centavos: ',99', unidad: 'KG/€', precioTexto: '2,99 euros el kilo', imagen: 'img/ofertas/oferta.webp', titulo: 'Alas de pollo adobadas Granja Gourmet', peso: '500G' },
 ];
 
 // Provisional: falta una etiqueta por producto, cada una con su precio.
@@ -13,7 +13,7 @@ const root = document.querySelector('.ofertas');
 const track = root?.querySelector('.carrusel__track');
 const estrias = () => Array.from({ length: 11 }, () => '<img class="ofertas__estria" src="img/ofertas/estria.svg" alt="">').join('');
 
-const renderOferta = (oferta, index) => `<article class="carrusel__slide ofertas__slide" role="group" aria-roledescription="slide" aria-label="Oferta ${index + 1} de ${ofertas.length}">
+const renderOferta = (oferta, index) => `<article class="carrusel__slide ofertas__slide" data-oferta-index="${index}" role="group" aria-roledescription="slide" aria-label="Oferta ${index + 1} de ${ofertas.length}">
   <img class="ofertas__plato ofertas__plato--exterior" src="img/ofertas/plato-exterior.svg" alt="">
   <img class="ofertas__plato ofertas__plato--interior" src="img/ofertas/plato-interior.svg" alt="">
   <img class="ofertas__producto" src="${oferta.imagen}" alt="">

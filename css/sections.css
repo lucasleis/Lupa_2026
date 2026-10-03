@@ -1847,6 +1847,232 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
     font-weight: 600;
     color: #fff;
   }
+
+  /* ---- OFERTAS, escritorio. Coordenadas del frame 1440x900. ---- */
+
+  /* Tres bandas de glifos, no el tile movil. */
+  .ofertas__glifos {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background-image:
+      url("../img/puerta/pared-glifos-desktop.svg"),
+      url("../img/puerta/pared-glifos-desktop.svg"),
+      url("../img/puerta/pared-glifos-desktop.svg");
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size:
+      calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
+      calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
+      calc(1439.67 * var(--ud)) calc(378.26 * var(--ud));
+    background-position:
+      calc(0.33 * var(--ud)) calc(16.27 * var(--ud)),
+      calc(0.33 * var(--ud)) calc(406.74 * var(--ud)),
+      calc(0.33 * var(--ud)) calc(790 * var(--ud));
+    transform: none;
+  }
+
+  /* Figma estira la cenefa: el ratio del archivo no es el del diseno,
+     por eso el height va explicito. */
+  .ofertas__cenefa {
+    left: calc(50% - (1516.16 * var(--ud)) / 2 - 22.5 * var(--ud));
+    top: calc(-10.61 * var(--ud));
+    width: calc(1516.16 * var(--ud));
+    height: calc(91.45 * var(--ud));
+  }
+
+  .ofertas__cenefa--inferior {
+    left: calc(50% - (1516.16 * var(--ud)) / 2 - 22.5 * var(--ud));
+    top: calc(808 * var(--ud));
+    width: calc(1516.16 * var(--ud));
+    height: calc(91.45 * var(--ud));
+  }
+
+  .ofertas__header {
+    top: calc(131 * var(--ud));
+    left: calc(50% - (780 * var(--ud)) / 2);
+    width: calc(780 * var(--ud));
+    height: calc(128 * var(--ud));
+    gap: calc(14 * var(--ud));
+    justify-content: flex-start;
+  }
+
+  /* En escritorio el titulo va en minusculas, a diferencia del movil. */
+  .ofertas__header h3 {
+    height: calc(76 * var(--ud));
+    font-size: calc(72 * var(--ud));
+    line-height: calc(76 * var(--ud));
+    letter-spacing: normal;
+    text-transform: none;
+    color: #FFFFFF;
+  }
+
+  .ofertas__header p {
+    width: calc(684.75 * var(--ud));
+    height: calc(38 * var(--ud));
+    font-family: 'Inter', sans-serif;
+    font-size: calc(18 * var(--ud));
+    line-height: 105%;
+  }
+
+  /* Las 4 ofertas se ven a la vez: el carrusel se apaga y cada slide se
+     posiciona con las coordenadas del frame. Mismo patron que cupones. */
+  .ofertas__stage .carrusel__viewport {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    clip-path: none;
+    transform: none;
+  }
+
+  .ofertas__stage .carrusel__track {
+    position: relative;
+    width: 100%;
+    transform: none;
+    transition: none;
+  }
+
+  .ofertas__slide {
+    position: absolute;
+    width: calc(300 * var(--ud));
+    height: calc(485 * var(--ud));
+    top: calc(313 * var(--ud));
+  }
+
+  /* Reemplaza platos por cardOferta en desktop */
+  .ofertas__stage .ofertas__plato--exterior,
+  .ofertas__stage .ofertas__plato--interior {
+    display: none;
+  }
+
+  .ofertas__stage .ofertas__slide {
+    background-image: url('../img/cardOferta.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  /* La repisa está incluida en cardOferta.svg; ocultarla en desktop */
+  .ofertas__stage .ofertas__repisa {
+    display: none;
+  }
+
+  .ofertas__slide[data-carrusel-clon="true"] {
+    display: none;
+  }
+
+  .ofertas__slide[data-oferta-index="0"] { left: calc(52.5 * var(--ud)); }
+  .ofertas__slide[data-oferta-index="1"] { left: calc(397.5 * var(--ud)); }
+  .ofertas__slide[data-oferta-index="2"] { left: calc(742.5 * var(--ud)); }
+  .ofertas__slide[data-oferta-index="3"] { left: calc(1087.5 * var(--ud)); }
+
+  .ofertas__stage .carrusel__arrow,
+  .ofertas__stage .carrusel__dots {
+    display: none;
+  }
+
+  /* Piezas internas de la tarjeta, en coordenadas de la card de 300x485
+     (los % del volcado de Figma resueltos a px del diseno). */
+  .ofertas__slide .ofertas__plato--exterior {
+    left: calc(21.09 * var(--ud));
+    top: calc(3.01 * var(--ud));
+    width: calc(258.03 * var(--ud));
+    height: calc(471.47 * var(--ud));
+  }
+
+  .ofertas__slide .ofertas__plato--interior {
+    left: calc(31.98 * var(--ud));
+    top: calc(12.17 * var(--ud));
+    width: calc(237.99 * var(--ud));
+    height: calc(454.84 * var(--ud));
+  }
+
+  .ofertas__slide .ofertas__producto {
+    left: calc(37.35 * var(--ud));
+    top: calc(225 * var(--ud));
+    width: calc(227.37 * var(--ud));
+    height: calc(149.4 * var(--ud));
+  }
+
+  .ofertas__producto-titulo {
+    left: calc(37 * var(--ud));
+    top: calc(37 * var(--ud));
+    width: calc(227 * var(--ud));
+    height: calc(144 * var(--ud));
+    font-size: calc(32 * var(--ud));
+    line-height: calc(36 * var(--ud));
+  }
+
+  /* 37 + 144 del titulo + 8 de gap */
+  .ofertas__peso {
+    left: calc(37 * var(--ud));
+    top: calc(189 * var(--ud));
+    width: calc(227 * var(--ud));
+    height: calc(26 * var(--ud));
+    font-size: calc(24 * var(--ud));
+    line-height: calc(26 * var(--ud));
+  }
+
+  .ofertas__precio {
+    --ofertas-precio-size: 48;
+    --ofertas-precio-cc-size: 30;
+    --ofertas-precio-unidad-size: 16;
+    left: calc(134.1 * var(--ud));
+    top: calc(358 * var(--ud));
+    width: calc(103 * var(--ud));
+    height: calc(68 * var(--ud));
+  }
+
+  .ofertas__stage .ofertas__precio > img {
+    width: calc(103 * var(--ud));
+    height: calc(68 * var(--ud));
+  }
+
+  .ofertas__stage .ofertas__price {
+    gap: calc(2 * var(--ud));
+    padding-top: 0;
+  }
+
+  .ofertas__stage .ofertas__price-entero {
+    font-size: calc(48 * var(--ud));
+    transform: translateY(calc(11 * var(--ud)));
+  }
+
+  .ofertas__stage .ofertas__price-resto {
+    transform: translateY(calc(-4 * var(--ud)));
+  }
+
+  .ofertas__stage .ofertas__price-centavos {
+    font-size: calc(30 * var(--ud));
+  }
+
+  .ofertas__stage .ofertas__price-unidad {
+    font-size: calc(16 * var(--ud));
+  }
+
+  .ofertas__repisa {
+    left: calc(1.44 * var(--ud));
+    top: calc(456.09 * var(--ud));
+    width: calc(297.33 * var(--ud));
+    height: calc(22.78 * var(--ud));
+  }
+
+  .ofertas__repisa > img {
+    width: calc(297.33 * var(--ud));
+    height: calc(22.78 * var(--ud));
+  }
+
+  /* 11 estrias de 6.57 de ancho cada 7.71: el solape es -1.14. */
+  .ofertas__repisa .ofertas__estrias img {
+    width: calc(6.57 * var(--ud));
+    height: calc(47.85 * var(--ud));
+  }
+
+  .ofertas__estria + .ofertas__estria {
+    margin-left: calc(1.14 * var(--ud));
+  }
 }
 
 /* Rendimiento de scroll desktop (ver docs/rendimiento-scroll.md).
