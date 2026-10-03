@@ -2539,7 +2539,7 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
     width: calc(117.05 * var(--ud));
     height: calc(559.36 * var(--ud));
     top: 0;
-    z-index: 0;
+    z-index: 2;
   }
 
   .footer__columna--izquierda { left: calc(-37 * var(--ud)); }
