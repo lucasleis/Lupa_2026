@@ -2355,13 +2355,10 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
     width: calc(640 * var(--ud));
     height: calc(59 * var(--ud));
     flex: 0 0 calc(59 * var(--ud));
+    background: url("../img/input.svg") no-repeat 0 0 / 100% 100%;
   }
 
-  .formulario__field-bg {
-    inset: calc(0.5 * var(--ud)) 0 auto;
-    width: calc(640 * var(--ud));
-    height: calc(58 * var(--ud));
-  }
+  .formulario__field-bg { display: none; }
 
   .formulario__input {
     left: calc(68.35 * var(--ud));
