@@ -1191,6 +1191,77 @@ body[data-en-sala="true"]:not([data-sala-saliendo="true"]) .pase-puerta {
 }
 
 @media (min-width: 900px) {
+  /* El centrado es de las capas que siguen en --u. Las capas en --ud
+     (glifos, arena) traen coordenadas absolutas del frame 1440x900 y no
+     se tocan. */
+  /* Cenefa en coordenadas del frame 1440x900. Figma estira la capa:
+     el ratio del archivo no es el del diseño, por eso el height va
+     explicito. */
+  .puerta__cenefa {
+    left: calc(-60.58 * var(--ud));
+    top: calc(-10.61 * var(--ud));
+    width: calc(1516.16 * var(--ud));
+    height: calc(91.45 * var(--ud));
+    transform: none;
+  }
+
+  /* Dos bandas de glifos del frame 1440x900, no el tile movil. */
+  .puerta__glifos {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    background-image:
+      url("../img/puerta/pared-glifos-desktop.svg"),
+      url("../img/puerta/pared-glifos-desktop.svg");
+    background-repeat: no-repeat, no-repeat;
+    background-size:
+      calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
+      calc(1439.67 * var(--ud)) calc(378.26 * var(--ud));
+    background-position:
+      calc(0.33 * var(--ud)) calc(16.27 * var(--ud)),
+      calc(0.33 * var(--ud)) calc(406.74 * var(--ud));
+    transform: none;
+  }
+
+  /* En escritorio la puerta, los pebeteros y la arena vienen en un solo
+     SVG del frame 1440x900 (grupo Capa_1, en X 0 Y 144). Las capas sueltas en
+     --u se apagan.
+     ponytail: las llamas quedan estaticas en desktop; vuelven a animarse
+     cuando tengamos X Y W H de cada llama contra el frame. */
+  .puerta__escena::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(144 * var(--ud));
+    width: calc(1440 * var(--ud));
+    height: calc(903 * var(--ud));
+    background: url("../img/puerta/escena-desktop.svg") no-repeat center / 100% 100%;
+    z-index: 0;
+  }
+
+  /* .escena__stage img (linea 63) es 0-1-1 y le gana a .puerta__imagen,
+     por eso el selector lleva el stage adelante. */
+  .puerta__stage .puerta__imagen {
+    display: none;
+  }
+
+  /* Las llamas animadas se superponen a las que vienen dibujadas en
+     escena-desktop.svg. Cajas derivadas del bbox de los paths amarillos del
+     SVG (+144 del offset de Capa_1), no medidas en Figma.
+     ponytail: si quedan corridas, reemplazar por X Y W H del panel de Figma. */
+  .puerta__stage .puerta__llama {
+    z-index: 4;
+    bottom: auto;
+    width: calc(84 * var(--ud));
+    height: calc(131 * var(--ud));
+    top: calc(373 * var(--ud));
+    transform: none;
+  }
+  .puerta__stage .puerta__llama--izq { left: calc(416 * var(--ud)); }
+  .puerta__stage .puerta__llama--der { left: calc(956.5 * var(--ud)); }
+
   .marco-papiro__cenefa--superior {
     top: calc(-20.03 * var(--ud));
     left: calc(-68.31 * var(--ud));
