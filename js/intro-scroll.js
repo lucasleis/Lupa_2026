@@ -4,8 +4,10 @@ export const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, va
 
 // Sin desdeElTope: riel que contiene a su sticky. Con desdeElTope: riel posterior
 // al sticky que mide su recorrido completo.
-// DesdeElTope recorre el riel entre su tope entrando y quedando completamente
-// arriba del viewport.
+// DesdeElTope: p=0 cuando el riel asoma por abajo y p=1 cuando su fondo llega
+// al fondo del viewport, el final del scroll disponible. No sumamos
+// innerHeight al denominador: los rieles siguientes están en 0svh, así que ese
+// scroll adicional no existe.
 export const progresoDeRiel = (rail, {
   inicio = 0,
   fin = 1,
@@ -16,7 +18,7 @@ export const progresoDeRiel = (rail, {
   const rect = rail?.getBoundingClientRect();
   const range = rect ? rect.height - window.innerHeight : 0;
   const progresoDelRiel = desdeElTope
-    ? (rect && rect.height > 0 ? -rect.top / rect.height : 0)
+    ? (rect && rect.height > 0 ? (window.innerHeight - rect.top) / rect.height : 0)
     : (rect && range > 0 ? -rect.top / range : 0);
   const tramo = fin - inicio;
   const progreso = tramo > 0 ? (progresoDelRiel - inicio) / tramo : 0;
@@ -277,6 +279,8 @@ if (heroTrack) {
     window.requestAnimationFrame(updateProgress);
   };
 
+  // Calibrable: 1.8 de CAMARA se siente lento para un click directo.
+  const DURACION_SALTO_PANEL = 0.9;
   const habilitarRielYDesplazar = (rail, {
     propiedad,
     altura,
@@ -284,11 +288,14 @@ if (heroTrack) {
   }) => {
     habilitarRiel(rail, propiedad, altura);
     window.requestAnimationFrame(() => {
+      // Sin esto Lenis clampea el destino al largo del documento previo a habilitar el riel.
+      window.lenis?.resize?.();
       if (progreso !== null) {
         const rect = rail?.getBoundingClientRect();
         const scrollRange = (rect?.height ?? 0) - window.innerHeight;
         const targetScroll = window.scrollY + (rect?.top ?? 0) + progreso * scrollRange;
-        irA(targetScroll);
+        // Sin lock, el tap que dispara el salto cancela el scroll a los pocos píxeles.
+        irA(targetScroll, { lock: true, duration: DURACION_SALTO_PANEL });
       }
       updateProgress();
     });
