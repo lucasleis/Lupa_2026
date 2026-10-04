@@ -367,12 +367,18 @@
   --p: var(--intro-progress);
   /* Tramos: 0–.15 sale intro; 0–.30 entra Ofertiti; 0–.40 entra lockup;
      .30–.55 cierran nubes; .45–.70 entra evento; .55–.75 entra EMPEZAR. */
-  --p-exit-early:   clamp(0, calc(var(--p) / 0.15), 1);
-  --p-ofertiti:     clamp(0, calc(var(--p) / 0.30), 1);
-  --p-lockup:       clamp(0, calc(var(--p) / 0.40), 1);
-  --p-clouds-close: clamp(0, calc((var(--p) - 0.30) / 0.25), 1);
-  --p-event:        clamp(0, calc((var(--p) - 0.45) / 0.25), 1);
-  --p-start-event:  clamp(0, calc((var(--p) - 0.55) / 0.20), 1);
+  --p-exit-early-t: clamp(0, calc(var(--p) / 0.15), 1);
+  --p-exit-early: calc(var(--p-exit-early-t) * var(--p-exit-early-t) * (3 - 2 * var(--p-exit-early-t)));
+  --p-ofertiti-t: clamp(0, calc(var(--p) / 0.30), 1);
+  --p-ofertiti: calc(var(--p-ofertiti-t) * var(--p-ofertiti-t) * (3 - 2 * var(--p-ofertiti-t)));
+  --p-lockup-t: clamp(0, calc(var(--p) / 0.40), 1);
+  --p-lockup: calc(var(--p-lockup-t) * var(--p-lockup-t) * (3 - 2 * var(--p-lockup-t)));
+  --p-clouds-close-t: clamp(0, calc((var(--p) - 0.30) / 0.25), 1);
+  --p-clouds-close: calc(var(--p-clouds-close-t) * var(--p-clouds-close-t) * (3 - 2 * var(--p-clouds-close-t)));
+  --p-event-t: clamp(0, calc((var(--p) - 0.45) / 0.25), 1);
+  --p-event: calc(var(--p-event-t) * var(--p-event-t) * (3 - 2 * var(--p-event-t)));
+  --p-start-event-t: clamp(0, calc((var(--p) - 0.55) / 0.20), 1);
+  --p-start-event: calc(var(--p-start-event-t) * var(--p-start-event-t) * (3 - 2 * var(--p-start-event-t)));
   width: 100%;
   aspect-ratio: var(--escena-ar);
   flex: 0 0 auto;
