@@ -19,6 +19,35 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
   section.querySelector('.prueba-superada__cupones')?.addEventListener('click', () => setCouponsOpen(true));
   section.querySelector('.cupones__back')?.addEventListener('click', () => setCouponsOpen(false));
   document.querySelector('.site-menu a[href="#cupones"]')?.addEventListener('click', () => setCouponsOpen(true));
+  if (section.classList.contains('prueba-superada') && stagePanel && couponsPanel) {
+    // Va en stagePanel para no competir con el swipe propio de couponsPanel.
+    let startX = 0;
+    let startY = 0;
+    let startTime = 0;
+    let axis = null;
+    stagePanel.addEventListener('touchstart', (event) => {
+      const touch = event.changedTouches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      startTime = performance.now();
+      axis = null;
+    }, { passive: true });
+    stagePanel.addEventListener('touchmove', (event) => {
+      const touch = event.changedTouches[0];
+      const dx = touch.clientX - startX;
+      const dy = touch.clientY - startY;
+      if (!axis && Math.max(Math.abs(dx), Math.abs(dy)) >= 10) {
+        axis = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
+      }
+    }, { passive: true });
+    stagePanel.addEventListener('touchend', (event) => {
+      if (section.dataset.cupones === 'true' || axis !== 'horizontal') return;
+      const dx = event.changedTouches[0].clientX - startX;
+      const elapsed = performance.now() - startTime;
+      if (dx < 0 && (Math.abs(dx) > stagePanel.getBoundingClientRect().width * 0.25
+        || Math.abs(dx) / Math.max(elapsed, 1) > 0.5)) setCouponsOpen(true);
+    }, { passive: true });
+  }
   setCouponsOpen(false);
 
   // Sin movimiento: la seccion se ve entera y el riel queda en 0, asi que no
