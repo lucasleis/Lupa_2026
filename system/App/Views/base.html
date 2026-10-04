@@ -345,6 +345,9 @@
     <section class="acertijo-panel" aria-label="Acertijo de Ofertiti" aria-hidden="true">
       <img class="acertijo-panel__background" src="img/acertijo/panel-papiro.webp" alt="" width="1125" height="1972">
       <div class="acertijo-panel__questions"></div>
+      <!-- El de la intro no puede subir sobre el panel: vive dentro del
+           sticky, que es su propio contexto de apilamiento. -->
+      <a class="acertijo-panel__skip" href="#formulario">SALTAR INTRO</a>
     </section>
     <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-hidden="true" inert tabindex="-1">
       <div class="popup__paper">

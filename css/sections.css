@@ -1079,6 +1079,24 @@
   height: 100%;
 }
 
+.acertijo-panel__skip {
+  position: absolute;
+  z-index: 2;
+  top: calc(596.4 * var(--u));
+  left: 50%;
+  width: auto;
+  height: calc(35 * var(--u));
+  white-space: nowrap;
+  transform: translateX(-50%);
+  color: var(--color-brown-dark);
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: calc(35 * var(--u));
+  text-align: center;
+  text-decoration-line: underline;
+}
+
 .acertijo-question {
   position: absolute;
   top: 0;

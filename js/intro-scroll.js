@@ -303,7 +303,7 @@ if (heroTrack) {
 
   // Sin esto, SALTAR INTRO y el menú hamburguesa apuntan a secciones en display:none y no hacen nada.
   document.addEventListener('click', (event) => {
-    if (event.target.closest('.hero__skip, .site-menu a[href^="#"]')) {
+    if (event.target.closest('.hero__skip, .acertijo-panel__skip, .site-menu a[href^="#"]')) {
       liberarScroll();
     }
   });
