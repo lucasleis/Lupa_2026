@@ -10,6 +10,8 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
   const stagePanel = stage.closest('.escena__panel');
   const couponsPanel = section.querySelector('.cupones__stage')?.closest('.escena__panel');
   const setCouponsOpen = (open) => {
+    // No todas las escenas data-entrada tienen paneles; sin esta guarda el throw aborta el forEach para las siguientes.
+    if (!stagePanel || !couponsPanel) return;
     section.dataset.cupones = String(open);
     stagePanel.inert = open;
     stagePanel.setAttribute('aria-hidden', String(open));
