@@ -92,9 +92,28 @@
 .escena[data-entrada-activa="true"] .escena-rail { height: var(--escena-track, 0svh); }
 
 .puerta { --escena-background: var(--color-wall); }
-.puerta__stage { --puerta-p: 0; background: var(--color-wall); }
+body {
+  --puerta-cruce-inicio: 0.75;
+  --puerta-cruce-p: clamp(0, calc((var(--puerta-p, 0) - var(--puerta-cruce-inicio)) / (1 - var(--puerta-cruce-inicio))), 1);
+  --puerta-desenfoque: 5px;
+  /* Calibrable: el pasillo se apaga en el último tramo del riel de
+     .interior, justo cuando dispara el popup y arranca el viaje. */
+  --pasillo-salida-inicio: 0.95;
+  --pasillo-salida-p: clamp(0, calc((var(--interior-p, 0) - var(--pasillo-salida-inicio)) / (1 - var(--pasillo-salida-inicio))), 1);
+}
+.puerta__stage {
+  --puerta-p: 0;
+  background: var(--color-wall);
+}
 .puerta__encuadre { position: absolute; inset: 0; }
-.puerta__escena { position: absolute; inset: 0; transform-origin: calc(190.29 * var(--u)) calc(516.48 * var(--u)); transform: scale(calc(1 + 1.117 * var(--puerta-p) * var(--puerta-zoom-factor))); }
+.puerta__escena {
+  position: absolute;
+  inset: 0;
+  /* Centro del hueco medido en image 51.png y convertido al frame móvil. */
+  transform-origin: calc(188.38 * var(--u)) calc(443.74 * var(--u));
+  transform: scale(calc(1 + 1.117 * var(--puerta-p) * var(--puerta-zoom-factor)));
+  filter: blur(calc(var(--puerta-desenfoque) * var(--puerta-cruce-p)));
+}
 .puerta__glifos { position: absolute; z-index: 1; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; /* El SVG fue editado a mano tras exportarlo para centralizar la opacidad en CSS. */ opacity: 0.3; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); transform: translateX(-50%); }
 .puerta__cenefa { position: absolute; z-index: 2; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: auto; max-width: none; }
 .puerta__imagen { position: absolute; z-index: 3; left: calc(-10.59 * var(--u)); top: calc(216.87 * var(--u)); width: calc(396.18 * var(--u)); height: calc(488.83 * var(--u)); max-width: none; }
@@ -141,6 +160,8 @@
 
 .interior {
   --escena-track: 100svh;
+  --escena-background: #2A1A0E;
+  /* Esta sección sostiene el pasillo al que resuelve el cruce de .puerta; su final dispara el popup. */
 }
 
 /* Duracion del desenrollado. La comparten el clip-path del cuerpo y el
@@ -1190,13 +1211,30 @@
   transform: translateX(calc(217.56 * var(--u)));
 }
 
-/* Ancla del salto a ofertas, sin dibujo propio. */
+/* Ancla lógica y capa fija del pasillo para el salto a ofertas. */
+/* data-puerta-revelada queda como marcador JS; hoy CSS no lo lee. */
 .pase-puerta {
   position: fixed;
   z-index: 35;
   inset: 0;
-  visibility: hidden;
   pointer-events: none;
+  opacity: calc(var(--puerta-cruce-p, 0) * (1 - var(--pasillo-salida-p, 0)));
+}
+.pase-puerta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  max-width: 480px;
+  transform: translateX(-50%);
+  background-color: #2A1A0E;
+  background-image: url("../img/interior.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  filter: blur(calc(var(--puerta-desenfoque) * (1 - var(--puerta-cruce-p, 0))));
 }
 
 @media (min-width: 900px) {

@@ -6,6 +6,9 @@ const popup = document.querySelector('.popup');
 
 let armada = false;
 
+// Calibrable: duración del movimiento de cámara hacia .ofertas.
+const DURACION_REVELADO = 1.2;
+
 const revelar = () => {
   if (!cortina || !ofertas || !armada) return;
   armada = false;
@@ -17,7 +20,7 @@ const revelar = () => {
   const top = window.scrollY + ofertas.getBoundingClientRect().top + riel * 0.35;
   document.body.dataset.puertaRevelada = 'true';
   document.documentElement.style.overflow = '';
-  irA(top, { immediate: true });
+  irA(top, { lock: true, duration: DURACION_REVELADO });
 };
 
 document.addEventListener('interior:final', () => {

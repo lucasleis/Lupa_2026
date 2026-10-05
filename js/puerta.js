@@ -22,6 +22,8 @@ if (section && stage && rail) {
   const actualizar = () => {
     framePending = false;
     const progress = progresoDeRiel(rail, { desdeElTope: true, destino: stage, propiedad: '--puerta-p' });
+    // La capa fija vive fuera de la sección y necesita el progreso en body.
+    document.body.style.setProperty('--puerta-p', String(progress));
     if (progress >= 0.999) {
       if (!enFinal) {
         enFinal = true;
