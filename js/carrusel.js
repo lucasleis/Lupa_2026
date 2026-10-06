@@ -91,7 +91,7 @@ export const inicializarCarrusel = (root, {
   let startY = 0;
   let axis = null;
   let startTime = 0;
-  track.addEventListener('touchstart', (event) => {
+  viewport.addEventListener('touchstart', (event) => {
     if (desktopCoupons?.matches) return;
     const touch = event.changedTouches[0];
     startX = touch.clientX;
@@ -99,7 +99,7 @@ export const inicializarCarrusel = (root, {
     startTime = performance.now();
     axis = null;
   }, { passive: true });
-  track.addEventListener('touchmove', (event) => {
+  viewport.addEventListener('touchmove', (event) => {
     if (desktopCoupons?.matches) return;
     const touch = event.changedTouches[0];
     const dx = touch.clientX - startX;
@@ -107,7 +107,7 @@ export const inicializarCarrusel = (root, {
     if (!axis && Math.max(Math.abs(dx), Math.abs(dy)) >= 10) axis = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
     if (axis === 'horizontal') event.preventDefault();
   }, { passive: false });
-  track.addEventListener('touchend', (event) => {
+  viewport.addEventListener('touchend', (event) => {
     if (desktopCoupons?.matches) return;
     if (axis !== 'horizontal') return;
     const dx = event.changedTouches[0].clientX - startX;
