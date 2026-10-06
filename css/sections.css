@@ -261,10 +261,24 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .escena__track { transition: none; }
   .carrusel__track { transition: none; }
+  body[data-puerta-revelada="true"] .ofertas__stage { animation: none; }
 }
 
 .ofertas { --escena-background: var(--color-brown-dark); --escena-track-k: 1.6; --escena-track: calc(var(--escena-track-k) * 100svh); }
 .ofertas__stage { --escena-p: 0; --escena-entrada-tramo: 0.30; background: var(--color-brown-dark); }
+/* El salto a ofertas es instantáneo y aterriza con --escena-entrada-p ya en 1,
+   así que el fundido de entrada no puede salir del progreso del riel: lo
+   dispara el marcador que escribe js/pase-puerta.js. Sin fill-mode a
+   propósito: al terminar, la opacidad vuelve a mandarla --escena-entrada-p y
+   el tramo sigue siendo reversible al scrollear hacia atrás. */
+body[data-puerta-revelada="true"] .ofertas__stage {
+  animation: ofertas-aparece 600ms ease;
+}
+
+@keyframes ofertas-aparece {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 .ofertas__decorado { position: absolute; z-index: 0; inset: 0; }
 .ofertas__glifos { position: absolute; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; /* Opacidad calibrada contra el fondo marrón. */ opacity: 0.1; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); transform: translateX(-50%); }
 .ofertas__cenefa { position: absolute; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: auto; max-width: none; }
@@ -1218,7 +1232,7 @@ body {
 }
 
 /* Ancla lógica y capa fija del pasillo para el salto a ofertas. */
-/* data-puerta-revelada queda como marcador JS; hoy CSS no lo lee. */
+/* CSS lee data-puerta-revelada para disparar el fundido de entrada de .ofertas__stage. */
 .pase-puerta {
   position: fixed;
   z-index: 35;
