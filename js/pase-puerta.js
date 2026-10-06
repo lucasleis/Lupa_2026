@@ -10,11 +10,9 @@ const revelar = () => {
   if (!cortina || !ofertas || !armada) return;
   armada = false;
   // El alto del riel es lo que la seccion mide de mas sobre el viewport.
-  // 0.35 va apareado con el --escena-entrada-tramo de .ofertas (0.30): aterriza
-  // apenas pasado el final del fade, con la seccion ya visible. Si .ofertas se
-  // queda sin riel, riel vale 0 y esto se comporta como antes.
+  // El aterrizaje va al final del riel porque el tramo de entrada de .ofertas ahora es el riel completo.
   const riel = Math.max(0, ofertas.offsetHeight - window.innerHeight);
-  const top = window.scrollY + ofertas.getBoundingClientRect().top + riel * 0.35;
+  const top = window.scrollY + ofertas.getBoundingClientRect().top + riel * 1;
   document.body.dataset.puertaRevelada = 'true';
   document.documentElement.style.overflow = '';
   irA(top, { lock: true, immediate: true });
