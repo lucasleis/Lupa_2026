@@ -1268,6 +1268,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   pointer-events: none;
   opacity: calc(var(--puerta-cruce-p, 0) * (1 - var(--pasillo-salida-p, 0)));
 }
+/* Solo escritorio: en movil este tramo lo resuelve .pase-puerta. */
+.pase-interior { display: none; }
 .pase-puerta::before {
   content: "";
   position: absolute;
@@ -2772,6 +2774,40 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     background-image: url("../img/piramide/pasillo-desktop.webp");
     filter: blur(calc(var(--puerta-desenfoque) * (1 - var(--pasillo-entrada-p) + var(--pasillo-salida-p-desktop))));
     transform: translateX(-50%) scale(calc(1 + var(--pasillo-salida-avance) * var(--pasillo-salida-p-desktop)));
+  }
+
+  /* La entrada por la puerta de la piramide, en escritorio. Mismo mecanismo
+     que .pase-puerta: capa fija que entra con --puerta-cruce-p mientras
+     .puerta__escena se desenfoca con esa misma variable (linea 115), y se va
+     con el final del riel de .interior, que es lo que dispara el popup.
+     .pase-puerta aca esta tomada por el pasillo de la piramide, por eso esta
+     va aparte. */
+  .pase-interior {
+    display: block;
+    position: fixed;
+    z-index: 35;
+    inset: 0;
+    pointer-events: none;
+    opacity: calc(var(--puerta-cruce-p, 0) * (1 - var(--pasillo-salida-p, 0)));
+  }
+
+  /* Entra desenfocandose y sigue avanzando un poco al irse, para que lea como
+     camara que atraviesa y no como capa que se apaga.
+     Calibrable: cuanto avanza. */
+  .pase-interior::before {
+    /* La camara atraviesa la imagen. Dos tramos: un empujon chico mientras
+       entra con el cruce, para que nunca se la vea quieta, y el recorrido
+       largo a lo ancho del riel de .interior, que termina justo cuando
+       dispara el popup. --interior-p lo escribe js/escena-entrada.js:81 en el
+       body. Los dos son calibrables. */
+    --entrada-zoom-cruce: 0.12;
+    --entrada-zoom: 0.6;
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #2A1A0E url("../img/puerta/entrada-desktop.webp") no-repeat center / cover;
+    filter: blur(calc(var(--puerta-desenfoque) * (1 - var(--puerta-cruce-p, 0) + var(--pasillo-salida-p, 0))));
+    transform: scale(calc(1 + var(--entrada-zoom-cruce) * var(--puerta-cruce-p, 0) + var(--entrada-zoom) * var(--interior-p, 0)));
   }
 
 }
