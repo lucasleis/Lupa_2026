@@ -82,9 +82,10 @@ if (hero && optionsRoot && continueButton) {
   continueButton.addEventListener('click', () => {
     if (selected < 0) return;
     optionsRoot.setAttribute('inert', '');
-    continueButton.setAttribute('inert', '');
     document.dispatchEvent(new CustomEvent('pregunta:respondida', {
       detail: { acierto: opciones[selected].correcta }
     }));
+    continueButton.querySelector('span').textContent = 'PUEDES CONTINUAR';
+    continueButton.setAttribute('inert', '');
   });
 }
