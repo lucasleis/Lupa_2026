@@ -879,12 +879,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .hero__option[data-quiz-active="true"]:nth-child(4) { transition-delay: 270ms; }
 .hero__continue[data-quiz-active="true"] { transition-delay: 400ms; }
 
-/* Salida simétrica, en orden inverso: primero CONTINUAR, después 4 → 1. */
-.hero__continue[data-quiz-active="false"] { transition-delay: 0ms; }
-.hero__option[data-quiz-active="false"]:nth-child(4) { transition-delay: 90ms; }
-.hero__option[data-quiz-active="false"]:nth-child(3) { transition-delay: 180ms; }
-.hero__option[data-quiz-active="false"]:nth-child(2) { transition-delay: 270ms; }
-.hero__option[data-quiz-active="false"]:nth-child(1) { transition-delay: 360ms; }
+/* Sin escalonado a la salida: un scroll rápido vuelve a traer el globo
+   antes de que termine, y se pisan. La entrada sí lo conserva. */
+.hero__continue[data-quiz-active="false"],
+.hero__option[data-quiz-active="false"] { transition-delay: 0ms; }
 
 .hero__option.is-selected {
   background-image: url("../img/acertijo/opcion-seleccionada.webp");
@@ -1281,6 +1279,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 }
 
 @media (min-width: 900px) {
+  .acertijo-panel-rail--intro {
+    --intro-rail-height: 250svh; /* Recorrido de escritorio; ajustar a ojo. */
+  }
+
   /* El centrado es de las capas que siguen en --u. Las capas en --ud
      (glifos, arena) traen coordenadas absolutas del frame 1440x900 y no
      se tocan. */
@@ -2033,8 +2035,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: calc(118.03 * var(--ud));
     width: calc(614.94 * var(--ud));
     height: calc(266.87 * var(--ud));
-    --p-globo-in: clamp(0, calc(var(--quiz-p) / 0.30), 1);
-    --p-globo-out: clamp(0, calc((var(--quiz-p) - 0.50) / 0.12), 1);
+    /* --quiz-p sobre 500svh:
+       0-.15 entra el globo (75svh); .15-.57 meseta (210svh);
+       .57-.63 sale (30svh); .63-.69 respiro (30svh);
+       .69-1 entran las opciones y quedan quietas (155svh). */
+    --p-globo-in: clamp(0, calc(var(--quiz-p) / 0.15), 1);
+    --p-globo-out: clamp(0, calc((var(--quiz-p) - 0.57) / 0.06), 1);
     transform: scale(calc(var(--p-globo-in) * (1 - var(--p-globo-out))));
     transform-origin: center;
   }

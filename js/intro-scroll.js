@@ -51,21 +51,25 @@ if (heroTrack) {
   const panelRailsDesktop = window.matchMedia('(min-width: 900px)');
   const ALTURA_RESULTADO_MOBILE = 350;
   const ALTURA_RESULTADO_DESKTOP = 300;
+  const ALTURA_PANEL_ENTRADA_DESKTOP = 300; // Recorrido de escritorio; ajustar a ojo.
+  const ALTURA_PANEL_ENTRADA_MOBILE = 200;
   const ALTURA_MOVIMIENTO_SALIDA = 200;
   const INICIO_MOVIMIENTO_SALIDA = 0.3;
   const ALTURA_QUIZ_MOBILE = 200;
   const GLOBO_COMPLETO_EN = 0.5;
   const PAUSA_GLOBO_SVH = 50;
-  const ENTRADA_CONTROLES_DESKTOP = 0.60; // 150svh en el riel de 250svh.
+  const ENTRADA_CONTROLES_DESKTOP = 0.69; // Las opciones entran a 345svh y quedan quietas 155svh.
   const RESULTADO_TRAMOS = { quizSalidaFin: 0.29, resultadoEntradaInicio: 0.29, resultadoEntradaFin: 0.57 };
   const RESULTADO_TRAMOS_DESKTOP = {
     quizSalidaFin: 0.40, // salida: 0-120svh.
     resultadoEntradaInicio: 0.40, // entrada: empieza a 120svh.
     resultadoEntradaFin: 1, // entrada: termina a 300svh.
   };
-  const alturaRielPanel = () => '200svh';
+  const alturaRielPanel = () => panelRailsDesktop.matches
+    ? `${ALTURA_PANEL_ENTRADA_DESKTOP}svh`
+    : `${ALTURA_PANEL_ENTRADA_MOBILE}svh`;
   const alturaRielSalida = () => `${ALTURA_MOVIMIENTO_SALIDA / (1 - INICIO_MOVIMIENTO_SALIDA)}svh`;
-  const alturaRielQuiz = () => panelRailsDesktop.matches ? '250svh' : `${ALTURA_QUIZ_MOBILE}svh`;
+  const alturaRielQuiz = () => panelRailsDesktop.matches ? '500svh' : `${ALTURA_QUIZ_MOBILE}svh`;
   const alturaRielResultado = () => panelRailsDesktop.matches
     ? `${ALTURA_RESULTADO_DESKTOP}svh`
     : `${ALTURA_RESULTADO_MOBILE}svh`;
@@ -241,19 +245,20 @@ if (heroTrack) {
         questionUi.setAttribute('aria-hidden', String(!controlsVisible));
         questionUi.dataset.quizVisible = String(controlsVisible);
 
+        // El umbral de --quiz-p va en ambas ramas para que la vuelta sea simétrica.
         questionUi.querySelectorAll('.hero__option').forEach((option, index) => {
           option.dataset.quizActive = String(
-            controlsVisible && (answerSubmitted
-              ? quizExitProgress >= 0.999
-              : quizProgress >= ENTRADA_CONTROLES)
+            controlsVisible
+              && quizProgress >= ENTRADA_CONTROLES
+              && (!answerSubmitted || quizExitProgress >= 0.999)
           );
         });
         const continueButton = questionUi.querySelector('.hero__continue');
         if (continueButton) {
           continueButton.dataset.quizActive = String(
-            controlsVisible && (answerSubmitted
-              ? quizExitProgress >= 0.999
-              : quizProgress >= ENTRADA_CONTROLES)
+            controlsVisible
+              && quizProgress >= ENTRADA_CONTROLES
+              && (!answerSubmitted || quizExitProgress >= 0.999)
           );
         }
         questionUi.querySelectorAll('.hero__result').forEach((result) => {
@@ -264,7 +269,7 @@ if (heroTrack) {
         });
       }
       if (skipLink) {
-        skipLink.dataset.quizActive = String(currentState === 'pregunta' && quizProgress >= 0.84);
+        skipLink.dataset.quizActive = String(currentState === 'pregunta' && quizProgress >= 0.76); // 380svh del riel de 500svh; recalcular si cambia su alto.
       }
     }
   };
@@ -313,7 +318,7 @@ if (heroTrack) {
     if (puzzleStarted) return;
     puzzleStarted = true;
     panel?.setAttribute('aria-hidden', 'false');
-    // Sticky (100svh) + riel de entrada (200svh), sin espacio posterior.
+    // Sticky (100svh) + riel de entrada (300svh en escritorio, 200svh en móvil).
     habilitarRielYDesplazar(entryRail, {
       propiedad: '--panel-entry-rail-height',
       altura: RAIL_HEIGHTS.entrada,
