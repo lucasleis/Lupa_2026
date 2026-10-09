@@ -82,8 +82,14 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
       if (p >= 0.999 && !interiorEnFinal) {
         interiorEnFinal = true;
         document.dispatchEvent(new CustomEvent('interior:final'));
-      } else if (p < 0.9) {
-        interiorEnFinal = false;
+      } else if (p < 0.999) {
+        // El pase se desarma apenas el riel deja su final. No puede esperar al
+        // 0.9 de la histeresis: esa banda es del evento, y entre 0.9 y 1 la
+        // cortina quedaba apagada mostrando el stage vacio.
+        delete document.body.dataset.puertaRevelada;
+        if (p < 0.9) {
+          interiorEnFinal = false;
+        }
       }
     }
   };

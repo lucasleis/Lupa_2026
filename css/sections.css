@@ -1345,6 +1345,51 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     transform-origin: calc(722 * var(--ud)) calc(531 * var(--ud));
   }
 
+  /* En escritorio el lienzo detras del stage lo pinta --lienzo-fondo, no
+     --escena-background. Sin esto estas dos secciones quedan con el arenoso
+     por defecto asomando alrededor del stage. */
+  .puerta {
+    --lienzo-fondo: var(--color-wall);
+  }
+
+  .interior {
+    --lienzo-fondo: #2A1A0E;
+  }
+
+  /* El stage de .interior nunca tuvo contenido. Lo pinta la misma imagen que
+     la cortina, y en su MISMA escala final, para que el relevo sea invisible:
+     la cortina se va con --pasillo-salida-p y abajo aparece exactamente el
+     mismo encuadre. Va en un ::before porque un background no se puede
+     escalar con transform. */
+  .interior .escena__stage {
+    background: #2A1A0E;
+    overflow: hidden;
+  }
+
+  /* El espejo de ofertas-aparece (linea 275): lo que entra al volver es el
+     stage de .interior, con el mismo fundido y la misma duracion. Sin
+     fill-mode, igual que el de ida, para que al terminar la opacidad vuelva a
+     mandarla el scroll. */
+  body[data-pase-volviendo="true"] .interior .escena__stage {
+    animation: ofertas-aparece 600ms ease;
+  }
+
+  .interior .escena__stage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../img/puerta/entrada-desktop.webp") no-repeat center / cover;
+    transform: scale(calc(1 + var(--entrada-zoom-cruce) + var(--entrada-zoom)));
+  }
+
+  /* Compartidas: la cortina y el fondo del stage de .interior tienen que
+     llegar a la misma escala, o el relevo entre una y otra pega un salto de
+     tamano aunque la opacidad cruce bien. */
+  body {
+    --entrada-zoom-cruce: 0.12;
+    --entrada-zoom: 0.6;
+  }
+
   /* .escena__stage img (linea 63) es 0-1-1 y le gana a .puerta__imagen,
      por eso el selector lleva el stage adelante. */
   .puerta__stage .puerta__imagen {
@@ -2788,6 +2833,11 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     z-index: 35;
     inset: 0;
     pointer-events: none;
+    /* Todo colgado del scroll: entra con --puerta-cruce-p y se va con
+       --pasillo-salida-p, que sale del final del riel de .interior. Asi la
+       vuelta es el mismo recorrido al reves, sin atributos ni transiciones de
+       por medio. El fundido de salida cruza contra la misma imagen quieta que
+       pinta el stage de .interior, por eso no deja hueco. */
     opacity: calc(var(--puerta-cruce-p, 0) * (1 - var(--pasillo-salida-p, 0)));
   }
 
@@ -2800,8 +2850,6 @@ body[data-puerta-revelada="true"] .ofertas__stage {
        largo a lo ancho del riel de .interior, que termina justo cuando
        dispara el popup. --interior-p lo escribe js/escena-entrada.js:81 en el
        body. Los dos son calibrables. */
-    --entrada-zoom-cruce: 0.12;
-    --entrada-zoom: 0.6;
     content: "";
     position: absolute;
     inset: 0;

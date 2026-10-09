@@ -6,6 +6,18 @@ const popup = document.querySelector('.popup');
 
 let armada = false;
 
+// El fundido del pase dura lo mismo que las animaciones de 600ms de
+// css/sections.css. Mientras corre, el scroll queda fijo: si el usuario sigue
+// empujando, el fundido se ve a medias sobre una pantalla que ya se movio.
+const FUNDIDO = 600;
+const fijarDurante = (ms) => {
+  // En el frame siguiente, para no cortar el scrollTo que acaba de ejecutarse.
+  window.requestAnimationFrame(() => {
+    window.lenis?.stop();
+    window.setTimeout(() => window.lenis?.start(), ms);
+  });
+};
+
 const revelar = () => {
   if (!cortina || !ofertas || !armada) return;
   armada = false;
@@ -16,6 +28,7 @@ const revelar = () => {
   document.body.dataset.puertaRevelada = 'true';
   document.documentElement.style.overflow = '';
   irA(top, { lock: true, immediate: true });
+  fijarDurante(FUNDIDO);
 };
 
 document.addEventListener('interior:final', () => {
@@ -37,3 +50,32 @@ document.addEventListener('interior:final', () => {
 });
 
 document.addEventListener('popup:cerrado', revelar);
+
+// Vuelta. El salto de ida teletransporta al final del riel de ofertas, asi que
+// subir devuelve un recorrido que bajar nunca hizo. Esto lo espeja: al empezar
+// a subir desde el principio de ofertas, salta al final del riel de .interior,
+// que es donde el zoom de la entrada termina, con el mismo fundido de 600ms.
+const interior = document.querySelector('.interior');
+let volviendo = false;
+let ultimoY = window.scrollY;
+
+const alSubir = () => {
+  const y = window.scrollY;
+  const subiendo = y < ultimoY;
+  ultimoY = y;
+  if (!subiendo || volviendo || !interior || !ofertas) return;
+  // Solo si el salto de ida ya ocurrio y ofertas llego a su tope.
+  if (document.body.dataset.puertaRevelada !== 'true') return;
+  if (ofertas.getBoundingClientRect().top < 0) return;
+  volviendo = true;
+  delete document.body.dataset.puertaRevelada;
+  document.body.dataset.paseVolviendo = 'true';
+  irA(interior.offsetTop + interior.offsetHeight - window.innerHeight, { lock: true, immediate: true });
+  fijarDurante(FUNDIDO);
+  window.setTimeout(() => {
+    delete document.body.dataset.paseVolviendo;
+    volviendo = false;
+  }, FUNDIDO);
+};
+
+if (interior && ofertas) window.lenis.on('scroll', alSubir);
