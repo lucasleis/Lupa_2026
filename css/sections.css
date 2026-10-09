@@ -3101,14 +3101,4 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
     height: calc(43 * var(--ud));
   }
 
-  .footer {
-    position: sticky;
-    top: calc((100svh - 559 * var(--ud)) / 2);
-  }
-
-  .footer__rail {
-    height: 60svh;
-    background: var(--color-orange-hex);
-    pointer-events: none;
-  }
 }
