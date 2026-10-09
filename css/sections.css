@@ -2054,6 +2054,27 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     line-height: calc(46 * var(--ud));
   }
 
+  /* Misma caja que el globo de la pregunta: los dos ocupan el mismo lugar del
+     frame y nunca se ven juntos. */
+  .hero__stage[data-estado] .hero__result {
+    top: calc(221.13 * var(--ud));
+    left: calc(118.03 * var(--ud));
+    width: calc(614.94 * var(--ud));
+    height: calc(266.87 * var(--ud));
+  }
+
+  .hero__stage[data-estado] .hero__result .hero__result-title {
+    font-size: calc(44 * var(--ud));
+    line-height: calc(46 * var(--ud));
+  }
+
+  /* Provisional: el cuerpo va proporcional al título con la misma relación que
+     en móvil (26/18). Pendiente de verificar contra Figma. */
+  .hero__stage[data-estado] .hero__result .hero__result-copy {
+    font-size: calc(30 * var(--ud));
+    line-height: calc(32 * var(--ud));
+  }
+
   .hero__stage[data-estado] .hero__riddle-balloon--answer {
     --cola: 1;
   }
