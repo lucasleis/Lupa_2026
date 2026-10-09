@@ -8,13 +8,14 @@ const vales = [
 ];
 
 const hexagono = (clase, fill) => `<svg class="vales__hexagono ${clase}" viewBox="0 0 131 118" aria-hidden="true" focusable="false"><path d="M120.198 23.7749L127.186 78.7861L72.222 114.173L10.1581 93.6508L3.17059 38.6396L58.1331 3.25324L120.198 23.7749Z" fill="${fill}" stroke="var(--color-gold)" stroke-width="5.9185"/></svg>`;
+const hexagonoSombra = (clase, fill) => `<svg class="vales__hexagono ${clase}" viewBox="0 0 161 144" aria-hidden="true" focusable="false"><path d="M74.7691 -7.43062e-05L151.514 26.5044L160.585 97.9166L89.3633 143.245L9.07073 117.162L3.07249e-05 45.7497L74.7691 -7.43062e-05Z" fill="${fill}"/></svg>`;
 
 const renderVale = (vale, index) => `<article class="carrusel__slide vales__slide" role="group" aria-roledescription="slide" aria-label="Vale ${index + 1} de ${vales.length}">
   <img class="vales__sarcofago" src="img/vales/sarcofago.svg" alt="">
   <p class="vales__dilo">Dilo en caja:</p>
   <p class="vales__frase">${vale.frase}</p>
   <div class="vales__discount" aria-label="${vale.entero}${vale.centavos} euros de descuento">
-    ${hexagono('vales__hexagono--sombra', 'var(--color-gold-mid)')}
+    ${hexagonoSombra('vales__hexagono--sombra', 'var(--color-gold-mid)')}
     ${hexagono('vales__hexagono--cara', 'var(--color-sky)')}
     <div class="vales__price">
       <span class="vales__price-euros" aria-hidden="true">${vale.entero}</span>

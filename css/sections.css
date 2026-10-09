@@ -2455,21 +2455,34 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .vales__discount {
-    left: calc(-24.97 * var(--ud));
-    top: calc(121.3 * var(--ud));
-    width: calc(186.14 * var(--ud));
-    height: calc(158.5 * var(--ud));
-    --vales-precio-size: 68;
-    --vales-precio-cc-size: 40;
-    --vales-precio-unidad-size: 24;
-    transform: rotate(-7.24deg);
+    left: calc(-16.45 * var(--ud));
+    top: calc(128.57 * var(--ud));
+    width: calc(169.1 * var(--ud));
+    height: calc(143.97 * var(--ud));
+    --vales-precio-size: 84.04;
+    --vales-precio-cc-size: 41;
+    --vales-precio-unidad-size: 25.19;
+    --vales-precio-entero-y: 18;
+    --vales-precio-cc-y: -7;
+    --vales-precio-y: 10;
   }
 
+  /* Las cajas son las de .cupones__hexagon / --shadow (:1632, :1639). La cara
+     mide 4px menos de alto que el contenedor a propósito: con el centrado de
+     preserveAspectRatio eso corre el hexágono hacia adentro y deja la sombra
+     asomando ~2.3 por la izquierda. Con height 100% la cara se come la sombra. */
   .vales__hexagono--cara {
     left: 0;
     top: 0;
-    width: 100%;
-    height: auto;
+    width: calc(169.1 * var(--ud));
+    height: calc(139.93 * var(--ud));
+  }
+
+  .vales__hexagono--sombra {
+    left: calc(4.53 * var(--ud));
+    top: calc(1.52 * var(--ud));
+    width: calc(152.73 * var(--ud));
+    height: calc(143.94 * var(--ud));
   }
 
   .vales__price {
