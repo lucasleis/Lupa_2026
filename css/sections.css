@@ -1656,8 +1656,37 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     --p-anuncio-out: clamp(0, calc((var(--anuncio-p, 1) - 0.6) / 0.4), 1);
   }
 
+  /* Camara del acercamiento. transform-origin es 0 0 (regla base, linea 570),
+     asi que final = translate + escala * inicio.
+     Primer tramo (--piramide-p): escala 2452.8 / 1209.90 = 2.02728, medido
+     contra el frame 1440x900.
+       tx: -573.09 - 2.02728 * 115.06 = -806.35
+       ty:    54.4 - 2.02728 * 330.93 = -616.48
+     Segundo tramo (--entrada-p): sigue entrando y tiene que dejar el centro
+     de la puerta en el centro del viewport. Con origen 0 0 el translate NO es
+     libre: queda determinado por la escala, por eso se deriva de
+     --zoom-entrada en vez de ir a ojo.
+       tx = (720 + 806.35) - (2.02728 + zoom) * --puerta-cx
+       ty = (450 + 616.48) - (2.02728 + zoom) * --puerta-cy
+     El centro de la puerta sale de .piramide-puerta en (688.50, 642.60) con
+     850.70x699.10, contra-escalada por el scale(0.125) de su regla base:
+     106.34 x 87.39, centro (741.67, 686.29). */
   .piramide-escena {
-    transform: none;
+    --zoom-entrada: 0.9;   /* Calibrable: cuanto mas entra al abrirse. */
+    --puerta-cx: 741.67;
+    --puerta-cy: 686.29;
+    transform:
+      translate(
+        calc((
+          -806.35 * var(--piramide-p, 0)
+          + (1526.35 - (2.02728 + var(--zoom-entrada)) * var(--puerta-cx)) * var(--entrada-p, 0)
+        ) * var(--ud)),
+        calc((
+          -616.48 * var(--piramide-p, 0)
+          + (1066.48 - (2.02728 + var(--zoom-entrada)) * var(--puerta-cy)) * var(--entrada-p, 0)
+        ) * var(--ud))
+      )
+      scale(calc(1 + 1.02728 * var(--piramide-p, 0) + var(--zoom-entrada) * var(--entrada-p, 0)));
   }
 
   .hero__clouds {
@@ -1714,6 +1743,13 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
   .piramide-puerta__vano {
     transform: translateZ(calc(-674.40 * var(--ud))) scale(1.3158);
+    /* El recorte deja de abrirse con --entrada-p. En movil se abre a +-200%
+       para entrar a la sala, pero ahi la camara va a escala 5.84 y tapa la
+       pantalla antes de que asomen los bordes de interior-claro.jpeg. Aca la
+       camara es mucho mas suave y el recorte le gana. En escritorio el que
+       cubre es .pase-puerta, asi que el vano solo tiene que seguir
+       encuadrando la puerta. */
+    clip-path: polygon(3.01% 9.08%, 94.75% 3.98%, 94.75% 94.25%, 3.01% 99.37%);
   }
 
   .piramide-puerta .piramide-puerta__interior {
@@ -2641,6 +2677,22 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     height: calc(26 * var(--ud));
     line-height: calc(26 * var(--ud));
     transform: none;
+  }
+
+  /* En escritorio el pasillo no lo dispara la seccion .puerta: entra con la
+     apertura de la puerta de la piramide. --puerta-cruce-p cuelga del
+     --puerta-p de body, que escribe js/puerta.js, y ese tramo aca no corre. */
+  .pase-puerta {
+    /* Calibrable: en qué punto de la apertura empieza a entrar el pasillo. */
+    --pasillo-entrada-inicio: 0.55;
+    --pasillo-entrada-p: clamp(0, calc((var(--entrada-p, 0) - var(--pasillo-entrada-inicio)) / (1 - var(--pasillo-entrada-inicio))), 1);
+    opacity: calc(var(--pasillo-entrada-p) * (1 - var(--pasillo-salida-p, 0)));
+  }
+
+  .pase-puerta::before {
+    max-width: none;
+    background-image: url("../img/piramide/pasillo-desktop.webp");
+    filter: blur(calc(var(--puerta-desenfoque) * (1 - var(--pasillo-entrada-p))));
   }
 
 }

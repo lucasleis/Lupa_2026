@@ -178,6 +178,9 @@ if (heroTrack) {
     if (pyramidRailEnabled) {
       progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: FRENO_PIRAMIDE, fin: APERTURA_FIN, destino: heroStage, propiedad: '--apertura-p' });
       const entradaProgress = progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: APERTURA_FIN, fin: 1, destino: heroStage, propiedad: '--entrada-p' });
+      // .pase-puerta cuelga de <body>, fuera de .hero__stage, y las custom
+      // properties solo heredan hacia abajo: sin esto nunca ve --entrada-p.
+      document.body.style.setProperty('--entrada-p', String(entradaProgress));
       document.body.dataset.enSala = String(entradaProgress >= 0.999);
     }
     // Checkpoint final: desktop usa --piramide-p y mobile --puerta-p. No hay
