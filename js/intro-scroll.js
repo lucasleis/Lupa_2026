@@ -269,7 +269,13 @@ if (heroTrack) {
         });
       }
       if (skipLink) {
-        skipLink.dataset.quizActive = String(currentState === 'pregunta' && quizProgress >= 0.76); // 380svh del riel de 500svh; recalcular si cambia su alto.
+        // Se va con la entrada de la pirámide, apareado con la rampa 0.15 de
+        // .piramide-escena que ya usa controlsVisible (:218).
+        skipLink.dataset.quizActive = String(
+          currentState === 'pregunta'
+          && quizProgress >= 0.76 // 380svh del riel de 500svh; recalcular si cambia su alto.
+          && pyramidProgress < 0.15
+        );
       }
     }
   };
