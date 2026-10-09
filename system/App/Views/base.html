@@ -266,6 +266,7 @@
       <div class="escena-rail" aria-hidden="true"></div>
     </section>
     <section class="formulario" id="formulario" aria-labelledby="formulario-title">
+      <div class="formulario__sticky">
       <img class="formulario__cenefa" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139" aria-hidden="true">
       <div class="formulario__glifos" aria-hidden="true">
         <img class="formulario__banda formulario__banda--uno" src="img/formulario/banda-glifos.svg" alt="" width="821.2" height="164.8">
@@ -314,6 +315,8 @@
         </div>
         <button class="formulario__submit cta-layers cta-layers--desktop" type="submit"><span>LOS QUIERO</span></button>
       </form>
+      </div>
+      <div class="formulario__rail" aria-hidden="true"></div>
     </section>
     </main>
     <!-- Provisional: este footer vive en la home; cuando existan las páginas legales se moverá a un parcial. -->
@@ -343,7 +346,10 @@
     <!-- Ancla lógica y capa fija del pasillo para el salto a ofertas. -->
     <div class="pase-puerta" aria-hidden="true"></div>
     <section class="acertijo-panel" aria-label="Acertijo de Ofertiti" aria-hidden="true">
-      <img class="acertijo-panel__background" src="img/acertijo/panel-papiro.webp" alt="" width="1125" height="1972">
+      <picture>
+        <source media="(min-width: 900px)" srcset="img/acertijo/panel-desktop.webp" width="1318" height="726">
+        <img class="acertijo-panel__background" src="img/acertijo/panel-papiro.webp" alt="" width="1125" height="1972">
+      </picture>
       <div class="acertijo-panel__questions"></div>
       <!-- El de la intro no puede subir sobre el panel: vive dentro del
            sticky, que es su propio contexto de apilamiento. -->

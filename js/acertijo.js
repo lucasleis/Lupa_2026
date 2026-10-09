@@ -18,18 +18,19 @@ const questionsRoot = panel?.querySelector('.acertijo-panel__questions');
 const startButton = document.querySelector('.hero__start');
 
 if (panel && questionsRoot) {
-  const tops = [73.27, 267.53, 462.8];
   const opened = new Set();
 
   acertijoData.forEach((item, index) => {
     const answerId = `acertijo-respuesta-${index + 1}`;
     const question = document.createElement('article');
     question.className = 'acertijo-question';
-    question.style.top = `calc(${tops[index]} * var(--u))`;
     question.innerHTML = `
       <h2 class="acertijo-question__title">${item.question}</h2>
       <div class="acertijo-scroll" data-index="${index}">
-        <img class="acertijo-scroll__open" src="img/acertijo/pergamino-abierto.webp" alt="" width="677" height="471">
+        <picture>
+          <source media="(min-width: 900px)" srcset="img/acertijo/papiro-abierto-desktop.svg" width="628" height="144">
+          <img class="acertijo-scroll__open" src="img/acertijo/pergamino-abierto.webp" alt="" width="677" height="471">
+        </picture>
         <p class="acertijo-scroll__answer" id="${answerId}">${item.answer}</p>
         <button class="acertijo-scroll__closed" type="button" aria-expanded="false" aria-controls="${answerId}" aria-label="Abrir pergamino ${index + 1}">
           <img src="img/acertijo/pergamino-cerrado.webp" alt="" width="177" height="406">

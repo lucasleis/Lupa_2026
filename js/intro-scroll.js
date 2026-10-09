@@ -63,10 +63,8 @@ if (heroTrack) {
     resultadoEntradaInicio: 0.40, // entrada: empieza a 120svh.
     resultadoEntradaFin: 1, // entrada: termina a 300svh.
   };
-  const alturaRielPanel = () => panelRailsDesktop.matches ? '0svh' : '200svh';
-  const alturaRielSalida = () => panelRailsDesktop.matches
-    ? '0svh'
-    : `${ALTURA_MOVIMIENTO_SALIDA / (1 - INICIO_MOVIMIENTO_SALIDA)}svh`;
+  const alturaRielPanel = () => '200svh';
+  const alturaRielSalida = () => `${ALTURA_MOVIMIENTO_SALIDA / (1 - INICIO_MOVIMIENTO_SALIDA)}svh`;
   const alturaRielQuiz = () => panelRailsDesktop.matches ? '250svh' : `${ALTURA_QUIZ_MOBILE}svh`;
   const alturaRielResultado = () => panelRailsDesktop.matches
     ? `${ALTURA_RESULTADO_DESKTOP}svh`
