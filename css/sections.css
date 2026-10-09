@@ -2986,4 +2986,77 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
     outline-width: calc(2 * var(--ud));
     outline-offset: calc(2 * var(--ud));
   }
+
+  /* Todo el papiro del popup esta en calc(N * var(--u)): el cuerpo, los dos
+     rollos, los dos lazos y los translateX del desenrollado. Redefinir --u
+     dentro de .popup escala las cinco piezas y su animacion de una sola vez,
+     en vez de reescribir veinte reglas. El factor son los 357.61 de ancho del
+     papel movil contra los 736.4 de la caja de escritorio.
+     OJO: --u aca NO es la unidad movil. Es local a este subarbol. */
+  .popup {
+    --u: calc(2.0592 * var(--ud));
+  }
+
+  .popup__paper {
+    width: calc(736.4 * var(--ud));
+    height: calc(689.98 * var(--ud));
+  }
+
+  /* Estas cuatro si tienen diseno propio en escritorio: coordenadas contra la
+     caja de 736.4x689.98, no escaladas del movil. En movil el titulo y el copy
+     estaban calibrados a ojo (ver comentario de la linea 206); aca van medidos. */
+  /* X Y W H medidos contra la caja del popup de 736.4x689.98. Se verifican
+     solos: las distancias a los bordes mas el ancho dan 736.4, y mas el alto
+     dan 689.98. Los porcentajes del dump iban contra otro padre y daban el
+     boton 126px mas abajo.
+     El alto va auto: Figma lo reporta para el texto que tenga en ese momento
+     y nosotros no sabemos en cuantas lineas va a caer. */
+  .popup__title {
+    top: calc(160 * var(--ud));
+    left: calc(188.24 * var(--ud));
+    width: calc(363.96 * var(--ud));
+    height: auto;
+    font-size: calc(36 * var(--ud));
+    line-height: calc(38 * var(--ud));
+  }
+
+  /* Ninguno de estos tres top es el medido en Figma. El titulo a 36/38 cae en
+     tres lineas en vez de dos y arrastra a todo el bloque. Los medidos eran
+     217.03 el titulo, 295.46 el copy y 403.38 el boton, y valen si el titulo
+     vuelve a 28/30. El copy tambien sube de 20/26 a 22/28, con lo que pasa de
+     tres lineas a cuatro. */
+  .popup__copy {
+    top: calc(300 * var(--ud));
+    left: calc(187.3 * var(--ud));
+    width: calc(365.84 * var(--ud));
+    height: auto;
+    font-size: calc(26 * var(--ud));
+    line-height: calc(30 * var(--ud));
+  }
+
+  /* El tamano (482x76), el radio, las dos capsulas y la tipografia los pone
+     .cta-layers--desktop. Aca va solo la posicion. */
+  .popup__instagram {
+    top: calc(450 * var(--ud));
+    left: calc(133.47 * var(--ud));
+    width: calc(482 * var(--ud));
+    height: calc(76 * var(--ud));
+  }
+
+  /* En escritorio la cruz es otro dibujo: un rombo naranja con el aspa
+     adentro, no el aspa pelada de movil. */
+  .popup__close {
+    top: calc(96.46 * var(--ud));
+    left: calc(582.86 * var(--ud));
+    width: calc(43 * var(--ud));
+    height: calc(43 * var(--ud));
+  }
+
+  .popup__close img {
+    content: url("../img/popup/cross.svg");
+    left: 0;
+    top: 0;
+    width: calc(43 * var(--ud));
+    height: calc(43 * var(--ud));
+  }
 }
