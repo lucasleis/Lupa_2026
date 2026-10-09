@@ -2683,16 +2683,28 @@ body[data-puerta-revelada="true"] .ofertas__stage {
      apertura de la puerta de la piramide. --puerta-cruce-p cuelga del
      --puerta-p de body, que escribe js/puerta.js, y ese tramo aca no corre. */
   .pase-puerta {
-    /* Calibrable: en qué punto de la apertura empieza a entrar el pasillo. */
+    /* Calibrable: en que punto de la apertura empieza a entrar el pasillo. */
     --pasillo-entrada-inicio: 0.55;
     --pasillo-entrada-p: clamp(0, calc((var(--entrada-p, 0) - var(--pasillo-entrada-inicio)) / (1 - var(--pasillo-entrada-inicio))), 1);
-    opacity: calc(var(--pasillo-entrada-p) * (1 - var(--pasillo-salida-p, 0)));
+    /* El pasillo se va cuando entra "Has pasado la prueba de la Esfinge", no
+       cuando llega .interior: esa seccion esta mucho mas abajo en el DOM.
+       --sala-salida-p es el progreso del riel de .prueba-superada y lo escribe
+       js/escena-entrada.js:77 en el body.
+       Calibrable: en que fraccion de ese riel termina de irse. */
+    --pasillo-salida-tramo: 0.5;
+    --pasillo-salida-p-desktop: clamp(0, calc(var(--sala-salida-p, 0) / var(--pasillo-salida-tramo)), 1);
+    opacity: calc(var(--pasillo-entrada-p) * (1 - var(--pasillo-salida-p-desktop)));
   }
 
+  /* Sale como entro: desenfocandose. Y sigue avanzando un poco mientras se va,
+     para que lea como camara que atraviesa y no como capa que se apaga.
+     Calibrable: cuanto avanza. */
   .pase-puerta::before {
+    --pasillo-salida-avance: 0.15;
     max-width: none;
     background-image: url("../img/piramide/pasillo-desktop.webp");
-    filter: blur(calc(var(--puerta-desenfoque) * (1 - var(--pasillo-entrada-p))));
+    filter: blur(calc(var(--puerta-desenfoque) * (1 - var(--pasillo-entrada-p) + var(--pasillo-salida-p-desktop))));
+    transform: translateX(-50%) scale(calc(1 + var(--pasillo-salida-avance) * var(--pasillo-salida-p-desktop)));
   }
 
 }

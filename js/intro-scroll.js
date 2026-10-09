@@ -344,7 +344,7 @@ if (heroTrack) {
   const saltarAInicioDeTramo = () => {
     const params = new URLSearchParams(window.location.search);
     const tramo = params.get('saltar');
-    if (!['intro', 'panel', 'quiz', 'resultado', 'puerta', 'piramide', 'interior', 'ofertas', 'vales', 'formulario', 'footer'].includes(tramo)) return;
+    if (!['intro', 'panel', 'quiz', 'resultado', 'puerta', 'piramide', 'prueba-superada', 'interior', 'ofertas', 'vales', 'formulario', 'footer'].includes(tramo)) return;
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     liberarScroll();
 
