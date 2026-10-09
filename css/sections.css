@@ -1841,7 +1841,11 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     width: calc(1948.56 * var(--ud));
     height: calc(495.66 * var(--ud));
     object-fit: fill;
-    transform: translateY(calc(120 * var(--entrada-p, 0) * var(--ud)));
+    /* La arena no se desplaza sola en el segundo zoom: ya la mueve la camara
+       de .piramide-escena con --entrada-p. Su translateY propio la separaba
+       de la puerta y abria un hueco. transform: none y no borrar la linea,
+       porque la regla base (:599) reaplicaria el mismo translateY con --u. */
+    transform: none;
   }
 
   .piramide-puerta {
