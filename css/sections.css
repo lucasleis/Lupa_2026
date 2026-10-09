@@ -256,8 +256,6 @@ body {
 .carrusel__dots button { width: calc(16 * var(--u)); height: calc(16.22 * var(--u)); padding: 0; border: 0; border-radius: 50%; background: var(--color-white-warm); }
 .carrusel__dots button[aria-selected="true"] { background: var(--color-brown-dark); }
 .cupones__want { position: absolute; left: calc(50% - (239 * var(--u)) / 2 + 0.46 * var(--u)); top: calc(566.26 * var(--u)); z-index: 8; width: calc(239 * var(--u)); height: calc(55 * var(--u)); padding: 0; font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; }
-.cupones__back { top: calc(18 * var(--u)); }
-
 @media (prefers-reduced-motion: reduce) {
   .escena__track { transition: none; }
   .carrusel__track { transition: none; }
@@ -1541,44 +1539,16 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     transform: translateX(-50%);
   }
 
+  /* Usa el look base de .cta-layers (borde y sombra
+     dorados) igual que EMPEZAR y COMPROBAR. El tamaño y la tipografia van
+     explicitos aca en --ud: la regla base
+     del boton (:89) esta en --u. */
   .prueba-superada__stage .prueba-superada__cupones {
     top: calc(675 * var(--ud));
     left: calc(670.5 * var(--ud));
-  }
-
-  .cta-layers--desktop {
-    position: absolute;
-    z-index: 8;
     width: calc(482 * var(--ud));
     height: calc(76 * var(--ud));
-    border: 0;
-    border-radius: calc(56.54 * var(--ud));
-    background: #C38809;
-    box-shadow: none;
-    color: #1B1E3C;
-    font-family: var(--font-display);
     font-size: calc(32 * var(--ud));
-    font-weight: 600;
-    line-height: calc(36 * var(--ud));
-  }
-
-  .cta-layers--desktop::before {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: calc(462.52 * var(--ud));
-    height: calc(57.58 * var(--ud));
-    box-sizing: border-box;
-    border: calc(7.71 * var(--ud)) solid #F5B223;
-    border-radius: calc(56.54 * var(--ud));
-    background: #00A0DD;
-    content: "";
-    transform: translate(-50%, -50%);
-  }
-
-  .cta-layers--desktop span {
-    position: relative;
-    z-index: 1;
     line-height: calc(36 * var(--ud));
   }
 
@@ -1750,13 +1720,20 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     height: calc(11.16 * var(--ud));
   }
 
+  /* Look base de .cta-layers, igual que VER CUPONES.
+     Tamano y tipografia explicitos en --ud porque la regla base (:258)
+     esta en --u. */
   .cupones__want {
     top: calc(723 * var(--ud));
     left: 50%;
     transform: translateX(-50%);
+    width: calc(482 * var(--ud));
+    height: calc(76 * var(--ud));
+    font-size: calc(32 * var(--ud));
+    line-height: calc(36 * var(--ud));
   }
 
-  .cupones__stage .carrusel__arrow:not(.cupones__back),
+  .cupones__stage .carrusel__arrow,
   .cupones__stage .carrusel__dots {
     display: none;
   }
@@ -2706,6 +2683,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: auto;
     width: calc(482 * var(--ud));
     height: calc(76 * var(--ud));
+    font-size: calc(32 * var(--ud));
+    line-height: calc(36 * var(--ud));
   }
 
   .formulario .formulario__submit:focus-visible {
@@ -3108,13 +3087,15 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
     line-height: calc(30 * var(--ud));
   }
 
-  /* El tamano (482x76), el radio, las dos capsulas y la tipografia los pone
-     .cta-layers--desktop. Aca va solo la posicion. */
+  /* Look base de .cta-layers, igual que VER CUPONES
+     y LOS QUIERO. Aca van posicion, tamano y tipografia. */
   .popup__instagram {
     top: calc(450 * var(--ud));
     left: calc(133.47 * var(--ud));
     width: calc(482 * var(--ud));
     height: calc(76 * var(--ud));
+    font-size: calc(32 * var(--ud));
+    line-height: calc(36 * var(--ud));
   }
 
   /* En escritorio la cruz es otro dibujo: un rombo naranja con el aspa

@@ -19,7 +19,6 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
     couponsPanel.setAttribute('aria-hidden', String(!open));
   };
   section.querySelector('.prueba-superada__cupones')?.addEventListener('click', () => setCouponsOpen(true));
-  section.querySelector('.cupones__back')?.addEventListener('click', () => setCouponsOpen(false));
   document.querySelector('.site-menu a[href="#cupones"]')?.addEventListener('click', () => setCouponsOpen(true));
   if (section.classList.contains('prueba-superada') && stagePanel && couponsPanel) {
     // Va en stagePanel para no competir con el swipe propio de couponsPanel.
