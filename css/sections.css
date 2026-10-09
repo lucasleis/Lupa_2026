@@ -348,12 +348,13 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .vales__peso { position: absolute; top: calc(411.6 * var(--u)); left: calc(50% - (89.68 * var(--u)) / 2 + 2.14 * var(--u)); width: calc(89.68 * var(--u)); height: calc(22 * var(--u)); margin: 0; color: #fff; font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 400; line-height: calc(22 * var(--u)); text-align: center; }
 
 /* Formulario con sticky: el riel posterior mantiene la pantalla un momento. */
-.formulario { --formulario-campo-padding: 5; position: relative; overflow: hidden; min-height: 160svh; background: var(--color-sand); }
+.formulario { --formulario-campo-padding: 5; position: relative; min-height: 160svh; background: var(--color-sand); }
 /* Mismo patron que .escena: el sticky pincha la pantalla y el riel es la
    pausa para mirarla antes de seguir. */
 .formulario__sticky {
   position: sticky;
   top: 0;
+  overflow: hidden;
   display: flex;
   height: 100svh;
   flex-direction: column;
@@ -3098,5 +3099,16 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
     top: 0;
     width: calc(43 * var(--ud));
     height: calc(43 * var(--ud));
+  }
+
+  .footer {
+    position: sticky;
+    top: calc((100svh - 559 * var(--ud)) / 2);
+  }
+
+  .footer__rail {
+    height: 60svh;
+    background: var(--color-orange-hex);
+    pointer-events: none;
   }
 }

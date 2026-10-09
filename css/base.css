@@ -83,6 +83,7 @@ main {
 /* Bloqueo de scroll de la intro: sin contenido debajo del hero, el scroll
    se detiene al final del riel. Lo levanta intro-scroll.js. */
 body[data-intro-bloqueado="true"] main > section:not(.hero),
-body[data-intro-bloqueado="true"] > footer {
+body[data-intro-bloqueado="true"] > footer,
+body[data-intro-bloqueado="true"] > .footer__rail {
   display: none;
 }
