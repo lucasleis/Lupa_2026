@@ -1839,6 +1839,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     top: calc(639.65 * var(--ud));
     left: calc(-474 * var(--ud));
     width: calc(1948.56 * var(--ud));
+    height: calc(495.66 * var(--ud));
+    object-fit: fill;
     transform: translateY(calc(120 * var(--entrada-p, 0) * var(--ud)));
   }
 
