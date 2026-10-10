@@ -62,8 +62,28 @@
 
     --stage-w: calc(1440 * var(--ud));
     --stage-h: calc(900  * var(--ud));
+    /* Bordes del viewport expresados en coordenadas del escenario, que esta
+       centrado y mide --stage-w. Con la ventana mas angosta que el escenario
+       dan valores invertidos, por eso cada pieza los combina con min()/max()
+       y nunca encoge por debajo de su ancho de diseno. */
+    --vp-izq: calc((var(--stage-w) - 100vw) / 2);
+    --vp-der: calc((var(--stage-w) + 100vw) / 2);
+    /* cenefa.webp trae 5px transparentes por lado sobre 2114 (0.24%), asi
+       que la caja llega al borde pero el dibujo no. Estas dos se pasan 8
+       unidades de cada lado para que el trazo opaco si llegue. */
+    --vp-izq-x: calc(var(--vp-izq) - 8 * var(--ud));
+    --vp-der-x: calc(var(--vp-der) + 8 * var(--ud));
     --frame-w: calc(1440 * var(--ud));
     --frame-h: calc(900 * var(--ud));
+
+    /* Los tres estan en --u (:4-6), que en escritorio queda congelado en
+       calc(480px / 375) = 1.28px y no escala con la ventana: la caja del boton
+       crecia con --ud y el borde se quedaba quieto. Factor 76/55 = 1.3818, el
+       alto del CTA de escritorio contra el del movil. El 56.54 del radio
+       coincide con el valor medido en Figma del boton de 482x76. */
+    --cta-border-width: calc(6.91 * var(--ud));
+    --cta-shadow-depth: calc(4.15 * var(--ud));
+    --cta-radius: calc(56.54 * var(--ud));
 
     --escena-ar: 1440 / 900;
 
