@@ -32,13 +32,20 @@
   background: var(--escena-background, transparent);
 }
 
+@media (min-width: 481px) and (max-width: 899px) {
+  .escena__sticky {
+    width: 100vw;
+    margin-left: calc((480px - 100vw) / 2);
+  }
+}
+
 .escena__stage {
   --escena-p: 1;
   --escena-entrada-tramo: 0.30;
   --escena-entrada-p: clamp(0, calc(var(--escena-p) / var(--escena-entrada-tramo)), 1);
   /* El globo ocupa de 44 a 331 unidades: 375 - 88 = 287 es el ancho mínimo visible sin cortarlo. */
   --u: clamp(
-    calc(min(100vw, 480px) / 375),
+    min(calc(min(100vw, 480px) / 375), calc(100svh / 667)),
     calc(100svh / 667),
     calc(min(100vw, 480px) / 287)
   );
@@ -50,6 +57,24 @@
      declaran --escena-p: 0. */
   opacity: var(--escena-entrada-p);
   transform: translateY(calc((1 - var(--escena-entrada-p)) * 12 * var(--u)));
+}
+
+@media (max-width: 899px) {
+  .escena__stage {
+    /* Espejo móvil de los bordes --vp-* de escritorio: conservar el mismo criterio de sangrado. */
+    --stage-w: calc(375 * var(--u));
+    /* Bordes del viewport expresados en coordenadas del escenario, que esta
+       centrado y mide --stage-w. Con la ventana mas angosta que el escenario
+       dan valores invertidos, por eso cada pieza los combina con min()/max()
+       y nunca encoge por debajo de su ancho de diseno. */
+    --vp-izq: calc((var(--stage-w) - 100vw) / 2);
+    --vp-der: calc((var(--stage-w) + 100vw) / 2);
+    /* cenefa.webp trae 5px transparentes por lado sobre 2114 (0.24%), asi
+       que la caja llega al borde pero el dibujo no. Estas dos se pasan 8
+       unidades de cada lado para que el trazo opaco si llegue. */
+    --vp-izq-x: calc(var(--vp-izq) - 8 * var(--u));
+    --vp-der-x: calc(var(--vp-der) + 8 * var(--u));
+  }
 }
 
 .prueba-superada__stage {
@@ -120,8 +145,23 @@ body {
 .puerta__stage[data-cruzando="true"] .puerta__escena {
   filter: blur(calc(var(--puerta-desenfoque) * var(--puerta-cruce-p)));
 }
-.puerta__glifos { position: absolute; z-index: 1; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; /* El SVG fue editado a mano tras exportarlo para centralizar la opacidad en CSS. */ opacity: 0.3; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); transform: translateX(-50%); }
+.puerta__glifos { position: absolute; z-index: 1; top: 0; left: min(calc(2.5 * var(--u)), var(--vp-izq)); width: calc(max(calc(372.5 * var(--u)), var(--vp-der)) - min(calc(2.5 * var(--u)), var(--vp-izq))); height: 100%; /* El SVG fue editado a mano tras exportarlo para centralizar la opacidad en CSS. */ opacity: 0.3; background-image: url("../img/puerta/glifos-pared.svg"); background-position: calc(calc(2.5 * var(--u)) - min(calc(2.5 * var(--u)), var(--vp-izq))) top; background-repeat: repeat; background-size: calc(370 * var(--u)) calc(20 * var(--u)); }
 .puerta__cenefa { position: absolute; z-index: 2; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: auto; max-width: none; }
+@media (max-width: 899px) {
+  .puerta__escena::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: calc(-1.52 * var(--u));
+    bottom: 0;
+    left: min(calc(-207.06 * var(--u)), var(--vp-izq-x));
+    width: calc(max(calc(497.37 * var(--u)), var(--vp-der-x)) - min(calc(-207.06 * var(--u)), var(--vp-izq-x)));
+    background-image: url("../img/prueba-superada/cenefa.webp");
+    background-position: calc(calc(-207.06 * var(--u)) - min(calc(-207.06 * var(--u)), var(--vp-izq-x))) top;
+    background-repeat: repeat-x;
+    background-size: calc(704.43 * var(--u)) auto;
+  }
+}
 .puerta__imagen { position: absolute; z-index: 3; left: calc(-10.59 * var(--u)); top: calc(216.87 * var(--u)); width: calc(396.18 * var(--u)); height: calc(488.83 * var(--u)); max-width: none; }
 /* Llamas: dos fotogramas apilados que se alternan. Anclados por bottom
    porque el fotograma 2 es 8px mas alto y tiene que crecer hacia arriba.
@@ -232,11 +272,11 @@ body {
 .cupones__title { position: absolute; z-index: 1; top: calc(50.4 * var(--u)); left: calc(50% - (338.8 * var(--u)) / 2); width: calc(338.8 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(48 * var(--u)); font-weight: 800; line-height: calc(48 * var(--u)); letter-spacing: 0.02em; text-align: center; text-transform: uppercase; }
 .cupones__subtitle { position: absolute; z-index: 1; top: calc(112.39 * var(--u)); left: calc(50% - (307.62 * var(--u)) / 2); width: calc(307.62 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 400; line-height: calc(18.9 * var(--u)); text-align: center; }
 .carrusel__viewport { --carrusel-slide-ancho: 280; --carrusel-slide-alto: 330; --carrusel-gap: 0; --carrusel-recorte-top: -20; --carrusel-recorte-right: 0; --carrusel-recorte-bottom: 0; --carrusel-recorte-left: 0; position: absolute; z-index: 1; left: calc(47.5 * var(--u)); top: calc(164.38 * var(--u)); width: calc(var(--carrusel-slide-ancho) * var(--u)); height: calc(var(--carrusel-slide-alto) * var(--u)); overflow: visible; clip-path: inset(calc(var(--carrusel-recorte-top) * var(--u)) calc(var(--carrusel-recorte-right) * var(--u)) calc(var(--carrusel-recorte-bottom) * var(--u)) calc(var(--carrusel-recorte-left) * var(--u))); }
-.cupones__viewport { --carrusel-recorte-bottom: -40; }
+.cupones__viewport { --carrusel-recorte-bottom: -60; }
 .carrusel__track { display: flex; gap: calc(var(--carrusel-gap) * var(--u)); height: 100%; touch-action: pan-y; transform: translateX(calc(-1 * var(--carrusel-index, 0) * (var(--carrusel-slide-ancho) + var(--carrusel-gap)) * var(--u))); transition: transform 300ms ease; }
 .carrusel__track--sin-transicion { transition: none; }
 .carrusel__slide { position: relative; flex: 0 0 calc(var(--carrusel-slide-ancho) * var(--u)); width: calc(var(--carrusel-slide-ancho) * var(--u)); height: calc(var(--carrusel-slide-alto) * var(--u)); }
-.cupones__card { position: absolute; z-index: 0; left: calc(9 * var(--u)); top: calc(28 * var(--u)); width: calc(270 * var(--u)); height: calc(351 * var(--u)); }
+.cupones__card { position: absolute; z-index: 0; left: calc(9 * var(--u)); top: calc(24 * var(--u)); width: calc(270 * var(--u)); height: calc(351 * var(--u)); }
 .cupones__discount { position: absolute; z-index: 2; /* Valores de calibración óptica, no medidas del diseño; portados desde .vales__discount con factor 1.217. La sombra se ajusta hacia abajo y a la izquierda con estas variables. */ --precio-size: 68; --precio-entero-y: 18; --precio-cc-size: 41; --precio-dto-size: 24; --precio-gap-x: 2; --precio-cc-y: -7; --precio-y: 10; --cupones-sombra-x: 5; --cupones-sombra-y: 5; left: calc(1.98 * var(--u)); top: calc(-8.89 * var(--u)); width: calc(143.05 * var(--u)); height: calc(121.79 * var(--u)); }
 /* Las cajas respetan la relación de aspecto del SVG para que la sombra no dependa del centrado de preserveAspectRatio. */
 .cupones__slide .cupones__hexagon { position: absolute; left: calc(5.55 * var(--u)); top: 0; width: calc(131.95 * var(--u)); height: calc(118.37 * var(--u)); }
@@ -288,7 +328,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   to { opacity: 1; }
 }
 .ofertas__decorado { position: absolute; z-index: 0; inset: 0; }
-.ofertas__glifos { position: absolute; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; /* Opacidad calibrada contra el fondo marrón. */ opacity: 0.1; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); transform: translateX(-50%); }
+.ofertas__glifos { position: absolute; top: 0; left: min(calc(2.5 * var(--u)), var(--vp-izq)); width: calc(max(calc(372.5 * var(--u)), var(--vp-der)) - min(calc(2.5 * var(--u)), var(--vp-izq))); height: 100%; /* Opacidad calibrada contra el fondo marrón. */ opacity: 0.1; background-image: url("../img/puerta/glifos-pared.svg"); background-position: calc(calc(2.5 * var(--u)) - min(calc(2.5 * var(--u)), var(--vp-izq))) top; background-repeat: repeat; background-size: calc(370 * var(--u)) calc(20 * var(--u)); }
 .ofertas__cenefa { position: absolute; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: auto; max-width: none; }
 .ofertas__header { position: absolute; z-index: 1; top: calc(93.49 * var(--u)); left: calc(18.25 * var(--u)); display: flex; width: calc(338.8 * var(--u)); height: calc(140 * var(--u)); flex-direction: column; align-items: center; justify-content: center; gap: calc(16 * var(--u)); }
 .ofertas__header h3 { width: 100%; flex-shrink: 0; margin: 0; color: var(--color-white-warm); font-family: var(--font-display); font-size: calc(48 * var(--u)); font-weight: 800; line-height: calc(48 * var(--u)); letter-spacing: 0.02em; text-align: center; text-transform: uppercase; }
@@ -324,7 +364,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   height: 60svh;
 }
 .vales__decorado { position: absolute; z-index: 0; inset: 0; }
-.vales__glifos { position: absolute; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); opacity: 0.2; transform: translateX(-50%); }
+.vales__glifos { position: absolute; top: 0; left: min(calc(2.5 * var(--u)), var(--vp-izq)); width: calc(max(calc(372.5 * var(--u)), var(--vp-der)) - min(calc(2.5 * var(--u)), var(--vp-izq))); height: 100%; background-image: url("../img/puerta/glifos-pared.svg"); background-position: calc(calc(2.5 * var(--u)) - min(calc(2.5 * var(--u)), var(--vp-izq))) top; background-repeat: repeat; background-size: calc(370 * var(--u)) calc(20 * var(--u)); opacity: 0.2; }
 .vales__cenefa { position: absolute; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: calc(46.08 * var(--u)); max-width: none; }
 .vales__columna { display: block; }
 @media (max-width: 899px) {
@@ -430,6 +470,48 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .footer__legal a { display: flex; width: 100%; height: calc(41 * var(--u)); align-items: center; justify-content: center; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 500; line-height: calc(18.9 * var(--u)); text-align: center; text-decoration: none; }
 .footer__legal a:hover, .footer__legal a:focus-visible { text-decoration: underline; }
 .footer__legal a:focus-visible { outline: calc(2 * var(--u)) solid var(--color-brown-dark); outline-offset: calc(2 * var(--u)); }
+
+@media (min-width: 481px) and (max-width: 899px) {
+  .footer {
+    --u: min(calc(min(100vw, 480px) / 375), calc(100svh / 618.52));
+    width: 100vw;
+    margin-left: calc((480px - 100vw) / 2);
+  }
+
+  .footer__columna--izquierda {
+    left: calc(-70.48 * var(--u));
+  }
+
+  .footer__columna--derecha {
+    left: auto;
+    right: calc(-77.53 * var(--u));
+  }
+
+  .footer__cenefa { visibility: hidden; }
+
+  .footer__title,
+  .footer__logo,
+  .footer__social,
+  .footer__legal { z-index: 2; }
+
+  .footer::before,
+  .footer::after {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    height: calc(45 * var(--u));
+    background-color: #F7D8AA;
+    background-image: url("../img/footer/cenefa.svg");
+    background-repeat: no-repeat;
+    background-size: calc(937 * var(--u)) 100%;
+    background-position: calc(50vw - 604.5 * var(--u)) top;
+    content: "";
+  }
+
+  .footer::before { top: 0; }
+  .footer::after { bottom: 0; }
+}
 
 .hero__sticky {
   position: sticky;
