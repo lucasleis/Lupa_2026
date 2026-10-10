@@ -1350,14 +1350,22 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   /* En escritorio el lienzo detras del stage lo pinta --lienzo-fondo, no
-     --escena-background. Sin esto estas dos secciones quedan con el arenoso
-     por defecto asomando alrededor del stage. */
+     --escena-background. Sin esto estas cuatro secciones quedan con el
+     arenoso por defecto asomando alrededor del stage. */
   .puerta {
     --lienzo-fondo: var(--color-wall);
   }
 
   .interior {
     --lienzo-fondo: #2A1A0E;
+  }
+
+  .ofertas {
+    --lienzo-fondo: var(--color-brown-dark);
+  }
+
+  .vales {
+    --lienzo-fondo: var(--color-brown-dark);
   }
 
   /* El stage de .interior nunca tuvo contenido. Lo pinta la misma imagen que
@@ -2795,7 +2803,11 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .acertijo-panel {
     --panel-top: 45;
     top: calc(var(--panel-top) * var(--ud));
-    left: calc(52 * var(--ud));
+    /* .acertijo-panel es position: fixed (:1062), asi que su bloque
+       contenedor es el viewport y no el escenario de 1440: los 52 del frame
+       lo pegaban al borde de la ventana. Se resta --vp-izq para traducir la
+       coordenada. Mismo recurso que .formulario__cenefa. */
+    left: calc(52 * var(--ud) - var(--vp-izq));
     width: calc(1318 * var(--ud));
     height: calc(782.17 * var(--ud));
     /* El recorrido es top + alto: el borde inferior tiene que llegar al viewport. */
@@ -3066,8 +3078,19 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
     z-index: 2;
   }
 
-  .footer__columna--izquierda { left: calc(50% - 720 * var(--ud)); right: auto; }
-  .footer__columna--derecha { left: calc(50% + 639 * var(--ud)); right: auto; transform: scaleX(-1); }
+  /* Las columnas son el marco lateral del footer, que ahora sangra hasta el
+     viewport: se anclan a su borde y no al del frame de 1440, donde quedaban
+     230px adentro. Los min/max conservan la posicion de diseno cuando la
+     ventana es mas angosta que el frame. */
+  .footer__columna--izquierda {
+    left: min(calc(50% - 720 * var(--ud)), 0px);
+    right: auto;
+  }
+  .footer__columna--derecha {
+    left: max(calc(50% + 639 * var(--ud)), calc(100% - 81 * var(--ud)));
+    right: auto;
+    transform: scaleX(-1);
+  }
 
   .footer__title {
     position: absolute;
