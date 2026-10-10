@@ -1293,9 +1293,11 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
   /* Dos bandas de glifos del frame 1440x900, no el tile movil. */
   .puerta__glifos {
-    left: 0;
+    /* El padre mide 1440; con width 100% el fondo se cortaba igual que una
+       pieza de ancho fijo. Sangra hasta el borde del viewport. */
+    left: min(0px, var(--vp-izq));
     top: 0;
-    width: 100%;
+    width: calc(max(calc(1440 * var(--ud)), var(--vp-der)) - min(0px, var(--vp-izq)));
     height: 100%;
     /* Puerta, arena y calderas van en 0; la cenefa (2) y las llamas (4) quedan encima. */
     z-index: 0;
@@ -1303,7 +1305,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     background-image:
       url("../img/puerta/pared-glifos-desktop.svg"),
       url("../img/puerta/pared-glifos-desktop.svg");
-    background-repeat: no-repeat, no-repeat;
+    /* Al sangrar, la banda tilea en horizontal en vez de estirarse: es un
+       patron de pared y repetirlo no deforma los glifos. */
+    background-repeat: repeat-x, repeat-x, repeat-x;
     background-size:
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud));
@@ -1320,11 +1324,18 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .puerta__escena::after {
     content: "";
     position: absolute;
-    left: 0;
+    /* La caja sangra hasta el viewport, pero el SVG NO se estira: se queda en
+       sus 1440 centrado. Lo que sangra es una banda plana del color del piso
+       (#EAAD6D, muestreado del propio asset) detras de el, que continua el
+       suelo hasta los bordes. La pared de arriba ya llega sola: la pintan los
+       glifos tileados y --lienzo-fondo. */
+    left: min(0px, var(--vp-izq));
     top: calc(144 * var(--ud));
-    width: calc(1440 * var(--ud));
+    width: calc(max(calc(1440 * var(--ud)), var(--vp-der)) - min(0px, var(--vp-izq)));
     height: calc(903 * var(--ud));
-    background: url("../img/puerta/escena-desktop.svg") no-repeat center / 100% 100%;
+    background:
+      url("../img/puerta/escena-desktop.svg") no-repeat center top / calc(1440 * var(--ud)) 100%,
+      linear-gradient(to bottom, transparent 67.66%, #EAAD6D 67.66%);
     z-index: 0;
   }
 
@@ -1468,14 +1479,21 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
   .marco-papiro__cenefa--superior {
     top: calc(-20.03 * var(--ud));
-    left: calc(-68.31 * var(--ud));
-    width: calc(1516.16 * var(--ud));
+    /* Sangra hasta el borde del viewport sin perder su anclaje de diseno. */
+    left: min(calc(-68.31 * var(--ud)), var(--vp-izq-x));
+    width: calc(max(calc(1447.85 * var(--ud)), var(--vp-der-x))
+                - min(calc(-68.31 * var(--ud)), var(--vp-izq-x)));
   }
 
   .marco-papiro__cenefa--inferior {
-    top: calc(839.15 * var(--ud));
-    left: calc(-4.50 * var(--ud));
-    width: calc(1441 * var(--ud));
+    /* Anclada al borde inferior del frame, no al superior: con height auto el
+       alto crece al sangrar y un top fijo hundia la banda. Los 33.90 son el
+       desborde de diseno (839.15 + 94.75 - 900), que ahora queda constante. */
+    top: auto;
+    bottom: calc(-33.90 * var(--ud));
+    left: min(calc(-4.50 * var(--ud)), var(--vp-izq-x));
+    width: calc(max(calc(1436.50 * var(--ud)), var(--vp-der-x))
+                - min(calc(-4.50 * var(--ud)), var(--vp-izq-x)));
   }
 
   .marco-papiro__columna {
@@ -1493,8 +1511,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
   .marco-papiro__glifo {
     content: url("../img/prueba-superada/glifos-fondo-desktop.svg");
-    left: 0;
-    width: calc(1440 * var(--ud));
+    left: min(0px, var(--vp-izq));
+    width: calc(max(calc(1440 * var(--ud)), var(--vp-der)) - min(0px, var(--vp-izq)));
     height: calc(332 * var(--ud));
   }
 
@@ -1814,8 +1832,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
   .piramide-escena__arena {
     top: calc(639.65 * var(--ud));
-    left: calc(-474 * var(--ud));
-    width: calc(1948.56 * var(--ud));
+    /* Sangra hasta el borde del viewport. El anclaje de diseno es asimetrico
+       (-474 a 1474.56): ya desborda 474 por la izquierda y solo 34 por la
+       derecha, que es el lado que quedaba corto. */
+    left: min(calc(-474 * var(--ud)), var(--vp-izq));
+    width: calc(max(calc(1474.56 * var(--ud)), var(--vp-der))
+                - min(calc(-474 * var(--ud)), var(--vp-izq)));
     height: calc(495.66 * var(--ud));
     object-fit: fill;
     /* La arena no se desplaza sola en el segundo zoom: ya la mueve la camara
@@ -1995,8 +2017,11 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .hero__sphinx-ground {
     z-index: 0;
     top: calc(683.99 * var(--ud));
-    left: calc(-25.31 * var(--ud));
-    width: calc(1477.59 * var(--ud));
+    /* Sangra hasta el borde del viewport sin perder su anclaje de diseno:
+       se estira solo del lado donde la ventana supera al escenario. */
+    left: min(calc(-25.31 * var(--ud)), var(--vp-izq));
+    width: calc(max(calc(1452.28 * var(--ud)), var(--vp-der))
+                - min(calc(-25.31 * var(--ud)), var(--vp-izq)));
     transform-origin: 0 0;
     /* La arena es fondo y hace paralaje contra la esfinge: se desplaza
        -440.62 contra los -573.04 del grupo. Por eso vive fuera del grupo.
@@ -2006,6 +2031,16 @@ body[data-puerta-revelada="true"] .ofertas__stage {
       translate(calc(-448.69 * var(--p) * var(--ud)),
                 calc(-44.34 * var(--p) * var(--ud)))
       scale(calc(1 + 0.3188 * var(--p)));
+  }
+
+  /* La arena de la intro vive antes que .piramide-escena en el DOM y con
+     z-index 0: donde la escena de la piramide no tiene nada opaco (el cielo
+     lo pinta el lienzo), la arena de la intro se cuela. Antes no se notaba
+     porque terminaba en x~1682; al hacerla sangrar hasta el viewport quedo
+     asomando contra el borde derecho, 25px por encima de la arena de la
+     piramide. En esta pantalla no tiene rol: se apaga. */
+  .hero__stage:has(.piramide-escena[data-piramide-active="true"]) .hero__sphinx-ground {
+    visibility: hidden;
   }
 
   .hero__cloud-three {
@@ -2102,16 +2137,20 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
   /* Tres bandas de glifos, no el tile movil. */
   .ofertas__glifos {
-    left: 0;
+    /* El padre mide 1440; con width 100% el fondo se cortaba igual que una
+       pieza de ancho fijo. Sangra hasta el borde del viewport. */
+    left: min(0px, var(--vp-izq));
     top: 0;
-    width: 100%;
+    width: calc(max(calc(1440 * var(--ud)), var(--vp-der)) - min(0px, var(--vp-izq)));
     height: 100%;
     opacity: 0.1;
     background-image:
       url("../img/puerta/pared-glifos-desktop.svg"),
       url("../img/puerta/pared-glifos-desktop.svg"),
       url("../img/puerta/pared-glifos-desktop.svg");
-    background-repeat: no-repeat, no-repeat, no-repeat;
+    /* Al sangrar, la banda tilea en horizontal en vez de estirarse: es un
+       patron de pared y repetirlo no deforma los glifos. */
+    background-repeat: repeat-x, repeat-x, repeat-x;
     background-size:
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
@@ -2125,17 +2164,32 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
   /* Figma estira la cenefa: el ratio del archivo no es el del diseno,
      por eso el height va explicito. */
-  .ofertas__cenefa {
-    left: calc(50% - (1516.16 * var(--ud)) / 2 - 22.5 * var(--ud));
+  /* El stage adelante: .escena__stage img (:63) es 0-1-1 y le ganaba al
+     height, que quedaba en auto. Al sangrar a 1900 eso daba 125 en vez de
+     los 91.45 del diseno. */
+  .ofertas__stage .ofertas__cenefa {
+    /* Sangra hasta el borde del viewport sin perder su anclaje de diseno.
+       L = -60.58 y R = 1455.58 son los bordes de hoy resueltos con el 50%
+       en 720, el centro del frame de 1440. */
+    left: min(calc(-60.58 * var(--ud)), var(--vp-izq-x));
     top: calc(-10.61 * var(--ud));
-    width: calc(1516.16 * var(--ud));
-    height: calc(91.45 * var(--ud));
+    width: calc(max(calc(1455.58 * var(--ud)), var(--vp-der-x))
+                - min(calc(-60.58 * var(--ud)), var(--vp-izq-x)));
+    /* Sin alto forzado: el asset es 2114x139 y al sangrar la caja a 1900 un
+       alto fijo de 91.45 la achataba a 20.8:1 contra los 15.2:1 nativos.
+       Con auto la cenefa conserva su proporcion. El 91.45 estaba calibrado
+       para la caja de 1516 del diseno y dejo de valer al ensanchar. */
+    height: auto;
   }
 
   .ofertas__cenefa--inferior {
-    left: calc(50% - (1516.16 * var(--ud)) / 2 - 22.5 * var(--ud));
+    /* Sangra hasta el borde del viewport sin perder su anclaje de diseno.
+       L = -60.58 y R = 1455.58 son los bordes de hoy resueltos con el 50%
+       en 720, el centro del frame de 1440. */
+    left: min(calc(-60.58 * var(--ud)), var(--vp-izq));
     top: calc(808 * var(--ud));
-    width: calc(1516.16 * var(--ud));
+    width: calc(max(calc(1455.58 * var(--ud)), var(--vp-der))
+                - min(calc(-60.58 * var(--ud)), var(--vp-izq)));
     height: calc(91.45 * var(--ud));
   }
 
@@ -2326,19 +2380,26 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
   /* ---- VALES, escritorio. Coordenadas del frame 1440x900. ---- */
 
-  .vales__stage .vales__decorado { overflow: hidden; }
+  /* Sin recorte: .vales__decorado solo contiene los glifos y la cenefa, y
+     ahora las dos sangran a proposito hasta el borde del viewport. El
+     overflow las cortaba en el borde del frame de 1440. */
+  .vales__stage .vales__decorado { overflow: visible; }
 
   .vales__glifos {
-    left: 0;
+    /* El padre mide 1440; con width 100% el fondo se cortaba igual que una
+       pieza de ancho fijo. Sangra hasta el borde del viewport. */
+    left: min(0px, var(--vp-izq));
     top: 0;
-    width: 100%;
+    width: calc(max(calc(1440 * var(--ud)), var(--vp-der)) - min(0px, var(--vp-izq)));
     height: 100%;
     opacity: 0.1;
     background-image:
       url("../img/puerta/pared-glifos-desktop.svg"),
       url("../img/puerta/pared-glifos-desktop.svg"),
       url("../img/puerta/pared-glifos-desktop.svg");
-    background-repeat: no-repeat, no-repeat, no-repeat;
+    /* Al sangrar, la banda tilea en horizontal en vez de estirarse: es un
+       patron de pared y repetirlo no deforma los glifos. */
+    background-repeat: repeat-x, repeat-x, repeat-x;
     background-size:
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
@@ -2350,11 +2411,22 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     transform: none;
   }
 
-  .vales__cenefa {
-    left: calc(50% - (1516.16 * var(--ud)) / 2 - 22.5 * var(--ud));
+  /* El stage adelante: .escena__stage img (:63) es 0-1-1 y le ganaba al
+     height, que quedaba en auto. Al sangrar a 1900 eso daba 125 en vez de
+     los 91.45 del diseno. */
+  .vales__stage .vales__cenefa {
+    /* Sangra hasta el borde del viewport sin perder su anclaje de diseno.
+       L = -60.58 y R = 1455.58 son los bordes de hoy resueltos con el 50%
+       en 720, el centro del frame de 1440. */
+    left: min(calc(-60.58 * var(--ud)), var(--vp-izq-x));
     top: calc(-10.61 * var(--ud));
-    width: calc(1516.16 * var(--ud));
-    height: calc(91.45 * var(--ud));
+    width: calc(max(calc(1455.58 * var(--ud)), var(--vp-der-x))
+                - min(calc(-60.58 * var(--ud)), var(--vp-izq-x)));
+    /* Sin alto forzado: el asset es 2114x139 y al sangrar la caja a 1900 un
+       alto fijo de 91.45 la achataba a 20.8:1 contra los 15.2:1 nativos.
+       Con auto la cenefa conserva su proporcion. El 91.45 estaba calibrado
+       para la caja de 1516 del diseno y dejo de valer al ensanchar. */
+    height: auto;
   }
 
   .vales__columna {
@@ -2556,16 +2628,25 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     z-index: 1;
     display: block;
     max-width: none;
-    width: calc(1516.16 * var(--ud));
-    height: calc(91.45 * var(--ud));
-    left: calc(50% - (1516.16 * var(--ud)) / 2 - 22.5 * var(--ud));
+    /* El padre ocupa el viewport: se resta --vp-izq para traducir la
+       coordenada del escenario al sistema de coordenadas del padre. */
+    left: calc(min(calc(-60.58 * var(--ud)), var(--vp-izq-x)) - var(--vp-izq));
+    width: calc(max(calc(1455.58 * var(--ud)), var(--vp-der-x))
+                - min(calc(-60.58 * var(--ud)), var(--vp-izq-x)));
+    /* Sin alto forzado: el asset es 2114x139 y al sangrar la caja a 1900 un
+       alto fijo de 91.45 la achataba a 20.8:1 contra los 15.2:1 nativos.
+       Con auto la cenefa conserva su proporcion. El 91.45 estaba calibrado
+       para la caja de 1516 del diseno y dejo de valer al ensanchar. */
+    height: auto;
     top: calc(-10.61 * var(--ud));
   }
 
   .formulario__banda {
-    width: calc(1615.16 * var(--ud));
-    height: calc(331.37 * var(--ud));
-    left: calc(50% - (1615.16 * var(--ud)) / 2 + 60.93 * var(--ud));
+    /* Padre a ancho completo (.formulario__sticky), igual que la cenefa: no
+       van los tokens --vp-*, alcanza con no quedar mas angosta que el. */
+    width: max(calc(1615.16 * var(--ud)), 100%);
+    height: auto;
+    left: min(calc(50% - (1615.16 * var(--ud)) / 2 + 60.93 * var(--ud)), 0px);
   }
 
   .formulario__banda--uno { top: calc((71 + var(--formulario-glifos-dy)) * var(--ud)); transform: scaleX(-1); }
@@ -2964,9 +3045,13 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
     z-index: 1;
     content: "";
     left: 0;
-    width: calc(1440 * var(--ud));
+    /* .footer ya ocupa el ancho del viewport (width: 100% en :2998), asi que
+       no van los tokens --vp-*: alcanza con no quedar mas angosto que el. */
+    width: max(calc(1440 * var(--ud)), 100%);
     height: calc(51 * var(--ud));
-    background: url("../img/section.svg") no-repeat left top / 100% 100%;
+    /* El SVG no trae preserveAspectRatio: con size 100% 100% se centraba a
+       1440 y dejaba los bordes vacios. Tilea a proporcion nativa. */
+    background: url("../img/section.svg") repeat-x left top / auto 100%;
   }
 
   .footer::before { top: calc(1 * var(--ud)); }
