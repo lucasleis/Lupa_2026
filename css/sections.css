@@ -135,6 +135,8 @@ body {
 .puerta__escena {
   position: absolute;
   inset: 0;
+  /* Calibración óptica del inicio del piso; no es una medida de Figma. */
+  --puerta-piso-corte: 67.92%;
   /* Centro del hueco medido en image 51.png y convertido al frame móvil. */
   transform-origin: calc(188.38 * var(--u)) calc(443.74 * var(--u));
   transform: scale(calc(1 + 1.117 * var(--puerta-p) * var(--puerta-zoom-factor)));
@@ -163,6 +165,16 @@ body {
   }
 }
 .puerta__imagen { position: absolute; z-index: 3; left: calc(-10.59 * var(--u)); top: calc(216.87 * var(--u)); width: calc(396.18 * var(--u)); height: calc(488.83 * var(--u)); max-width: none; }
+.puerta__escena::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  left: min(calc(-10.59 * var(--u)), var(--vp-izq));
+  top: calc(216.87 * var(--u));
+  width: calc(max(calc(385.59 * var(--u)), var(--vp-der)) - min(calc(-10.59 * var(--u)), var(--vp-izq)));
+  height: calc(488.83 * var(--u));
+  background: linear-gradient(to bottom, transparent var(--puerta-piso-corte), #EAAD6D var(--puerta-piso-corte));
+}
 /* Llamas: dos fotogramas apilados que se alternan. Anclados por bottom
    porque el fotograma 2 es 8px mas alto y tiene que crecer hacia arriba.
    z-index 3, el mismo que .puerta__imagen, y van despues en el markup. */
@@ -452,6 +464,14 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .formulario__terms-text a { color: var(--color-link); }
 .formulario__submit { width: calc(239 * var(--u)); height: calc(55 * var(--u)); padding: 0; font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; }
 .formulario__submit:focus-visible { outline: calc(2 * var(--u)) solid var(--color-navy); outline-offset: calc(3 * var(--u)); }
+
+@media (min-width: 481px) and (max-width: 899px) {
+  .formulario {
+    --u: min(calc(min(100vw, 480px) / 375), calc(100svh / 658));
+    width: 100vw;
+    margin-left: calc((480px - 100vw) / 2);
+  }
+}
 
 .footer { position: relative; display: flex; width: 100%; min-height: calc(618.52 * var(--u)); padding-inline: calc(24 * var(--u)); overflow: hidden; flex-direction: column; align-items: center; gap: calc(24 * var(--u)); background: var(--color-orange-hex); }
 .footer__cenefa { position: relative; z-index: 1; width: calc(937 * var(--u)); height: calc(45 * var(--u)); max-width: none; flex: 0 0 calc(45 * var(--u)); transform: translateX(calc(var(--footer-cenefa-x, 0) * var(--u))) scaleX(-1); }
@@ -1050,6 +1070,33 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   transform-origin: center;
 }
 
+@media (min-width: 481px) and (max-width: 899px) {
+  .hero__sticky {
+    --u: min(calc(min(100vw, 480px) / 375), calc(100svh / 667));
+    width: 100vw;
+    margin-left: calc((480px - 100vw) / 2);
+    justify-content: center;
+  }
+
+  .hero__stage {
+    --stage-w: calc(375 * var(--u));
+    --vp-izq: calc((var(--stage-w) - 100vw) / 2);
+    --vp-der: calc((var(--stage-w) + 100vw) / 2);
+    width: calc(375 * var(--u));
+  }
+
+  .hero__sphinx-ground {
+    left: min(0px, var(--vp-izq));
+    width: calc(max(calc(500.79 * var(--u)), var(--vp-der)) - min(0px, var(--vp-izq)));
+    background-color: #F7D8AA;
+  }
+
+  .hero__sphinx-ground img {
+    width: calc(500.79 * var(--u));
+    margin-left: calc(0px - min(0px, var(--vp-izq)));
+  }
+}
+
 @media (min-width: 900px) {
   .escena__sticky,
   .hero__sticky {
@@ -1169,6 +1216,13 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   /* Al salir, recorre top + alto para que su borde inferior llegue al viewport. */
   transform: translateY(calc(100svh - var(--panel-progress) * (100svh + 662.11 * var(--u))));
   transform-origin: center;
+}
+
+@media (min-width: 481px) and (max-width: 899px) {
+  .acertijo-panel {
+    --u: min(calc(min(100vw, 480px) / 375), calc(100svh / 667));
+    left: calc((100vw - 375 * var(--u)) / 2 + 10.1 * var(--u));
+  }
 }
 
 .acertijo-panel-rail {
@@ -1373,6 +1427,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   background-position: center;
   background-size: cover;
   filter: blur(calc(var(--puerta-desenfoque) * (1 - var(--puerta-cruce-p, 0))));
+}
+
+@media (min-width: 481px) and (max-width: 899px) {
+  .pase-puerta::before {
+    max-width: none;
+  }
 }
 
 @media (min-width: 900px) {
@@ -3155,6 +3215,16 @@ body[data-puerta-revelada="true"] .ofertas__stage {
      extremos; con rampa lineal el principio y el final se leen como corte. */
   --t: clamp(0, calc((0.55 - var(--sala-salida-p, 0)) / 0.43), 1);
   opacity: calc(var(--t) * var(--t) * (3 - 2 * var(--t)));
+}
+
+@media (min-width: 481px) and (max-width: 899px) {
+  .sala-fondo {
+    max-width: none;
+    background-color: #B0723D;
+    background-position:
+      calc((100vw - 480px) / 2 - 90.20 * var(--u))
+      calc(100svh - 755.67 * var(--u));
+  }
 }
 
 body[data-en-sala="true"] .sala-fondo { visibility: visible; }

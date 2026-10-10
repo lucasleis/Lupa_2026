@@ -110,6 +110,21 @@
   text-decoration: none;
 }
 
+@media (min-width: 481px) and (max-width: 899px) {
+  .site-header {
+    --u: min(calc(min(100vw, 480px) / 375), calc(100svh / 667));
+    max-width: none;
+  }
+
+  .site-header__logo {
+    left: calc((100vw - 375 * var(--u)) / 2 + 28.69 * var(--u));
+  }
+
+  .menu-toggle {
+    right: calc((100vw - 375 * var(--u)) / 2 + 29 * var(--u));
+  }
+}
+
 @media (min-width: 900px) {
   .site-header {
     max-width: none;
