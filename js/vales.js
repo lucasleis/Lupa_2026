@@ -2,10 +2,10 @@ import { inicializarCarrusel } from './carrusel.js';
 
 // Datos provisionales: las cuatro fichas repiten producto porque aún no hay catálogo real.
 const vales = [
-  { frase: '«Tú tanjamón y yo tan pimiento»', unidad: '2ª unidad', entero: '50', centavos: '%', unidad_dto: 'DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Salchichón Revilla Extra Lonchas', peso: '65GR' },
-  { frase: '«Tú tanjamón y yo tan pimiento»', unidad: '2ª unidad', entero: '50', centavos: '%', unidad_dto: 'DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Salchichón Revilla Extra Lonchas', peso: '65GR' },
-  { frase: '«Tú tanjamón y yo tan pimiento»', unidad: '2ª unidad', entero: '50', centavos: '%', unidad_dto: 'DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Salchichón Revilla Extra Lonchas', peso: '65GR' },
-  { frase: '«Tú tanjamón y yo tan pimiento»', unidad: '2ª unidad', entero: '50', centavos: '%', unidad_dto: 'DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Salchichón Revilla Extra Lonchas', peso: '65GR' },
+  { frase: '«Tú tanjamón y yo tan pimiento»', entero: '1', centavos: ',50', unidad: '€ DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Salchichón Revilla Extra Lonchas', peso: '65GR' },
+  { frase: '«Tú tanjamón y yo tan pimiento»', entero: '2', centavos: ',00', unidad: '€ DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Salchichón Revilla Extra Lonchas', peso: '65GR' },
+  { frase: '«Tú tanjamón y yo tan pimiento»', entero: '1', centavos: ',50', unidad: '€ DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Salchichón Revilla Extra Lonchas', peso: '65GR' },
+  { frase: '«Tú tanjamón y yo tan pimiento»', entero: '3', centavos: ',00', unidad: '€ DTO', imagen: 'img/vales/producto-ejemplo.webp', titulo: 'Salchichón Revilla Extra Lonchas', peso: '65GR' },
 ];
 
 const hexagono = (clase, fill) => `<svg class="vales__hexagono ${clase}" viewBox="0 0 131 118" aria-hidden="true" focusable="false"><path d="M120.198 23.7749L127.186 78.7861L72.222 114.173L10.1581 93.6508L3.17059 38.6396L58.1331 3.25324L120.198 23.7749Z" fill="${fill}" stroke="var(--color-gold)" stroke-width="5.9185"/></svg>`;
@@ -15,12 +15,12 @@ const renderVale = (vale, index) => `<article class="carrusel__slide vales__slid
   <img class="vales__sarcofago" src="img/vales/sarcofago.svg" alt="">
   <p class="vales__dilo">Dilo en caja:</p>
   <p class="vales__frase">${vale.frase}</p>
-  <div class="vales__discount" aria-label="${vale.unidad} al ${vale.entero}${vale.centavos} de descuento">
+  <div class="vales__discount" aria-label="${vale.entero}${vale.centavos} euros de descuento">
     ${hexagonoSombra('vales__hexagono--sombra', 'var(--color-gold-mid)')}
     ${hexagono('vales__hexagono--cara', 'var(--color-sky)')}
     <div class="vales__price">
       <span class="vales__price-euros" aria-hidden="true">${vale.entero}</span>
-      <span class="vales__price-resto" aria-hidden="true"><span class="vales__price-centavos" aria-hidden="true">${vale.centavos}</span><span class="vales__price-dto" aria-hidden="true">${vale.unidad_dto}</span></span>
+      <span class="vales__price-resto" aria-hidden="true"><span class="vales__price-centavos" aria-hidden="true">${vale.centavos}</span><span class="vales__price-dto" aria-hidden="true">${vale.unidad}</span></span>
     </div>
   </div>
   <img class="vales__producto" src="${vale.imagen}" alt="">
