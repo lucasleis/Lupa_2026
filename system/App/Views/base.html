@@ -279,7 +279,7 @@
         <!-- El dump declara Inter, pero el sistema visual usa Degular. -->
         <p>Regístrate para recibir tus descuentos y además entra en el sorteo de 2 vales diarios de 50€.</p>
       </header>
-      <form class="formulario__form" action="procesar-formulario/" method="post" aria-labelledby="formulario-title">
+      <form class="formulario__form" action="procesar-formulario/" method="post" aria-labelledby="formulario-title" novalidate>
         <div class="formulario__fields">
           <div class="formulario__field">
             <label class="visually-hidden" for="formulario-nombre">Nombre y Apellido</label>
@@ -305,7 +305,7 @@
         <div class="formulario__terms">
           <label class="formulario__checkbox-label" for="formulario-terminos">
             <span class="formulario__checkbox-control">
-              <input class="formulario__checkbox" id="formulario-terminos" type="checkbox" required>
+              <input class="formulario__checkbox" id="formulario-terminos" type="checkbox" name="terminos" value="1" required>
               <span class="formulario__checkbox-visual"><img src="img/formulario/checkbox.svg" alt="" width="20" height="20" loading="lazy" decoding="async"><span aria-hidden="true"></span></span>
             </span>
             <span class="formulario__terms-text">Acepto los <!-- Provisional: destino pendiente; podría ser privacidad o aviso legal. --><a href="#">términos y condiciones</a></span>

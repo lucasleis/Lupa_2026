@@ -14,6 +14,16 @@ if (form && message && submitButton) form.addEventListener('submit', async (even
   message.textContent = '';
   form.querySelectorAll('[aria-invalid="true"]').forEach((input) => input.removeAttribute('aria-invalid'));
 
+  if (!form.checkValidity()) {
+    const invalidControls = form.querySelectorAll(':invalid');
+    invalidControls.forEach((control) => control.setAttribute('aria-invalid', 'true'));
+    message.textContent = 'Completa los campos que faltan, faraón.';
+    invalidControls[0]?.focus();
+    envioEnCurso = false;
+    submitButton.disabled = false;
+    return;
+  }
+
   try {
     const response = await fetch(form.action, {
       method: 'POST',

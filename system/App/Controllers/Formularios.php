@@ -30,6 +30,9 @@ class Formularios extends \Core\Controller
             $emailLength = preg_match_all('/./us', $email, $matches);
             $invalidFields = array();
 
+            if (!isset($_POST['terminos']) || $_POST['terminos'] !== '1') {
+                $invalidFields[] = 'terminos';
+            }
             if ($nombreLength === false || $nombreLength < 2 || $nombreLength > 100 || !preg_match('/^[\p{L}][\p{L}\'’-]*[\p{L}](?:\s+[\p{L}][\p{L}\'’-]*[\p{L}])+$/u', $nombre)) {
                 $invalidFields[] = 'nombre';
             }
