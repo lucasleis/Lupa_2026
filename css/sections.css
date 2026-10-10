@@ -3243,3 +3243,20 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
   }
 
 }
+
+/* Provisional: todavía no hay diseño de Figma para los estados del formulario. */
+.formulario__mensaje {
+  margin: 0 0 1rem;
+  color: #8b1e1e;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.formulario__mensaje:empty {
+  display: none;
+}
+
+.formulario__input[aria-invalid="true"] {
+  outline: 2px solid #8b1e1e;
+  outline-offset: 2px;
+}

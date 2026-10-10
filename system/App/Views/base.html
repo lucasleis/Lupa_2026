@@ -279,29 +279,27 @@
         <!-- El dump declara Inter, pero el sistema visual usa Degular. -->
         <p>Regístrate para recibir tus descuentos y además entra en el sorteo de 2 vales diarios de 50€.</p>
       </header>
-      <!-- Provisional: el envío del formulario se implementa en otro commit. -->
-      <form class="formulario__form" aria-labelledby="formulario-title">
+      <form class="formulario__form" action="procesar-formulario/" method="post" aria-labelledby="formulario-title">
         <div class="formulario__fields">
-          <!-- Los name son provisionales hasta confirmar el contrato del backend. -->
           <div class="formulario__field">
             <label class="visually-hidden" for="formulario-nombre">Nombre</label>
             <img class="formulario__field-bg" src="img/formulario/campo.svg" alt="" width="342" height="58" aria-hidden="true" loading="lazy" decoding="async">
-            <input class="formulario__input" id="formulario-nombre" type="text" name="nombre" autocomplete="name" placeholder="Nombre">
+            <input class="formulario__input" id="formulario-nombre" type="text" name="nombre" autocomplete="name" placeholder="Nombre" required>
           </div>
           <div class="formulario__field">
             <label class="visually-hidden" for="formulario-email">Correo electrónico</label>
             <img class="formulario__field-bg" src="img/formulario/campo.svg" alt="" width="342" height="58" aria-hidden="true" loading="lazy" decoding="async">
-            <input class="formulario__input" id="formulario-email" type="email" name="email" autocomplete="email" placeholder="Correo electrónico">
+            <input class="formulario__input" id="formulario-email" type="email" name="email" autocomplete="email" placeholder="Correo electrónico" required>
           </div>
           <div class="formulario__field">
             <label class="visually-hidden" for="formulario-codigo-postal">Código postal</label>
             <img class="formulario__field-bg" src="img/formulario/campo.svg" alt="" width="342" height="58" aria-hidden="true" loading="lazy" decoding="async">
-            <input class="formulario__input" id="formulario-codigo-postal" type="text" name="codigo_postal" autocomplete="postal-code" inputmode="numeric" placeholder="Código postal">
+            <input class="formulario__input" id="formulario-codigo-postal" type="text" name="codigo_postal" autocomplete="postal-code" inputmode="numeric" placeholder="Código postal" pattern="[0-9]{5}" required>
           </div>
           <div class="formulario__field">
             <label class="visually-hidden" for="formulario-telefono">Número de teléfono</label>
             <img class="formulario__field-bg" src="img/formulario/campo.svg" alt="" width="342" height="58" aria-hidden="true" loading="lazy" decoding="async">
-            <input class="formulario__input" id="formulario-telefono" type="tel" name="telefono" autocomplete="tel" placeholder="Número de teléfono">
+            <input class="formulario__input" id="formulario-telefono" type="tel" name="telefono" autocomplete="tel" placeholder="Número de teléfono" required>
           </div>
         </div>
         <div class="formulario__terms">
@@ -313,6 +311,7 @@
             <span class="formulario__terms-text">Acepto los <!-- Provisional: destino pendiente; podría ser privacidad o aviso legal. --><a href="#">términos y condiciones</a></span>
           </label>
         </div>
+        <p class="formulario__mensaje" role="status" aria-live="polite"></p>
         <button class="formulario__submit cta-layers" type="submit"><span>LOS QUIERO</span></button>
       </form>
       </div>
@@ -389,5 +388,6 @@
     <script type="module" src="js/pase-puerta.js"></script>
     <script type="module" src="js/acertijo.js"></script>
     <script type="module" src="js/pregunta.js"></script>
+    <script type="module" src="js/formulario.js"></script>
   </body>
 </html>
