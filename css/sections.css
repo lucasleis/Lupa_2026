@@ -392,6 +392,13 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .formulario__checkbox { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
 .formulario__checkbox-visual { position: relative; display: block; width: calc(20 * var(--u)); height: calc(20 * var(--u)); }
 .formulario__checkbox-visual img { width: 100%; height: 100%; }
+.formulario__checkbox[aria-invalid="true"] + .formulario__checkbox-visual img {
+  filter:
+    drop-shadow(2px 0 0 #D62828)
+    drop-shadow(-2px 0 0 #D62828)
+    drop-shadow(0 2px 0 #D62828)
+    drop-shadow(0 -2px 0 #D62828);
+}
 .formulario__checkbox-visual > span { position: absolute; inset: 0; display: none; }
 .formulario__checkbox:checked + .formulario__checkbox-visual > span { display: block; }
 /* Provisional: el asset del estado marcado está pendiente del diseño. */
@@ -2783,6 +2790,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     border: calc(2 * var(--ud)) solid #1B1E3C;
   }
 
+  .formulario__checkbox[aria-invalid="true"] + .formulario__checkbox-visual {
+    border-color: #D62828;
+  }
+
   .formulario__checkbox-visual img { display: none; }
 
   .formulario__checkbox:checked + .formulario__checkbox-visual > span::after {
@@ -2797,6 +2808,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .formulario__terms-text {
     width: calc(519 * var(--ud));
     height: calc(22 * var(--ud));
+  }
+
+  .formulario__checkbox-label:has(.formulario__checkbox[aria-invalid="true"]) .formulario__terms-text {
+    color: #FFC2A8;
   }
 
   .formulario__checkbox:focus-visible + .formulario__checkbox-visual {
