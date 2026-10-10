@@ -63,6 +63,7 @@
 .prueba-superada__globo img {
   position: absolute;
   display: block;
+  /* En .escena__stage img, este height:auto gana a reglas de una sola clase. */
   height: auto;
   max-width: none;
 }
@@ -231,15 +232,15 @@ body {
 .cupones__title { position: absolute; z-index: 1; top: calc(50.4 * var(--u)); left: calc(50% - (338.8 * var(--u)) / 2); width: calc(338.8 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(48 * var(--u)); font-weight: 800; line-height: calc(48 * var(--u)); letter-spacing: 0.02em; text-align: center; text-transform: uppercase; }
 .cupones__subtitle { position: absolute; z-index: 1; top: calc(112.39 * var(--u)); left: calc(50% - (307.62 * var(--u)) / 2); width: calc(307.62 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 400; line-height: calc(18.9 * var(--u)); text-align: center; }
 .carrusel__viewport { --carrusel-slide-ancho: 280; --carrusel-slide-alto: 330; --carrusel-gap: 0; --carrusel-recorte-top: -20; --carrusel-recorte-right: 0; --carrusel-recorte-bottom: 0; --carrusel-recorte-left: 0; position: absolute; z-index: 1; left: calc(47.5 * var(--u)); top: calc(164.38 * var(--u)); width: calc(var(--carrusel-slide-ancho) * var(--u)); height: calc(var(--carrusel-slide-alto) * var(--u)); overflow: visible; clip-path: inset(calc(var(--carrusel-recorte-top) * var(--u)) calc(var(--carrusel-recorte-right) * var(--u)) calc(var(--carrusel-recorte-bottom) * var(--u)) calc(var(--carrusel-recorte-left) * var(--u))); }
-.cupones__viewport { --carrusel-recorte-bottom: -20; }
+.cupones__viewport { --carrusel-recorte-bottom: -40; }
 .carrusel__track { display: flex; gap: calc(var(--carrusel-gap) * var(--u)); height: 100%; touch-action: pan-y; transform: translateX(calc(-1 * var(--carrusel-index, 0) * (var(--carrusel-slide-ancho) + var(--carrusel-gap)) * var(--u))); transition: transform 300ms ease; }
 .carrusel__track--sin-transicion { transition: none; }
 .carrusel__slide { position: relative; flex: 0 0 calc(var(--carrusel-slide-ancho) * var(--u)); width: calc(var(--carrusel-slide-ancho) * var(--u)); height: calc(var(--carrusel-slide-alto) * var(--u)); }
-.cupones__card { position: absolute; z-index: 0; left: calc(9 * var(--u)); top: calc(8 * var(--u)); width: calc(270 * var(--u)); height: calc(351 * var(--u)); }
+.cupones__card { position: absolute; z-index: 0; left: calc(9 * var(--u)); top: calc(28 * var(--u)); width: calc(270 * var(--u)); height: calc(351 * var(--u)); }
 .cupones__discount { position: absolute; z-index: 2; /* Valores de calibración óptica, no medidas del diseño; portados desde .vales__discount con factor 1.217. La sombra se ajusta hacia abajo y a la izquierda con estas variables. */ --precio-size: 68; --precio-entero-y: 18; --precio-cc-size: 41; --precio-dto-size: 24; --precio-gap-x: 2; --precio-cc-y: -7; --precio-y: 10; --cupones-sombra-x: 5; --cupones-sombra-y: 5; left: calc(1.98 * var(--u)); top: calc(-8.89 * var(--u)); width: calc(143.05 * var(--u)); height: calc(121.79 * var(--u)); }
 /* Las cajas respetan la relación de aspecto del SVG para que la sombra no dependa del centrado de preserveAspectRatio. */
-.cupones__hexagon { position: absolute; left: calc(5.55 * var(--u)); top: 0; width: calc(131.95 * var(--u)); height: calc(118.37 * var(--u)); }
-.cupones__hexagon--shadow { left: calc((5.55 - var(--cupones-sombra-x)) * var(--u)); top: calc(var(--cupones-sombra-y) * var(--u)); width: calc(131.95 * var(--u)); height: calc(118.01 * var(--u)); }
+.cupones__slide .cupones__hexagon { position: absolute; left: calc(5.55 * var(--u)); top: 0; width: calc(131.95 * var(--u)); height: calc(118.37 * var(--u)); }
+.cupones__slide .cupones__hexagon--shadow { left: calc((5.55 - var(--cupones-sombra-x)) * var(--u)); top: calc(var(--cupones-sombra-y) * var(--u)); width: calc(131.95 * var(--u)); height: calc(118.01 * var(--u)); }
 .cupones__price { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: row; align-items: baseline; justify-content: center; gap: calc(var(--precio-gap-x) * var(--u)); padding-top: calc(var(--precio-y) * var(--u)); color: var(--color-navy); font-family: var(--font-display); font-weight: 800; transform: rotate(-6.98deg); pointer-events: none; }
 .cupones__price-euros { font-size: calc(var(--precio-size) * var(--u)); line-height: 0.85; transform: translateY(calc(var(--precio-entero-y) * var(--u))); }
 .cupones__price-resto { display: flex; flex-direction: column; align-items: flex-start; transform: translateY(calc(var(--precio-cc-y) * var(--u))); }
