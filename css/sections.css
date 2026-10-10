@@ -2728,10 +2728,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     z-index: 0;
     background: url("../img/input.svg") no-repeat 0 0 / 100% 100%;
     filter:
-      drop-shadow(2px 0 0 #E05A47)
-      drop-shadow(-2px 0 0 #E05A47)
-      drop-shadow(0 2px 0 #E05A47)
-      drop-shadow(0 -2px 0 #E05A47);
+      drop-shadow(2px 0 0 #D62828)
+      drop-shadow(-2px 0 0 #D62828)
+      drop-shadow(0 2px 0 #D62828)
+      drop-shadow(0 -2px 0 #D62828);
     pointer-events: none;
   }
 
@@ -3286,8 +3286,8 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
 
 .formulario__field:has(.formulario__input[aria-invalid="true"]) .formulario__field-bg {
   filter:
-    drop-shadow(2px 0 0 #E05A47)
-    drop-shadow(-2px 0 0 #E05A47)
-    drop-shadow(0 2px 0 #E05A47)
-    drop-shadow(0 -2px 0 #E05A47);
+    drop-shadow(2px 0 0 #D62828)
+    drop-shadow(-2px 0 0 #D62828)
+    drop-shadow(0 2px 0 #D62828)
+    drop-shadow(0 -2px 0 #D62828);
 }
