@@ -11,6 +11,7 @@ use PDO;
  */
 class Formulario extends \Core\Model
 {
+    const CATEGORIA = 'ofertiti2026';
 
     public static function listaFormularios(){
         $db = static::getDB();
@@ -25,25 +26,23 @@ class Formulario extends \Core\Model
     }
 
     public static function nuevoFormulario($data){
-        if(isset($data["recibir_comunicaciones"])){
-            $alta = 1;
-        }else{
-            $alta = 0;
-        }
         $db = static::getDB();
-        $nuevo = $db->query('INSERT INTO `formularios` VALUES (null, "'.$data["formulario"].'", "'.$data["nombre_apellido"].'", "'.$data["email"].'", "'.$data["codigo_postal"].'", "'.$data["telefono"].'","'.$data["telefono"].'", "'.$alta.'", now());');
-        return false;
+        $nuevo = $db->prepare('INSERT INTO `formularios` (`formulario`, `nombre`, `email`, `codigo_postal`, `municipio_localidad`, `telefono`, `alta_comunicaciones`, `fecha`) VALUES (:formulario, :nombre, :email, :codigo_postal, :municipio_localidad, :telefono, :alta_comunicaciones, NOW())');
+        return $nuevo->execute(array(
+            ':formulario' => self::CATEGORIA,
+            ':nombre' => $data["nombre"],
+            ':email' => $data["email"],
+            ':codigo_postal' => $data["codigo_postal"],
+            ':municipio_localidad' => isset($data["municipio_localidad"]) ? $data["municipio_localidad"] : '',
+            ':telefono' => $data["telefono"],
+            ':alta_comunicaciones' => isset($data["recibir_comunicaciones"]) ? 1 : 0,
+        ));
     }
 
     public static function checkRegistro($email){
         $db = static::getDB();
-        $check = $db->query('SELECT * FROM formularios WHERE email = "'.$email.'"');
-        $result = $check->fetchAll(PDO::FETCH_ASSOC);
-
-        if(empty($result)){
-            return false;
-        }else{
-            return true;
-        }
+        $check = $db->prepare('SELECT 1 FROM formularios WHERE email = :email LIMIT 1');
+        $check->execute(array(':email' => $email));
+        return $check->fetchColumn() !== false;
     }
 }
