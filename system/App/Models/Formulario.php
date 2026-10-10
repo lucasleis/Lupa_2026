@@ -11,8 +11,6 @@ use PDO;
  */
 class Formulario extends \Core\Model
 {
-    const CATEGORIA = 'ofertiti2026';
-
     public static function listaFormularios(){
         $db = static::getDB();
         $check = $db->query('SELECT * FROM formularios');
@@ -27,9 +25,8 @@ class Formulario extends \Core\Model
 
     public static function nuevoFormulario($data){
         $db = static::getDB();
-        $nuevo = $db->prepare('INSERT INTO `formularios` (`formulario`, `nombre`, `email`, `codigo_postal`, `municipio_localidad`, `telefono`, `alta_comunicaciones`, `fecha`) VALUES (:formulario, :nombre, :email, :codigo_postal, :municipio_localidad, :telefono, :alta_comunicaciones, NOW())');
+        $nuevo = $db->prepare('INSERT INTO `formularios` (`nombre`, `email`, `codigo_postal`, `municipio_localidad`, `telefono`, `alta_comunicaciones`, `fecha`) VALUES (:nombre, :email, :codigo_postal, :municipio_localidad, :telefono, :alta_comunicaciones, NOW())');
         return $nuevo->execute(array(
-            ':formulario' => self::CATEGORIA,
             ':nombre' => $data["nombre"],
             ':email' => $data["email"],
             ':codigo_postal' => $data["codigo_postal"],

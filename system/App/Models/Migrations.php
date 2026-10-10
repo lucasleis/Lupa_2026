@@ -25,7 +25,7 @@ class Migrations extends \Core\Model
             $user = $db->query('INSERT INTO `usuarios` VALUES (null, "lupa", "'.$password.'");');
         }
 
-        $forms = $db->query('CREATE TABLE IF NOT EXISTS `formularios` (`id` INT NOT NULL AUTO_INCREMENT, `formulario` VARCHAR(30), `nombre` VARCHAR(100), `email` VARCHAR(100), `codigo_postal` VARCHAR(15), `municipio_localidad` VARCHAR(100), `telefono` VARCHAR(18),`alta_comunicaciones` INT, `fecha` DATETIME, PRIMARY KEY (`id`));');
+        $forms = $db->query('CREATE TABLE IF NOT EXISTS `formularios` (`id` INT NOT NULL AUTO_INCREMENT, `nombre` VARCHAR(100), `email` VARCHAR(100), `codigo_postal` VARCHAR(15), `municipio_localidad` VARCHAR(100), `telefono` VARCHAR(18),`alta_comunicaciones` INT, `fecha` DATETIME, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;');
         return true;
     }
 }
