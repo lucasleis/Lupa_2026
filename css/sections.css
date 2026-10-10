@@ -173,7 +173,7 @@ body {
   top: calc(216.87 * var(--u));
   width: calc(max(calc(385.59 * var(--u)), var(--vp-der)) - min(calc(-10.59 * var(--u)), var(--vp-izq)));
   height: calc(488.83 * var(--u));
-  background: linear-gradient(to bottom, transparent var(--puerta-piso-corte), #EAAD6D var(--puerta-piso-corte));
+  background: linear-gradient(to bottom, transparent var(--puerta-piso-corte), var(--color-asset-warm) var(--puerta-piso-corte));
 }
 /* Llamas: dos fotogramas apilados que se alternan. Anclados por bottom
    porque el fotograma 2 es 8px mas alto y tiene que crecer hacia arriba.
@@ -219,7 +219,7 @@ body {
 
 .interior {
   --escena-track: 100svh;
-  --escena-background: #2A1A0E;
+  --escena-background: var(--color-dark-bg);
   /* Esta sección sostiene el pasillo al que resuelve el cruce de .puerta; su final dispara el popup. */
 }
 
@@ -449,10 +449,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .formulario__checkbox-visual img { width: 100%; height: 100%; }
 .formulario__checkbox[aria-invalid="true"] + .formulario__checkbox-visual img {
   filter:
-    drop-shadow(2px 0 0 #D62828)
-    drop-shadow(-2px 0 0 #D62828)
-    drop-shadow(0 2px 0 #D62828)
-    drop-shadow(0 -2px 0 #D62828);
+    drop-shadow(2px 0 0 var(--color-error))
+    drop-shadow(-2px 0 0 var(--color-error))
+    drop-shadow(0 2px 0 var(--color-error))
+    drop-shadow(0 -2px 0 var(--color-error));
 }
 .formulario__checkbox-visual > span { position: absolute; inset: 0; display: none; }
 .formulario__checkbox:checked + .formulario__checkbox-visual > span { display: block; }
@@ -460,7 +460,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .formulario__checkbox:checked + .formulario__checkbox-visual > span::after { position: absolute; top: calc(3 * var(--u)); left: calc(5 * var(--u)); width: calc(8 * var(--u)); height: calc(12 * var(--u)); border-right: calc(2 * var(--u)) solid var(--color-navy); border-bottom: calc(2 * var(--u)) solid var(--color-navy); content: ""; transform: rotate(45deg); }
 .formulario__checkbox:focus-visible + .formulario__checkbox-visual { outline: calc(2 * var(--u)) solid var(--color-gold); outline-offset: calc(2 * var(--u)); }
 .formulario__terms-text { white-space: nowrap; }
-.formulario__checkbox-label:has(.formulario__checkbox[aria-invalid="true"]) .formulario__terms-text { color: #D62828; }
+.formulario__checkbox-label:has(.formulario__checkbox[aria-invalid="true"]) .formulario__terms-text { color: var(--color-error); }
 .formulario__terms-text a { color: var(--color-link); }
 .formulario__submit { width: calc(239 * var(--u)); height: calc(55 * var(--u)); padding: 0; font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; }
 .formulario__submit:focus-visible { outline: calc(2 * var(--u)) solid var(--color-navy); outline-offset: calc(3 * var(--u)); }
@@ -521,7 +521,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: 0;
     right: 0;
     height: calc(45 * var(--u));
-    background-color: #F7D8AA;
+    background-color: var(--color-sand);
     background-image: url("../img/footer/cenefa.svg");
     background-repeat: no-repeat;
     background-size: calc(937 * var(--u)) 100%;
@@ -641,7 +641,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   width: 80.04%;
   height: 49.36%;
   margin: 0;
-  color: #3a2a24;
+  color: var(--color-brown-dark);
   font-family: var(--font-display);
   font-size: calc(18 * var(--u));
   font-style: normal;
@@ -816,7 +816,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   width: 84.45%;
   height: 56.66%;
   margin: 0;
-  color: #3a2a24;
+  color: var(--color-brown-dark);
   font-family: var(--font-display);
   font-size: calc(26 * var(--u));
   font-weight: 800;
@@ -1030,7 +1030,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   pointer-events: auto;
 }
 
-.hero__continue:disabled { background: #b2b2b2; }
+.hero__continue:disabled { background: var(--color-disabled); }
 
 .hero__continue:disabled {
   cursor: not-allowed;
@@ -1088,7 +1088,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .hero__sphinx-ground {
     left: min(0px, var(--vp-izq));
     width: calc(max(calc(500.79 * var(--u)), var(--vp-der)) - min(0px, var(--vp-izq)));
-    background-color: #F7D8AA;
+    background-color: var(--color-sand);
   }
 
   .hero__sphinx-ground img {
@@ -1421,7 +1421,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   width: 100%;
   max-width: 480px;
   transform: translateX(-50%);
-  background-color: #2A1A0E;
+  background-color: var(--color-dark-bg);
   background-image: url("../img/interior.webp");
   background-repeat: no-repeat;
   background-position: center;
@@ -1485,7 +1485,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     position: absolute;
     /* La caja sangra hasta el viewport, pero el SVG NO se estira: se queda en
        sus 1440 centrado. Lo que sangra es una banda plana del color del piso
-       (#EAAD6D, muestreado del propio asset) detras de el, que continua el
+       (var(--color-asset-warm), muestreado del propio asset) detras de el, que continua el
        suelo hasta los bordes. La pared de arriba ya llega sola: la pintan los
        glifos tileados y --lienzo-fondo. */
     left: min(0px, var(--vp-izq));
@@ -1494,7 +1494,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     height: calc(903 * var(--ud));
     background:
       url("../img/puerta/escena-desktop.svg") no-repeat center top / calc(1440 * var(--ud)) 100%,
-      linear-gradient(to bottom, transparent 67.66%, #EAAD6D 67.66%);
+      linear-gradient(to bottom, transparent 67.66%, var(--color-asset-warm) 67.66%);
     z-index: 0;
   }
 
@@ -1516,7 +1516,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .interior {
-    --lienzo-fondo: #2A1A0E;
+    --lienzo-fondo: var(--color-dark-bg);
   }
 
   .ofertas {
@@ -1533,7 +1533,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
      mismo encuadre. Va en un ::before porque un background no se puede
      escalar con transform. */
   .interior .escena__stage {
-    background: #2A1A0E;
+    background: var(--color-dark-bg);
     overflow: hidden;
   }
 
@@ -1714,7 +1714,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: 50%;
     width: calc(509.37 * var(--ud));
     height: auto;
-    color: #3A2A24;
+    color: var(--color-brown-dark);
     font-family: var(--font-display);
     font-size: calc(51.95 * var(--ud));
     font-weight: 800;
@@ -1755,7 +1755,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     position: static;
     width: auto;
     margin: 0;
-    color: #3A2A24;
+    color: var(--color-brown-dark);
   }
 
   .cupones__title {
@@ -1831,7 +1831,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .cupones__slide .cupones__price {
     gap: calc(2 * var(--ud));
     padding-top: calc(10 * var(--ud));
-    color: #1B1E3C;
+    color: var(--color-navy);
     font-family: var(--font-display);
     font-size: calc(84.04 * var(--ud));
     font-weight: 800;
@@ -1842,7 +1842,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .cupones__slide .cupones__price-dto {
-    color: #1B1E3C;
+    color: var(--color-navy);
     font-family: var(--font-display);
     font-size: calc(25.19 * var(--ud));
     font-weight: 800;
@@ -1871,7 +1871,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: calc(50% - (182.9 * var(--ud)) / 2 - 0.61 * var(--ud));
     width: calc(182.9 * var(--ud));
     height: auto;
-    color: #3A2A24;
+    color: var(--color-brown-dark);
     font-family: var(--font-display);
     font-size: calc(32 * var(--ud));
     font-weight: 800;
@@ -1884,7 +1884,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: calc(50% - (228.4 * var(--ud)) / 2 + 0.31 * var(--ud));
     width: calc(228.4 * var(--ud));
     height: auto;
-    color: #1B1E3C;
+    color: var(--color-navy);
     font-family: var(--font-display);
     font-size: calc(19.22 * var(--ud));
     font-weight: 400;
@@ -2112,7 +2112,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: 6.93%;
     width: 84.45%;
     height: calc(138 * var(--ud));
-    color: #3A2A24;
+    color: var(--color-brown-dark);
     font-size: calc(44 * var(--ud));
     font-weight: 800;
     line-height: calc(46 * var(--ud));
@@ -2130,7 +2130,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: 50%;
     width: calc(344 * var(--ud));
     height: calc(26 * var(--ud));
-    color: #3A2A24;
+    color: var(--color-brown-dark);
     font-size: calc(24 * var(--ud));
     font-weight: 500;
     line-height: calc(26 * var(--ud));
@@ -2382,7 +2382,6 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .ofertas__header p {
     width: calc(684.75 * var(--ud));
     height: calc(38 * var(--ud));
-    font-family: 'Inter', sans-serif;
     font-size: calc(18 * var(--ud));
     line-height: 105%;
   }
@@ -2632,7 +2631,6 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .vales__header p {
     width: calc(684.75 * var(--ud));
     height: calc(19 * var(--ud));
-    font-family: 'Inter', sans-serif;
     font-size: calc(18 * var(--ud));
     line-height: 105%;
   }
@@ -2879,10 +2877,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     z-index: 0;
     background: url("../img/input.svg") no-repeat 0 0 / 100% 100%;
     filter:
-      drop-shadow(2px 0 0 #D62828)
-      drop-shadow(-2px 0 0 #D62828)
-      drop-shadow(0 2px 0 #D62828)
-      drop-shadow(0 -2px 0 #D62828);
+      drop-shadow(2px 0 0 var(--color-error))
+      drop-shadow(-2px 0 0 var(--color-error))
+      drop-shadow(0 2px 0 var(--color-error))
+      drop-shadow(0 -2px 0 var(--color-error));
     pointer-events: none;
   }
 
@@ -2935,7 +2933,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .formulario__checkbox[aria-invalid="true"] + .formulario__checkbox-visual {
-    border-color: #D62828;
+    border-color: var(--color-error);
   }
 
   .formulario__checkbox-visual img { display: none; }
@@ -3150,7 +3148,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     content: "";
     position: absolute;
     inset: 0;
-    background: #2A1A0E url("../img/puerta/entrada-desktop.webp") no-repeat center / cover;
+    background: var(--color-dark-bg) url("../img/puerta/entrada-desktop.webp") no-repeat center / cover;
     filter: blur(calc(var(--puerta-desenfoque) * (1 - var(--puerta-cruce-p, 0) + var(--pasillo-salida-p, 0))));
     transform: scale(calc(1 + var(--entrada-zoom-cruce) * var(--puerta-cruce-p, 0) + var(--entrada-zoom) * var(--interior-p, 0)));
   }
@@ -3199,7 +3197,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   width: 100%;
   max-width: 480px;
   transform: translateX(-50%);
-  background-color: #2A1A0E;
+  background-color: var(--color-dark-bg);
   background-image: url("../img/interior-claro.webp");
   background-repeat: no-repeat;
   background-size: calc(555.36 * var(--u)) calc(987.30 * var(--u));
@@ -3220,7 +3218,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 @media (min-width: 481px) and (max-width: 899px) {
   .sala-fondo {
     max-width: none;
-    background-color: #B0723D;
+    background-color: var(--color-brown-terracota);
     background-position:
       calc((100vw - 480px) / 2 - 90.20 * var(--u))
       calc(100svh - 755.67 * var(--u));
@@ -3437,7 +3435,7 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
 /* Provisional: todavía no hay diseño de Figma para los estados del formulario. */
 .formulario__mensaje {
   margin: 0 0 calc(16 * var(--u));
-  color: #D62828;
+  color: var(--color-error);
   font-size: calc(16 * var(--u));
   line-height: calc(19 * var(--u));
 }
@@ -3447,18 +3445,18 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
 }
 
 .formulario__input[aria-invalid="true"] {
-  color: #FFC2A8;
-  caret-color: #FFC2A8;
+  color: var(--color-error-on-dark);
+  caret-color: var(--color-error-on-dark);
 }
 
 .formulario__input[aria-invalid="true"]::placeholder {
-  color: #FFC2A8;
+  color: var(--color-error-on-dark);
 }
 
 .formulario__field:has(.formulario__input[aria-invalid="true"]) .formulario__field-bg {
   filter:
-    drop-shadow(2px 0 0 #D62828)
-    drop-shadow(-2px 0 0 #D62828)
-    drop-shadow(0 2px 0 #D62828)
-    drop-shadow(0 -2px 0 #D62828);
+    drop-shadow(2px 0 0 var(--color-error))
+    drop-shadow(-2px 0 0 var(--color-error))
+    drop-shadow(0 2px 0 var(--color-error))
+    drop-shadow(0 -2px 0 var(--color-error));
 }

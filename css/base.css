@@ -70,12 +70,25 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Detener animaciones keyframe en todo el árbol; scroll suave también. */
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Detener transiciones solo en los componentes de movimiento escénico:
+     las transiciones de feedback de UI (foco, hover, estados de formulario)
+     se preservan para no perder señales de estado para usuarios de teclado. */
+  .escena__stage,
+  .escena__stage *,
+  .escena-rail,
+  .carrusel__track,
+  .popup,
+  .popup *,
+  .site-menu {
     transition-duration: 0.01ms !important;
   }
 }

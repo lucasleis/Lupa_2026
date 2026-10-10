@@ -26,6 +26,12 @@
   --color-orange-alt: #f58723;
   --color-brown-mid: #b76123;
   --color-navy: #1b1e3c;
+  --color-dark-bg: #2A1A0E;       /* fondo oscuro de escenas y sala */
+  --color-brown-terracota: #B0723D; /* fondo sala en breakpoint medio */
+  --color-asset-warm: #EAAD6D;    /* ámbar muestreado de escena-desktop.svg */
+  --color-error: #D62828;         /* estados de error en formularios */
+  --color-error-on-dark: #FFC2A8; /* texto de error sobre fondo oscuro */
+  --color-disabled: #b2b2b2;      /* controles deshabilitados */
 
   --font-display: "degular-display", sans-serif;
   --font-alt: "roca", sans-serif;
