@@ -112,6 +112,11 @@ body {
   /* Centro del hueco medido en image 51.png y convertido al frame móvil. */
   transform-origin: calc(188.38 * var(--u)) calc(443.74 * var(--u));
   transform: scale(calc(1 + 1.117 * var(--puerta-p) * var(--puerta-zoom-factor)));
+}
+/* El blur solo existe durante el cruce. Declarado permanentemente, aunque
+   valga 0, obliga a una superficie de filtro a pantalla completa que las
+   llamas invalidan en cada fotograma. */
+.puerta__stage[data-cruzando="true"] .puerta__escena {
   filter: blur(calc(var(--puerta-desenfoque) * var(--puerta-cruce-p)));
 }
 .puerta__glifos { position: absolute; z-index: 1; top: 0; left: 50%; width: calc(370 * var(--u)); height: 100%; /* El SVG fue editado a mano tras exportarlo para centralizar la opacidad en CSS. */ opacity: 0.3; background-image: url("../img/puerta/glifos-pared.svg"); background-position: top center; background-repeat: repeat-y; background-size: calc(370 * var(--u)) calc(20 * var(--u)); transform: translateX(-50%); }
@@ -136,6 +141,7 @@ body {
   top: auto;
   width: 100%;
   opacity: 0;
+  will-change: opacity;
 }
 
 /* Los dos pebeteros no parpadean al mismo tiempo: ritmos distintos y el
@@ -153,7 +159,7 @@ body {
 @keyframes llama-b { 0%, 49.9% { opacity: 0; } 50%, 100% { opacity: 1; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .puerta__llama-frame { animation: none; }
+  .puerta__llama-frame { animation: none; will-change: auto; }
   .puerta__llama-frame--a { opacity: 1; }
 }
 .puerta-rail { height: var(--puerta-rail-height, 0svh); pointer-events: none; }
@@ -1269,7 +1275,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   max-width: 480px;
   transform: translateX(-50%);
   background-color: #2A1A0E;
-  background-image: url("../img/interior.jpeg");
+  background-image: url("../img/interior.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -1303,8 +1309,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     z-index: 0;
     opacity: 0.3;
     background-image:
-      url("../img/puerta/pared-glifos-desktop.svg"),
-      url("../img/puerta/pared-glifos-desktop.svg");
+      url("../img/puerta/pared-glifos-desktop.webp"),
+      url("../img/puerta/pared-glifos-desktop.webp");
     /* Al sangrar, la banda tilea en horizontal en vez de estirarse: es un
        patron de pared y repetirlo no deforma los glifos. */
     background-repeat: repeat-x, repeat-x, repeat-x;
@@ -2153,9 +2159,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     height: 100%;
     opacity: 0.1;
     background-image:
-      url("../img/puerta/pared-glifos-desktop.svg"),
-      url("../img/puerta/pared-glifos-desktop.svg"),
-      url("../img/puerta/pared-glifos-desktop.svg");
+      url("../img/puerta/pared-glifos-desktop.webp"),
+      url("../img/puerta/pared-glifos-desktop.webp"),
+      url("../img/puerta/pared-glifos-desktop.webp");
     /* Al sangrar, la banda tilea en horizontal en vez de estirarse: es un
        patron de pared y repetirlo no deforma los glifos. */
     background-repeat: repeat-x, repeat-x, repeat-x;
@@ -2402,9 +2408,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     height: 100%;
     opacity: 0.1;
     background-image:
-      url("../img/puerta/pared-glifos-desktop.svg"),
-      url("../img/puerta/pared-glifos-desktop.svg"),
-      url("../img/puerta/pared-glifos-desktop.svg");
+      url("../img/puerta/pared-glifos-desktop.webp"),
+      url("../img/puerta/pared-glifos-desktop.webp"),
+      url("../img/puerta/pared-glifos-desktop.webp");
     /* Al sangrar, la banda tilea en horizontal en vez de estirarse: es un
        patron de pared y repetirlo no deforma los glifos. */
     background-repeat: repeat-x, repeat-x, repeat-x;
@@ -3014,7 +3020,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   max-width: 480px;
   transform: translateX(-50%);
   background-color: #2A1A0E;
-  background-image: url("../img/interior-claro.jpeg");
+  background-image: url("../img/interior-claro.webp");
   background-repeat: no-repeat;
   background-size: calc(555.36 * var(--u)) calc(987.30 * var(--u));
   /* La x va desde el borde de la columna, igual que en el stage. La y suma el
@@ -3070,7 +3076,7 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
   .footer::after { top: calc(508 * var(--ud)); }
 
   .footer__columna {
-    content: url("../img/columna-footer.svg");
+    content: url("../img/columna-footer.webp");
     width: calc(81 * var(--ud));
     top: 0;
     height: calc(559 * var(--ud));

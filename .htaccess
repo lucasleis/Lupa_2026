@@ -15,3 +15,19 @@ RewriteCond %{REQUEST_FILENAME} -l
 RewriteRule ^ - [L]
 
 RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE image/svg+xml application/json
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp    "access plus 1 year"
+  ExpiresByType image/png     "access plus 1 year"
+  ExpiresByType image/jpeg    "access plus 1 year"
+  ExpiresByType text/css      "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>

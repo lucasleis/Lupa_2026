@@ -18,12 +18,24 @@ if (section && stage && rail) {
   // (recien por debajo de 0.9) para que el pase vuelva a ocurrir si el usuario
   // sube y baja de nuevo por la puerta, sin chatter en el borde del umbral.
   let enFinal = false;
+  // El umbral sale del CSS, que es su unica fuente: no lo dupliques aca.
+  const cruceInicio = parseFloat(
+    getComputedStyle(document.body).getPropertyValue('--puerta-cruce-inicio')
+  ) || 0.75;
+  let cruzando = false;
 
   const actualizar = () => {
     framePending = false;
     const progress = progresoDeRiel(rail, { desdeElTope: true, destino: stage, propiedad: '--puerta-p' });
     // La capa fija vive fuera de la sección y necesita el progreso en body.
     document.body.style.setProperty('--puerta-p', String(progress));
+    if (!cruzando && progress >= cruceInicio) {
+      cruzando = true;
+      stage.dataset.cruzando = 'true';
+    } else if (cruzando && progress < cruceInicio - 0.02) {
+      cruzando = false;
+      delete stage.dataset.cruzando;
+    }
     if (progress >= 0.999) {
       if (!enFinal) {
         enFinal = true;
@@ -42,6 +54,7 @@ if (section && stage && rail) {
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     stage.style.setProperty('--puerta-p', '1');
+    stage.dataset.cruzando = 'true';
     enFinal = true;
     document.dispatchEvent(new CustomEvent('puerta:final'));
   } else {
