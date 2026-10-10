@@ -3257,6 +3257,10 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
 }
 
 .formulario__input[aria-invalid="true"] {
-  outline: 2px solid #8b1e1e;
-  outline-offset: 2px;
+  color: #FFC2A8;
+  caret-color: #FFC2A8;
+}
+
+.formulario__input[aria-invalid="true"]::placeholder {
+  color: #FFC2A8;
 }
