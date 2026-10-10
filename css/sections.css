@@ -405,6 +405,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .formulario__checkbox:checked + .formulario__checkbox-visual > span::after { position: absolute; top: calc(3 * var(--u)); left: calc(5 * var(--u)); width: calc(8 * var(--u)); height: calc(12 * var(--u)); border-right: calc(2 * var(--u)) solid var(--color-navy); border-bottom: calc(2 * var(--u)) solid var(--color-navy); content: ""; transform: rotate(45deg); }
 .formulario__checkbox:focus-visible + .formulario__checkbox-visual { outline: calc(2 * var(--u)) solid var(--color-gold); outline-offset: calc(2 * var(--u)); }
 .formulario__terms-text { white-space: nowrap; }
+.formulario__checkbox-label:has(.formulario__checkbox[aria-invalid="true"]) .formulario__terms-text { color: #D62828; }
 .formulario__terms-text a { color: var(--color-link); }
 .formulario__submit { width: calc(239 * var(--u)); height: calc(55 * var(--u)); padding: 0; font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; }
 .formulario__submit:focus-visible { outline: calc(2 * var(--u)) solid var(--color-navy); outline-offset: calc(3 * var(--u)); }
@@ -2808,10 +2809,6 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .formulario__terms-text {
     width: calc(519 * var(--ud));
     height: calc(22 * var(--ud));
-  }
-
-  .formulario__checkbox-label:has(.formulario__checkbox[aria-invalid="true"]) .formulario__terms-text {
-    color: #FFC2A8;
   }
 
   .formulario__checkbox:focus-visible + .formulario__checkbox-visual {
