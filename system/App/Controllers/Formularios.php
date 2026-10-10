@@ -18,7 +18,7 @@ class Formularios extends \Core\Controller
 
     public function procesarAction(){
         header('Content-Type: application/json');
-        if (empty($_POST)) {
+        if (strtoupper(isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : '') !== 'POST') {
             http_response_code(405);
             $data = array('error' => 'method_not_allowed');
         } else {
