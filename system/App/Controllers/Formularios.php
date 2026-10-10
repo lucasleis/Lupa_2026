@@ -25,12 +25,12 @@ class Formularios extends \Core\Controller
             $nombre = isset($_POST['nombre']) && is_string($_POST['nombre']) ? trim($_POST['nombre']) : '';
             $email = isset($_POST['email']) && is_string($_POST['email']) ? trim($_POST['email']) : '';
             $codigoPostal = isset($_POST['codigo_postal']) && is_string($_POST['codigo_postal']) ? trim($_POST['codigo_postal']) : '';
-            $telefono = isset($_POST['telefono']) && is_string($_POST['telefono']) ? trim($_POST['telefono']) : '';
+            $telefono = isset($_POST['telefono']) && is_string($_POST['telefono']) ? $_POST['telefono'] : '';
             $nombreLength = preg_match_all('/./us', $nombre, $matches);
             $emailLength = preg_match_all('/./us', $email, $matches);
             $invalidFields = array();
 
-            if ($nombreLength === false || $nombreLength < 2 || $nombreLength > 100) {
+            if ($nombreLength === false || $nombreLength < 2 || $nombreLength > 100 || !preg_match('/^[\p{L}][\p{L}\'’-]*[\p{L}](?:\s+[\p{L}][\p{L}\'’-]*[\p{L}])+$/u', $nombre)) {
                 $invalidFields[] = 'nombre';
             }
             if ($email === '' || $emailLength === false || $emailLength > 100 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
@@ -40,7 +40,7 @@ class Formularios extends \Core\Controller
                 $invalidFields[] = 'codigo_postal';
             }
             $telefonoSinEspacios = str_replace(' ', '', $telefono);
-            if (strlen($telefonoSinEspacios) < 9 || strlen($telefonoSinEspacios) > 18 || !preg_match('/^[0-9+ ]+$/D', $telefono)) {
+            if (!preg_match('/^(?:(?:\+34|0034))?[6789][0-9]{8}$/D', $telefonoSinEspacios)) {
                 $invalidFields[] = 'telefono';
             }
 

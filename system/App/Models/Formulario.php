@@ -25,12 +25,11 @@ class Formulario extends \Core\Model
 
     public static function nuevoFormulario($data){
         $db = static::getDB();
-        $nuevo = $db->prepare('INSERT INTO `formularios` (`nombre`, `email`, `codigo_postal`, `municipio_localidad`, `telefono`, `alta_comunicaciones`, `fecha`) VALUES (:nombre, :email, :codigo_postal, :municipio_localidad, :telefono, :alta_comunicaciones, NOW())');
+        $nuevo = $db->prepare('INSERT INTO `formularios` (`nombre`, `email`, `codigo_postal`, `telefono`, `alta_comunicaciones`, `fecha`) VALUES (:nombre, :email, :codigo_postal, :telefono, :alta_comunicaciones, NOW())');
         return $nuevo->execute(array(
             ':nombre' => $data["nombre"],
             ':email' => $data["email"],
             ':codigo_postal' => $data["codigo_postal"],
-            ':municipio_localidad' => isset($data["municipio_localidad"]) ? $data["municipio_localidad"] : '',
             ':telefono' => $data["telefono"],
             ':alta_comunicaciones' => isset($data["recibir_comunicaciones"]) ? 1 : 0,
         ));
