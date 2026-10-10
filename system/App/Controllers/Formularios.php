@@ -17,13 +17,55 @@ class Formularios extends \Core\Controller
 {
 
     public function procesarAction(){
-       if($_POST){
-           $create = \App\Models\Formulario::nuevoFormulario($_POST);
-           $correoEnviado = $this->enviar_email_ws('Asunto Email', $_POST["email"], $_POST["nombre_apellido"]);
-           $data = array("success" => 2, "email_sent" => $correoEnviado);
-           echo json_encode($data);
-       }
+        header('Content-Type: application/json');
+        if (empty($_POST)) {
+            http_response_code(405);
+            $data = array('error' => 'method_not_allowed');
+        } else {
+            $nombre = isset($_POST['nombre']) && is_string($_POST['nombre']) ? trim($_POST['nombre']) : '';
+            $email = isset($_POST['email']) && is_string($_POST['email']) ? trim($_POST['email']) : '';
+            $codigoPostal = isset($_POST['codigo_postal']) && is_string($_POST['codigo_postal']) ? trim($_POST['codigo_postal']) : '';
+            $telefono = isset($_POST['telefono']) && is_string($_POST['telefono']) ? trim($_POST['telefono']) : '';
+            $nombreLength = preg_match_all('/./us', $nombre, $matches);
+            $emailLength = preg_match_all('/./us', $email, $matches);
+            $invalidFields = array();
 
+            if ($nombreLength === false || $nombreLength < 2 || $nombreLength > 100) {
+                $invalidFields[] = 'nombre';
+            }
+            if ($email === '' || $emailLength === false || $emailLength > 100 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+                $invalidFields[] = 'email';
+            }
+            if (!preg_match('/^[0-9]{5}$/D', $codigoPostal)) {
+                $invalidFields[] = 'codigo_postal';
+            }
+            $telefonoSinEspacios = str_replace(' ', '', $telefono);
+            if (strlen($telefonoSinEspacios) < 9 || strlen($telefonoSinEspacios) > 18 || !preg_match('/^[0-9+ ]+$/D', $telefono)) {
+                $invalidFields[] = 'telefono';
+            }
+
+            if ($invalidFields) {
+                http_response_code(422);
+                $data = array('success' => 0, 'invalid_fields' => $invalidFields);
+            } elseif (\App\Models\Formulario::checkRegistro($email)) {
+                $data = array('success' => 1, 'already_registered' => true);
+            } else {
+                $registro = \App\Models\Formulario::nuevoFormulario(array(
+                    'nombre' => $nombre,
+                    'email' => $email,
+                    'codigo_postal' => $codigoPostal,
+                    'telefono' => $telefono,
+                ));
+                if (!$registro) {
+                    http_response_code(500);
+                    $data = array('success' => 0, 'error' => 'save_failed');
+                } else {
+                    $correoEnviado = $this->enviar_email_ws('Asunto Email', $email, $nombre);
+                    $data = array('success' => 2, 'email_sent' => $correoEnviado);
+                }
+            }
+        }
+        echo json_encode($data);
     }
 
     public function ajax(){
