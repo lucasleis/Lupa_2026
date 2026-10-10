@@ -19,11 +19,8 @@ const renderVale = (vale, index) => `<article class="carrusel__slide vales__slid
     ${hexagonoSombra('vales__hexagono--sombra', 'var(--color-gold-mid)')}
     ${hexagono('vales__hexagono--cara', 'var(--color-sky)')}
     <div class="vales__price">
-      <span class="vales__price-unidad2">${vale.unidad}</span>
-      <div class="vales__price-row">
-        <span class="vales__price-euros" aria-hidden="true">${vale.entero}</span>
-        <span class="vales__price-resto" aria-hidden="true"><span class="vales__price-centavos" aria-hidden="true">${vale.centavos}</span><span class="vales__price-dto" aria-hidden="true">${vale.unidad_dto}</span></span>
-      </div>
+      <span class="vales__price-euros" aria-hidden="true">${vale.entero}</span>
+      <span class="vales__price-resto" aria-hidden="true"><span class="vales__price-centavos" aria-hidden="true">${vale.centavos}</span><span class="vales__price-dto" aria-hidden="true">${vale.unidad_dto}</span></span>
     </div>
   </div>
   <img class="vales__producto" src="${vale.imagen}" alt="">

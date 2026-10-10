@@ -338,13 +338,11 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .vales__slide .vales__sarcofago { position: absolute; left: 0; top: 0; width: calc(219 * var(--u)); height: calc(476 * var(--u)); max-width: none; }
 .vales__dilo { position: absolute; top: calc(30.78 * var(--u)); left: calc(50% - (117.66 * var(--u)) / 2 - 0.43 * var(--u)); width: calc(117.66 * var(--u)); height: calc(15.71 * var(--u)); margin: 0; color: #fff; font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 500; line-height: calc(24 * var(--u)); text-align: center; }
 .vales__frase { position: absolute; top: calc(57.22 * var(--u)); left: calc(50% - (150.95 * var(--u)) / 2 + 1.43 * var(--u)); width: calc(150.95 * var(--u)); height: calc(44 * var(--u)); margin: 0; color: var(--color-white-warm); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 800; line-height: calc(22 * var(--u)); text-align: center; }
-.vales__discount { --vales-precio-size: 79.9; --vales-precio-cc-size: 34; --vales-precio-unidad-size: 23.95; --vales-precio-unidad2-size: 20; --vales-precio-gap-x: 2; --vales-precio-cc-y: -6; --vales-precio-entero-y: 15; --vales-precio-y: 8; position: absolute; z-index: 2; left: calc(-21.6 * var(--u)); top: calc(103.9 * var(--u)); width: calc(160.79 * var(--u)); height: calc(133.05 * var(--u)); transform: rotate(-7.24deg); }
+.vales__discount { --vales-precio-size: 79.9; --vales-precio-cc-size: 34; --vales-precio-unidad-size: 23.95; --vales-precio-gap-x: 2; --vales-precio-cc-y: -6; --vales-precio-entero-y: 15; --vales-precio-y: 8; position: absolute; z-index: 2; left: calc(-21.6 * var(--u)); top: calc(103.9 * var(--u)); width: calc(160.79 * var(--u)); height: calc(133.05 * var(--u)); transform: rotate(-7.24deg); }
 .vales__hexagono { position: absolute; max-width: none; }
 .vales__hexagono--sombra { left: 2.674296%; top: 1.082300%; width: 90.316562%; height: 102.863585%; }
 .vales__hexagono--cara { left: 0; top: 0; width: 100%; height: 100%; }
-.vales__price { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: calc(var(--vales-precio-y) * var(--u)); color: var(--color-navy); font-family: var(--font-display); font-weight: 800; pointer-events: none; transform: rotate(-6.98deg); }
-.vales__price-unidad2 { color: var(--color-navy); font-family: var(--font-display); font-size: calc(var(--vales-precio-unidad2-size) * var(--u)); font-weight: 500; line-height: 1; white-space: nowrap; }
-.vales__price-row { display: flex; flex-direction: row; align-items: baseline; justify-content: center; gap: calc(var(--vales-precio-gap-x) * var(--u)); }
+.vales__price { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: row; align-items: baseline; justify-content: center; gap: calc(var(--vales-precio-gap-x) * var(--u)); padding-top: calc(var(--vales-precio-y) * var(--u)); color: var(--color-navy); font-family: var(--font-display); font-weight: 800; pointer-events: none; transform: rotate(-6.98deg); }
 .vales__price-euros { font-size: calc(var(--vales-precio-size) * var(--u)); line-height: 0.85; transform: translateY(calc(var(--vales-precio-entero-y) * var(--u))); }
 .vales__price-resto { display: flex; flex-direction: column; align-items: flex-start; transform: translateY(calc(var(--vales-precio-cc-y) * var(--u))); }
 .vales__price-centavos { font-size: calc(var(--vales-precio-cc-size) * var(--u)); line-height: 1; }
@@ -2582,15 +2580,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .vales__price {
-    padding-top: calc(var(--vales-precio-y) * var(--ud));
-  }
-
-  .vales__price-unidad2 {
-    font-size: calc(var(--vales-precio-unidad2-size) * var(--ud));
-  }
-
-  .vales__price-row {
     gap: calc(var(--vales-precio-gap-x) * var(--ud));
+    padding-top: calc(var(--vales-precio-y) * var(--ud));
   }
 
   .vales__price-euros {
