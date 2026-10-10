@@ -2811,6 +2811,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     height: calc(22 * var(--ud));
   }
 
+  .formulario__mensaje {
+    margin: 0 0 calc(16 * var(--ud));
+    font-size: calc(18 * var(--ud));
+    line-height: calc(22 * var(--ud));
+  }
+
   .formulario__checkbox:focus-visible + .formulario__checkbox-visual {
     outline-width: calc(2 * var(--ud));
     outline-offset: calc(2 * var(--ud));
@@ -3277,10 +3283,10 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
 
 /* Provisional: todavía no hay diseño de Figma para los estados del formulario. */
 .formulario__mensaje {
-  margin: 0 0 1rem;
-  color: #8b1e1e;
-  font-size: 1rem;
-  line-height: 1.35;
+  margin: 0 0 calc(16 * var(--u));
+  color: #D62828;
+  font-size: calc(16 * var(--u));
+  line-height: calc(19 * var(--u));
 }
 
 .formulario__mensaje:empty {
