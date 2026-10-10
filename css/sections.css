@@ -2715,10 +2715,25 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     width: calc(640 * var(--ud));
     height: calc(59 * var(--ud));
     flex: 0 0 calc(59 * var(--ud));
+    position: relative;
     background: url("../img/input.svg") no-repeat 0 0 / 100% 100%;
   }
 
   .formulario__field-bg { display: none; }
+
+  .formulario__field:has(.formulario__input[aria-invalid="true"])::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: url("../img/input.svg") no-repeat 0 0 / 100% 100%;
+    filter: drop-shadow(0 0 3px #FF453A) drop-shadow(0 0 3px #FF453A);
+    pointer-events: none;
+  }
+
+  .formulario__field:has(.formulario__input[aria-invalid="true"]) .formulario__input {
+    z-index: 1;
+  }
 
   .formulario__input {
     left: calc(68.35 * var(--ud));
@@ -3263,4 +3278,8 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
 
 .formulario__input[aria-invalid="true"]::placeholder {
   color: #FFC2A8;
+}
+
+.formulario__field:has(.formulario__input[aria-invalid="true"]) .formulario__field-bg {
+  filter: drop-shadow(0 0 3px #FF453A) drop-shadow(0 0 3px #FF453A);
 }
