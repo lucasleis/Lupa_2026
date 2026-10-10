@@ -1,14 +1,11 @@
 const form = document.querySelector('.formulario__form');
-if (!form) return;
-
-const message = form.querySelector('.formulario__mensaje');
-const submitButton = form.querySelector('[type="submit"]');
-if (!message || !submitButton) return;
+const message = form?.querySelector('.formulario__mensaje');
+const submitButton = form?.querySelector('[type="submit"]');
 
 let envioEnCurso = false;
 let enviado = false;
 
-form.addEventListener('submit', async (event) => {
+if (form && message && submitButton) form.addEventListener('submit', async (event) => {
   event.preventDefault();
   if (envioEnCurso || enviado) return;
 
