@@ -3,7 +3,7 @@ RewriteEngine On
 RewriteRule ^.git(?:/|$) - [F,L]
 
 # Uncomment the following line if your public folder isn't the web server's root
-RewriteBase /buscandoconlupa/
+RewriteBase /ofertiti/
 
 <IfModule mime_module>
   AddHandler application/x-httpd-ea-php74 .php .php7 .phtml

@@ -18,7 +18,7 @@ class Admin extends \Core\Controller
         if (!isset($_SESSION['user_id'])) {
             View::render('login.html');
         }else{
-            header('Location: /buscandoconlupa/panel/');
+            header('Location: ' . BASE . 'panel/');
             exit;
         }
     }
@@ -34,12 +34,12 @@ class Admin extends \Core\Controller
             $check = \App\Models\User::loginCheck($usuario, $password);
             if($check == true){
                 $_SESSION['user_id'] = $usuario;
-                header('Location: /buscandoconlupa/panel/');
+                header('Location: ' . BASE . 'panel/');
             }else{
-                header('Location: /buscandoconlupa/');
+                header('Location: ' . BASE);
             }
         }else{
-            header('Location: /buscandoconlupa/');
+            header('Location: ' . BASE);
             exit;
         }
 
@@ -49,9 +49,9 @@ class Admin extends \Core\Controller
     {
         if(isset($_SESSION['user_id'])){
             $formularios = \App\Models\Formulario::listaFormularios();
-            View::renderTemplate('panel.html', ["formularios" => $formularios]);
+            View::renderTemplate('panel.html', ["formularios" => $formularios, "base" => BASE]);
         }else{
-            header('Location: /buscandoconlupa/admin-2024/');
+            header('Location: ' . BASE . 'admin-2024/');
             exit;
         }
 
@@ -59,7 +59,7 @@ class Admin extends \Core\Controller
 
     public function salirAction(){
         session_unset();
-        header('Location: /buscandoconlupa/admin-2024/');
+        header('Location: ' . BASE . 'admin-2024/');
         exit;
     }
 

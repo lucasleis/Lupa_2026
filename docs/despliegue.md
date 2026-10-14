@@ -4,27 +4,23 @@
 
 Confirmada por el cliente (2026-10-14): `https://lupa.com/ofertiti`
 
-La app no vive en la raíz del dominio, sino en un subdirectorio. Lo que hay que
-tocar antes de publicar:
+La app no vive en la raíz del dominio, sino en un subdirectorio. Estado de la
+migración:
 
-1. **`.htaccess` → `RewriteBase`**: hoy es `/buscandoconlupa/`. Tiene que ser
-   `/ofertiti/`. Si el server es nginx (ver `system/nginx-configuration.txt`),
-   el `rewrite` ya es relativo al `location` y no hace falta cambio.
-2. **Barra final obligatoria**: todas las rutas de `system/App/Views/base.html`
-   son relativas (`css/…`, `img/…`, `procesar-formulario/`). Con
-   `lupa.com/ofertiti` (sin barra) el navegador resuelve contra `lupa.com/` y
-   no carga nada. Hace falta redirección 301 de `/ofertiti` → `/ofertiti/` en
-   el server, o un `<base href="/ofertiti/">` en el `<head>`.
-3. **Rutas absolutas hardcodeadas con `/buscandoconlupa/`** (29 apariciones):
-   `system/App/Controllers/Admin.php` (6 `header('Location:')`),
-   `CreateTables.php`, `system/App/Views/panel.html`, `404.html`, `500.html`.
-   Afectan al panel de administración y a las páginas de error, no a la
-   landing. Arreglo mínimo: una constante de base en `index.php` y usarla en
-   esos puntos, en vez de buscar y reemplazar literal en cada archivo.
-4. **`sync-to-vm.sh`** sincroniza a `/var/www/html/buscandoconlupa/`; cambiar
-   el destino cuando se defina el path real del server de producción.
-5. Los emails de 2024 (`system/App/Views/email/email-*.html`) apuntan a
-   `lupa2024.dev-ws.com/buscandoconlupa/pdf/…`. Son plantillas viejas; revisar
+1. **Resuelto:** `.htaccess` usa `RewriteBase /ofertiti/`. Si el server es
+   nginx (ver `system/nginx-configuration.txt`), el `rewrite` ya es relativo
+   al `location`.
+2. **Resuelto:** `index.php` define `BASE` como `/ofertiti/` y
+   `system/App/Views/base.html` establece `<base href="<?= BASE ?>">`, para
+   que las rutas relativas funcionen también al entrar sin barra final.
+3. **Resuelto:** redirects del admin, enlace de creación de tablas y rutas
+   del panel usan `BASE`. Las vistas 404 y 500 conservan rutas literales
+   `/ofertiti/` porque se sirven con `readfile()` y no pasan por PHP. El catch
+   de `index.php` también apunta a `system/App/Views/` dentro del proyecto.
+4. **Pendiente:** `sync-to-vm.sh` conserva el destino anterior; actualizarlo
+   cuando se defina el path real del server de producción.
+5. **Fuera de alcance:** los emails de 2024
+   (`system/App/Views/email/email-*.html`) conservan sus URLs antiguas; revisar
    solo si se reutiliza alguna.
 
 ## Base de datos

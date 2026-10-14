@@ -14,6 +14,7 @@
  */
 
 define("CHANGEPASSWORD", false);
+define("BASE", "/ofertiti/");
 
 /**
  * Composer
@@ -98,7 +99,7 @@ try {
     $router->dispatch($_SERVER['QUERY_STRING']);
 } catch (Exception $e) {
     $code = $e->getCode() ?: 500;
-    $viewPath = dirname(__DIR__) . '/App/Views/' . $code . '.html';
+    $viewPath = __DIR__ . '/system/App/Views/' . $code . '.html';
 
     if (file_exists($viewPath)) {
         http_response_code($code);
