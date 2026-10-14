@@ -1527,12 +1527,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     --lienzo-fondo: var(--color-brown-dark);
   }
 
-  /* El stage de .interior nunca tuvo contenido. Lo pinta la misma imagen que
-     la cortina, y en su MISMA escala final, para que el relevo sea invisible:
-     la cortina se va con --pasillo-salida-p y abajo aparece exactamente el
-     mismo encuadre. Va en un ::before porque un background no se puede
-     escalar con transform. */
+  /* La cortina es fixed a pantalla completa; igualar las cajas evita un marco
+     durante el fundido. */
   .interior .escena__stage {
+    width: 100vw;
+    height: 100svh;
+    aspect-ratio: auto;
     background: var(--color-dark-bg);
     overflow: hidden;
   }
