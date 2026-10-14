@@ -17,11 +17,24 @@ migración:
    del panel usan `BASE`. Las vistas 404 y 500 conservan rutas literales
    `/ofertiti/` porque se sirven con `readfile()` y no pasan por PHP. El catch
    de `index.php` también apunta a `system/App/Views/` dentro del proyecto.
-4. **Pendiente:** `sync-to-vm.sh` conserva el destino anterior; actualizarlo
-   cuando se defina el path real del server de producción.
+4. **Resuelto:** `sync-to-vm.sh` sincroniza a `/var/www/html/ofertiti/`.
 5. **Fuera de alcance:** los emails de 2024
    (`system/App/Views/email/email-*.html`) conservan sus URLs antiguas; revisar
    solo si se reutiliza alguna.
+
+## Entorno de pruebas (VM local)
+
+El path de la URL **es el nombre del directorio en el server**: `RewriteBase`
+no lo crea. Al migrar hubo que renombrar el directorio en la VM, o
+`/ofertiti/` devuelve 404 aunque el código esté bien:
+
+    ssh -p 2222 root@$(ip route show default | awk '{print $3; exit}') \
+      'mv /var/www/html/buscandoconlupa /var/www/html/ofertiti'
+    ./sync-to-vm.sh
+
+La VM es el gateway de WSL (`ip route show default`), Apache 2.4 / PHP 7.2 en
+el puerto 8080, SSH en 2222, docroot `/var/www/html`. Verificado el 2026-10-14:
+`http://<gateway>:8080/ofertiti/` responde 200.
 
 ## Base de datos
 

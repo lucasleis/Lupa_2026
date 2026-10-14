@@ -13,6 +13,6 @@ rsync -az \
   --exclude='system/vendor/' \
   --exclude='_archivo/' \
   -e "ssh -o StrictHostKeyChecking=no -o BatchMode=yes -p 2222" \
-  ./ "root@${gateway}:/var/www/html/buscandoconlupa/"
+  ./ "root@${gateway}:/var/www/html/ofertiti/"
 
 echo "Sincronización completada hacia ${gateway}:2222"
