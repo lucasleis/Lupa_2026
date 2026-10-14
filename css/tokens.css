@@ -74,6 +74,9 @@
        y nunca encoge por debajo de su ancho de diseno. */
     --vp-izq: calc((var(--stage-w) - 100vw) / 2);
     --vp-der: calc((var(--stage-w) + 100vw) / 2);
+    /* Bordes verticales del viewport respecto del escenario centrado. */
+    --vp-arriba: calc((var(--stage-h) - 100svh) / 2);
+    --vp-abajo: calc((var(--stage-h) + 100svh) / 2);
     /* cenefa.webp trae 5px transparentes por lado sobre 2114 (0.24%), asi
        que la caja llega al borde pero el dibujo no. Estas dos se pasan 8
        unidades de cada lado para que el trazo opaco si llegue. */

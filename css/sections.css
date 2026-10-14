@@ -2307,9 +2307,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     /* El padre mide 1440; con width 100% el fondo se cortaba igual que una
        pieza de ancho fijo. Sangra hasta el borde del viewport. */
     left: min(0px, var(--vp-izq));
-    top: 0;
+    top: min(0px, var(--vp-arriba));
     width: calc(max(calc(1440 * var(--ud)), var(--vp-der)) - min(0px, var(--vp-izq)));
-    height: 100%;
+    height: calc(max(calc(900 * var(--ud)), var(--vp-abajo))
+                 - min(0px, var(--vp-arriba)));
     opacity: 0.1;
     background-image:
       url("../img/puerta/pared-glifos-desktop.webp"),
@@ -2323,9 +2324,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud));
     background-position:
-      calc(0.33 * var(--ud)) calc(16.27 * var(--ud)),
-      calc(0.33 * var(--ud)) calc(406.74 * var(--ud)),
-      calc(0.33 * var(--ud)) calc(790 * var(--ud));
+      calc(0.33 * var(--ud)) calc(16.27 * var(--ud) - min(0px, var(--vp-arriba))),
+      calc(0.33 * var(--ud)) calc(406.74 * var(--ud) - min(0px, var(--vp-arriba))),
+      calc(0.33 * var(--ud)) calc(790 * var(--ud) - min(0px, var(--vp-arriba)));
     transform: none;
   }
 
@@ -2335,11 +2336,13 @@ body[data-puerta-revelada="true"] .ofertas__stage {
      height, que quedaba en auto. Al sangrar a 1900 eso daba 125 en vez de
      los 91.45 del diseno. */
   .ofertas__stage .ofertas__cenefa {
+    /* El asset tiene 5px transparentes en los cuatro bordes; arriba escalan
+       como ancho/422.8 y quedan cubiertos por este sangrado vertical. */
     /* Sangra hasta el borde del viewport sin perder su anclaje de diseno.
        L = -60.58 y R = 1455.58 son los bordes de hoy resueltos con el 50%
        en 720, el centro del frame de 1440. */
     left: min(calc(-60.58 * var(--ud)), var(--vp-izq-x));
-    top: calc(-10.61 * var(--ud));
+    top: min(calc(-10.61 * var(--ud)), var(--vp-arriba));
     width: calc(max(calc(1455.58 * var(--ud)), var(--vp-der-x))
                 - min(calc(-60.58 * var(--ud)), var(--vp-izq-x)));
     /* Sin alto forzado: el asset es 2114x139 y al sangrar la caja a 1900 un
@@ -2555,9 +2558,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     /* El padre mide 1440; con width 100% el fondo se cortaba igual que una
        pieza de ancho fijo. Sangra hasta el borde del viewport. */
     left: min(0px, var(--vp-izq));
-    top: 0;
+    top: min(0px, var(--vp-arriba));
     width: calc(max(calc(1440 * var(--ud)), var(--vp-der)) - min(0px, var(--vp-izq)));
-    height: 100%;
+    height: calc(max(calc(900 * var(--ud)), var(--vp-abajo))
+                 - min(0px, var(--vp-arriba)));
     opacity: 0.1;
     background-image:
       url("../img/puerta/pared-glifos-desktop.webp"),
@@ -2571,9 +2575,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud));
     background-position:
-      calc(0.33 * var(--ud)) calc(16.27 * var(--ud)),
-      calc(0.33 * var(--ud)) calc(406.74 * var(--ud)),
-      calc(0.33 * var(--ud)) calc(790 * var(--ud));
+      calc(0.33 * var(--ud)) calc(16.27 * var(--ud) - min(0px, var(--vp-arriba))),
+      calc(0.33 * var(--ud)) calc(406.74 * var(--ud) - min(0px, var(--vp-arriba))),
+      calc(0.33 * var(--ud)) calc(790 * var(--ud) - min(0px, var(--vp-arriba)));
     transform: none;
   }
 
@@ -2585,7 +2589,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
        L = -60.58 y R = 1455.58 son los bordes de hoy resueltos con el 50%
        en 720, el centro del frame de 1440. */
     left: min(calc(-60.58 * var(--ud)), var(--vp-izq-x));
-    top: calc(-10.61 * var(--ud));
+    top: min(calc(-10.61 * var(--ud)), var(--vp-arriba));
     width: calc(max(calc(1455.58 * var(--ud)), var(--vp-der-x))
                 - min(calc(-60.58 * var(--ud)), var(--vp-izq-x)));
     /* Sin alto forzado: el asset es 2114x139 y al sangrar la caja a 1900 un
