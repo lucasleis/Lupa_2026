@@ -1455,24 +1455,24 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     /* El padre mide 1440; con width 100% el fondo se cortaba igual que una
        pieza de ancho fijo. Sangra hasta el borde del viewport. */
     left: min(0px, var(--vp-izq));
-    top: 0;
+    top: min(0px, var(--vp-arriba));
     width: calc(max(calc(1440 * var(--ud)), var(--vp-der)) - min(0px, var(--vp-izq)));
-    height: 100%;
+    height: calc(max(calc(900 * var(--ud)), var(--vp-abajo))
+                 - min(0px, var(--vp-arriba)));
     /* Puerta, arena y calderas van en 0; la cenefa (2) y las llamas (4) quedan encima. */
     z-index: 0;
     opacity: 0.3;
     background-image:
       url("../img/puerta/pared-glifos-desktop.webp"),
       url("../img/puerta/pared-glifos-desktop.webp");
-    /* Al sangrar, la banda tilea en horizontal en vez de estirarse: es un
-       patron de pared y repetirlo no deforma los glifos. */
-    background-repeat: repeat-x, repeat-x, repeat-x;
+    /* Es un patron de pared: tilea en ambos ejes en vez de estirarse. */
+    background-repeat: repeat, repeat;
     background-size:
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud)),
       calc(1439.67 * var(--ud)) calc(378.26 * var(--ud));
     background-position:
-      calc(0.33 * var(--ud)) calc(16.27 * var(--ud)),
-      calc(0.33 * var(--ud)) calc(406.74 * var(--ud));
+      calc(0.33 * var(--ud)) calc(16.27 * var(--ud) - min(0px, var(--vp-arriba))),
+      calc(0.33 * var(--ud)) calc(406.74 * var(--ud) - min(0px, var(--vp-arriba)));
     transform: none;
   }
 
@@ -1645,11 +1645,14 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .marco-papiro__cenefa--superior {
-    top: calc(-20.03 * var(--ud));
+    /* Los 5px transparentes del asset escalan con su ancho de 2114px. */
+    --marco-papiro-cenefa-ancho: calc(max(calc(1447.85 * var(--ud)), var(--vp-der-x))
+                - min(calc(-68.31 * var(--ud)), var(--vp-izq-x)));
+    top: calc(min(calc(-20.03 * var(--ud)), var(--vp-arriba))
+              - var(--marco-papiro-cenefa-ancho) * 0.0023651845);
     /* Sangra hasta el borde del viewport sin perder su anclaje de diseno. */
     left: min(calc(-68.31 * var(--ud)), var(--vp-izq-x));
-    width: calc(max(calc(1447.85 * var(--ud)), var(--vp-der-x))
-                - min(calc(-68.31 * var(--ud)), var(--vp-izq-x)));
+    width: var(--marco-papiro-cenefa-ancho);
   }
 
   .marco-papiro__cenefa--inferior {
@@ -1657,10 +1660,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
        alto crece al sangrar y un top fijo hundia la banda. Los 33.90 son el
        desborde de diseno (839.15 + 94.75 - 900), que ahora queda constante. */
     top: auto;
-    bottom: calc(-33.90 * var(--ud));
-    left: min(calc(-4.50 * var(--ud)), var(--vp-izq-x));
-    width: calc(max(calc(1436.50 * var(--ud)), var(--vp-der-x))
+    --marco-papiro-cenefa-ancho: calc(max(calc(1436.50 * var(--ud)), var(--vp-der-x))
                 - min(calc(-4.50 * var(--ud)), var(--vp-izq-x)));
+    bottom: calc(min(calc(-33.90 * var(--ud)), var(--vp-arriba))
+                 - var(--marco-papiro-cenefa-ancho) * 0.0023651845);
+    left: min(calc(-4.50 * var(--ud)), var(--vp-izq-x));
+    width: var(--marco-papiro-cenefa-ancho);
   }
 
   .marco-papiro__columna {
@@ -1684,16 +1689,21 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .marco-papiro__glifo--uno {
-    top: calc(110 * var(--ud));
+    top: min(calc(110 * var(--ud)), var(--vp-arriba));
     transform: scaleX(-1);
   }
 
   .marco-papiro__glifo--dos {
-    top: calc(489.84 * var(--ud));
+    top: calc(489.84 * var(--ud) + min(0px, var(--vp-arriba)));
   }
 
-  .marco-papiro__glifo--tres {
-    display: none;
+  .escena__stage .marco-papiro__glifo--tres {
+    display: block;
+    /* La imagen SVG conserva su ratio 1440x332 y apoya el borde inferior. */
+    top: max(
+      calc(577.29 * var(--ud)),
+      calc(var(--vp-abajo) - (max(calc(1440 * var(--ud)), var(--vp-der)) - min(0px, var(--vp-izq))) * 0.2305556)
+    );
   }
 
   .prueba-superada__stage .prueba-superada__ofertiti {
@@ -2795,17 +2805,20 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     z-index: 1;
     display: block;
     max-width: none;
+    /* Compensa el margen transparente de 5px del asset de 2114px. */
+    --formulario-cenefa-ancho: calc(max(calc(1455.58 * var(--ud)), var(--vp-der-x))
+                - min(calc(-60.58 * var(--ud)), var(--vp-izq-x)));
     /* El padre ocupa el viewport: se resta --vp-izq para traducir la
        coordenada del escenario al sistema de coordenadas del padre. */
     left: calc(min(calc(-60.58 * var(--ud)), var(--vp-izq-x)) - var(--vp-izq));
-    width: calc(max(calc(1455.58 * var(--ud)), var(--vp-der-x))
-                - min(calc(-60.58 * var(--ud)), var(--vp-izq-x)));
+    width: var(--formulario-cenefa-ancho);
     /* Sin alto forzado: el asset es 2114x139 y al sangrar la caja a 1900 un
        alto fijo de 91.45 la achataba a 20.8:1 contra los 15.2:1 nativos.
        Con auto la cenefa conserva su proporcion. El 91.45 estaba calibrado
        para la caja de 1516 del diseno y dejo de valer al ensanchar. */
     height: auto;
-    top: calc(-10.61 * var(--ud));
+    top: calc(var(--formulario-y0) + min(calc(-10.61 * var(--ud)), var(--vp-arriba))
+              - var(--formulario-cenefa-ancho) * 0.0023651845);
   }
 
   .formulario__banda {
