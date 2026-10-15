@@ -1105,6 +1105,11 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     background: var(--lienzo-fondo);
   }
 
+  .escena__panel {
+    align-items: center;
+    overflow: visible;
+  }
+
   .hero__sticky {
     --lienzo-fondo: var(--color-sky);
   }
@@ -1678,7 +1683,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .marco-papiro__columna--derecha {
-    left: calc(1353.15 * var(--ud));
+    /* Refleja el borde de la columna izquierda respecto del centro del frame. */
+    left: calc(1347.11 * var(--ud));
   }
 
   .marco-papiro__glifo {
