@@ -1049,7 +1049,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   justify-content: center;
   align-items: center;
   gap: calc(6 * var(--u));
-  padding: 0 8.5% 9% 7.04%;
+  padding: 2% 8.5% 0 7.04%;
   visibility: hidden;
   pointer-events: none;
   transform: scale(clamp(0, calc(var(--resultado-entrada-p, 0) / 0.3), 1));
@@ -2278,6 +2278,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .hero__stage[data-estado] .hero__result .hero__result-title {
     font-size: calc(32 * var(--ud));
     line-height: calc(34 * var(--ud));
+    white-space: nowrap;
   }
 
   .hero__stage[data-estado] .hero__result .hero__result-copy {
