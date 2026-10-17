@@ -10,12 +10,13 @@ export const inicializarCarrusel = (root, {
   const next = root?.querySelector('.carrusel__arrow--next');
   if (!track || !cantidad) return;
 
-  let current = circular ? 1 : 0;
+  const viewport = root.querySelector('.carrusel__viewport');
+  const desktopCoupons = root.classList.contains('cupones') ? window.matchMedia('(min-width: 900px)') : null;
+  let desktopMode = desktopCoupons?.matches ?? false;
+  let current = circular && !desktopMode ? 1 : 0;
   let transitioning = false;
   const slides = [...track.children];
   const realSlides = slides.slice(0, cantidad);
-  const viewport = root.querySelector('.carrusel__viewport');
-  const desktopCoupons = root.classList.contains('cupones') ? window.matchMedia('(min-width: 900px)') : null;
 
   if (circular) {
     const last = realSlides[realSlides.length - 1].cloneNode(true);
@@ -30,15 +31,16 @@ export const inicializarCarrusel = (root, {
     track.append(first);
   }
 
-  const indiceReal = () => circular
+  const indiceReal = () => desktopMode ? current : circular
     ? (current - 1 + cantidad) % cantidad
     : current;
 
   const actualizarEstado = () => {
     track.style.setProperty('--carrusel-index', String(current));
+    track.style.setProperty('--carrusel-index-desktop', String(desktopMode ? current : 0));
     track.querySelectorAll('.carrusel__slide').forEach((slide, index) => {
-      const active = desktopCoupons?.matches
-        ? !slide.hasAttribute('data-carrusel-clon')
+      const active = desktopMode
+        ? !slide.hasAttribute('data-carrusel-clon') && Number(slide.dataset.cuponIndex) >= current && Number(slide.dataset.cuponIndex) < current + 4
         : circular
           ? index === current && index > 0 && index <= cantidad
           : index === current;
@@ -48,6 +50,8 @@ export const inicializarCarrusel = (root, {
     dots?.querySelectorAll('[role="tab"]').forEach((dot, index) => {
       dot.setAttribute('aria-selected', String(index === indiceReal()));
     });
+    if (previous) previous.disabled = desktopMode && current === 0;
+    if (next) next.disabled = desktopMode && current >= cantidad - 4;
     onChange(indiceReal());
   };
 
@@ -64,23 +68,25 @@ export const inicializarCarrusel = (root, {
 
   const irA = (index) => {
     if (transitioning) return;
-    const target = circular
+    const desktop = desktopMode;
+    const esCircular = circular && !desktop;
+    const target = esCircular
       ? (index < 1 ? 0 : index > cantidad ? cantidad + 1 : index)
-      : Math.max(0, Math.min(cantidad - 1, index));
+      : Math.max(0, Math.min(cantidad - (desktop ? 4 : 1), index));
     if (target === current) return;
     transitioning = true;
     current = target;
     actualizarEstado();
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && circular) reajustarClon();
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && esCircular) reajustarClon();
   };
 
   if (dots) dots.innerHTML = realSlides.map((slide, index) => `<button type="button" role="tab" aria-label="Ir al elemento ${index + 1}" aria-selected="${index === 0}"></button>`).join('');
   previous?.addEventListener('click', () => irA(current - 1));
   next?.addEventListener('click', () => irA(current + 1));
-  dots?.querySelectorAll('[role="tab"]').forEach((dot, index) => dot.addEventListener('click', () => irA(circular ? index + 1 : index)));
+  dots?.querySelectorAll('[role="tab"]').forEach((dot, index) => dot.addEventListener('click', () => irA(desktopMode ? index : circular ? index + 1 : index)));
   track.addEventListener('transitionend', (event) => {
     if (event.propertyName !== 'transform' || !transitioning) return;
-    if (circular && (current === 0 || current === cantidad + 1)) reajustarClon();
+    if (circular && !desktopMode && (current === 0 || current === cantidad + 1)) reajustarClon();
     else {
       transitioning = false;
       onTransitionEnd(indiceReal());
@@ -116,6 +122,9 @@ export const inicializarCarrusel = (root, {
   }, { passive: true });
   desktopCoupons?.addEventListener('change', () => {
     transitioning = false;
+    if (desktopCoupons.matches) current = Math.max(0, Math.min(cantidad - 4, indiceReal()));
+    else if (circular) current = indiceReal() + 1;
+    desktopMode = desktopCoupons.matches;
     actualizarEstado();
   });
   actualizarEstado();
