@@ -1707,7 +1707,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .marco-papiro__glifo--uno {
-    top: min(calc(110 * var(--ud)), var(--vp-arriba));
+    /* Sigue a la cenefa superior: 110 del frame por debajo de su anclaje. */
+    top: calc(110 * var(--ud) + min(0px, var(--vp-arriba)));
     transform: scaleX(-1);
   }
 
