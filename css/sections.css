@@ -1712,16 +1712,15 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .marco-papiro__glifo--dos {
-    top: calc(489.84 * var(--ud) + min(0px, var(--vp-arriba)));
+    /* La imagen SVG conserva su ratio 1440x332; en viewports altos apoya el borde inferior. */
+    top: max(
+      calc(489.84 * var(--ud) + min(0px, var(--vp-arriba))),
+      calc(var(--vp-abajo) - (max(calc(1440 * var(--ud)), var(--vp-der)) - min(0px, var(--vp-izq))) * 0.2305556)
+    );
   }
 
   .escena__stage .marco-papiro__glifo--tres {
-    display: block;
-    /* La imagen SVG conserva su ratio 1440x332 y apoya el borde inferior. */
-    top: max(
-      calc(577.29 * var(--ud)),
-      calc(var(--vp-abajo) - (max(calc(1440 * var(--ud)), var(--vp-der)) - min(0px, var(--vp-izq))) * 0.2305556)
-    );
+    display: none;
   }
 
   .prueba-superada__stage .prueba-superada__ofertiti {
