@@ -1786,8 +1786,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
   .cupones__stage .carrusel__viewport {
     top: 0;
-    left: 0;
-    width: 100%;
+    left: calc(92 * var(--ud));
+    width: calc(1261 * var(--ud));
     height: 100%;
     overflow: hidden;
     clip-path: none;
@@ -1797,7 +1797,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     position: relative;
     width: max-content;
     gap: calc(2 * var(--ud));
-    transform: translateX(calc((98.95 - 315 * var(--carrusel-index-desktop, 0)) * var(--ud)));
+    transform: translateX(calc((6.95 - 315 * var(--carrusel-index, 0)) * var(--ud)));
     transition: transform 300ms ease;
   }
 
@@ -1807,10 +1807,6 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     width: calc(313 * var(--ud));
     height: calc(439 * var(--ud));
     top: calc(247 * var(--ud));
-  }
-
-  .cupones__slide[data-carrusel-clon="true"] {
-    display: none;
   }
 
   .cupones__slide .cupones__card {
@@ -1949,10 +1945,6 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .cupones__stage .carrusel__arrow--next {
     left: auto;
     right: calc(16 * var(--ud));
-  }
-
-  .cupones__stage .carrusel__arrow:disabled {
-    opacity: 0.35;
   }
 
   .hero__stage {
