@@ -1044,6 +1044,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   width: calc(341.6 * var(--u));
   aspect-ratio: 1025 / 445;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: calc(6 * var(--u));
+  padding: 0 8.5% 9% 7.04%;
   visibility: hidden;
   pointer-events: none;
   transform: scale(clamp(0, calc(var(--resultado-entrada-p, 0) / 0.3), 1));
@@ -1125,9 +1131,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
 .hero__result-title,
 .hero__result-copy {
-  position: absolute;
-  left: 7.04%;
-  right: 8.5%;
+  position: relative;
   z-index: 1;
   margin: 0;
   color: var(--color-brown-dark);
@@ -1136,16 +1140,14 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 }
 
 .hero__result-title {
-  top: 24.49%;
-  font-size: calc(26 * var(--u));
+  font-size: calc(20 * var(--u));
   font-weight: 800;
-  line-height: 80%;
+  line-height: 100%;
   text-transform: uppercase;
 }
 
 .hero__result-copy {
-  top: 41.37%;
-  font-size: calc(18 * var(--u));
+  font-size: calc(15 * var(--u));
   font-weight: 500;
   line-height: 105%;
 }
@@ -2270,18 +2272,17 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: calc(118.03 * var(--ud));
     width: calc(614.94 * var(--ud));
     height: calc(266.87 * var(--ud));
+    gap: calc(10 * var(--ud));
   }
 
   .hero__stage[data-estado] .hero__result .hero__result-title {
-    font-size: calc(44 * var(--ud));
-    line-height: calc(46 * var(--ud));
+    font-size: calc(32 * var(--ud));
+    line-height: calc(34 * var(--ud));
   }
 
-  /* Provisional: el cuerpo va proporcional al título con la misma relación que
-     en móvil (26/18). Pendiente de verificar contra Figma. */
   .hero__stage[data-estado] .hero__result .hero__result-copy {
-    font-size: calc(30 * var(--ud));
-    line-height: calc(32 * var(--ud));
+    font-size: calc(22 * var(--ud));
+    line-height: calc(26 * var(--ud));
   }
 
   .hero__stage[data-estado] .hero__riddle-balloon--answer {
