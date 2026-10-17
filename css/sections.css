@@ -410,8 +410,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .vales__price-resto { display: flex; flex-direction: column; align-items: flex-start; transform: translateY(calc(var(--vales-precio-cc-y) * var(--u))); }
 .vales__price-centavos { font-size: calc(var(--vales-precio-cc-size) * var(--u)); line-height: 1; }
 .vales__price-dto { font-size: calc(var(--vales-precio-unidad-size) * var(--u)); line-height: 1; white-space: nowrap; }
-.vales__slide .vales__producto { position: absolute; left: calc(36.57 * var(--u)); top: calc(192.35 * var(--u)); width: calc(145 * var(--u)); height: calc(182 * var(--u)); max-width: none; object-fit: contain; }
-.vales__texto { position: absolute; top: calc(359.01 * var(--u)); left: calc(50% - (136.09 * var(--u)) / 2 + 1.61 * var(--u)); display: flex; width: calc(136.09 * var(--u)); flex-direction: column; align-items: center; gap: calc(6 * var(--u)); }
+.vales__slide .vales__producto { position: absolute; left: calc(36.57 * var(--u)); top: calc(192.35 * var(--u)); width: calc(145 * var(--u)); height: calc(165 * var(--u)); max-width: none; object-fit: contain; }
+.vales__texto { position: absolute; top: calc(365 * var(--u)); left: calc(50% - (136.09 * var(--u)) / 2 + 1.61 * var(--u)); display: flex; width: calc(136.09 * var(--u)); flex-direction: column; align-items: center; gap: calc(6 * var(--u)); }
 .vales__titulo { width: 100%; margin: 0; color: #fff; font-family: var(--font-display); font-size: calc(16 * var(--u)); font-weight: 800; line-height: calc(18 * var(--u)); text-align: center; transform: matrix(1, 0, -0.02, 1, 0, 0); }
 .vales__peso { width: 100%; margin: 0; color: #fff; font-family: var(--font-display); font-size: calc(15 * var(--u)); font-weight: 400; line-height: calc(18 * var(--u)); text-align: center; }
 
@@ -2828,11 +2828,11 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: calc(42.33 * var(--ud));
     top: calc(222.65 * var(--ud));
     width: calc(167.84 * var(--ud));
-    height: calc(210.67 * var(--ud));
+    height: calc(190 * var(--ud));
   }
 
   .vales__texto {
-    top: calc(415.57 * var(--ud));
+    top: calc(425 * var(--ud));
     left: calc(50% - (157.53 * var(--ud)) / 2 + 1.87 * var(--ud));
     width: calc(157.53 * var(--ud));
     gap: calc(8 * var(--ud));
