@@ -442,7 +442,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .formulario__banda--cuatro { left: calc(-188.6 * var(--u)); top: 74.59%; }
 .formulario__header { position: relative; z-index: 1; display: flex; width: calc(294.6 * var(--u)); flex-direction: column; align-items: center; justify-content: center; gap: calc(16 * var(--u)); }
 .formulario__header h2 { width: calc(295 * var(--u)); height: calc(58 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(34 * var(--u)); font-weight: 700; line-height: calc(28.56 * var(--u)); text-align: center; text-transform: uppercase; }
-.formulario__header p { width: calc(293.01 * var(--u)); height: calc(57 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 400; line-height: calc(18.9 * var(--u)); text-align: center; }
+.formulario__header p { width: calc(293.01 * var(--u)); height: auto; margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(16 * var(--u)); font-weight: 400; line-height: calc(17.6 * var(--u)); text-align: center; }
 .formulario__form { position: relative; z-index: 1; display: flex; width: calc(342.24 * var(--u)); height: calc(435 * var(--u)); flex-direction: column; align-items: center; gap: calc(32 * var(--u)); }
 .formulario__fields { display: flex; width: calc(342 * var(--u)); height: calc(296 * var(--u)); flex-direction: column; gap: calc(20 * var(--u)); }
 .formulario__field { position: relative; width: calc(342 * var(--u)); height: calc(59 * var(--u)); flex: 0 0 calc(59 * var(--u)); }
@@ -2928,17 +2928,16 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .formulario__header h2 {
-    width: calc(675.41 * var(--ud));
-    height: calc(120 * var(--ud));
+    width: calc(1100 * var(--ud));
+    height: auto;
     font-size: calc(56 * var(--ud));
     font-weight: 800;
     line-height: calc(60 * var(--ud));
-    text-transform: none;
   }
 
   .formulario__header p {
     width: calc(636.42 * var(--ud));
-    height: calc(52 * var(--ud));
+    height: auto;
     margin-left: calc(1.7 * var(--ud));
     font-size: calc(20 * var(--ud));
     line-height: calc(26 * var(--ud));
