@@ -32,8 +32,10 @@ const renderOferta = (oferta, index) => `<article class="carrusel__slide ofertas
       </span>
     </div>
   </div>
-  <h3 class="ofertas__producto-titulo">${oferta.titulo}</h3>
-  <p class="ofertas__peso">${oferta.peso}</p>
+  <div class="ofertas__texto">
+    <h3 class="ofertas__producto-titulo">${oferta.titulo}</h3>
+    <p class="ofertas__peso">${oferta.peso}</p>
+  </div>
   <div class="ofertas__repisa" aria-hidden="true"><img src="img/ofertas/repisa.svg" alt=""><div class="ofertas__estrias" aria-hidden="true">${estrias()}</div></div>
 </article>`;
 
