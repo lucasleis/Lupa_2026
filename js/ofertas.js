@@ -1,13 +1,18 @@
 import { inicializarCarrusel } from './carrusel.js';
 
 const ofertas = [
-  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '5', centavos: ',99', unidad: 'KG/€', precioTexto: '5,99 euros el kilo', imagen: 'img/ofertas/oferta.webp', titulo: 'Alas de pollo adobadas Granja Gourmet', peso: '500G' },
-  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',49', unidad: 'KG/€', precioTexto: '3,49 euros el kilo', imagen: 'img/ofertas/oferta.webp', titulo: 'Alas de pollo adobadas Granja Gourmet', peso: '500G' },
-  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '7', centavos: ',25', unidad: 'KG/€', precioTexto: '7,25 euros el kilo', imagen: 'img/ofertas/oferta.webp', titulo: 'Alas de pollo adobadas Granja Gourmet', peso: '500G' },
-  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '2', centavos: ',99', unidad: 'KG/€', precioTexto: '2,99 euros el kilo', imagen: 'img/ofertas/oferta.webp', titulo: 'Alas de pollo adobadas Granja Gourmet', peso: '500G' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '1', centavos: ',29', unidad: 'L/€', precioTexto: '1,29 euros el litro', imagen: 'img/ofertas/leche-movit.png', titulo: 'Leche Pascual Movit: sin lactosa, desnatada y semidesnatada', peso: '500G' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '2', centavos: ',39', unidad: '6ud/€', precioTexto: '2,39 euros el pack de 6', imagen: 'img/ofertas/batido-puleva-chocolate.png', titulo: 'Batido Puleva de chocolate pack 6 unds x 200 ml.', peso: '6 x 200ML' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '2', centavos: ',59', unidad: '6ud/€', precioTexto: '2,59 euros el pack de 6', imagen: 'img/ofertas/batido-puleva-zero.png', titulo: 'Batido Puleva Choco Zero / Chocolate sin lactosa', peso: '6 x 200ML' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '1', centavos: ',99', unidad: 'L/€', precioTexto: '1,99 euros el litro', imagen: 'img/ofertas/batido-puleva-shake.png', titulo: 'Batido Puleva Vainilla / Chocolate / Fresa', peso: '1L' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',50', unidad: 'ud/€', precioTexto: '3,50 euros la unidad', imagen: 'img/ofertas/queso-le-rustique.png', titulo: 'Queso Le Rustique Camembert', peso: '250GR' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '2', centavos: ',50', unidad: 'ud/€', precioTexto: '2,50 euros la unidad', imagen: 'img/ofertas/queso-caprice.png', titulo: 'Queso Caprice des Dieux', peso: '125GR' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '5', centavos: ',40', unidad: 'ud/€', precioTexto: '5,40 euros la unidad', imagen: 'img/ofertas/queso-burgo-arias.png', titulo: 'Queso Burgo Arias Original', peso: '500GR' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '2', centavos: ',49', unidad: 'ud/€', precioTexto: '2,49 euros la unidad', imagen: 'img/ofertas/weikis.png', titulo: 'Weikis Bella Easo Chocolate/Leche 6 unds', peso: '250GR' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',30', unidad: 'ud/€', precioTexto: '3,30 euros la unidad', imagen: 'img/ofertas/kh7.png', titulo: 'Desengrasante KH-7 pistola', peso: '780ML' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '1', centavos: ',69', unidad: 'ud/€', precioTexto: '1,69 euros la unidad', imagen: 'img/ofertas/aceituna-la-espanola.png', titulo: 'Aceituna La Española rellenas de anchoa', peso: '350GR' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',50', unidad: 'ud/€', precioTexto: '3,50 euros la unidad', imagen: 'img/ofertas/girasoli-rana.png', titulo: 'Girasoli Rana Gourmet queso cabra&amp;cebolla caramelizada', peso: '250GR' },
 ];
-
-// Provisional: falta una etiqueta por producto, cada una con su precio.
 
 const root = document.querySelector('.ofertas');
 const track = root?.querySelector('.carrusel__track');
@@ -34,5 +39,5 @@ const renderOferta = (oferta, index) => `<article class="carrusel__slide ofertas
 
 if (root && track) {
   track.innerHTML = ofertas.map(renderOferta).join('');
-  inicializarCarrusel(root, { cantidad: ofertas.length, circular: true });
+  inicializarCarrusel(root, { cantidad: ofertas.length, circular: true, clones: 4, visiblesEscritorio: 4 });
 }

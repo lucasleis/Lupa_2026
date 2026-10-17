@@ -2415,27 +2415,28 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     line-height: 105%;
   }
 
-  /* Las 4 ofertas se ven a la vez: el carrusel se apaga y cada slide se
-     posiciona con las coordenadas del frame. Mismo patron que cupones. */
+  /* Ventana de 4 ofertas; el track mantiene el avance circular del carrusel. */
   .ofertas__stage .carrusel__viewport {
     top: 0;
-    left: 0;
-    width: 100%;
+    left: calc(46.5 * var(--ud));
+    width: calc(1347 * var(--ud));
     height: 100%;
-    overflow: visible;
+    overflow: hidden;
     clip-path: none;
     transform: none;
   }
 
   .ofertas__stage .carrusel__track {
     position: relative;
-    width: 100%;
-    transform: none;
-    transition: none;
+    width: max-content;
+    gap: calc(45 * var(--ud));
+    transform: translateX(calc((6 - 345 * var(--carrusel-index, 0)) * var(--ud)));
+    transition: transform 300ms ease;
   }
 
   .ofertas__slide {
-    position: absolute;
+    position: relative;
+    flex: 0 0 calc(300 * var(--ud));
     width: calc(300 * var(--ud));
     height: calc(485 * var(--ud));
     top: calc(313 * var(--ud));
@@ -2458,18 +2459,24 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     display: none;
   }
 
-  .ofertas__slide[data-carrusel-clon="true"] {
+  .ofertas__stage .carrusel__dots {
     display: none;
   }
 
-  .ofertas__slide[data-oferta-index="0"] { left: calc(52.5 * var(--ud)); }
-  .ofertas__slide[data-oferta-index="1"] { left: calc(397.5 * var(--ud)); }
-  .ofertas__slide[data-oferta-index="2"] { left: calc(742.5 * var(--ud)); }
-  .ofertas__slide[data-oferta-index="3"] { left: calc(1087.5 * var(--ud)); }
+  .ofertas__stage .carrusel__arrow {
+    --u: var(--ud);
+    display: block;
+    top: calc(531.5 * var(--ud));
+  }
 
-  .ofertas__stage .carrusel__arrow,
-  .ofertas__stage .carrusel__dots {
-    display: none;
+  .ofertas__stage .carrusel__arrow--prev {
+    left: 0;
+    right: auto;
+  }
+
+  .ofertas__stage .carrusel__arrow--next {
+    left: auto;
+    right: 0;
   }
 
   /* Piezas internas de la tarjeta, en coordenadas de la card de 300x485

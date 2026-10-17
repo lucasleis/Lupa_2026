@@ -26,5 +26,5 @@ const renderCoupon = (coupon, index) => `<article class="carrusel__slide cupones
 
 if (root && track) {
   track.innerHTML = cupones.map(renderCoupon).join('');
-  inicializarCarrusel(root, { cantidad: cupones.length, circular: true, clones: 4 });
+  inicializarCarrusel(root, { cantidad: cupones.length, circular: true, clones: 4, visiblesEscritorio: 4 });
 }
