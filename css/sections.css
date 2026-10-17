@@ -358,7 +358,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .ofertas__price-resto { display: flex; flex-direction: column; align-items: flex-start; transform: translateY(calc(var(--ofertas-precio-cc-y) * var(--u))); }
 .ofertas__price-centavos { font-size: calc(var(--ofertas-precio-cc-size) * var(--u)); line-height: 1; }
 .ofertas__price-unidad { font-size: calc(var(--ofertas-precio-unidad-size) * var(--u)); line-height: 1; white-space: nowrap; }
-.ofertas__producto-titulo { position: absolute; top: calc(169.17 * var(--u)); left: calc(50% - (226.74 * var(--u)) / 2); width: calc(226.74 * var(--u)); height: calc(54 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 800; line-height: calc(17.6 * var(--u)); text-align: center; text-transform: uppercase; }
+.ofertas__producto-titulo { position: absolute; top: calc(169.17 * var(--u)); left: calc(50% - (226.74 * var(--u)) / 2); width: calc(226.74 * var(--u)); height: calc(54 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(14 * var(--u)); font-weight: 800; line-height: calc(17.6 * var(--u)); text-align: center; text-transform: uppercase; }
 .ofertas__peso { position: absolute; top: calc(228.17 * var(--u)); left: calc(50% - (226.74 * var(--u)) / 2); width: calc(226.74 * var(--u)); height: calc(19 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 500; line-height: calc(18.9 * var(--u)); text-align: center; }
 .ofertas__repisa { position: absolute; z-index: 2; --ofertas-estria-ancho: 9; --ofertas-estrias-alto: 50; --ofertas-estria-gap: -2; left: calc(50% - (296 * var(--u)) / 2); top: calc(271.9 * var(--u)); width: calc(296 * var(--u)); height: calc(26 * var(--u)); }
 .ofertas__repisa > img { position: absolute; inset: 0; width: calc(296 * var(--u)); height: calc(26 * var(--u)); max-width: none; }
@@ -2466,17 +2466,18 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .ofertas__stage .carrusel__arrow {
     --u: var(--ud);
     display: block;
+    z-index: 2;
     top: calc(531.5 * var(--ud));
   }
 
   .ofertas__stage .carrusel__arrow--prev {
-    left: 0;
+    left: calc(10 * var(--ud));
     right: auto;
   }
 
   .ofertas__stage .carrusel__arrow--next {
     left: auto;
-    right: 0;
+    right: calc(10 * var(--ud));
   }
 
   /* Piezas internas de la tarjeta, en coordenadas de la card de 300x485
@@ -2507,8 +2508,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     top: calc(37 * var(--ud));
     width: calc(227 * var(--ud));
     height: calc(144 * var(--ud));
-    font-size: calc(32 * var(--ud));
-    line-height: calc(36 * var(--ud));
+    font-size: calc(22 * var(--ud));
+    line-height: calc(24 * var(--ud));
   }
 
   /* 37 + 144 del titulo + 8 de gap */
