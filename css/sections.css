@@ -3096,12 +3096,13 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .acertijo-scroll__answer {
-    top: calc(56.45 * var(--ud));
+    top: calc(43.45 * var(--ud));
     left: 50%;
     width: calc(502.62 * var(--ud));
-    height: calc(26 * var(--ud));
+    height: calc(52 * var(--ud));
     margin-left: calc(-1 * var(--ud));
     transform: translateX(-50%);
+    text-align: center;
     font-size: calc(24 * var(--ud));
     font-weight: 500;
     line-height: calc(26 * var(--ud));
