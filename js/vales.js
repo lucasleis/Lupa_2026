@@ -19,7 +19,7 @@ const renderVale = (vale, index) => `<article class="carrusel__slide vales__slid
   <img class="vales__sarcofago" src="img/vales/sarcofago.svg" alt="">
   <p class="vales__dilo">Dilo en caja:</p>
   <p class="vales__frase">${vale.frase}</p>
-  <div class="vales__discount${vale.prefijo ? ' vales__discount--prefijo' : ''}" aria-label="${vale.descuentoTexto}">
+  <div class="vales__discount${vale.prefijo ? ' vales__discount--prefijo' : ''}${vale.unidad ? '' : ' vales__discount--combo'}" aria-label="${vale.descuentoTexto}">
     ${hexagonoSombra('vales__hexagono--sombra', 'var(--color-gold-mid)')}
     ${hexagono('vales__hexagono--cara', 'var(--color-sky)')}
     <div class="vales__price">
