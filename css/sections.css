@@ -822,7 +822,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   font-weight: 800;
   line-height: 80%;
   text-align: center;
-  text-transform: uppercase;
+  text-transform: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2251,8 +2251,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     width: 84.45%;
     height: calc(138 * var(--ud));
     top: calc(50% - (69 * var(--ud)));
-    font-size: calc(44 * var(--ud));
-    line-height: calc(46 * var(--ud));
+    font-size: calc(28 * var(--ud));
+    line-height: calc(29.27 * var(--ud));
   }
 
   /* Misma caja que el globo de la pregunta: los dos ocupan el mismo lugar del
