@@ -1,7 +1,5 @@
 import { progresoDeRiel } from './intro-scroll.js';
 
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
 document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
   const stage = section.querySelector('.escena__stage');
   const rail = section.querySelector('.escena-rail');
@@ -50,18 +48,6 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
     }, { passive: true });
   }
   setCouponsOpen(false);
-
-  // Sin movimiento: la seccion se ve entera y el riel queda en 0, asi que no
-  // cobra scroll vacio.
-  if (reducedMotion.matches) {
-    stage.style.setProperty('--escena-p', '1');
-    if (section.classList.contains('interior')) {
-      window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
-        document.dispatchEvent(new CustomEvent('interior:final'));
-      }));
-    }
-    return;
-  }
 
   section.dataset.entradaActiva = 'true';
   let framePending = false;

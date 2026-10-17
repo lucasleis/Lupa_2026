@@ -2,12 +2,28 @@ import { irA } from './lenis.js';
 
 export const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
+export let altoViewportSVH = window.innerHeight;
+if (!altoViewportSVH) throw new Error('--vh midió 0 al inicializar');
+document.documentElement.style.setProperty('--vh', `${altoViewportSVH}px`);
+let anchoViewport = window.innerWidth;
+const medirViewport = () => {
+  altoViewportSVH = window.innerHeight;
+  if (!altoViewportSVH) throw new Error('--vh midió 0 al inicializar');
+  document.documentElement.style.setProperty('--vh', `${altoViewportSVH}px`);
+  anchoViewport = window.innerWidth;
+};
+window.addEventListener('resize', () => {
+  if (window.innerWidth !== anchoViewport) {
+    medirViewport();
+  }
+});
+window.addEventListener('orientationchange', medirViewport);
+
 // Sin desdeElTope: riel que contiene a su sticky. Con desdeElTope: riel posterior
 // al sticky que mide su recorrido completo.
 // DesdeElTope: p=0 cuando el riel asoma por abajo y p=1 cuando su fondo llega
-// al fondo del viewport, el final del scroll disponible. No sumamos
-// innerHeight al denominador: los rieles siguientes están en 0svh, así que ese
-// scroll adicional no existe.
+// al fondo del viewport, el final del scroll disponible. Se mide en svh, igual
+// que el CSS de los rieles.
 export const progresoDeRiel = (rail, {
   inicio = 0,
   fin = 1,
@@ -16,9 +32,9 @@ export const progresoDeRiel = (rail, {
   desdeElTope = false,
 } = {}) => {
   const rect = rail?.getBoundingClientRect();
-  const range = rect ? rect.height - window.innerHeight : 0;
+  const range = rect ? rect.height - altoViewportSVH : 0;
   const progresoDelRiel = desdeElTope
-    ? (rect && rect.height > 0 ? (window.innerHeight - rect.top) / rect.height : 0)
+    ? (rect && rect.height > 0 ? (altoViewportSVH - rect.top) / rect.height : 0)
     : (rect && range > 0 ? -rect.top / range : 0);
   const tramo = fin - inicio;
   const progreso = tramo > 0 ? (progresoDelRiel - inicio) / tramo : 0;
@@ -45,8 +61,6 @@ const resultRail = document.querySelector('.acertijo-panel-rail--resultado');
 const pyramidRail = document.querySelector('.acertijo-panel-rail--piramide');
 const pyramidScene = document.querySelector('.piramide-escena');
 const skipLink = document.querySelector('.hero__skip');
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
 if (heroTrack) {
   const panelRailsDesktop = window.matchMedia('(min-width: 900px)');
   const ALTURA_RESULTADO_MOBILE = 350;
@@ -65,16 +79,17 @@ if (heroTrack) {
     resultadoEntradaInicio: 0.40, // entrada: empieza a 120svh.
     resultadoEntradaFin: 1, // entrada: termina a 300svh.
   };
-  const alturaRielPanel = () => panelRailsDesktop.matches
-    ? `${ALTURA_PANEL_ENTRADA_DESKTOP}svh`
-    : `${ALTURA_PANEL_ENTRADA_MOBILE}svh`;
-  const alturaRielSalida = () => `${ALTURA_MOVIMIENTO_SALIDA / (1 - INICIO_MOVIMIENTO_SALIDA)}svh`;
-  const alturaRielQuiz = () => panelRailsDesktop.matches ? '500svh' : `${ALTURA_QUIZ_MOBILE}svh`;
+  const alturaViewport = (factor) => `calc(var(--vh) * ${factor})`;
+  const alturaRielPanel = () => alturaViewport((panelRailsDesktop.matches
+    ? ALTURA_PANEL_ENTRADA_DESKTOP
+    : ALTURA_PANEL_ENTRADA_MOBILE) / 100);
+  const alturaRielSalida = () => alturaViewport(ALTURA_MOVIMIENTO_SALIDA / (1 - INICIO_MOVIMIENTO_SALIDA) / 100);
+  const alturaRielQuiz = () => alturaViewport(panelRailsDesktop.matches ? 5 : ALTURA_QUIZ_MOBILE / 100);
   const alturaRielResultado = () => panelRailsDesktop.matches
-    ? `${ALTURA_RESULTADO_DESKTOP}svh`
-    : `${ALTURA_RESULTADO_MOBILE}svh`;
+    ? alturaViewport(ALTURA_RESULTADO_DESKTOP / 100)
+    : alturaViewport(ALTURA_RESULTADO_MOBILE / 100);
   const tramosResultado = () => panelRailsDesktop.matches ? RESULTADO_TRAMOS_DESKTOP : RESULTADO_TRAMOS;
-  const alturaRielPiramide = () => panelRailsDesktop.matches ? '400svh' : '800svh';
+  const alturaRielPiramide = () => alturaViewport(panelRailsDesktop.matches ? 4 : 8);
   const entradaControles = () => panelRailsDesktop.matches
     ? ENTRADA_CONTROLES_DESKTOP
     : GLOBO_COMPLETO_EN + PAUSA_GLOBO_SVH / ALTURA_QUIZ_MOBILE;
@@ -84,13 +99,14 @@ if (heroTrack) {
   const RAIL_HEIGHTS = {
     entrada: alturaRielPanel(),
     salida: alturaRielSalida(),
-    anuncio: '150svh',
+    anuncio: alturaViewport(1.5),
     quiz: alturaRielQuiz(),
     resultado: alturaRielResultado(),
     piramide: alturaRielPiramide(),
   };
-  const panelEstaEnJuego = () => Number.parseFloat(RAIL_HEIGHTS.entrada) > 0
-    || Number.parseFloat(RAIL_HEIGHTS.salida) > 0;
+  const panelEstaEnJuego = () => (panelRailsDesktop.matches
+    ? ALTURA_PANEL_ENTRADA_DESKTOP
+    : ALTURA_PANEL_ENTRADA_MOBILE) > 0 || ALTURA_MOVIMIENTO_SALIDA > 0;
   let panelEnJuego = panelEstaEnJuego();
   let puzzleStarted = !panelEnJuego;
   let puzzleComplete = !panelEnJuego;
@@ -117,6 +133,7 @@ if (heroTrack) {
   //   El riel piramide mide 150svh en desktop y 500svh en mobile. Se revela
   //   el resto de la pagina.
   const recalcularAlturasRielesPanel = () => {
+    RAIL_HEIGHTS.anuncio = alturaViewport(1.5);
     RAIL_HEIGHTS.entrada = alturaRielPanel();
     RAIL_HEIGHTS.salida = alturaRielSalida();
     RAIL_HEIGHTS.quiz = alturaRielQuiz();
@@ -126,21 +143,19 @@ if (heroTrack) {
     panelEnJuego = panelEstaEnJuego();
     puzzleStarted = !panelEnJuego;
     puzzleComplete = !panelEnJuego;
-    habilitarRiel(entryRail, '--panel-entry-rail-height', puzzleStarted ? RAIL_HEIGHTS.entrada : '0svh');
-    habilitarRiel(exitRail, '--panel-exit-rail-height', puzzleComplete ? RAIL_HEIGHTS.salida : '0svh');
-    habilitarRiel(anuncioRail, '--anuncio-rail-height', panelEnJuego ? '0svh' : RAIL_HEIGHTS.anuncio);
-    habilitarRiel(quizRail, '--quiz-rail-height', panelEnJuego ? '0svh' : RAIL_HEIGHTS.quiz);
-    habilitarRiel(resultRail, '--resultado-rail-height', answerSubmitted ? RAIL_HEIGHTS.resultado : '0svh');
-    habilitarRiel(pyramidRail, '--piramide-rail-height', pyramidRailEnabled ? RAIL_HEIGHTS.piramide : '0svh');
+    habilitarRiel(entryRail, '--panel-entry-rail-height', puzzleStarted ? RAIL_HEIGHTS.entrada : '0px');
+    habilitarRiel(exitRail, '--panel-exit-rail-height', puzzleComplete ? RAIL_HEIGHTS.salida : '0px');
+    habilitarRiel(anuncioRail, '--anuncio-rail-height', panelEnJuego ? '0px' : RAIL_HEIGHTS.anuncio);
+    habilitarRiel(quizRail, '--quiz-rail-height', panelEnJuego ? '0px' : RAIL_HEIGHTS.quiz);
+    habilitarRiel(resultRail, '--resultado-rail-height', answerSubmitted ? RAIL_HEIGHTS.resultado : '0px');
+    habilitarRiel(pyramidRail, '--piramide-rail-height', pyramidRailEnabled ? RAIL_HEIGHTS.piramide : '0px');
     panel?.setAttribute('aria-hidden', 'true');
     setSceneState('intro');
   };
 
   panelRailsDesktop.addEventListener('change', recalcularAlturasRielesPanel);
 
-  if (!reducedMotion.matches) {
-    document.body.dataset.introBloqueado = 'true';
-  }
+  document.body.dataset.introBloqueado = 'true';
 
   const setSceneState = (state) => {
     if (state === currentState) return;
@@ -304,7 +319,7 @@ if (heroTrack) {
       window.lenis?.resize?.();
       if (progreso !== null) {
         const rect = rail?.getBoundingClientRect();
-        const scrollRange = (rect?.height ?? 0) - window.innerHeight;
+        const scrollRange = (rect?.height ?? 0) - altoViewportSVH;
         const targetScroll = window.scrollY + (rect?.top ?? 0) + progreso * scrollRange;
         // Sin lock, el tap que dispara el salto cancela el scroll a los pocos píxeles.
         irA(targetScroll, { lock: true, duration: DURACION_SALTO_PANEL });
@@ -425,12 +440,8 @@ if (heroTrack) {
   if (document.readyState === 'complete') saltarCuandoHayaLayout();
   else window.addEventListener('load', saltarCuandoHayaLayout, { once: true });
 
-  if (reducedMotion.matches) {
-    setProgress(1);
-  } else {
-    window.lenis.on('scroll', updateProgress);
-    window.addEventListener('resize', requestProgressUpdate);
-    window.addEventListener('orientationchange', requestProgressUpdate);
-    updateProgress();
-  }
+  window.lenis.on('scroll', updateProgress);
+  window.addEventListener('resize', requestProgressUpdate);
+  window.addEventListener('orientationchange', requestProgressUpdate);
+  updateProgress();
 }

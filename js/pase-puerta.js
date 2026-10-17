@@ -1,4 +1,5 @@
 import { irA } from './lenis.js';
+import { altoViewportSVH } from './intro-scroll.js';
 
 const cortina = document.querySelector('.pase-puerta');
 const ofertas = document.querySelector('.ofertas');
@@ -23,7 +24,7 @@ const revelar = () => {
   armada = false;
   // El alto del riel es lo que la seccion mide de mas sobre el viewport.
   // El aterrizaje va al final del riel porque el tramo de entrada de .ofertas ahora es el riel completo.
-  const riel = Math.max(0, ofertas.offsetHeight - window.innerHeight);
+  const riel = Math.max(0, ofertas.offsetHeight - altoViewportSVH);
   const top = window.scrollY + ofertas.getBoundingClientRect().top + riel * 1;
   document.body.dataset.puertaRevelada = 'true';
   document.documentElement.style.overflow = '';
@@ -70,7 +71,7 @@ const alSubir = () => {
   volviendo = true;
   delete document.body.dataset.puertaRevelada;
   document.body.dataset.paseVolviendo = 'true';
-  irA(interior.offsetTop + interior.offsetHeight - window.innerHeight, { lock: true, immediate: true });
+  irA(interior.offsetTop + interior.offsetHeight - altoViewportSVH, { lock: true, immediate: true });
   fijarDurante(FUNDIDO);
   window.setTimeout(() => {
     delete document.body.dataset.paseVolviendo;

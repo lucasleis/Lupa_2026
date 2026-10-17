@@ -5,6 +5,7 @@
 
 .hero {
   position: relative;
+  background: var(--color-sand);
 }
 
 .escena {
@@ -14,7 +15,7 @@
 .prueba-superada {
   --escena-background: var(--color-sand);
   --escena-track-k: 2.2;
-  --escena-track: calc(var(--escena-track-k) * 100svh);
+  --escena-track: calc(var(--escena-track-k) * var(--vh));
 }
 
 .escena__track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; width: 100%; height: 100%; transition: transform 1.1s cubic-bezier(0.33, 1, 0.68, 1); }
@@ -25,7 +26,7 @@
   position: sticky;
   top: 0;
   display: flex;
-  height: 100svh;
+  height: var(--vh);
   align-items: flex-end;
   justify-content: center;
   overflow: hidden;
@@ -114,8 +115,8 @@
 
 .prueba-superada__cupones { position: absolute; left: calc(50% - (239 * var(--u)) / 2); top: calc(530.24 * var(--u)); z-index: 8; width: calc(239 * var(--u)); height: calc(55 * var(--u)); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; text-align: center; text-decoration: none; }
 
-.escena-rail { height: 0svh; pointer-events: none; }
-.escena[data-entrada-activa="true"] .escena-rail { height: var(--escena-track, 0svh); }
+.escena-rail { height: 0px; pointer-events: none; }
+.escena[data-entrada-activa="true"] .escena-rail { height: var(--escena-track, 0px); }
 
 .puerta { --escena-background: var(--color-wall); }
 body {
@@ -215,10 +216,10 @@ body {
   .puerta__llama-frame { animation: none; will-change: auto; }
   .puerta__llama-frame--a { opacity: 1; }
 }
-.puerta-rail { height: var(--puerta-rail-height, 0svh); pointer-events: none; }
+.puerta-rail { height: var(--puerta-rail-height, 0px); pointer-events: none; }
 
 .interior {
-  --escena-track: 100svh;
+  --escena-track: var(--vh);
   --escena-background: var(--color-dark-bg);
   /* Esta sección sostiene el pasillo al que resuelve el cruce de .puerta; su final dispara el popup. */
 }
@@ -374,7 +375,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
    el primer pixel y no reaparece el hueco marron del traspaso. */
 .ofertas .escena-rail,
 .vales .escena-rail {
-  height: 60svh;
+  height: calc(var(--vh) * 0.6);
 }
 .vales__decorado { position: absolute; z-index: 0; inset: 0; }
 .vales__glifos { position: absolute; top: 0; left: min(calc(2.5 * var(--u)), var(--vp-izq)); width: calc(max(calc(372.5 * var(--u)), var(--vp-der)) - min(calc(2.5 * var(--u)), var(--vp-izq))); height: 100%; background-image: url("../img/puerta/glifos-pared.svg"); background-position: calc(calc(2.5 * var(--u)) - min(calc(2.5 * var(--u)), var(--vp-izq))) top; background-repeat: repeat; background-size: calc(370 * var(--u)) calc(20 * var(--u)); opacity: 0.2; }
@@ -416,7 +417,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .vales__peso { width: 100%; margin: 0; color: #fff; font-family: var(--font-display); font-size: calc(15 * var(--u)); font-weight: 400; line-height: calc(18 * var(--u)); text-align: center; }
 
 /* Formulario con sticky: el riel posterior mantiene la pantalla un momento. */
-.formulario { --formulario-campo-padding: 5; position: relative; min-height: 160svh; background: var(--color-sand); }
+.formulario { --formulario-campo-padding: 5; position: relative; min-height: calc(var(--vh) * 1.6); background: var(--color-sand); }
 /* Mismo patron que .escena: el sticky pincha la pantalla y el riel es la
    pausa para mirarla antes de seguir. */
 .formulario__sticky {
@@ -424,14 +425,14 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   top: 0;
   overflow: hidden;
   display: flex;
-  height: 100svh;
+  height: var(--vh);
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: calc(12 * var(--u));
   padding-block: calc(40 * var(--u));
 }
-.formulario__rail { height: 60svh; pointer-events: none; }
+.formulario__rail { height: calc(var(--vh) * 0.6); pointer-events: none; }
 /* Editado a mano tras exportar el SVG: se neutralizó su opacity interna para calibrarla solo desde CSS. */
 .formulario__glifos { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; opacity: 0.1; }
 .formulario__banda { position: absolute; width: calc(821.2 * var(--u)); height: calc(164.8 * var(--u)); max-width: none; }
@@ -546,10 +547,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   position: sticky;
   top: 0;
   display: flex;
-  height: 100svh;
+  height: var(--vh);
   align-items: flex-end;
   overflow: hidden;
-  background: var(--color-sky);
+  background: var(--color-sand) linear-gradient(var(--color-sky), var(--color-sky));
 }
 
 .hero__stage {
@@ -1242,36 +1243,36 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 }
 
 .acertijo-panel-rail {
-  height: 0svh;
+  height: 0px;
   pointer-events: none;
 }
 
 .acertijo-panel-rail--intro {
-  height: var(--intro-rail-height, 150svh);
+  height: var(--intro-rail-height, calc(var(--vh) * 1.5));
 }
 
 .acertijo-panel-rail--entrada {
-  height: var(--panel-entry-rail-height, 0svh);
+  height: var(--panel-entry-rail-height, 0px);
 }
 
 .acertijo-panel-rail--salida {
-  height: var(--panel-exit-rail-height, 0svh);
+  height: var(--panel-exit-rail-height, 0px);
 }
 
 .acertijo-panel-rail--anuncio {
-  height: var(--anuncio-rail-height, 0svh);
+  height: var(--anuncio-rail-height, 0px);
 }
 
 .acertijo-panel-rail--quiz {
-  height: var(--quiz-rail-height, 0svh);
+  height: var(--quiz-rail-height, 0px);
 }
 
 .acertijo-panel-rail--resultado {
-  height: var(--resultado-rail-height, 0svh);
+  height: var(--resultado-rail-height, 0px);
 }
 
 .acertijo-panel-rail--piramide {
-  height: var(--piramide-rail-height, 0svh);
+  height: var(--piramide-rail-height, 0px);
 }
 
 .acertijo-panel[aria-hidden="true"] {
@@ -1453,7 +1454,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
 @media (min-width: 900px) {
   .acertijo-panel-rail--intro {
-    --intro-rail-height: 250svh; /* Recorrido de escritorio; ajustar a ojo. */
+    --intro-rail-height: calc(var(--vh) * 2.5); /* Recorrido de escritorio; ajustar a ojo. */
   }
 
   /* El centrado es de las capas que siguen en --u. Las capas en --ud
@@ -1791,7 +1792,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .cupones__subtitle {
-    font-size: calc(20 * var(--ud));
+    font-size: calc(23 * var(--ud));
     line-height: calc(26 * var(--ud));
   }
 

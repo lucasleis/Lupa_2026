@@ -52,15 +52,8 @@ if (section && stage && rail) {
     window.requestAnimationFrame(actualizar);
   };
 
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    stage.style.setProperty('--puerta-p', '1');
-    stage.dataset.cruzando = 'true';
-    enFinal = true;
-    document.dispatchEvent(new CustomEvent('puerta:final'));
-  } else {
-    window.lenis.on('scroll', actualizar);
-    window.addEventListener('resize', solicitarActualizacion);
-    window.addEventListener('orientationchange', solicitarActualizacion);
-    solicitarActualizacion();
-  }
+  window.lenis.on('scroll', actualizar);
+  window.addEventListener('resize', solicitarActualizacion);
+  window.addEventListener('orientationchange', solicitarActualizacion);
+  solicitarActualizacion();
 }
