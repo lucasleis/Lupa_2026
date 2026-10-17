@@ -1,15 +1,15 @@
 const acertijoData = [
   {
-    question: '¿Cabe en una mano?',
-    answer: 'Ni de lejos. Hacen falta las dos y apretar.'
+    question: 'PISTA 1',
+    answer: 'Ni soy una momia ni un tesoro enterrado, pero en palacio era un bien muy preciado.'
   },
   {
-    question: '¿Cabe en una mano?',
-    answer: 'Texto pendiente.'
+    question: 'PISTA 2',
+    answer: 'Cleopatra tenía un truquito de belleza, ¡se bañaba en mí de los pies a la cabeza!'
   },
   {
-    question: '¿Cabe en una mano?',
-    answer: 'Texto pendiente.'
+    question: 'PISTA 3',
+    answer: 'De los baños del faraón a tu desayuno he llegado, con cereales o café seguro me has probado.'
   }
 ];
 
