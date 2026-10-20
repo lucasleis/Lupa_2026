@@ -330,16 +330,16 @@ if (heroTrack) {
 
   // <base href> hace que href="#x" navegue a BASE#x y recargue la página:
   // los anclas internas se resuelven acá. SALTAR INTRO además libera el
-  // bloqueo (si no, #formulario está en display:none) y salta sin animar
-  // para no reproducir toda la intro.
+  // bloqueo (si no, #formulario está en display:none).
+  // Todos saltan sin animar: un scroll suave atravesaría la intro y el pase del interior a
+  // ofertas.
   document.addEventListener('click', (event) => {
     const link = event.target.closest('a[href^="#"]:not([href="#"])');
     const destino = link && document.querySelector(link.getAttribute('href'));
     if (!destino) return;
     event.preventDefault();
-    const esSkip = link.matches('.hero__skip, .acertijo-panel__skip');
-    if (esSkip) liberarScroll();
-    irA(destino, esSkip ? { immediate: true } : {});
+    if (link.matches('.hero__skip, .acertijo-panel__skip')) liberarScroll();
+    irA(destino, { immediate: true });
   });
 
   document.addEventListener('acertijo:iniciado', () => {

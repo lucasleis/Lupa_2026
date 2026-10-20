@@ -63,7 +63,9 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
     }
     if (section.classList.contains('interior')) {
       document.body.style.setProperty('--interior-p', String(p));
-      if (p >= 0.999 && !interiorEnFinal) {
+      // Un salto (ancla) que deja el interior arriba también da p = 1: sin
+      // esto dispararía el pase a ofertas y pisaría el destino del salto.
+      if (p >= 0.999 && !interiorEnFinal && section.getBoundingClientRect().bottom > 0) {
         interiorEnFinal = true;
         document.dispatchEvent(new CustomEvent('interior:final'));
       } else if (p < 0.999) {
