@@ -22,10 +22,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-body.menu-is-open {
-  overflow: hidden;
-}
-
 img,
 picture,
 svg,
@@ -86,9 +82,7 @@ main {
   .escena__stage *,
   .escena-rail,
   .carrusel__track,
-  .popup,
-  .popup *,
-  .site-menu {
+  .popup * {
     transition-duration: 0.01ms !important;
   }
 }

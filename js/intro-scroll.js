@@ -328,9 +328,9 @@ if (heroTrack) {
     });
   };
 
-  // Sin esto, SALTAR INTRO y el menú hamburguesa apuntan a secciones en display:none y no hacen nada.
+  // Sin esto, SALTAR INTRO apunta a secciones en display:none y no hace nada.
   document.addEventListener('click', (event) => {
-    if (event.target.closest('.hero__skip, .acertijo-panel__skip, .site-menu a[href^="#"]')) {
+    if (event.target.closest('.hero__skip, .acertijo-panel__skip')) {
       liberarScroll();
     }
   });
