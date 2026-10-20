@@ -2235,12 +2235,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
   /* La arena de la intro vive antes que .piramide-escena en el DOM y con
      z-index 0: donde la escena de la piramide no tiene nada opaco (el cielo
-     lo pinta el lienzo), la arena de la intro se cuela. Antes no se notaba
-     porque terminaba en x~1682; al hacerla sangrar hasta el viewport quedo
-     asomando contra el borde derecho, 25px por encima de la arena de la
-     piramide. En esta pantalla no tiene rol: se apaga. */
-  .hero__stage:has(.piramide-escena[data-piramide-active="true"]) .hero__sphinx-ground {
-    visibility: hidden;
+     lo pinta el lienzo), la arena de la intro se cuela contra el borde
+     derecho. Queda opaca durante el crossfade de .piramide-escena (0-0.15 de
+     --piramide-p, linea ~697) para irse junto con la esfinge, y se apaga
+     recien cuando el fundido termina. Si cambia ese 0.15, cambiar este. */
+  .hero__sphinx-ground {
+    opacity: clamp(0, calc((0.15 - var(--piramide-p, 0)) * 1000), 1);
   }
 
   .hero__cloud-three {
