@@ -328,11 +328,18 @@ if (heroTrack) {
     });
   };
 
-  // Sin esto, SALTAR INTRO apunta a secciones en display:none y no hace nada.
+  // <base href> hace que href="#x" navegue a BASE#x y recargue la página:
+  // los anclas internas se resuelven acá. SALTAR INTRO además libera el
+  // bloqueo (si no, #formulario está en display:none) y salta sin animar
+  // para no reproducir toda la intro.
   document.addEventListener('click', (event) => {
-    if (event.target.closest('.hero__skip, .acertijo-panel__skip')) {
-      liberarScroll();
-    }
+    const link = event.target.closest('a[href^="#"]:not([href="#"])');
+    const destino = link && document.querySelector(link.getAttribute('href'));
+    if (!destino) return;
+    event.preventDefault();
+    const esSkip = link.matches('.hero__skip, .acertijo-panel__skip');
+    if (esSkip) liberarScroll();
+    irA(destino, esSkip ? { immediate: true } : {});
   });
 
   document.addEventListener('acertijo:iniciado', () => {
