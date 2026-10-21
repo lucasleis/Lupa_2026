@@ -2217,14 +2217,14 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .hero__stage[data-estado="pregunta"] .hero__skip[data-quiz-active="true"] {
-    top: calc(815 * var(--ud));
+    top: calc(820 * var(--ud));
     left: 50%;
     width: calc(484 * var(--ud));
-    height: calc(36 * var(--ud));
+    height: calc(26 * var(--ud));
     color: var(--color-brown-dark);
-    font-size: calc(32 * var(--ud));
-    font-weight: 600;
-    line-height: calc(36 * var(--ud));
+    font-size: calc(24 * var(--ud));
+    font-weight: 500;
+    line-height: calc(26 * var(--ud));
     text-decoration-line: underline;
     text-align: center;
   }
@@ -3245,6 +3245,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: calc(496 * var(--ud));
     width: calc(344 * var(--ud));
     height: calc(26 * var(--ud));
+    font-size: calc(24 * var(--ud));
+    font-weight: 500;
     line-height: calc(26 * var(--ud));
     transform: none;
   }
