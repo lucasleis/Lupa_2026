@@ -3151,6 +3151,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: calc(52 * var(--ud) - var(--vp-izq));
     width: calc(1318 * var(--ud));
     height: calc(782.17 * var(--ud));
+    /* El papiro (726) es mas bajo que el panel (782.17): la franja de abajo
+       queda transparente para que SALTAR INTRO (756.17) se vea debajo del
+       papiro y no dentro. El webp ya trae su relleno arena. */
+    background: transparent;
     /* El recorrido es top + alto: el borde inferior tiene que llegar al viewport. */
     transform: translateY(calc(100svh - var(--panel-progress) * (100svh + (var(--panel-top) + 782.17) * var(--ud))));
   }
