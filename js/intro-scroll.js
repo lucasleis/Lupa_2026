@@ -72,7 +72,7 @@ if (heroTrack) {
   const ALTURA_QUIZ_MOBILE = 200;
   const GLOBO_COMPLETO_EN = 0.5;
   const PAUSA_GLOBO_SVH = 50;
-  const ENTRADA_CONTROLES_DESKTOP = 0.69; // Las opciones entran a 345svh y quedan quietas 155svh.
+  const ENTRADA_CONTROLES_DESKTOP = 0.5; // Las opciones entran a 75svh, con el globo ya completo; ver css/sections.css.
   const RESULTADO_TRAMOS = { quizSalidaFin: 0.29, resultadoEntradaInicio: 0.29, resultadoEntradaFin: 0.57 };
   const RESULTADO_TRAMOS_DESKTOP = {
     quizSalidaFin: 0.40, // salida: 0-120svh.
@@ -84,7 +84,7 @@ if (heroTrack) {
     ? ALTURA_PANEL_ENTRADA_DESKTOP
     : ALTURA_PANEL_ENTRADA_MOBILE) / 100);
   const alturaRielSalida = () => alturaViewport(ALTURA_MOVIMIENTO_SALIDA / (1 - INICIO_MOVIMIENTO_SALIDA) / 100);
-  const alturaRielQuiz = () => alturaViewport(panelRailsDesktop.matches ? 5 : ALTURA_QUIZ_MOBILE / 100);
+  const alturaRielQuiz = () => alturaViewport(panelRailsDesktop.matches ? 1.5 : ALTURA_QUIZ_MOBILE / 100);
   const alturaRielResultado = () => panelRailsDesktop.matches
     ? alturaViewport(ALTURA_RESULTADO_DESKTOP / 100)
     : alturaViewport(ALTURA_RESULTADO_MOBILE / 100);
@@ -288,7 +288,7 @@ if (heroTrack) {
         // .piramide-escena que ya usa controlsVisible (:218).
         skipLink.dataset.quizActive = String(
           currentState === 'pregunta'
-          && quizProgress >= 0.76 // 380svh del riel de 500svh; recalcular si cambia su alto.
+          && quizProgress >= ENTRADA_CONTROLES // Aparece con las opciones.
           && pyramidProgress < 0.15
         );
       }

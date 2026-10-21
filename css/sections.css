@@ -2295,17 +2295,16 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   /* Desktop tiene dos nubes; la tercera es de mobile. */
 
   .hero__stage[data-estado] .hero__question-ui > .hero__riddle-group {
-    top: calc(221.13 * var(--ud));
-    left: calc(118.03 * var(--ud));
-    width: calc(614.94 * var(--ud));
-    height: calc(266.87 * var(--ud));
-    /* --quiz-p sobre 500svh:
-       0-.15 entra el globo (75svh); .15-.57 meseta (210svh);
-       .57-.63 sale (30svh); .63-.69 respiro (30svh);
-       .69-1 entran las opciones y quedan quietas (155svh). */
-    --p-globo-in: clamp(0, calc(var(--quiz-p) / 0.15), 1);
-    --p-globo-out: clamp(0, calc((var(--quiz-p) - 0.57) / 0.06), 1);
-    transform: scale(calc(var(--p-globo-in) * (1 - var(--p-globo-out))));
+    top: calc(99.21 * var(--ud));
+    left: calc(152.03 * var(--ud));
+    width: calc(487.17 * var(--ud));
+    height: calc(211.42 * var(--ud));
+    /* --quiz-p sobre 150svh: 0-.5 entra el globo (75svh); en .5 entran las
+       opciones (ENTRADA_CONTROLES_DESKTOP) y conviven con el globo. El globo
+       se va con las opciones al responder (--resultado-salida-p), igual que
+       la regla base de mobile. */
+    --p-globo-in: clamp(0, calc(var(--quiz-p) / 0.5), 1);
+    transform: scale(calc(var(--p-globo-in) * clamp(0, calc((1 - var(--resultado-salida-p, 0)) / 0.3), 1)));
     transform-origin: center;
   }
 
