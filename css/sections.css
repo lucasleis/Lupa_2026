@@ -1315,8 +1315,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   transform: translateX(-50%);
   color: var(--color-brown-dark);
   font-family: var(--font-display);
-  font-size: var(--fs-h4);
-  font-weight: 600;
+  font-size: calc(22 * var(--u));
+  font-weight: 500;
   line-height: calc(35 * var(--u));
   text-align: center;
   text-decoration-line: underline;
