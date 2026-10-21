@@ -1,8 +1,8 @@
 const opciones = [
   { label: 'MIEL', correcta: false },
-  { label: 'LECHE', correcta: true },
+  { label: 'LECHE', correcta: false },
   { label: 'CAFÉ', correcta: false },
-  { label: 'AGUA', correcta: false }
+  { label: 'AGUA', correcta: true }
 ];
 
 const hero = document.querySelector('.hero');
