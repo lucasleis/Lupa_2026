@@ -1347,13 +1347,16 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   text-transform: uppercase;
 }
 
+/* Ancho, clip cerrado y deslizamiento del rollo van atados: el clip
+   deja ver solo el rollo cerrado (58.69 / 260 = 22.57%, inset 77.43%) y
+   el rollo se desliza el ancho completo. Si cambia uno, cambian los tres. */
 .acertijo-scroll {
   position: absolute;
   top: 0;
   left: calc(20.81 * var(--u));
-  width: calc(217.56 * var(--u));
+  width: calc(260 * var(--u));
   height: calc(144.54 * var(--u));
-  clip-path: inset(-6% 73.02% -6% -6%);
+  clip-path: inset(-6% 77.43% -6% -6%);
   transform: rotate(0deg);
   transition: clip-path 500ms ease-out, transform 500ms ease-out;
 }
@@ -1381,7 +1384,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
 /* Caja = papel libre entre los rollos (14-86% alto, 18-78% ancho, sin
    pisar el glifo derecho). 15/17 entra en 6 lineas: la pista mas larga
-   (93 caracteres) usa 5-6. Si se alarga un texto, revisar. */
+   (93 caracteres) usa 4-5. Si se alarga un texto, revisar. */
 .acertijo-scroll__answer {
   position: absolute;
   top: 14%;
@@ -1390,6 +1393,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   height: 72%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   margin: 0;
   color: #000000; /* Negro puro del diseño; revisar si se unifica más adelante. */
   font-family: var(--font-display);
@@ -1427,7 +1432,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 }
 
 .acertijo-scroll.is-open .acertijo-scroll__closed {
-  transform: translateX(calc(217.56 * var(--u)));
+  transform: translateX(calc(260 * var(--u)));
 }
 
 /* Pulso de "tocame" en los papiros cerrados. Va en la img y no en el
@@ -3158,7 +3163,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
   /* En escritorio el pergamino es otro dibujo: 628x144 con un rollo en cada
      punta, y se despliega del centro hacia afuera. Mismo mecanismo que el
-     popup (ver .popup__paper-body). El de movil es 217.56 de ancho, un solo
+     popup (ver .popup__paper-body). El de movil es 260 de ancho, un solo
      rollo, y se abre de izquierda a derecha. */
   .acertijo-scroll {
     left: calc(354 * var(--ud));
