@@ -1418,6 +1418,27 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   transform: translateX(calc(217.56 * var(--u)));
 }
 
+/* Pulso de "tocame" en los papiros cerrados. Va en la img y no en el
+   botón porque el botón usa transform para el deslizamiento de apertura.
+   Desfasado por papiro para que no laten al unísono. Reduced motion lo
+   corta la regla global de css/base.css. */
+.acertijo-scroll__closed img {
+  transform-origin: center;
+  animation: papiro-pulso 1.6s ease-in-out infinite;
+}
+
+.acertijo-question:nth-child(2) .acertijo-scroll__closed img { animation-delay: 0.2s; }
+.acertijo-question:nth-child(3) .acertijo-scroll__closed img { animation-delay: 0.4s; }
+
+.acertijo-scroll.is-open .acertijo-scroll__closed img {
+  animation: none;
+}
+
+@keyframes papiro-pulso {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
 /* Ancla lógica y capa fija del pasillo para el salto a ofertas. */
 /* CSS lee data-puerta-revelada para disparar el fundido de entrada de .ofertas__stage. */
 .pase-puerta {
