@@ -89,7 +89,7 @@ if (heroTrack) {
     ? alturaViewport(ALTURA_RESULTADO_DESKTOP / 100)
     : alturaViewport(ALTURA_RESULTADO_MOBILE / 100);
   const tramosResultado = () => panelRailsDesktop.matches ? RESULTADO_TRAMOS_DESKTOP : RESULTADO_TRAMOS;
-  const alturaRielPiramide = () => alturaViewport(panelRailsDesktop.matches ? 4 : 8);
+  const alturaRielPiramide = () => alturaViewport(panelRailsDesktop.matches ? 3 : 6);
   const entradaControles = () => panelRailsDesktop.matches
     ? ENTRADA_CONTROLES_DESKTOP
     : GLOBO_COMPLETO_EN + PAUSA_GLOBO_SVH / ALTURA_QUIZ_MOBILE;
@@ -130,7 +130,7 @@ if (heroTrack) {
   //   EMPEZAR -> entrada | 3 papiros -> salida + quiz
   //   respuesta -> resultado | resultado al 100% -> piramide
   //   Desktop libera con --piramide-p al 85%; mobile con --puerta-p al 85%.
-  //   El riel piramide mide 150svh en desktop y 500svh en mobile. Se revela
+  //   El riel piramide mide 300svh en desktop y 600svh en mobile. Se revela
   //   el resto de la pagina.
   const recalcularAlturasRielesPanel = () => {
     RAIL_HEIGHTS.anuncio = alturaViewport(1.5);
@@ -182,11 +182,11 @@ if (heroTrack) {
       ? progresoDeRiel(quizRail, { desdeElTope: true, destino: heroStage, propiedad: '--quiz-p' })
       : 0;
     // Reparto: acercamiento (--piramide-p), puerta (--puerta-p), apertura y entrada.
-    const REPARTO_PIRAMIDE = panelRailsDesktop.matches ? 0.40 : 0.5; // Desktop: acercamiento, 0-160svh.
+    const REPARTO_PIRAMIDE = panelRailsDesktop.matches ? 0.40 : 0.5; // Desktop: acercamiento, 0-120svh.
     // El zoom de la puerta termina acá; el resto del riel es freno, con la
     // escena sostenida en su zoom final antes de que el hero se suelte.
-    const FRENO_PIRAMIDE = panelRailsDesktop.matches ? 0.70 : 0.78; // Desktop: puerta, 160-280svh.
-    const APERTURA_FIN = panelRailsDesktop.matches ? 0.85 : 0.88; // Desktop: apertura 280-340svh; entrada 340-400svh.
+    const FRENO_PIRAMIDE = panelRailsDesktop.matches ? 0.70 : 0.78; // Desktop: puerta, 120-210svh.
+    const APERTURA_FIN = panelRailsDesktop.matches ? 0.85 : 0.88; // Desktop: apertura 210-255svh; entrada 255-300svh.
     const pyramidProgress = pyramidRailEnabled
       ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0, fin: REPARTO_PIRAMIDE, destino: heroStage, propiedad: '--piramide-p' })
       : 0;
