@@ -1998,8 +1998,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     right: calc(16 * var(--ud));
   }
 
+  /* --anuncio-p solo lo escribe intro-scroll.js cuando el panel de papiros
+     no esta en juego (tramo "anuncio"). Con el panel en juego no existe, y
+     el fallback tiene que ser 0: con 1 la nube de la intro quedaba en
+     escala 0 y nunca se veia. */
   .hero__stage {
-    --p-anuncio-out: clamp(0, calc((var(--anuncio-p, 1) - 0.6) / 0.4), 1);
+    --p-anuncio-out: clamp(0, calc((var(--anuncio-p, 0) - 0.6) / 0.4), 1);
   }
 
   /* Camara del acercamiento. transform-origin es 0 0 (regla base, linea 570),
