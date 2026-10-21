@@ -2356,10 +2356,13 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     line-height: calc(36 * var(--ud));
   }
 
-  .hero__stage .hero__option:nth-child(1) { top: calc(247 * var(--ud)); }
-  .hero__stage .hero__option:nth-child(2) { top: calc(343 * var(--ud)); }
-  .hero__stage .hero__option:nth-child(3) { top: calc(439 * var(--ud)); }
-  .hero__stage .hero__option:nth-child(4) { top: calc(535 * var(--ud)); }
+  /* La nube del quiz termina en 310.63 (99.21 + 211.42) y convive con las
+     opciones: arrancan 26 debajo, paso de 96, y AGUA (82 de alto) termina
+     en 707, 18 sobre COMPROBAR (725). */
+  .hero__stage .hero__option:nth-child(1) { top: calc(337 * var(--ud)); }
+  .hero__stage .hero__option:nth-child(2) { top: calc(433 * var(--ud)); }
+  .hero__stage .hero__option:nth-child(3) { top: calc(529 * var(--ud)); }
+  .hero__stage .hero__option:nth-child(4) { top: calc(625 * var(--ud)); }
 
   .hero__stage .hero__continue {
     top: calc(725 * var(--ud));
