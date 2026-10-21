@@ -2375,6 +2375,18 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     color: #fff;
   }
 
+  /* Misma caja y tipografia que COMPROBAR: centrado en el frame de 1440 y
+     29 por encima de SALTAR INTRO (830). El transform de entrada
+     (--p-start-event) viene de la regla base y escala desde el centro. */
+  .hero__stage .hero__start {
+    top: calc(725 * var(--ud));
+    left: calc(479 * var(--ud));
+    width: calc(482 * var(--ud));
+    height: calc(76 * var(--ud));
+    font-size: calc(32 * var(--ud));
+    line-height: calc(36 * var(--ud));
+  }
+
   /* ---- OFERTAS, escritorio. Coordenadas del frame 1440x900. ---- */
 
   /* Tres bandas de glifos, no el tile movil. */
