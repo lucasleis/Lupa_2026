@@ -1371,6 +1371,14 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   object-fit: fill;
 }
 
+/* Cerrado, el clip de .acertijo-scroll deja ver el borde izquierdo del
+   pergamino abierto, y el rollo cerrado no lo tapa entero: asoma una
+   franja de papel a la derecha. Aparece al abrirse, mientras el clip se
+   expande. */
+.acertijo-scroll:not(.is-open) .acertijo-scroll__open {
+  visibility: hidden;
+}
+
 .acertijo-scroll__answer {
   position: absolute;
   top: 28.92%;
