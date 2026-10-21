@@ -1224,14 +1224,17 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .acertijo-panel {
   position: fixed;
   z-index: 25;
-  top: calc(15.6 * var(--u));
+  top: 0;
   left: calc(10.1 * var(--u));
   width: calc(354.8 * var(--u));
   height: calc(646.51 * var(--u));
   overflow: hidden;
   background: var(--color-sand);
-  /* Al salir, recorre top + alto para que su borde inferior llegue al viewport. */
-  transform: translateY(calc(100svh - var(--panel-progress) * (100svh + 662.11 * var(--u))));
+  /* Recorre top + alto (0 + 646.51) para que al salir su borde inferior
+     llegue al viewport. En reposo (--panel-progress 0.5) el centro queda
+     en 50svh + top / 2: con top 0 queda centrado en cualquier alto de
+     pantalla. Si se vuelve a mover top, sumarlo aca. */
+  transform: translateY(calc(100svh - var(--panel-progress) * (100svh + 646.51 * var(--u))));
   transform-origin: center;
 }
 
