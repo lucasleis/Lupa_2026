@@ -1353,8 +1353,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   left: calc(20.81 * var(--u));
   width: calc(217.56 * var(--u));
   height: calc(144.54 * var(--u));
-  overflow: hidden;
-  clip-path: inset(0 73.02% 0 0);
+  clip-path: inset(-6% 73.02% -6% -6%);
   transform: rotate(0deg);
   transition: clip-path 500ms ease-out, transform 500ms ease-out;
 }
@@ -1421,9 +1420,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 /* Pulso de "tocame" en los papiros cerrados. Va en la img y no en el
    botón porque el botón usa transform para el deslizamiento de apertura.
    Desfasado por papiro para que no laten al unísono. Reduced motion lo
-   corta la regla global de css/base.css. */
+   corta la regla global de css/base.css. Crece desde el borde derecho porque
+   ese borde es el del clip de .acertijo-scroll en mobile. */
 .acertijo-scroll__closed img {
-  transform-origin: center;
+  transform-origin: right center;
   animation: papiro-pulso 1.6s ease-in-out infinite;
 }
 
@@ -3151,9 +3151,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: calc(354 * var(--ud));
     width: calc(628 * var(--ud));
     height: calc(144 * var(--ud));
+    overflow: hidden;
     clip-path: none;
     transform: none;
   }
+
+  .acertijo-scroll__closed img { transform-origin: center; }
 
   /* El papel se despliega del centro hacia afuera. */
   .acertijo-scroll__open {
