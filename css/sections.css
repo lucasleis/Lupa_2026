@@ -151,11 +151,12 @@ body {
 .puerta__glifos { position: absolute; z-index: 1; top: 0; left: min(calc(2.5 * var(--u)), var(--vp-izq)); width: calc(max(calc(372.5 * var(--u)), var(--vp-der)) - min(calc(2.5 * var(--u)), var(--vp-izq))); height: 100%; /* El SVG fue editado a mano tras exportarlo para centralizar la opacidad en CSS. */ opacity: 0.3; background-image: url("../img/puerta/glifos-pared.svg"); background-position: calc(calc(2.5 * var(--u)) - min(calc(2.5 * var(--u)), var(--vp-izq))) top; background-repeat: repeat; background-size: calc(370 * var(--u)) calc(20 * var(--u)); }
 .puerta__cenefa { position: absolute; z-index: 2; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: auto; max-width: none; }
 @media (max-width: 899px) {
+  .puerta__stage { --puerta-subida: max(0px, calc(var(--vh) - 667 * var(--u))); }
   .puerta__escena::before {
     content: "";
     position: absolute;
     z-index: 2;
-    top: calc(-1.52 * var(--u));
+    top: calc(-1.52 * var(--u) - var(--puerta-subida));
     bottom: 0;
     left: min(calc(-207.06 * var(--u)), var(--vp-izq-x));
     width: calc(max(calc(497.37 * var(--u)), var(--vp-der-x)) - min(calc(-207.06 * var(--u)), var(--vp-izq-x)));
@@ -164,6 +165,8 @@ body {
     background-repeat: repeat-x;
     background-size: calc(704.43 * var(--u)) auto;
   }
+  .puerta__stage .puerta__cenefa { top: calc(-1.52 * var(--u) - var(--puerta-subida)); }
+  .puerta__stage .puerta__glifos { top: calc(-1 * var(--puerta-subida)); height: calc(100% + var(--puerta-subida)); }
 }
 .puerta__imagen { position: absolute; z-index: 3; left: calc(-10.59 * var(--u)); top: calc(216.87 * var(--u)); width: calc(396.18 * var(--u)); height: calc(488.83 * var(--u)); max-width: none; }
 .puerta__escena::after {
