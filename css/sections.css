@@ -343,6 +343,11 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .ofertas__decorado { position: absolute; z-index: 0; inset: 0; }
 .ofertas__glifos { position: absolute; top: 0; left: min(calc(2.5 * var(--u)), var(--vp-izq)); width: calc(max(calc(372.5 * var(--u)), var(--vp-der)) - min(calc(2.5 * var(--u)), var(--vp-izq))); height: 100%; /* Opacidad calibrada contra el fondo marrón. */ opacity: 0.1; background-image: url("../img/puerta/glifos-pared.svg"); background-position: calc(calc(2.5 * var(--u)) - min(calc(2.5 * var(--u)), var(--vp-izq))) top; background-repeat: repeat; background-size: calc(370 * var(--u)) calc(20 * var(--u)); }
 .ofertas__cenefa { position: absolute; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: auto; max-width: none; }
+@media (max-width: 899px) {
+  .ofertas__stage { --ofertas-subida: max(0px, calc(var(--vh) - 667 * var(--u))); }
+  .ofertas__stage .ofertas__glifos { top: calc(-1 * var(--ofertas-subida)); height: calc(100% + var(--ofertas-subida)); }
+  .ofertas__stage .ofertas__cenefa { top: calc(-1.52 * var(--u) - var(--ofertas-subida)); }
+}
 .ofertas__header { position: absolute; z-index: 1; top: calc(93.49 * var(--u)); left: calc(18.25 * var(--u)); display: flex; width: calc(338.8 * var(--u)); height: calc(140 * var(--u)); flex-direction: column; align-items: center; justify-content: center; gap: calc(16 * var(--u)); }
 .ofertas__header h3 { width: 100%; flex-shrink: 0; margin: 0; color: var(--color-white-warm); font-family: var(--font-display); font-size: calc(48 * var(--u)); font-weight: 800; line-height: calc(48 * var(--u)); letter-spacing: 0.02em; text-align: center; text-transform: uppercase; }
 .ofertas__header p { flex-shrink: 0; width: calc(293.01 * var(--u)); height: calc(76 * var(--u)); margin: 0; color: var(--color-white-warm); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 400; line-height: calc(18.9 * var(--u)); text-align: center; }
