@@ -591,6 +591,15 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   flex: 0 0 auto;
 }
 
+@media (max-width: 899px) {
+  .hero__sticky {
+    overflow: visible;
+    /* Recorta igual que antes a los costados y arriba, pero abajo deja
+       sangrar hasta el viewport grande: la franja bajo la barra de Safari. */
+    clip-path: inset(0 0 calc(100svh - 100lvh) 0);
+  }
+}
+
 .hero__stage img,
 .hero__stage picture {
   position: absolute;
