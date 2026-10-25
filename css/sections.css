@@ -593,7 +593,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
 @media (max-width: 899px) {
   .hero__sticky {
-    overflow: visible;
+    /* clip y no hidden: hidden obliga a que el otro eje sea auto y el sticky
+       pasaría a scrollear. clip corta lo que sale por los costados (lockup,
+       esfinge, nubes) sin crear scroll horizontal en la página, y deja
+       sangrar abajo hacia el clip-path. */
+    overflow-x: clip;
+    overflow-y: visible;
     /* Recorta igual que antes a los costados y arriba, pero abajo deja
        sangrar hasta el viewport grande: la franja bajo la barra de Safari. */
     clip-path: inset(0 0 calc(100svh - 100lvh) 0);
