@@ -9,6 +9,11 @@ html {
   background: var(--color-sand);
 }
 
+/* Regla de lenis.css: lenis.stop() solo frena la rueda; en touch el scroll
+   es nativo y hay que cortarlo en el html. La usan el popup y el pase de
+   la puerta (js/pase-puerta.js fijarDurante). */
+html.lenis-stopped { overflow: hidden; }
+
 body {
   --intro-progress: 0;
   min-height: 100dvh;
