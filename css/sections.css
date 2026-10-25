@@ -597,6 +597,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     /* Recorta igual que antes a los costados y arriba, pero abajo deja
        sangrar hasta el viewport grande: la franja bajo la barra de Safari. */
     clip-path: inset(0 0 calc(100svh - 100lvh) 0);
+    /* Safari 26 tiñe la zona de su barra inferior con el background-color de
+       un sticky que toca el borde; el sand (oculto bajo el gradiente) pintaba
+       una franja arena que cortaba a Ofertiti. Sin color, no hay tinte. */
+    background-color: transparent;
   }
 }
 

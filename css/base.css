@@ -6,7 +6,7 @@
 
 html {
   min-height: 100%;
-  background: magenta;
+  background: var(--color-sand);
 }
 
 body {
