@@ -3383,12 +3383,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   background-color: var(--color-dark-bg);
   background-image: url("../img/interior-claro.webp");
   background-repeat: no-repeat;
-  background-size: calc(555.36 * var(--u)) calc(987.30 * var(--u));
-  /* La x va desde el borde de la columna, igual que en el stage. La y suma el
-     desplazamiento del stage dentro del viewport: .hero__sticky lo ancla abajo,
-     así que su tope está en 100svh - 667u, y el interior arranca 88.67u más
-     arriba todavía. */
-  background-position: calc(-90.20 * var(--u)) calc(100svh - 755.67 * var(--u));
+  background-size: var(--sala-w) var(--sala-h);
+  /* Al crecer, mantiene fijo el punto que cae en el borde inferior del
+     viewport; el ancho extra se reparte a ambos lados. */
+  background-position:
+    calc(-90.20 * var(--u) - (var(--sala-w) - 555.36 * var(--u)) / 2)
+    calc(100svh - 0.76539 * var(--sala-h));
   visibility: hidden;
   pointer-events: none;
   /* Smoothstep sobre el riel de prueba-superada: arranca en 0.12 (ya armada
@@ -3398,13 +3398,28 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   opacity: calc(var(--t) * var(--t) * (3 - 2 * var(--t)));
 }
 
+@media (max-width: 899px) {
+  .sala-fondo, .piramide-puerta .piramide-puerta__interior {
+    --sala-w: max(calc(555.36 * var(--u)), 73.4923svh);
+    --sala-h: max(calc(987.30 * var(--u)), 130.653svh);
+  }
+
+  .piramide-puerta .piramide-puerta__interior {
+    width: var(--sala-w);
+    height: var(--sala-h);
+    left: calc(18.22 * var(--u) - (var(--sala-w) - 555.36 * var(--u)) / 2);
+    top: calc(-236.55 * var(--u) + 755.67 * var(--u) - 0.76539 * var(--sala-h));
+  }
+}
+
 @media (min-width: 481px) and (max-width: 899px) {
   .sala-fondo {
+    --u: min(calc(min(100vw, 480px) / 375), calc(100svh / 667));
     max-width: none;
     background-color: var(--color-brown-terracota);
     background-position:
-      calc((100vw - 480px) / 2 - 90.20 * var(--u))
-      calc(100svh - 755.67 * var(--u));
+      calc((100vw - 480px) / 2 - 90.20 * var(--u) - (var(--sala-w) - 555.36 * var(--u)) / 2)
+      calc(100svh - 0.76539 * var(--sala-h));
   }
 }
 
