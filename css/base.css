@@ -22,6 +22,12 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+@media (max-width: 899px) {
+  /* Lo que asoma entre secciones o al estirar el scroll es el body:
+     en mobile, arena como el suelo del hero. */
+  body { background: var(--color-sand); }
+}
+
 img,
 picture,
 svg,
