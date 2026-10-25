@@ -56,3 +56,14 @@ if (form && message && submitButton) form.addEventListener('submit', async (even
     if (!enviado) submitButton.disabled = false;
   }
 });
+
+if (form && message) {
+  // Al tocar un campo marcado, se le quita el recordatorio; sin marcas, el mensaje sobra.
+  const limpiarMarca = ({ target }) => {
+    if (target.getAttribute('aria-invalid') !== 'true') return;
+    target.removeAttribute('aria-invalid');
+    if (!form.querySelector('[aria-invalid="true"]')) message.textContent = '';
+  };
+  form.addEventListener('input', limpiarMarca);
+  form.addEventListener('change', limpiarMarca);
+}

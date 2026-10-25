@@ -473,6 +473,13 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .formulario__field::before { content: ""; position: absolute; inset: calc(0.5 * var(--u)) 0 auto; z-index: 1; height: calc(58 * var(--u)); background: var(--color-field-focus); -webkit-mask: url("../img/formulario/campo.svg") no-repeat 0 0 / 100% 100%; mask: url("../img/formulario/campo.svg") no-repeat 0 0 / 100% 100%; opacity: 0; transition: opacity 250ms ease; pointer-events: none; }
 .formulario__field:focus-within::before { opacity: 1; }
 .formulario__input { position: absolute; z-index: 2; top: 0; left: calc(50% - (268.96 * var(--u)) / 2); width: calc(268.96 * var(--u)); height: 100%; padding-inline: calc(var(--formulario-campo-padding) * var(--u)); border: 0; background: transparent; color: var(--color-white-warm); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 400; line-height: calc(18.9 * var(--u)); text-align: left; }
+.formulario__input:-webkit-autofill,
+.formulario__input:-webkit-autofill:hover,
+.formulario__input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-white-warm);
+  caret-color: var(--color-white-warm);
+  transition: background-color 0s 600000s, color 0s 600000s;
+}
 .formulario__input::placeholder { color: var(--color-white-warm); opacity: 1; }
 /* El foco lo indica el cambio de color del campo (::before con :focus-within). */
 .formulario__input:focus-visible { outline: none; }
@@ -3682,6 +3689,10 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
 
 .formulario__input[aria-invalid="true"] {
   color: var(--color-error-on-dark);
+  caret-color: var(--color-error-on-dark);
+}
+.formulario__input:-webkit-autofill[aria-invalid="true"] {
+  -webkit-text-fill-color: var(--color-error-on-dark);
   caret-color: var(--color-error-on-dark);
 }
 
