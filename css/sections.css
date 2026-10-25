@@ -3475,8 +3475,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
 @media (max-width: 899px) {
   .sala-fondo, .piramide-puerta .piramide-puerta__interior {
-    --sala-w: max(calc(555.36 * var(--u)), 73.4923svh);
-    --sala-h: max(calc(987.30 * var(--u)), 130.653svh);
+    --sala-w: max(calc(555.36 * var(--u)), 73.4923svh, 100vw);
+    --sala-h: max(calc(987.30 * var(--u)), 130.653svh, 177.778vw);
   }
 
   .piramide-puerta .piramide-puerta__interior {
