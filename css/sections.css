@@ -110,6 +110,12 @@
   .prueba-superada__stage, .cupones__stage { --papiro-subida: max(0px, calc(var(--vh) - 667 * var(--u))); }
   .escena__stage .marco-papiro__cenefa--superior { top: calc(-2.76 * var(--u) - var(--papiro-subida)); }
   .escena__stage .marco-papiro__columna { top: calc(39.27 * var(--u) - var(--papiro-subida)); height: calc(125.38 * var(--u) * 1798 / 377 + var(--papiro-subida)); object-fit: fill; }
+  .escena__stage .marco-papiro__glifo {
+    /* Los tres glifos se apilan sin hueco (9-318, 318-627, 577-886u); suben
+       juntos para cubrir el alto sobrante. ponytail: --tres termina en 886u,
+       aguanta hasta 219u de subida; más que eso deja hueco abajo. */
+    translate: 0 calc(-1 * var(--papiro-subida));
+  }
 }
 
 .prueba-superada__ofertiti { left: calc(50% - (236.81 * var(--u)) / 2 - 0.41 * var(--u)); top: calc(207.07 * var(--u)); z-index: 5; width: calc(236.81 * var(--u)); }
