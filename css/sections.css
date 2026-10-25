@@ -612,6 +612,11 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     -webkit-mask-image: linear-gradient(to bottom, #000 calc(299.59 * var(--u)), transparent calc(329.59 * var(--u)));
     mask-image: linear-gradient(to bottom, #000 calc(299.59 * var(--u)), transparent calc(329.59 * var(--u)));
   }
+  .hero__sphinx-ground {
+    /* arena-cerca.webp trae 8px transparentes a la izquierda; el fondo los
+       rellena con el mismo color de la arena. */
+    background-color: var(--color-sand);
+  }
 }
 
 .hero__stage img,
@@ -1143,7 +1148,6 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .hero__sphinx-ground {
     left: min(0px, var(--vp-izq));
     width: calc(max(calc(500.79 * var(--u)), var(--vp-der)) - min(0px, var(--vp-izq)));
-    background-color: var(--color-sand);
   }
 
   .hero__sphinx-ground img {
