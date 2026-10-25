@@ -597,14 +597,15 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     /* Recorta igual que antes a los costados y arriba, pero abajo deja
        sangrar hasta el viewport grande: la franja bajo la barra de Safari. */
     clip-path: inset(0 0 calc(100svh - 100lvh) 0);
-    /* Safari 26 tiñe la zona de su barra inferior con el background-color de
-       un sticky que toca el borde; el sand (oculto bajo el gradiente) pintaba
-       una franja arena que cortaba a Ofertiti. Sin color, no hay tinte. */
-    background-color: transparent;
-    /* Safari 26 tiñe su barra inferior con el color del borde de un sticky que
-       toca el fondo del viewport. 1px menos y deja de estar pegado: debajo de la
-       barra se ve el sangrado del clip-path (Ofertiti, arena). */
-    height: calc(var(--vh) - 1px);
+  }
+  .hero__ofertiti {
+    /* Safari tapa todo lo que queda bajo innerHeight con una franja de color
+       sólido. Ofertiti se funde en la arena justo antes de ese corte (el borde
+       inferior del stage, 667u) en vez de quedar cortada por un rectángulo.
+       Coordenadas en la caja de la imagen: top 337.41u, así que el corte cae
+       a 329.59u de su borde superior. Calibrable: el largo del fundido (30u). */
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(299.59 * var(--u)), transparent calc(329.59 * var(--u)));
+    mask-image: linear-gradient(to bottom, #000 calc(299.59 * var(--u)), transparent calc(329.59 * var(--u)));
   }
 }
 
