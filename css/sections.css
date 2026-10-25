@@ -106,6 +106,11 @@
 .marco-papiro__cenefa { width: calc(704.43 * var(--u)); }
 .marco-papiro__cenefa--superior { left: calc(-207.06 * var(--u)); top: calc(-2.76 * var(--u)); }
 .marco-papiro__cenefa--inferior { left: calc(-221.54 * var(--u)); top: calc(622.92 * var(--u)); z-index: 9; transform: scaleY(-1); }
+@media (max-width: 899px) {
+  .prueba-superada__stage, .cupones__stage { --papiro-subida: max(0px, calc(var(--vh) - 667 * var(--u))); }
+  .escena__stage .marco-papiro__cenefa--superior { top: calc(-2.76 * var(--u) - var(--papiro-subida)); }
+  .escena__stage .marco-papiro__columna { top: calc(39.27 * var(--u) - var(--papiro-subida)); height: calc(125.38 * var(--u) * 1798 / 377 + var(--papiro-subida)); object-fit: fill; }
+}
 
 .prueba-superada__ofertiti { left: calc(50% - (236.81 * var(--u)) / 2 - 0.41 * var(--u)); top: calc(207.07 * var(--u)); z-index: 5; width: calc(236.81 * var(--u)); }
 
