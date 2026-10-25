@@ -1158,6 +1158,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     --stage-w: calc(375 * var(--u));
     --vp-izq: calc((var(--stage-w) - 100vw) / 2);
     --vp-der: calc((var(--stage-w) + 100vw) / 2);
+    /* La salida tiene que cruzar también el margen entre el stage y el borde
+       del viewport; --vp-izq es negativo en este rango. */
+    --salida-x: calc(-1.0667 * 375 * var(--u) + var(--vp-izq));
     width: calc(375 * var(--u));
   }
 
