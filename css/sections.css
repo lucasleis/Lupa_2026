@@ -470,7 +470,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .formulario__fields { display: flex; width: calc(342 * var(--u)); height: calc(296 * var(--u)); flex-direction: column; gap: calc(20 * var(--u)); }
 .formulario__field { position: relative; width: calc(342 * var(--u)); height: calc(59 * var(--u)); flex: 0 0 calc(59 * var(--u)); }
 .formulario__field-bg { position: absolute; inset: calc(0.5 * var(--u)) 0 auto; width: calc(342 * var(--u)); height: calc(58 * var(--u)); max-width: none; }
-.formulario__input { position: absolute; top: 0; left: calc(50% - (268.96 * var(--u)) / 2); width: calc(268.96 * var(--u)); height: 100%; padding-inline: calc(var(--formulario-campo-padding) * var(--u)); border: 0; background: transparent; color: var(--color-white-warm); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 400; line-height: calc(18.9 * var(--u)); text-align: left; }
+.formulario__field::before { content: ""; position: absolute; inset: calc(0.5 * var(--u)) 0 auto; z-index: 1; height: calc(58 * var(--u)); background: var(--color-field-focus); -webkit-mask: url("../img/formulario/campo.svg") no-repeat 0 0 / 100% 100%; mask: url("../img/formulario/campo.svg") no-repeat 0 0 / 100% 100%; opacity: 0; transition: opacity 250ms ease; pointer-events: none; }
+.formulario__field:focus-within::before { opacity: 1; }
+.formulario__input { position: absolute; z-index: 2; top: 0; left: calc(50% - (268.96 * var(--u)) / 2); width: calc(268.96 * var(--u)); height: 100%; padding-inline: calc(var(--formulario-campo-padding) * var(--u)); border: 0; background: transparent; color: var(--color-white-warm); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 400; line-height: calc(18.9 * var(--u)); text-align: left; }
 .formulario__input::placeholder { color: var(--color-white-warm); opacity: 1; }
 .formulario__input:focus-visible { outline: calc(2 * var(--u)) solid var(--color-gold); outline-offset: calc(2 * var(--u)); }
 .formulario__terms { display: flex; width: calc(342.24 * var(--u)); height: calc(20 * var(--u)); align-items: center; }
@@ -3075,6 +3077,13 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .formulario__field-bg { display: none; }
+
+  .formulario__field::before {
+    inset: 0;
+    height: auto;
+    -webkit-mask-image: url("../img/input.svg");
+    mask-image: url("../img/input.svg");
+  }
 
   .formulario__field:has(.formulario__input[aria-invalid="true"])::after {
     content: "";
