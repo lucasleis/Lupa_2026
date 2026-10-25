@@ -60,6 +60,11 @@ if (hero && optionsRoot && continueButton) {
     }
   });
 
+  hero.addEventListener('click', (event) => {
+    if (!event.target.closest('.hero__result-cta')) return;
+    document.dispatchEvent(new CustomEvent('resultado:continuar'));
+  });
+
   document.addEventListener('acertijo:completado', () => {
     // La transición visual reversible la gobierna intro-scroll según el progreso.
   });
@@ -85,7 +90,6 @@ if (hero && optionsRoot && continueButton) {
     document.dispatchEvent(new CustomEvent('pregunta:respondida', {
       detail: { acierto: opciones[selected].correcta }
     }));
-    continueButton.querySelector('span').textContent = 'PUEDES CONTINUAR';
     continueButton.setAttribute('inert', '');
   });
 }

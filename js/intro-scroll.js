@@ -308,10 +308,13 @@ if (heroTrack) {
 
   // Calibrable: 1.8 de CAMARA se siente lento para un click directo.
   const DURACION_SALTO_PANEL = 0.9;
+  // Calibrable: el riel de pirámide recorre hasta 500svh en mobile y 200svh en desktop.
+  const DURACION_SALTO_PIRAMIDE = 3.6;
   const habilitarRielYDesplazar = (rail, {
     propiedad,
     altura,
     progreso = 1,
+    duration = DURACION_SALTO_PANEL,
   }) => {
     habilitarRiel(rail, propiedad, altura);
     window.requestAnimationFrame(() => {
@@ -322,7 +325,7 @@ if (heroTrack) {
         const scrollRange = (rect?.height ?? 0) - altoViewportSVH;
         const targetScroll = window.scrollY + (rect?.top ?? 0) + progreso * scrollRange;
         // Sin lock, el tap que dispara el salto cancela el scroll a los pocos píxeles.
-        irA(targetScroll, { lock: true, duration: DURACION_SALTO_PANEL });
+        irA(targetScroll, { lock: true, duration });
       }
       updateProgress();
     });
@@ -371,6 +374,17 @@ if (heroTrack) {
     habilitarRielYDesplazar(resultRail, {
       propiedad: '--resultado-rail-height',
       altura: RAIL_HEIGHTS.resultado,
+    });
+  });
+
+  document.addEventListener('resultado:continuar', () => {
+    if (!pyramidRail) return;
+    pyramidRailEnabled = true;
+    habilitarRielYDesplazar(pyramidRail, {
+      propiedad: '--piramide-rail-height',
+      altura: RAIL_HEIGHTS.piramide,
+      progreso: 1,
+      duration: DURACION_SALTO_PIRAMIDE,
     });
   });
 
