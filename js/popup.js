@@ -8,7 +8,7 @@ const cerrar = () => {
   if (!popup || popup.getAttribute('aria-hidden') === 'true') return;
   const returnFocus = lastFocused && !popup.contains(lastFocused) ? lastFocused : document.body;
   returnFocus.focus?.({ preventScroll: true });
-  popup.classList.remove('popup--visible', 'popup--contenido', 'popup--montado', 'popup--reduced');
+  popup.classList.remove('popup--visible', 'popup--contenido', 'popup--montado');
   popup.setAttribute('aria-hidden', 'true');
   popup.inert = true;
   window.lenis.start();
@@ -25,12 +25,10 @@ const abrir = () => {
   popup.inert = false;
   popup.setAttribute('aria-hidden', 'false');
   popup.classList.add('popup--montado');
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const mostrarContenido = () => {
     popup.classList.add('popup--contenido');
   };
   popup.focus({ preventScroll: true });
-  if (reduced) popup.classList.add('popup--reduced');
 
   // Dos frames entre montar y animar: el primero renderiza el estado inicial
   // (opacity 0, clip-path cerrado, rodillos juntos), el segundo dispara las
@@ -38,13 +36,9 @@ const abrir = () => {
   window.requestAnimationFrame(() => {
     window.requestAnimationFrame(() => {
       popup.classList.add('popup--visible');
-      if (reduced) {
-        mostrarContenido();
-      } else {
-        // Apareado con --papiro-apertura en css/sections.css (duracion + 250ms).
-        // Si se mueve uno, se mueve el otro.
-        window.setTimeout(mostrarContenido, 1150);
-      }
+      // Apareado con --papiro-apertura en css/sections.css (duracion + 250ms).
+      // Si se mueve uno, se mueve el otro.
+      window.setTimeout(mostrarContenido, 1150);
     });
   });
   document.dispatchEvent(new CustomEvent('popup:abierto'));

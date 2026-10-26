@@ -308,8 +308,16 @@ if (heroTrack) {
 
   // Calibrable: 1.8 de CAMARA se siente lento para un click directo.
   const DURACION_SALTO_PANEL = 0.9;
-  // Calibrable: el riel de pirámide recorre hasta 500svh en mobile y 200svh en desktop.
-  const DURACION_SALTO_PIRAMIDE = 3.6;
+  // El salto a la pirámide va a velocidad de cámara constante, no a duración fija:
+  // mobile recorre ~8 pantallas (riel de 600svh + resto de resultado) y escritorio ~4.
+  // Con 3.6s fijos, mobile iba al doble y el camino no se llegaba a ver.
+  // Calibrables: velocidad en pantallas por segundo y piso (que deja escritorio como estaba).
+  const PANTALLAS_POR_SEGUNDO_PIRAMIDE = 1.1;
+  const DURACION_MIN_PIRAMIDE = 3.6;
+  const duracionSaltoPiramide = (distancia) => Math.max(
+    DURACION_MIN_PIRAMIDE,
+    distancia / altoViewportSVH / PANTALLAS_POR_SEGUNDO_PIRAMIDE,
+  );
   const habilitarRielYDesplazar = (rail, {
     propiedad,
     altura,
@@ -325,7 +333,10 @@ if (heroTrack) {
         const scrollRange = (rect?.height ?? 0) - altoViewportSVH;
         const targetScroll = window.scrollY + (rect?.top ?? 0) + progreso * scrollRange;
         // Sin lock, el tap que dispara el salto cancela el scroll a los pocos píxeles.
-        irA(targetScroll, { lock: true, duration });
+        const duracion = typeof duration === 'function'
+          ? duration(Math.abs(targetScroll - window.scrollY))
+          : duration;
+        irA(targetScroll, { lock: true, duration: duracion });
       }
       updateProgress();
     });
@@ -343,6 +354,7 @@ if (heroTrack) {
     event.preventDefault();
     if (link.matches('.hero__skip, .acertijo-panel__skip')) liberarScroll();
     irA(destino, { immediate: true });
+    destino.focus({ preventScroll: true });
   });
 
   document.addEventListener('acertijo:iniciado', () => {
@@ -384,7 +396,7 @@ if (heroTrack) {
       propiedad: '--piramide-rail-height',
       altura: RAIL_HEIGHTS.piramide,
       progreso: 1,
-      duration: DURACION_SALTO_PIRAMIDE,
+      duration: duracionSaltoPiramide,
     });
   });
 

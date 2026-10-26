@@ -2,14 +2,14 @@ import { inicializarCarrusel } from './carrusel.js';
 
 const FRASE = '«Tú tanjamón y yo tan pimiento»';
 const vales = [
-  { frase: FRASE, prefijo: '',          entero: '3<span class="vales__price-chico">x</span>2', centavos: '€', unidad: '',    descuentoTexto: '3x2',                            imagen: 'img/vales/kefir.png',           titulo: 'Kéfir Nestlé Natural y Arándanos',          peso: '150GR' },
-  { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/salchichon.png',      titulo: 'Salchichón Revilla Extra Lonchas',          peso: '65GR' },
-  { frase: FRASE, prefijo: '2ª unidad', entero: '70',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 70% de descuento', imagen: 'img/vales/axe.png',             titulo: 'Desodorante Axe Dark Temptation',           peso: '150ML' },
-  { frase: FRASE, prefijo: '2ª unidad', entero: '70',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 70% de descuento', imagen: 'img/vales/colgate.png',         titulo: 'Dentífrico Colgate Total Original',         peso: '75ML' },
-  { frase: FRASE, prefijo: '2ª unidad', entero: '70',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 70% de descuento', imagen: 'img/vales/creatina.png',        titulo: 'Creatina Natur Tierra cápsulas',            peso: '' },
-  { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/pan-dulcesol.png',    titulo: 'Pan Dulcesol Burger Brioche pack 4',        peso: '340GR' },
-  { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/pizza-dr-oetker.png', titulo: 'Pizza Dr.Oetker Rústica borde relleno BBQ', peso: '495GR' },
-  { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/tosta-rica.png',      titulo: 'Galleta Cuétara Tosta Rica',                peso: '760GR' },
+  { frase: FRASE, prefijo: '',          entero: '3<span class="vales__price-chico">x</span>2', centavos: '€', unidad: '',    descuentoTexto: '3x2',                            imagen: 'img/vales/kefir.webp',           titulo: 'Kéfir Nestlé Natural y Arándanos',          peso: '150GR' },
+  { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/salchichon.webp',      titulo: 'Salchichón Revilla Extra Lonchas',          peso: '65GR' },
+  { frase: FRASE, prefijo: '2ª unidad', entero: '70',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 70% de descuento', imagen: 'img/vales/axe.webp',             titulo: 'Desodorante Axe Dark Temptation',           peso: '150ML' },
+  { frase: FRASE, prefijo: '2ª unidad', entero: '70',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 70% de descuento', imagen: 'img/vales/colgate.webp',         titulo: 'Dentífrico Colgate Total Original',         peso: '75ML' },
+  { frase: FRASE, prefijo: '2ª unidad', entero: '70',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 70% de descuento', imagen: 'img/vales/creatina.webp',        titulo: 'Creatina Natur Tierra cápsulas',            peso: '' },
+  { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/pan-dulcesol.webp',    titulo: 'Pan Dulcesol Burger Brioche pack 4',        peso: '340GR' },
+  { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/pizza-dr-oetker.webp', titulo: 'Pizza Dr.Oetker Rústica borde relleno BBQ', peso: '495GR' },
+  { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/tosta-rica.webp',      titulo: 'Galleta Cuétara Tosta Rica',                peso: '760GR' },
 ];
 
 const hexagono = (clase, fill) => `<svg class="vales__hexagono ${clase}" viewBox="0 0 131 118" aria-hidden="true" focusable="false"><path d="M120.198 23.7749L127.186 78.7861L72.222 114.173L10.1581 93.6508L3.17059 38.6396L58.1331 3.25324L120.198 23.7749Z" fill="${fill}" stroke="var(--color-gold)" stroke-width="5.9185"/></svg>`;
@@ -30,7 +30,7 @@ const renderVale = (vale, index) => `<article class="carrusel__slide vales__slid
       </span>
     </div>
   </div>
-  <img class="vales__producto" src="${vale.imagen}" alt="">
+  <img class="vales__producto" src="${vale.imagen}" alt="" decoding="async" fetchpriority="low">
   <div class="vales__texto">
     <h3 class="vales__titulo">${vale.titulo}</h3>
     ${vale.peso ? `<p class="vales__peso">${vale.peso}</p>` : ''}

@@ -19,19 +19,20 @@
   --color-gold-mid: #C38809;
   --color-gold-dark: #926607;
   --color-white-warm: #fffaf3;
+  --color-white: #FFFFFF;         /* blanco puro del diseño (no el cálido) */
   --color-orange: #e77408;
   --color-orange-hex: #F17F36; /* naranja del hexágono de descuento */
   --color-wall: #AD5207; /* Valor aproximado del muro, pendiente de confirmar contra Figma. */
   --color-field: #392822; /* Marrón de los campos, distinto de brown-dark. */
   --color-field-focus: #6b4f45; /* Campo enfocado. Valor a ojo de la referencia; confirmar contra Figma. */
-  --color-link: #3C8AFD;
+  --color-link: #1A56B8; /* 5:1 sobre --color-sand; va subrayado: contra el texto marrón queda 2:1 */
   --color-orange-alt: #f58723;
   --color-brown-mid: #b76123;
   --color-navy: #1b1e3c;
   --color-dark-bg: #2A1A0E;       /* fondo oscuro de escenas y sala */
   --color-brown-terracota: #B0723D; /* fondo sala en breakpoint medio */
   --color-asset-warm: #EAAD6D;    /* ámbar muestreado de escena-desktop.svg */
-  --color-error: #D62828;         /* estados de error en formularios */
+  --color-error: #B01E1E;         /* estados de error en formularios; 5:1 sobre --color-sand */
   --color-error-on-dark: #FFC2A8; /* texto de error sobre fondo oscuro */
   --color-disabled: #b2b2b2;      /* controles deshabilitados */
 
@@ -106,10 +107,3 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --intro-track: calc(var(--vh) * 1);
-    --puerta-track: calc(var(--vh) * 1);
-    --puerta-zoom-factor: 0.35;
-  }
-}

@@ -21,7 +21,7 @@ if (hero && optionsRoot && continueButton) {
     button.className = 'hero__option';
     button.type = 'button';
     button.setAttribute('role', 'radio');
-    button.tabIndex = -1;
+    button.tabIndex = index === 0 ? 0 : -1;
     button.dataset.index = String(index);
     button.textContent = option.label;
     button.setAttribute('aria-checked', 'false');

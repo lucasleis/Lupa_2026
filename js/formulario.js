@@ -2,55 +2,86 @@ const form = document.querySelector('.formulario__form');
 const message = form?.querySelector('.formulario__mensaje');
 const submitButton = form?.querySelector('[type="submit"]');
 
+// Qué corregir en cada campo. Mismas reglas que valida Formularios.php.
+const AYUDA = {
+  nombre: 'Escribe tu nombre y apellido.',
+  email: 'Escribe un correo válido, como nombre@correo.com.',
+  codigo_postal: 'El código postal lleva 5 números.',
+  telefono: 'El teléfono lleva 9 números; puedes añadir +34 delante.',
+  terminos: 'Acepta los términos y condiciones para continuar.',
+};
+
 let envioEnCurso = false;
 let enviado = false;
+
+const mostrar = (texto, estado = 'error') => {
+  message.textContent = texto;
+  message.dataset.estado = estado;
+};
+
+// El hueco del mensaje es de una o dos líneas: se explica el primer campo marcado
+// (el que tiene el foco) y se cuenta el resto. Al corregirlo, pasa al siguiente.
+const explicarMarcas = () => {
+  form.querySelectorAll('[aria-describedby="formulario-mensaje"]').forEach((control) => control.removeAttribute('aria-describedby'));
+  const [primero, ...resto] = form.querySelectorAll('[aria-invalid="true"]');
+  if (!primero) {
+    message.textContent = '';
+    return;
+  }
+  primero.setAttribute('aria-describedby', 'formulario-mensaje');
+  const cola = resto.length === 0 ? '' : resto.length === 1 ? ' Y otro campo marcado.' : ` Y ${resto.length} campos marcados más.`;
+  mostrar(`${AYUDA[primero.name] ?? 'Revisa este campo.'}${cola}`);
+};
+
+const marcar = (controles) => {
+  controles.forEach((control) => control.setAttribute('aria-invalid', 'true'));
+  explicarMarcas();
+  controles[0]?.focus();
+};
 
 if (form && message && submitButton) form.addEventListener('submit', async (event) => {
   event.preventDefault();
   if (envioEnCurso || enviado) return;
 
-  envioEnCurso = true;
-  submitButton.disabled = true;
-  message.textContent = '';
-  form.querySelectorAll('[aria-invalid="true"]').forEach((input) => input.removeAttribute('aria-invalid'));
+  form.querySelectorAll('[aria-invalid="true"]').forEach((control) => control.removeAttribute('aria-invalid'));
+  explicarMarcas();
 
   if (!form.checkValidity()) {
-    const invalidControls = form.querySelectorAll(':invalid');
-    invalidControls.forEach((control) => control.setAttribute('aria-invalid', 'true'));
-    message.textContent = 'Completa los campos que faltan, faraón.';
-    invalidControls[0]?.focus();
-    envioEnCurso = false;
-    submitButton.disabled = false;
+    marcar([...form.querySelectorAll(':invalid')]);
     return;
   }
+
+  envioEnCurso = true;
+  submitButton.disabled = true;
 
   try {
     const response = await fetch(form.action, {
       method: 'POST',
       body: new FormData(form),
+      signal: AbortSignal.timeout(15000),
     });
-    const data = await response.json();
+    // Un 500 de PHP puede llegar como HTML: sin JSON se trata como fallo del servidor.
+    const data = await response.json().catch(() => ({}));
 
     if (data.success === 2) {
       enviado = true;
-      message.textContent = '¡Listo! Tu registro quedó guardado.';
+      mostrar(data.email_sent
+        ? '¡Listo! Te enviamos los vales a tu correo. Si no los ves, revisa la carpeta de spam.'
+        : '¡Listo! Tu registro quedó guardado.', 'info');
       form.querySelectorAll('input, button, select, textarea').forEach((control) => { control.disabled = true; });
       return;
     }
     if (data.already_registered) {
-      message.textContent = 'Ese correo ya está registrado.';
+      mostrar('Ese correo ya está registrado. Si no encuentras los vales, revisa la carpeta de spam.', 'info');
       return;
     }
     if (Array.isArray(data.invalid_fields)) {
-      form.querySelectorAll('input[name]').forEach((input) => {
-        if (data.invalid_fields.includes(input.name)) input.setAttribute('aria-invalid', 'true');
-      });
-      message.textContent = 'Revisa los datos marcados y vuelve a intentarlo.';
+      marcar([...form.querySelectorAll('input[name]')].filter((input) => data.invalid_fields.includes(input.name)));
       return;
     }
-    message.textContent = 'No se pudo enviar. Inténtalo de nuevo.';
+    mostrar('Algo falló de nuestro lado. Inténtalo de nuevo en unos minutos.');
   } catch (error) {
-    message.textContent = 'No se pudo enviar. Inténtalo de nuevo.';
+    mostrar('No pudimos enviar tus datos. Revisa tu conexión e inténtalo de nuevo.');
   } finally {
     envioEnCurso = false;
     if (!enviado) submitButton.disabled = false;
@@ -58,11 +89,11 @@ if (form && message && submitButton) form.addEventListener('submit', async (even
 });
 
 if (form && message) {
-  // Al tocar un campo marcado, se le quita el recordatorio; sin marcas, el mensaje sobra.
+  // Al tocar un campo marcado se le quita la marca y el mensaje pasa al siguiente.
   const limpiarMarca = ({ target }) => {
     if (target.getAttribute('aria-invalid') !== 'true') return;
     target.removeAttribute('aria-invalid');
-    if (!form.querySelector('[aria-invalid="true"]')) message.textContent = '';
+    explicarMarcas();
   };
   form.addEventListener('input', limpiarMarca);
   form.addEventListener('change', limpiarMarca);

@@ -42,8 +42,8 @@ export const inicializarCarrusel = (root, {
       slide.inert = !active;
       slide.setAttribute('aria-hidden', String(!active));
     });
-    dots?.querySelectorAll('[role="tab"]').forEach((dot, index) => {
-      dot.setAttribute('aria-selected', String(index === indiceReal()));
+    dots?.querySelectorAll('button').forEach((dot, index) => {
+      dot.setAttribute('aria-current', String(index === indiceReal()));
     });
     onChange(indiceReal());
   };
@@ -66,13 +66,12 @@ export const inicializarCarrusel = (root, {
     transitioning = true;
     current = target;
     actualizarEstado();
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && circular) reajustarClon();
   };
 
-  if (dots) dots.innerHTML = realSlides.map((slide, index) => `<button type="button" role="tab" aria-label="Ir al elemento ${index + 1}" aria-selected="${index === 0}"></button>`).join('');
+  if (dots) dots.innerHTML = realSlides.map((slide, index) => `<button type="button" aria-label="Ir al elemento ${index + 1}" aria-current="${index === 0}"></button>`).join('');
   previous?.addEventListener('click', () => irA(current - 1));
   next?.addEventListener('click', () => irA(current + 1));
-  dots?.querySelectorAll('[role="tab"]').forEach((dot, index) => dot.addEventListener('click', () => irA(circular ? index + clones : index)));
+  dots?.querySelectorAll('button').forEach((dot, index) => dot.addEventListener('click', () => irA(circular ? index + clones : index)));
   track.addEventListener('transitionend', (event) => {
     if (event.propertyName !== 'transform' || !transitioning) return;
     if (circular && (current < clones || current >= cantidad + clones)) reajustarClon();
@@ -109,6 +108,7 @@ export const inicializarCarrusel = (root, {
     const elapsed = performance.now() - startTime;
     if (Math.abs(dx) > viewport.getBoundingClientRect().width * 0.25 || Math.abs(dx) / Math.max(elapsed, 1) > 0.5) irA(current + (dx < 0 ? 1 : -1));
   }, { passive: true });
+  viewport.addEventListener('touchcancel', () => { axis = null; }, { passive: true });
   escritorio?.addEventListener('change', actualizarEstado);
   actualizarEstado();
 };

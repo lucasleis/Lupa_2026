@@ -45,6 +45,7 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
       if (dx < 0 && (Math.abs(dx) > stagePanel.getBoundingClientRect().width * 0.25
         || Math.abs(dx) / Math.max(elapsed, 1) > 0.5)) setCouponsOpen(true);
     }, { passive: true });
+    stagePanel.addEventListener('touchcancel', () => { axis = null; }, { passive: true });
   }
   setCouponsOpen(false);
 

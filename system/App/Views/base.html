@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#f7d8aa">
-    <title>Lupa</title>
+    <title>Ofertiti, la reina de las ofertas · Lupa</title>
+    <meta name="description" content="Descifra el acertijo de Ofertiti, entra en la pirámide y recibe en tu correo vales exclusivos para canjear en Lupa. Y con Pascual, participa en el sorteo de 2 vales diarios de 50 €.">
+    <link rel="preconnect" href="https://p.typekit.net" crossorigin>
     <link rel="stylesheet" href="https://use.typekit.net/jrp0gtx.css">
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="css/base.css">
@@ -33,16 +35,16 @@
             <div class="hero__prompt-group">
               <picture class="hero__balloon">
                 <source media="(min-width: 900px)" srcset="img/intro/desktop/globo.svg">
-                <img src="img/intro/globo.webp" alt="" width="1100" height="478">
+                <img src="img/intro/globo.webp" alt="" width="1100" height="478" fetchpriority="high">
               </picture>
               <p class="hero__prompt">DESLIZA HACIA ABAJO PARA CONTINUAR</p>
             </div>
             <picture class="hero__sphinx-ground">
               <source media="(min-width: 900px)" srcset="img/intro/desktop/arena.svg">
-              <img src="img/intro/arena-cerca.webp" alt="" width="1503" height="354">
+              <img src="img/intro/arena-cerca.webp" alt="" width="1503" height="354" fetchpriority="high">
             </picture>
             <div class="hero__sphinx-group">
-              <img class="hero__sphinx" src="img/intro/esfinge.webp" alt="" width="2048" height="956">
+              <img class="hero__sphinx" src="img/intro/esfinge.webp" alt="" width="2048" height="956" fetchpriority="high">
             </div>
             <img class="hero__ofertiti" src="img/intro/ofertiti.webp" alt="" width="711" height="1539" fetchpriority="high">
             <img class="hero__cloud-two" src="img/intro/nube-2.webp" alt="" width="437" height="202">
@@ -56,14 +58,14 @@
               <img class="piramide-escena__nube-alta" src="img/intro/nube-1.webp" alt="" width="507" height="141">
               <img class="piramide-escena__nube-der" src="img/intro/nube-2.webp" alt="" width="437" height="202">
               <img class="piramide-escena__nube-izq" src="img/intro/nube-2.webp" alt="" width="437" height="202">
-              <img class="piramide-escena__piramide" src="img/piramide/piramide.webp" alt="" width="4096" height="1723" fetchpriority="high">
+              <img class="piramide-escena__piramide" src="img/piramide/piramide.webp" alt="" width="4096" height="1723">
               <!-- Puerta de la piramide: calza exactamente sobre la puerta
                    dibujada en piramide.webp (nativo 1941,1055.5 de 360x297).
                    El interior asoma al abrirse las hojas; el marco de alrededor
                    es el de la imagen de fondo, no se repite aca. -->
               <div class="piramide-puerta">
                 <div class="piramide-puerta__vano">
-                  <img class="piramide-puerta__interior" src="img/interior-claro.webp" alt="" width="1152" height="2048">
+                  <img class="piramide-puerta__interior" src="img/interior-claro.webp" alt="" width="1152" height="2048" fetchpriority="low">
                 </div>
                 <img class="piramide-puerta__hoja piramide-puerta__hoja--izq" src="img/puerta/hojas.svg" alt="" width="73" height="60">
                 <img class="piramide-puerta__hoja piramide-puerta__hoja--der" src="img/puerta/hojas.svg" alt="" width="73" height="60">
@@ -119,32 +121,32 @@
         <div class="escena__stage prueba-superada__stage">
           <h2 class="visually-hidden" id="prueba-superada-title">Has pasado la prueba de la Esfinge</h2>
           <div class="marco-papiro">
-          <img class="marco-papiro__glifo marco-papiro__glifo--uno" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
-          <img class="marco-papiro__glifo marco-papiro__glifo--dos" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
-          <img class="marco-papiro__glifo marco-papiro__glifo--tres" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
-          <img class="marco-papiro__columna marco-papiro__columna--izquierda" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798">
-          <img class="marco-papiro__columna marco-papiro__columna--derecha" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798">
-          <img class="marco-papiro__cenefa marco-papiro__cenefa--superior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
+          <img class="marco-papiro__glifo marco-papiro__glifo--uno" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927" fetchpriority="low">
+          <img class="marco-papiro__glifo marco-papiro__glifo--dos" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927" fetchpriority="low">
+          <img class="marco-papiro__glifo marco-papiro__glifo--tres" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927" fetchpriority="low">
+          <img class="marco-papiro__columna marco-papiro__columna--izquierda" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798" fetchpriority="low">
+          <img class="marco-papiro__columna marco-papiro__columna--derecha" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798" fetchpriority="low">
+          <img class="marco-papiro__cenefa marco-papiro__cenefa--superior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139" fetchpriority="low">
           </div>
-          <img class="prueba-superada__ofertiti" src="img/prueba-superada/ofertiti-celebra.webp" alt="" width="713" height="1465">
+          <img class="prueba-superada__ofertiti" src="img/prueba-superada/ofertiti-celebra.webp" alt="" width="713" height="1465" fetchpriority="low">
           <div class="prueba-superada__globo">
-            <img src="img/acertijo/nube-rta.webp" alt="" width="287" height="124">
+            <img src="img/acertijo/nube-rta.webp" alt="" width="287" height="124" fetchpriority="low">
             <p aria-hidden="true">Has pasado la prueba de la Esfinge</p>
           </div>
           <button class="prueba-superada__cupones cta-layers" type="button"><span>VER CUPONES</span></button>
-          <img class="marco-papiro__cenefa marco-papiro__cenefa--inferior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
+          <img class="marco-papiro__cenefa marco-papiro__cenefa--inferior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139" fetchpriority="low">
         </div>
         </div>
         <div class="escena__panel" aria-hidden="true" inert>
         <div class="escena__stage cupones__stage" aria-labelledby="cupones-title">
           <div class="marco-papiro" aria-hidden="true">
-            <img class="marco-papiro__glifo marco-papiro__glifo--uno" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
-            <img class="marco-papiro__glifo marco-papiro__glifo--dos" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
-            <img class="marco-papiro__glifo marco-papiro__glifo--tres" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927">
-            <img class="marco-papiro__columna marco-papiro__columna--izquierda" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798">
-            <img class="marco-papiro__columna marco-papiro__columna--derecha" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798">
-            <img class="marco-papiro__cenefa marco-papiro__cenefa--superior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
-            <img class="marco-papiro__cenefa marco-papiro__cenefa--inferior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
+            <img class="marco-papiro__glifo marco-papiro__glifo--uno" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927" fetchpriority="low">
+            <img class="marco-papiro__glifo marco-papiro__glifo--dos" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927" fetchpriority="low">
+            <img class="marco-papiro__glifo marco-papiro__glifo--tres" src="img/prueba-superada/fondo-glifos.webp" alt="" width="1816" height="927" fetchpriority="low">
+            <img class="marco-papiro__columna marco-papiro__columna--izquierda" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798" fetchpriority="low">
+            <img class="marco-papiro__columna marco-papiro__columna--derecha" src="img/prueba-superada/columna.webp" alt="" width="377" height="1798" fetchpriority="low">
+            <img class="marco-papiro__cenefa marco-papiro__cenefa--superior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139" fetchpriority="low">
+            <img class="marco-papiro__cenefa marco-papiro__cenefa--inferior" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139" fetchpriority="low">
           </div>
           <div class="cupones__heading">
             <h2 class="cupones__title" id="cupones-title">CUPONES</h2>
@@ -155,13 +157,12 @@
             <div class="carrusel__track"></div>
           </div>
           <button class="carrusel__arrow carrusel__arrow--prev" type="button" aria-label="Cupón anterior">
-            <span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21"></span>
+            <span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21" fetchpriority="low"></span>
           </button>
           <button class="carrusel__arrow carrusel__arrow--next" type="button" aria-label="Cupón siguiente">
-            <span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21"></span>
+            <span aria-hidden="true"><img src="img/cupones/flecha.svg" alt="" width="20" height="21" fetchpriority="low"></span>
           </button>
-          <!-- Pendiente de verificar contra el diseño: posición derivada del origen del carrusel. -->
-          <div class="carrusel__dots" role="tablist" aria-label="Seleccionar cupón"></div>
+          <div class="carrusel__dots" role="group" aria-label="Seleccionar cupón"></div>
           <a class="cupones__want cta-layers" href="#formulario"><span>LOS QUIERO</span></a>
         </div>
         </div>
@@ -176,15 +177,15 @@
           <div class="puerta__encuadre">
             <div class="puerta__escena" aria-hidden="true">
               <div class="puerta__glifos"></div>
-              <img class="puerta__cenefa" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139">
-              <img class="puerta__imagen" src="img/puerta/puerta.svg" alt="" width="472" height="582">
+              <img class="puerta__cenefa" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139" fetchpriority="low">
+              <img class="puerta__imagen" src="img/puerta/puerta.svg" alt="" width="472" height="582" fetchpriority="low">
               <div class="puerta__llama puerta__llama--izq" aria-hidden="true">
-                <img class="puerta__llama-frame puerta__llama-frame--a" src="img/puerta/llama-1.svg" alt="" width="55" height="77">
-                <img class="puerta__llama-frame puerta__llama-frame--b" src="img/puerta/llama-2.svg" alt="" width="55" height="85">
+                <img class="puerta__llama-frame puerta__llama-frame--a" src="img/puerta/llama-1.svg" alt="" width="55" height="77" fetchpriority="low">
+                <img class="puerta__llama-frame puerta__llama-frame--b" src="img/puerta/llama-2.svg" alt="" width="55" height="85" fetchpriority="low">
               </div>
               <div class="puerta__llama puerta__llama--der" aria-hidden="true">
-                <img class="puerta__llama-frame puerta__llama-frame--a" src="img/puerta/llama-1.svg" alt="" width="55" height="77">
-                <img class="puerta__llama-frame puerta__llama-frame--b" src="img/puerta/llama-2.svg" alt="" width="55" height="85">
+                <img class="puerta__llama-frame puerta__llama-frame--a" src="img/puerta/llama-1.svg" alt="" width="55" height="77" fetchpriority="low">
+                <img class="puerta__llama-frame puerta__llama-frame--b" src="img/puerta/llama-2.svg" alt="" width="55" height="85" fetchpriority="low">
               </div>
             </div>
           </div>
@@ -247,7 +248,7 @@
       </div>
       <div class="escena-rail" aria-hidden="true"></div>
     </section>
-    <section class="formulario" id="formulario" aria-labelledby="formulario-title">
+    <section class="formulario" id="formulario" tabindex="-1" aria-labelledby="formulario-title">
       <div class="formulario__sticky">
       <img class="formulario__cenefa" src="img/prueba-superada/cenefa.webp" alt="" width="2114" height="139" aria-hidden="true" loading="lazy" decoding="async">
       <div class="formulario__glifos" aria-hidden="true">
@@ -290,10 +291,10 @@
               <input class="formulario__checkbox" id="formulario-terminos" type="checkbox" name="terminos" value="1" required>
               <span class="formulario__checkbox-visual"><img src="img/formulario/checkbox.svg" alt="" width="20" height="20" loading="lazy" decoding="async"><span aria-hidden="true"></span></span>
             </span>
-            <span class="formulario__terms-text">Acepto los <!-- Provisional: destino pendiente; podría ser privacidad o aviso legal. --><a href="#">términos y condiciones</a></span>
+            <span class="formulario__terms-text">Acepto los <a href="politica-de-privacidad/" target="_blank" rel="noopener">términos y condiciones</a></span>
           </label>
         </div>
-        <p class="formulario__mensaje" role="status" aria-live="polite"></p>
+        <p class="formulario__mensaje" id="formulario-mensaje" role="status" aria-live="polite"></p>
         <button class="formulario__submit cta-layers" type="submit"><span>LOS QUIERO</span></button>
       </form>
       </div>
@@ -356,7 +357,7 @@
         </div>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
     <script type="module" src="js/lenis.js"></script>
     <script type="module" src="js/scroll-activo.js"></script>
     <script type="module" src="js/intro-scroll.js"></script>

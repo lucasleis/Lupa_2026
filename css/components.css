@@ -47,7 +47,7 @@
   .site-header {
     max-width: none;
     height: 80px;
-    background: #FFFFFF;
+    background: var(--color-white);
     box-shadow: 0 4px 34px -17px rgba(10, 64, 87, 0.49);
   }
 
