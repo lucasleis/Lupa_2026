@@ -1,4 +1,4 @@
-import { progresoDeRiel } from './intro-scroll.js';
+import { fijar, marcar, progresoDeRiel } from './intro-scroll.js';
 
 document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
   const stage = section.querySelector('.escena__stage');
@@ -59,11 +59,11 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
     // La capa fija del interior vive fuera de la seccion, asi que su fundido
     // de salida necesita este progreso en el body.
     if (section.classList.contains('prueba-superada')) {
-      document.body.style.setProperty('--sala-salida-p', String(p));
-      document.body.dataset.salaSaliendo = String(p > 0);
+      fijar(document.body, '--sala-salida-p', String(p));
+      marcar(document.body, 'salaSaliendo', String(p > 0));
     }
     if (section.classList.contains('interior')) {
-      document.body.style.setProperty('--interior-p', String(p));
+      fijar(document.body, '--interior-p', String(p));
       // Un salto (ancla) que deja el interior arriba también da p = 1: sin
       // esto dispararía el pase a ofertas y pisaría el destino del salto.
       if (p >= 0.999 && !interiorEnFinal && section.getBoundingClientRect().bottom > 0) {
@@ -73,7 +73,7 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
         // El pase se desarma apenas el riel deja su final. No puede esperar al
         // 0.9 de la histeresis: esa banda es del evento, y entre 0.9 y 1 la
         // cortina quedaba apagada mostrando el stage vacio.
-        delete document.body.dataset.puertaRevelada;
+        if ('puertaRevelada' in document.body.dataset) delete document.body.dataset.puertaRevelada;
         if (p < 0.9) {
           interiorEnFinal = false;
         }

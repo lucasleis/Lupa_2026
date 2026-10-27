@@ -1,4 +1,4 @@
-import { progresoDeRiel, habilitarRiel } from './intro-scroll.js';
+import { fijar, progresoDeRiel, habilitarRiel, marcar } from './intro-scroll.js';
 
 const section = document.querySelector('.puerta');
 const stage = section?.querySelector('.puerta__stage');
@@ -28,13 +28,13 @@ if (section && stage && rail) {
     framePending = false;
     const progress = progresoDeRiel(rail, { desdeElTope: true, destino: stage, propiedad: '--puerta-p' });
     // La capa fija vive fuera de la sección y necesita el progreso en body.
-    document.body.style.setProperty('--puerta-p', String(progress));
+    fijar(document.body, '--puerta-p', String(progress));
     if (!cruzando && progress >= cruceInicio) {
       cruzando = true;
-      stage.dataset.cruzando = 'true';
+      marcar(stage, 'cruzando', 'true');
     } else if (cruzando && progress < cruceInicio - 0.02) {
       cruzando = false;
-      delete stage.dataset.cruzando;
+      if ('cruzando' in stage.dataset) delete stage.dataset.cruzando;
     }
     if (progress >= 0.999) {
       if (!enFinal) {

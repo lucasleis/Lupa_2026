@@ -93,17 +93,19 @@ class Formularios extends \Core\Controller
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
             $mail->SMTPSecure = 'STARTTLS';                             //Enable implicit TLS encryption
             $mail->Port       = \App\Config::MAIL_PORT;                //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-            $mail->CharSet    = 'UTF-8';        
+            $mail->CharSet    = 'UTF-8';
+            $mail->Hostname   = substr(strrchr(\App\Config::MAIL_FROM, '@'), 1);  //Message-ID y EHLO con el dominio del remitente
             $mail->Username   = \App\Config::MAIL_USER;                //SMTP username
             $mail->Password   = \App\Config::MAIL_PASSWORD;            //SMTP password
             
             //Recipients
             $mail->setFrom(\App\Config::MAIL_FROM, \App\Config::MAIL_FROM_NAME);
             $mail->addAddress($email, $nombre);     //Add a recipient
+            $mail->addCustomHeader('List-Unsubscribe', '<mailto:' . \App\Config::MAIL_FROM . '?subject=baja>');
         
             //Content
             $nlTemplate = __DIR__ . '/../Views/email/NL-Lupa-Vales-2025.html';
-            $mail->Body = file_get_contents($nlTemplate);
+            $mail->msgHTML(file_get_contents($nlTemplate));
 
             $mail->isHTML(true);                                  //Set email format to HTML
             //$mail->Subject = $asunto.' - Villalupa';

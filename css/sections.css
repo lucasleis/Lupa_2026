@@ -1,7 +1,10 @@
 /* Los SVG exportados de Figma suelen traer opacity interna; neutralizarla en el archivo antes de controlarla desde CSS. */
-.cta-layers { position: relative; display: flex; box-sizing: border-box; align-items: center; justify-content: center; border: var(--cta-border-width) solid var(--color-gold); border-radius: var(--cta-radius); background: var(--color-sky); color: var(--color-navy); box-shadow: 0 var(--cta-shadow-depth) 0 var(--color-gold-dark); line-height: 1; }
+.cta-layers { position: relative; display: flex; box-sizing: border-box; align-items: center; justify-content: center; border: var(--cta-border-width) solid var(--color-gold); border-radius: var(--cta-radius); background: var(--color-sky); color: var(--color-navy); box-shadow: 0 var(--cta-shadow-depth) 0 var(--color-gold-dark); line-height: 1; transition: background-color 150ms ease, color 150ms ease; }
 .cta-layers span { line-height: 1; }
 .cta-layers:focus-visible { outline: calc(2 * var(--u)) solid var(--color-navy); outline-offset: calc(3 * var(--u)); }
+@media (hover: hover) {
+  .cta-layers:not(:disabled):hover { background: var(--color-white); color: var(--color-navy); }
+}
 
 .hero {
   position: relative;
@@ -291,7 +294,8 @@ body {
 .popup__close img { position: absolute; left: calc(6.48 * var(--u)); top: calc(6.32 * var(--u)); width: calc(31.48 * var(--u)); height: calc(31.37 * var(--u)); border: 0; outline: none; }
 .popup :is(button, a):focus:not(:focus-visible) { outline: none; }
 .popup :is(button, a):focus-visible { outline: calc(2 * var(--u)) solid var(--color-gold); outline-offset: calc(2 * var(--u)); }
-.cupones { --escena-background: var(--color-sand); }
+/* El hueco lvh-svh del sticky queda pegado a la cenefa inferior: se pinta del naranja de la cenefa. */
+.cupones { --escena-background: var(--color-sand); --escena-piso: var(--color-orange); }
 .marco-papiro { position: absolute; z-index: 0; inset: 0; }
 .cupones__title { position: absolute; z-index: 1; top: calc(50.4 * var(--u)); left: calc(50% - (338.8 * var(--u)) / 2); width: calc(338.8 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(48 * var(--u)); font-weight: 800; line-height: calc(48 * var(--u)); letter-spacing: 0.02em; text-align: center; text-transform: uppercase; }
 .cupones__subtitle { position: absolute; z-index: 1; top: calc(112.39 * var(--u)); left: calc(50% - (307.62 * var(--u)) / 2); width: calc(307.62 * var(--u)); margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(18 * var(--u)); font-weight: 400; line-height: calc(18.9 * var(--u)); text-align: center; }
@@ -1227,12 +1231,17 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 }
 
 .hero__result-cta {
+  /* Entra después de la nube: fundido + sube 16u, entre el 30% y el 50% del tramo de entrada. */
+  --cta-entrada: clamp(0, calc((var(--resultado-entrada-p, 0) - 0.3) / 0.2), 1);
+  opacity: var(--cta-entrada);
+  translate: 0 calc((1 - var(--cta-entrada)) * 16 * var(--u));
   position: absolute;
-  z-index: 2;
-  top: calc(458.69 * var(--u));
-  left: calc(57.43 * var(--u));
+  z-index: 14;
+  top: calc(557.8 * var(--u));
+  left: calc(68 * var(--u));
   width: calc(239 * var(--u));
   height: calc(55 * var(--u));
+  visibility: hidden;
   padding: 0;
   background: var(--color-navy);
   color: var(--color-white-warm);
@@ -1240,7 +1249,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   font-size: calc(22 * var(--u));
   line-height: 1;
   font-weight: 600;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 .hero__stage[data-respondido="true"] .hero__options,
@@ -1250,7 +1259,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 }
 
 .hero__stage[data-resultado="acierto"] .hero__result[data-resultado="acierto"][data-resultado-active="true"],
-.hero__stage[data-resultado="error"] .hero__result[data-resultado="error"][data-resultado-active="true"] {
+.hero__stage[data-resultado="error"] .hero__result[data-resultado="error"][data-resultado-active="true"],
+.hero__stage[data-resultado="acierto"] .hero__result[data-resultado="acierto"][data-resultado-active="true"] + .hero__result-cta,
+.hero__stage[data-resultado="error"] .hero__result[data-resultado="error"][data-resultado-active="true"] + .hero__result-cta {
   visibility: visible;
   pointer-events: auto;
 }
@@ -1868,7 +1879,6 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     font-weight: 800;
     line-height: calc(54 * var(--ud));
     text-align: center;
-    text-transform: uppercase;
     transform: translateX(-50%);
   }
 
@@ -2456,8 +2466,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .hero__stage .hero__result-cta {
-    top: calc(503.87 * var(--ud));
-    left: calc(360.97 * var(--ud));
+    top: calc(725 * var(--ud));
+    left: calc(479 * var(--ud));
     width: calc(482 * var(--ud));
     height: calc(76 * var(--ud));
     font-size: calc(32 * var(--ud));
@@ -3428,30 +3438,32 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
 }
 
-/* Rendimiento de scroll desktop (ver docs/rendimiento-scroll.md).
+/* Rendimiento de scroll (ver docs/rendimiento-scroll.md).
    Sin capa propia, cada cambio de transform ligado al scroll obliga a Chrome
    a re-rasterizar el stage entero en cada frame.
    1) Traslaciones sin escala: capa permanente; mover una capa no re-rasteriza.
    2) Elementos que ESCALAN: capa solo mientras hay scroll (html[data-scrolling],
       lo pone js/scroll-activo.js). Con capa fija se rasterizan a escala 1 y el
       zoom los muestra borrosos; así en reposo vuelven a quedar nítidos. */
-@media (min-width: 900px) {
-  .hero__clouds,
-  .hero__stage .hero__lockup-word,
-  .hero__stage .hero__lockup-banner,
-  .hero__prompt-group,
-  .hero__ofertiti,
-  .hero__cloud-two,
-  .escena__stage {
-    will-change: transform;
-  }
+.hero__clouds,
+.hero__stage .hero__lockup-word,
+.hero__stage .hero__lockup-banner,
+.hero__prompt-group,
+.hero__ofertiti,
+.hero__cloud-two,
+.escena__stage,
+.acertijo-panel,
+.piramide-escena__arena {
+  will-change: transform;
+}
 
-  html[data-scrolling] .hero__sphinx-group,
-  html[data-scrolling] .hero__sphinx-ground,
-  html[data-scrolling] .piramide-escena,
-  html[data-scrolling] .puerta__escena {
-    will-change: transform;
-  }
+html[data-scrolling] .hero__sphinx-group,
+html[data-scrolling] .hero__sphinx-ground,
+html[data-scrolling] .hero__riddle-group,
+html[data-scrolling] .hero__start,
+html[data-scrolling] .piramide-escena,
+html[data-scrolling] .puerta__escena {
+  will-change: transform;
 }
 
 /* Relevo del interior de la pirámide: una vez que la cámara del hero

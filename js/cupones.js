@@ -1,7 +1,7 @@
 // Provisional: los cupones llegarán de una fuente todavía no definida.
 // El backend deberá devolver el descuento separado en euros y centavos.
 const cupones = [
-  { euros: '30', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/anchoa.webp',   titulo: 'Anchoa Consorcio Aceite de Oliva',        detalle: '120GR',     codigo: '000000000001' },
+  { euros: '30', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/anchoa.webp',   titulo: 'Anchoa Consorcio Aceite de Oliva',        detalle: '29GR',      codigo: '000000000001' },
   { euros: '25', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/kombucha.webp', titulo: 'Kombucha KomVida Jengibre y limón',        detalle: '250ML',     codigo: '000000000002' },
   { euros: '30', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/pimiento.webp', titulo: 'Pimiento Cárcar morrón extra pack',        detalle: '3udsX80GR', codigo: '000000000003' },
   { euros: '40', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/papel.webp',    titulo: 'Papel higiénico Natura Aloe Vera 3 Capas', detalle: '6 rollos',  codigo: '000000000004' },

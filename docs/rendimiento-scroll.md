@@ -21,6 +21,8 @@ frame. El problema era rasterizar.
 2. Transforms ligados al scroll sin capa propia: cada frame repintaba el stage
    entero. Ver el bloque "Rendimiento de scroll desktop" al final de
    `css/sections.css` y `js/scroll-activo.js`.
+3. Hasta el 2026-10-25 el bloque de capas estaba limitado a >=900px; en mobile
+   (iPhone) el scroll iba a ~12-15 fps. Ahora aplica en todos los anchos.
 
 ## Reglas para assets nuevos
 

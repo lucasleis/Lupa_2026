@@ -2,6 +2,15 @@ import { irA } from './lenis.js';
 
 export const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
+// Escribir el mismo valor igual invalida estilos (en body, el árbol entero) y fuerza
+// layout al próximo getBoundingClientRect de otro handler de scroll.
+export const fijar = (el, propiedad, valor) => {
+  if (el && el.style.getPropertyValue(propiedad) !== valor) el.style.setProperty(propiedad, valor);
+};
+export const marcar = (el, clave, valor) => {
+  if (el && el.dataset[clave] !== valor) el.dataset[clave] = valor;
+};
+
 export let altoViewportSVH = window.innerHeight;
 if (!altoViewportSVH) throw new Error('--vh midió 0 al inicializar');
 document.documentElement.style.setProperty('--vh', `${altoViewportSVH}px`);
@@ -40,7 +49,7 @@ export const progresoDeRiel = (rail, {
   const progreso = tramo > 0 ? (progresoDelRiel - inicio) / tramo : 0;
   const resultado = clamp(progreso);
 
-  if (destino && propiedad) destino.style.setProperty(propiedad, String(resultado));
+  if (destino && propiedad) fijar(destino, propiedad, String(resultado));
   return resultado;
 };
 
@@ -59,6 +68,7 @@ const anuncioRail = document.querySelector('.acertijo-panel-rail--anuncio');
 const quizRail = document.querySelector('.acertijo-panel-rail--quiz');
 const resultRail = document.querySelector('.acertijo-panel-rail--resultado');
 const pyramidRail = document.querySelector('.acertijo-panel-rail--piramide');
+let salaEnFinal = false;
 const pyramidScene = document.querySelector('.piramide-escena');
 const skipLink = document.querySelector('.hero__skip');
 if (heroTrack) {
@@ -121,7 +131,7 @@ if (heroTrack) {
   let pyramidRailEnabled = false;
 
   const liberarScroll = () => {
-    delete document.body.dataset.introBloqueado;
+    if ('introBloqueado' in document.body.dataset) delete document.body.dataset.introBloqueado;
   };
 
   // Checkpoints: un riel en 0svh no aporta altura al documento, asi que el
@@ -199,8 +209,14 @@ if (heroTrack) {
       const entradaProgress = progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: APERTURA_FIN, fin: 1, destino: heroStage, propiedad: '--entrada-p' });
       // .pase-puerta cuelga de <body>, fuera de .hero__stage, y las custom
       // properties solo heredan hacia abajo: sin esto nunca ve --entrada-p.
-      document.body.style.setProperty('--entrada-p', String(entradaProgress));
-      document.body.dataset.enSala = String(entradaProgress >= 0.999);
+      fijar(document.body, '--entrada-p', String(entradaProgress));
+      marcar(document.body, 'enSala', String(entradaProgress >= 0.999));
+      if (entradaProgress >= 0.999 && !salaEnFinal && heroTrack?.getBoundingClientRect().bottom > 0) {
+        salaEnFinal = true;
+        document.dispatchEvent(new CustomEvent('sala:final'));
+      } else if (entradaProgress < 0.9) {
+        salaEnFinal = false;
+      }
     }
     // Checkpoint final: desktop usa --piramide-p y mobile --puerta-p. No hay
     // fundido en .piramide-escena (el de .puerta__fundido usa otro --puerta-p,
@@ -214,14 +230,14 @@ if (heroTrack) {
     panelProgress = panelEnJuego ? entryProgress * 0.5 + exitProgress * 0.5 : 1;
     const effectivePanelProgress = panelProgress;
     if (skipLink) {
-      skipLink.dataset.panelActive = String(panelEnJuego && puzzleStarted && effectivePanelProgress < 1);
+      marcar(skipLink, 'panelActive', String(panelEnJuego && puzzleStarted && effectivePanelProgress < 1));
     }
-    document.body.style.setProperty('--intro-progress', String(progress));
-    document.body.style.setProperty('--panel-progress', String(effectivePanelProgress));
-    panel?.setAttribute('data-progress-state',
-      effectivePanelProgress > 0.001 && effectivePanelProgress < 0.999 ? 'activo' : 'reposo');
+    fijar(document.body, '--intro-progress', String(progress));
+    fijar(document.body, '--panel-progress', String(effectivePanelProgress));
+    const progressState = effectivePanelProgress > 0.001 && effectivePanelProgress < 0.999 ? 'activo' : 'reposo';
+    if (panel?.getAttribute('data-progress-state') !== progressState) panel?.setAttribute('data-progress-state', progressState);
     if (!puzzleComplete || exitProgress < 1) {
-      heroStage?.style.setProperty('--quiz-p', String(quizProgress));
+      fijar(heroStage, '--quiz-p', String(quizProgress));
     }
 
     if (puzzleStarted) {
@@ -244,53 +260,53 @@ if (heroTrack) {
         ? progresoDeRiel(resultRail, { desdeElTope: true, inicio: resultadoRielTramos.resultadoEntradaInicio, fin: resultadoRielTramos.resultadoEntradaFin })
         : 0;
       const quizExitProgress = 1 - resultExitProgress;
-      heroStage?.style.setProperty('--resultado-salida-p', String(resultExitProgress));
-      heroStage?.style.setProperty('--resultado-entrada-p', String(resultEntryProgress));
+      fijar(heroStage, '--resultado-salida-p', String(resultExitProgress));
+      fijar(heroStage, '--resultado-entrada-p', String(resultEntryProgress));
 
       if (answerSubmitted && resultProgress >= 0.999 && !pyramidRailEnabled) {
         pyramidRailEnabled = true;
         habilitarRiel(pyramidRail, '--piramide-rail-height', RAIL_HEIGHTS.piramide);
       }
       if (pyramidScene) {
-        pyramidScene.dataset.piramideActive = String(pyramidProgress > 0);
+        marcar(pyramidScene, 'piramideActive', String(pyramidProgress > 0));
       }
 
       if (questionUi) {
-        questionUi.inert = !controlsVisible;
-        questionUi.setAttribute('aria-hidden', String(!controlsVisible));
-        questionUi.dataset.quizVisible = String(controlsVisible);
+        if (questionUi.inert !== !controlsVisible) questionUi.inert = !controlsVisible;
+        const questionHidden = String(!controlsVisible);
+        if (questionUi.getAttribute('aria-hidden') !== questionHidden) questionUi.setAttribute('aria-hidden', questionHidden);
+        marcar(questionUi, 'quizVisible', String(controlsVisible));
 
         // El umbral de --quiz-p va en ambas ramas para que la vuelta sea simétrica.
         questionUi.querySelectorAll('.hero__option').forEach((option, index) => {
-          option.dataset.quizActive = String(
+          marcar(option, 'quizActive', String(
             controlsVisible
               && quizProgress >= ENTRADA_CONTROLES
               && (!answerSubmitted || quizExitProgress >= 0.999)
-          );
+          ));
         });
         const continueButton = questionUi.querySelector('.hero__continue');
         if (continueButton) {
-          continueButton.dataset.quizActive = String(
+          marcar(continueButton, 'quizActive', String(
             controlsVisible
               && quizProgress >= ENTRADA_CONTROLES
               && (!answerSubmitted || quizExitProgress >= 0.999)
-          );
+          ));
         }
         questionUi.querySelectorAll('.hero__result').forEach((result) => {
-          result.dataset.resultadoActive = String(answerSubmitted && controlsVisible && resultEntryProgress > 0);
-          result.setAttribute('aria-hidden', String(
-            !(answerSubmitted && controlsVisible && resultEntryProgress > 0)
-          ));
+          marcar(result, 'resultadoActive', String(answerSubmitted && controlsVisible && resultEntryProgress > 0));
+          const resultHidden = String(!(answerSubmitted && controlsVisible && resultEntryProgress > 0));
+          if (result.getAttribute('aria-hidden') !== resultHidden) result.setAttribute('aria-hidden', resultHidden);
         });
       }
       if (skipLink) {
         // Se va con la entrada de la pirámide, apareado con la rampa 0.15 de
         // .piramide-escena que ya usa controlsVisible (:218).
-        skipLink.dataset.quizActive = String(
+        marcar(skipLink, 'quizActive', String(
           currentState === 'pregunta'
           && quizProgress >= ENTRADA_CONTROLES // Aparece con las opciones.
           && pyramidProgress < 0.15
-        );
+        ));
       }
     }
   };

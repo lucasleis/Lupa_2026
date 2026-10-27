@@ -1,9 +1,8 @@
 import { irA } from './lenis.js';
-import { altoViewportSVH } from './intro-scroll.js';
+import { altoViewportSVH, marcar } from './intro-scroll.js';
 
 const cortina = document.querySelector('.pase-puerta');
 const ofertas = document.querySelector('.ofertas');
-const popup = document.querySelector('.popup');
 
 let armada = false;
 
@@ -34,23 +33,12 @@ const revelar = () => {
 
 document.addEventListener('interior:final', () => {
   if (!cortina || armada) return;
-  // El popup solo se muestra una vez por carga. En recorridos posteriores,
-  // deja que el usuario continúe desplazándose sin volver a bloquearlo.
-  if (popup?.classList.contains('popup--montado') && popup.getAttribute('aria-hidden') !== 'false') return;
   armada = true;
-  // El popup abre en este mismo evento. Se resuelve en el siguiente
-  // macrotask y leyendo el DOM, para no depender del orden en que popup.js
-  // y este modulo registraron sus listeners.
   window.setTimeout(() => {
-    if (popup?.getAttribute('aria-hidden') === 'false') return;
-    // Sin popup no hay lock de scroll: lo toma la cortina, porque saltar el
-    // scroll mientras el usuario lo esta empujando pelea con el momentum.
     document.documentElement.style.overflow = 'hidden';
     window.setTimeout(revelar, 200);
   }, 0);
 });
-
-document.addEventListener('popup:cerrado', revelar);
 
 // Vuelta. El salto de ida teletransporta al final del riel de ofertas, asi que
 // subir devuelve un recorrido que bajar nunca hizo. Esto lo espeja: al empezar
@@ -69,8 +57,8 @@ const alSubir = () => {
   if (document.body.dataset.puertaRevelada !== 'true') return;
   if (ofertas.getBoundingClientRect().top < 0) return;
   volviendo = true;
-  delete document.body.dataset.puertaRevelada;
-  document.body.dataset.paseVolviendo = 'true';
+  if ('puertaRevelada' in document.body.dataset) delete document.body.dataset.puertaRevelada;
+  marcar(document.body, 'paseVolviendo', 'true');
   irA(interior.offsetTop + interior.offsetHeight - altoViewportSVH, { lock: true, immediate: true });
   fijarDurante(FUNDIDO);
   window.setTimeout(() => {

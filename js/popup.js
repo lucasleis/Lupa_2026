@@ -44,7 +44,7 @@ const abrir = () => {
   document.dispatchEvent(new CustomEvent('popup:abierto'));
 };
 
-document.addEventListener('interior:final', abrir);
+document.addEventListener('sala:final', abrir);
 
 popup?.addEventListener('click', (event) => {
   if (event.target === popup) cerrar();
