@@ -99,7 +99,7 @@ if (heroTrack) {
     ? alturaViewport(ALTURA_RESULTADO_DESKTOP / 100)
     : alturaViewport(ALTURA_RESULTADO_MOBILE / 100);
   const tramosResultado = () => panelRailsDesktop.matches ? RESULTADO_TRAMOS_DESKTOP : RESULTADO_TRAMOS;
-  const alturaRielPiramide = () => alturaViewport(panelRailsDesktop.matches ? 3 : 6);
+  const alturaRielPiramide = () => alturaViewport(panelRailsDesktop.matches ? 1.65 : 5.4);
   const entradaControles = () => panelRailsDesktop.matches
     ? ENTRADA_CONTROLES_DESKTOP
     : GLOBO_COMPLETO_EN + PAUSA_GLOBO_SVH / ALTURA_QUIZ_MOBILE;
@@ -129,6 +129,7 @@ if (heroTrack) {
   let panelProgress = 0;
   let answerSubmitted = false;
   let pyramidRailEnabled = false;
+  let introSaltada = false;
 
   const liberarScroll = () => {
     if ('introBloqueado' in document.body.dataset) delete document.body.dataset.introBloqueado;
@@ -140,7 +141,7 @@ if (heroTrack) {
   //   EMPEZAR -> entrada | 3 papiros -> salida + quiz
   //   respuesta -> resultado | resultado al 100% -> piramide
   //   Desktop libera con --piramide-p al 85%; mobile con --puerta-p al 85%.
-  //   El riel piramide mide 300svh en desktop y 600svh en mobile. Se revela
+  //   El riel piramide mide 165svh en desktop y 540svh en mobile. Se revela
   //   el resto de la pagina.
   const recalcularAlturasRielesPanel = () => {
     RAIL_HEIGHTS.anuncio = alturaViewport(1.5);
@@ -191,22 +192,19 @@ if (heroTrack) {
     const quizProgress = (!panelEnJuego || (puzzleComplete && exitRailProgress >= 1))
       ? progresoDeRiel(quizRail, { desdeElTope: true, destino: heroStage, propiedad: '--quiz-p' })
       : 0;
-    // Reparto: acercamiento (--piramide-p), puerta (--puerta-p), apertura y entrada.
-    const REPARTO_PIRAMIDE = panelRailsDesktop.matches ? 0.40 : 0.5; // Desktop: acercamiento, 0-120svh.
-    // El zoom de la puerta termina acá; el resto del riel es freno, con la
-    // escena sostenida en su zoom final antes de que el hero se suelte.
-    const FRENO_PIRAMIDE = panelRailsDesktop.matches ? 0.70 : 0.78; // Desktop: puerta, 120-210svh.
-    const APERTURA_FIN = panelRailsDesktop.matches ? 0.85 : 0.88; // Desktop: apertura 210-255svh; entrada 255-300svh.
+    // Reparto: acercamiento (--piramide-p), puerta (--puerta-p) y entrada. Sin apertura de hojas.
+    const REPARTO_PIRAMIDE = panelRailsDesktop.matches ? 120 / 165 : 300 / 540; // Desktop: acercamiento, 0-120svh.
+    // Desktop no tiene tramo de puerta: su zoom no usa --puerta-p y ese tramo era
+    // escena quieta. Mobile sí hace el zoom a la puerta con --puerta-p.
+    const FRENO_PIRAMIDE = panelRailsDesktop.matches ? 120 / 165 : 468 / 540; // Desktop: entrada 120-165svh. Mobile: puerta 300-468, entrada 468-540.
     const pyramidProgress = pyramidRailEnabled
       ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0, fin: REPARTO_PIRAMIDE, destino: heroStage, propiedad: '--piramide-p' })
       : 0;
     const doorProgress = pyramidRailEnabled
       ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: REPARTO_PIRAMIDE, fin: FRENO_PIRAMIDE, destino: heroStage, propiedad: '--puerta-p' })
       : 0;
-    // Terminado el zoom, el freno abre las hojas y luego acerca al interior.
     if (pyramidRailEnabled) {
-      progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: FRENO_PIRAMIDE, fin: APERTURA_FIN, destino: heroStage, propiedad: '--apertura-p' });
-      const entradaProgress = progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: APERTURA_FIN, fin: 1, destino: heroStage, propiedad: '--entrada-p' });
+      const entradaProgress = progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: FRENO_PIRAMIDE, fin: 1, destino: heroStage, propiedad: '--entrada-p' });
       // .pase-puerta cuelga de <body>, fuera de .hero__stage, y las custom
       // properties solo heredan hacia abajo: sin esto nunca ve --entrada-p.
       fijar(document.body, '--entrada-p', String(entradaProgress));
@@ -227,7 +225,9 @@ if (heroTrack) {
     } else if (doorProgress >= 0.85) {
       liberarScroll();
     }
-    panelProgress = panelEnJuego ? entryProgress * 0.5 + exitProgress * 0.5 : 1;
+    // Tras SALTAR INTRO el panel sale de pantalla (1 = arriba del viewport) aunque
+    // los papiros no se hayan resuelto; si no, queda fijo tapando el destino.
+    panelProgress = panelEnJuego && !introSaltada ? entryProgress * 0.5 + exitProgress * 0.5 : 1;
     const effectivePanelProgress = panelProgress;
     if (skipLink) {
       marcar(skipLink, 'panelActive', String(panelEnJuego && puzzleStarted && effectivePanelProgress < 1));
@@ -306,6 +306,7 @@ if (heroTrack) {
           currentState === 'pregunta'
           && quizProgress >= ENTRADA_CONTROLES // Aparece con las opciones.
           && pyramidProgress < 0.15
+          && !(answerSubmitted && resultEntryProgress > 0) // Se va con la pantalla de resultado.
         ));
       }
     }
@@ -325,11 +326,11 @@ if (heroTrack) {
   // Calibrable: 1.8 de CAMARA se siente lento para un click directo.
   const DURACION_SALTO_PANEL = 0.9;
   // El salto a la pirámide va a velocidad de cámara constante, no a duración fija:
-  // mobile recorre ~8 pantallas (riel de 600svh + resto de resultado) y escritorio ~4.
+  // mobile recorre ~7 pantallas (riel de 540svh + resto de resultado) y escritorio ~2.5.
   // Con 3.6s fijos, mobile iba al doble y el camino no se llegaba a ver.
   // Calibrables: velocidad en pantallas por segundo y piso (que deja escritorio como estaba).
   const PANTALLAS_POR_SEGUNDO_PIRAMIDE = 1.1;
-  const DURACION_MIN_PIRAMIDE = 3.6;
+  const DURACION_MIN_PIRAMIDE = 2.0;
   const duracionSaltoPiramide = (distancia) => Math.max(
     DURACION_MIN_PIRAMIDE,
     distancia / altoViewportSVH / PANTALLAS_POR_SEGUNDO_PIRAMIDE,
@@ -360,7 +361,7 @@ if (heroTrack) {
 
   // <base href> hace que href="#x" navegue a BASE#x y recargue la página:
   // los anclas internas se resuelven acá. SALTAR INTRO además libera el
-  // bloqueo (si no, #formulario está en display:none).
+    // bloqueo (si no, #formulario está en display:none).
   // Todos saltan sin animar: un scroll suave atravesaría la intro y el pase del interior a
   // ofertas.
   document.addEventListener('click', (event) => {
@@ -368,8 +369,26 @@ if (heroTrack) {
     const destino = link && document.querySelector(link.getAttribute('href'));
     if (!destino) return;
     event.preventDefault();
-    if (link.matches('.hero__skip, .acertijo-panel__skip')) liberarScroll();
-    irA(destino, { immediate: true });
+    if (link.matches('.hero__skip, .acertijo-panel__skip')) {
+      introSaltada = true;
+      panel?.setAttribute('aria-hidden', 'true');
+      if (panel) panel.inert = true;
+      liberarScroll();
+      // Las secciones estaban en display:none (css/base.css:84). Lenis cachea el
+      // límite de scroll y lo actualiza en un frame posterior: sin esto, el primer
+      // salto se recorta al alto viejo de la intro.
+      window.lenis.resize();
+      // Aterriza al 60% del riel de .prueba-superada: el stage termina de entrar al 10%
+      // (--escena-entrada-tramo) y la capa del pasillo (.sala-fondo) se va al 55%.
+      // Mismo cálculo que progresoDeRiel con desdeElTope: p = (vh - rail.top) / rail.height.
+      const rail = destino.querySelector('.escena-rail');
+      const rect = rail?.getBoundingClientRect();
+      const top = rect ? window.scrollY + rect.top - altoViewportSVH + rect.height * 0.6 : destino;
+      irA(top, { immediate: true });
+      updateProgress();
+    } else {
+      irA(destino, { immediate: true });
+    }
     destino.focus({ preventScroll: true });
   });
 

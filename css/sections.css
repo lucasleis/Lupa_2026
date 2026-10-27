@@ -1,9 +1,11 @@
 /* Los SVG exportados de Figma suelen traer opacity interna; neutralizarla en el archivo antes de controlarla desde CSS. */
 .cta-layers { position: relative; display: flex; box-sizing: border-box; align-items: center; justify-content: center; border: var(--cta-border-width) solid var(--color-gold); border-radius: var(--cta-radius); background: var(--color-sky); color: var(--color-navy); box-shadow: 0 var(--cta-shadow-depth) 0 var(--color-gold-dark); line-height: 1; transition: background-color 150ms ease, color 150ms ease; }
-.cta-layers span { line-height: 1; }
+.cta-layers span { line-height: 1; transition: color 150ms ease; }
 .cta-layers:focus-visible { outline: calc(2 * var(--u)) solid var(--color-navy); outline-offset: calc(3 * var(--u)); }
 @media (hover: hover) {
   .cta-layers:not(:disabled):hover { background: var(--color-white); color: var(--color-navy); }
+  /* Algunos botones (COMPROBAR en desktop, ~2468) fijan el color en el span; sin esto queda blanco sobre blanco. */
+  .cta-layers:not(:disabled):hover span { color: var(--color-navy); }
 }
 
 .hero {
@@ -842,18 +844,14 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   height: calc(987.3 * var(--u));
 }
 
-/* Cada hoja es el SVG completo recortado a su mitad, con bisagra en su borde
-   exterior. Abren hacia adentro: la izquierda gira en positivo. */
+/* Cada hoja es el SVG completo recortado a su mitad. Quedan fijas cerradas:
+   la apertura animada se quitó. */
 .piramide-puerta__hoja--izq {
   clip-path: inset(0 50% 0 0);
-  transform-origin: 3.01% 50%;
-  transform: rotateY(calc(80deg * var(--apertura-p, 0)));
 }
 
 .piramide-puerta__hoja--der {
   clip-path: inset(0 0 0 50%);
-  transform-origin: 94.75% 50%;
-  transform: rotateY(calc(-80deg * var(--apertura-p, 0)));
 }
 
 .piramide-escena[data-piramide-active="true"] {
@@ -1070,7 +1068,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .hero__option[data-quiz-active="true"]:nth-child(2) { transition-delay: 90ms; }
 .hero__option[data-quiz-active="true"]:nth-child(3) { transition-delay: 180ms; }
 .hero__option[data-quiz-active="true"]:nth-child(4) { transition-delay: 270ms; }
-.hero__continue[data-quiz-active="true"] { transition-delay: 400ms; }
+.hero__continue[data-quiz-active="true"] { transition-delay: 400ms, 0ms, 0ms; }
 
 /* Sin escalonado a la salida: un scroll rápido vuelve a traer el globo
    antes de que termine, y se pisan. La entrada sí lo conserva. */
@@ -1097,7 +1095,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   font-weight: 600;
   transform: scale(0);
   transform-origin: center;
-  transition: transform 220ms ease-out;
+  transition: transform 220ms ease-out, background-color 150ms ease, color 150ms ease;
   pointer-events: none;
 }
 
