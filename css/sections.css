@@ -2338,14 +2338,14 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .hero__stage[data-estado] > .hero__riddle-group > .hero__riddle {
-    top: calc(50% - (69 * var(--ud)));
+    top: calc(50% - (36 * var(--ud)));
     left: 6.93%;
     width: 84.45%;
-    height: calc(138 * var(--ud));
+    height: calc(72 * var(--ud));
     color: var(--color-brown-dark);
-    font-size: calc(44 * var(--ud));
+    font-size: calc(32 * var(--ud));
     font-weight: 800;
-    line-height: calc(46 * var(--ud));
+    line-height: calc(36 * var(--ud));
     text-align: center;
   }
 
