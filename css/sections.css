@@ -2302,12 +2302,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .hero__prompt {
-    top: 32.67%;
+    top: 27.94%;
     left: 5.72%;
     width: 88.55%;
-    height: 34.05%;
-    font-size: calc(32 * var(--ud));
-    line-height: calc(36 * var(--ud));
+    height: 43.51%;
+    font-size: calc(40 * var(--ud));
+    line-height: calc(42 * var(--ud));
   }
 
   .hero__stage[data-estado] > .hero__riddle-group {
