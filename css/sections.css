@@ -1155,12 +1155,15 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   cursor: not-allowed;
 }
 
+/* Mismo criterio que .hero__riddle-group: 330 centrado (22.5 a 352.5) entra
+   en las 354 unidades visibles del peor caso de mobile sin tocar los bordes.
+   La altura sale del aspect-ratio. */
 .hero__result {
   position: absolute;
   z-index: 14;
   top: calc(99.11 * var(--u));
-  left: calc(10.57 * var(--u));
-  width: calc(341.6 * var(--u));
+  left: calc(22.5 * var(--u));
+  width: calc(330 * var(--u));
   aspect-ratio: 1025 / 445;
   box-sizing: border-box;
   display: flex;
