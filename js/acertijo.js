@@ -54,6 +54,8 @@ if (panel && questionsRoot) {
     scroll.classList.add('is-open');
 
     if (opened.size === acertijoData.length) {
+      // css/sections.css muestra "Desliza hacia abajo" con esto.
+      panel.dataset.completo = 'true';
       // Punto de enganche para la transición a la pantalla de la esfinge.
       window.setTimeout(() => {
         document.dispatchEvent(new CustomEvent('acertijo:completado'));

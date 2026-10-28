@@ -3452,6 +3452,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     line-height: calc(19 * var(--ud));
     text-align: center;
     white-space: nowrap;
+    opacity: 0;
+    transition: opacity 300ms ease-out;
+  }
+
+  .acertijo-panel[data-completo="true"] .acertijo-panel__desliza {
+    opacity: 1;
   }
 
   /* En escritorio el pasillo no lo dispara la seccion .puerta: entra con la
