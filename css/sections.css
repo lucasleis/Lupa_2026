@@ -360,6 +360,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .ofertas__stage { --ofertas-subida: max(0px, calc(var(--vh) - 667 * var(--u))); }
   .ofertas__stage .ofertas__glifos { top: calc(-1 * var(--ofertas-subida)); height: calc(100% + var(--ofertas-subida)); }
   .ofertas__stage .ofertas__cenefa { top: calc(-1.52 * var(--u) - var(--ofertas-subida)); }
+  .ofertas__arrow.carrusel__arrow--prev { left: calc(var(--vp-izq) + 8px); right: auto; }
+  .ofertas__arrow.carrusel__arrow--next { left: calc(var(--vp-der) - 54.05 * var(--u) - 8px); right: auto; }
 }
 .ofertas__header { position: absolute; z-index: 1; top: calc(93.49 * var(--u)); left: calc(18.25 * var(--u)); display: flex; width: calc(338.8 * var(--u)); height: calc(140 * var(--u)); flex-direction: column; align-items: center; justify-content: center; gap: calc(16 * var(--u)); }
 .ofertas__header h3 { width: 100%; flex-shrink: 0; margin: 0; color: var(--color-white-warm); font-family: var(--font-display); font-size: calc(48 * var(--u)); font-weight: 800; line-height: calc(48 * var(--u)); letter-spacing: 0.02em; text-align: center; text-transform: uppercase; }
@@ -406,8 +408,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .vales__stage .vales__columna--izq { left: calc(-77.23 * var(--u)); top: calc(42.51 * var(--u) - var(--vales-subida)); width: calc(133.01 * var(--u)); height: calc(635.63 * var(--u) + var(--vales-subida)); }
   .vales__stage .vales__columna--der { left: calc(320.69 * var(--u)); top: calc(43.15 * var(--u) - var(--vales-subida)); width: calc(132.88 * var(--u)); height: calc(634.99 * var(--u) + var(--vales-subida)); }
   .vales__arrow { top: calc(406.59 * var(--u)); }
-  .vales__arrow.carrusel__arrow--prev { left: calc(8.39 * var(--u)); }
-  .vales__arrow.carrusel__arrow--next { left: calc(313.51 * var(--u)); right: auto; }
+  .vales__arrow.carrusel__arrow--prev { left: calc(var(--vp-izq) + 8px); right: auto; }
+  .vales__arrow.carrusel__arrow--next { left: calc(var(--vp-der) - 54.05 * var(--u) - 8px); right: auto; }
 }
 .vales__header { position: absolute; z-index: 1; top: calc(55.49 * var(--u)); left: 50%; display: flex; width: calc(295 * var(--u)); height: auto; flex-direction: column; align-items: center; justify-content: center; gap: calc(10 * var(--u)); transform: translateX(-50%); }
 .vales__header h3 { width: 100%; height: calc(48 * var(--u)); margin: 0; color: var(--color-white-warm); font-family: var(--font-display); font-size: calc(48 * var(--u)); font-weight: 800; line-height: calc(48 * var(--u)); letter-spacing: 0.02em; text-align: center; text-transform: uppercase; }
@@ -613,6 +615,19 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   width: 100%;
   aspect-ratio: var(--escena-ar);
   flex: 0 0 auto;
+}
+
+@media (max-width: 480px) {
+  .hero__sticky { justify-content: center; }
+  .hero__stage {
+    /* Mismo criterio que .escena__stage; el techo excluye lockup y Ofertiti, que se recortan por diseño. */
+    --u: clamp(
+      min(calc(100vw / 375), calc(100svh / 667)),
+      calc(100svh / 667),
+      calc(100vw / 354)
+    );
+    width: calc(375 * var(--u));
+  }
 }
 
 @media (max-width: 899px) {
