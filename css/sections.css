@@ -120,7 +120,7 @@
 
 .marco-papiro__cenefa { width: calc(704.43 * var(--u)); }
 .marco-papiro__cenefa--superior { left: calc(-207.06 * var(--u)); top: calc(-2.76 * var(--u)); }
-.marco-papiro__cenefa--inferior { left: calc(-221.54 * var(--u)); top: calc(622.92 * var(--u)); z-index: 9; transform: scaleY(-1); }
+.marco-papiro__cenefa--inferior { left: calc(-221.54 * var(--u)); top: calc(622.92 * var(--u)); z-index: 9; }
 @media (max-width: 899px) {
   .prueba-superada__stage, .cupones__stage { --papiro-subida: max(0px, calc(var(--vh) - 667 * var(--u))); }
   .escena__stage .marco-papiro__cenefa--superior { top: calc(-2.76 * var(--u) - var(--papiro-subida)); }
@@ -842,6 +842,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   top: calc(-236.55 * var(--u));
   width: calc(555.36 * var(--u));
   height: calc(987.3 * var(--u));
+}
+
+/* Cerradas no dejan ver el vano que se agranda con --entrada-p: se funden en
+   el primer 30% de la entrada. Calibrable: el 0.3. */
+.piramide-puerta .piramide-puerta__hoja {
+  opacity: calc(1 - clamp(0, calc(var(--entrada-p, 0) / 0.3), 1));
 }
 
 /* Cada hoja es el SVG completo recortado a su mitad. Quedan fijas cerradas:
