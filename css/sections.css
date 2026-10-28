@@ -398,7 +398,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   height: calc(var(--vh) * 0.6);
 }
 .vales__decorado { position: absolute; z-index: 0; inset: 0; }
-.vales__glifos { position: absolute; top: 0; left: min(calc(2.5 * var(--u)), var(--vp-izq)); width: calc(max(calc(372.5 * var(--u)), var(--vp-der)) - min(calc(2.5 * var(--u)), var(--vp-izq))); height: 100%; background-image: url("../img/puerta/glifos-pared.svg"); background-position: calc(calc(2.5 * var(--u)) - min(calc(2.5 * var(--u)), var(--vp-izq))) top; background-repeat: repeat; background-size: calc(370 * var(--u)) calc(20 * var(--u)); opacity: 0.2; }
+.vales__glifos { position: absolute; top: 0; left: min(calc(2.5 * var(--u)), var(--vp-izq)); width: calc(max(calc(372.5 * var(--u)), var(--vp-der)) - min(calc(2.5 * var(--u)), var(--vp-izq))); height: 100%; background-image: url("../img/puerta/glifos-pared.svg"); background-position: calc(calc(2.5 * var(--u)) - min(calc(2.5 * var(--u)), var(--vp-izq))) top; background-repeat: repeat; background-size: calc(370 * var(--u)) calc(20 * var(--u)); opacity: 0.1; }
 .vales__cenefa { position: absolute; left: calc(-207.06 * var(--u)); top: calc(-1.52 * var(--u)); width: calc(704.43 * var(--u)); height: calc(46.08 * var(--u)); max-width: none; }
 .vales__columna { display: block; }
 @media (max-width: 899px) {
