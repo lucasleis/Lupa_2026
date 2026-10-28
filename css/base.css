@@ -76,8 +76,9 @@ main {
   }
 }
 
-/* Sin variante de reduced motion: decisión de diseño, el recorrido se anima igual
-   en todos los dispositivos. Ver también js/lenis.js (respectReducedMotion: false). */
+@media (prefers-reduced-motion: reduce) {
+  .site-menu { transition-duration: 0.01ms !important; }
+}
 
 /* Bloqueo de scroll de la intro: sin contenido debajo del hero, el scroll
    se detiene al final del riel. Lo levanta intro-scroll.js. */

@@ -368,6 +368,7 @@ if (heroTrack) {
     const link = event.target.closest('a[href^="#"]:not([href="#"])');
     const destino = link && document.querySelector(link.getAttribute('href'));
     if (!destino) return;
+    if (link.matches('.site-menu a[href^="#"]')) liberarScroll();
     event.preventDefault();
     if (link.matches('.hero__skip, .acertijo-panel__skip')) {
       introSaltada = true;

@@ -20,8 +20,26 @@
       <a class="site-header__logo" href="./" aria-label="Volver al inicio de Lupa">
         <img src="img/logo-lupa.svg" alt="Lupa">
       </a>
-
+      <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-menu">
+        <img class="menu-toggle__icon" src="img/hamburguer.svg" alt="" aria-hidden="true">
+      </button>
     </header>
+
+    <nav class="site-menu" id="site-menu" aria-label="Menú principal" aria-hidden="true" inert>
+      <img class="site-menu__cenefa site-menu__cenefa--top" src="img/prueba-superada/cenefa.webp" alt="" aria-hidden="true" width="2114" height="139">
+      <img class="site-menu__columna site-menu__columna--left" src="img/prueba-superada/columna.webp" alt="" aria-hidden="true" width="377" height="1798">
+      <img class="site-menu__columna site-menu__columna--right" src="img/prueba-superada/columna.webp" alt="" aria-hidden="true" width="377" height="1798">
+      <button class="site-menu__close" type="button" aria-label="Cerrar menú">
+        <img src="img/popup/cerrar.svg" alt="" aria-hidden="true" width="31.48" height="31.37">
+      </button>
+      <ul class="site-menu__list">
+        <li><a href="#cupones">CUPONES</a></li>
+        <li><a href="#ofertas">OFERTAS</a></li>
+        <li><a href="#vales">PROMOS</a></li>
+      </ul>
+      <img class="site-menu__ofertiti" src="img/prueba-superada/ofertiti-celebra.webp" alt="" aria-hidden="true">
+      <img class="site-menu__cenefa site-menu__cenefa--bottom" src="img/prueba-superada/cenefa.webp" alt="" aria-hidden="true" width="2114" height="139">
+    </nav>
 
     <main>
       <section class="hero" aria-labelledby="hero-title">
@@ -201,7 +219,7 @@
       </div>
       <div class="escena-rail" aria-hidden="true"></div>
     </section>
-    <section class="escena ofertas" aria-labelledby="ofertas-title">
+    <section class="escena ofertas" id="ofertas" aria-labelledby="ofertas-title">
       <div class="escena__sticky">
         <div class="escena__stage ofertas__stage">
           <h2 class="visually-hidden" id="ofertas-title">Ofertas</h2>
@@ -223,7 +241,7 @@
       </div>
       <div class="escena-rail" aria-hidden="true"></div>
     </section>
-    <section class="escena vales" aria-labelledby="vales-title">
+    <section class="escena vales" id="vales" aria-labelledby="vales-title">
       <div class="escena__sticky">
         <div class="escena__stage vales__stage">
           <h2 class="visually-hidden" id="vales-title">Promos</h2>
@@ -376,6 +394,7 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+    <script type="module" src="js/header.js"></script>
     <script type="module" src="js/lenis.js"></script>
     <script type="module" src="js/auto-pantalla.js"></script>
     <script type="module" src="js/scroll-activo.js"></script>
