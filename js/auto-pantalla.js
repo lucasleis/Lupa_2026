@@ -24,6 +24,14 @@ window.addEventListener('touchstart', (event) => {
 }, { passive: true });
 
 window.addEventListener('touchmove', (event) => {
+  // Sin esto, el scroll nativo arranca en los primeros 10px (antes de
+  // decidir el eje), los touchmove siguientes ya no son cancelables y la
+  // inercia nativa pelea con el viaje de Lenis: toda la pantalla vibra.
+  if (mobile.matches && event.cancelable
+    && !/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement?.tagName)
+    && !event.target.closest?.('.popup')) {
+    event.preventDefault();
+  }
   const touch = event.changedTouches[0];
   if (!touch) return;
   const dx = touch.clientX - touchX;
@@ -31,7 +39,7 @@ window.addEventListener('touchmove', (event) => {
   if (!ejeTactil && Math.max(Math.abs(dx), Math.abs(dy)) >= 10) {
     ejeTactil = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
   }
-}, { passive: true });
+}, { passive: false });
 
 window.addEventListener('touchend', () => {
   gestoTactilConsumido = false;
@@ -79,12 +87,12 @@ const viajar = (destino) => {
   const duration = Math.max(DURACION_MIN, Math.abs(destino - window.scrollY) / altoViewportSVH / pantallasPorSegundo);
   // Si un salto del código interrumpe el viaje, Lenis no llama onComplete; con el timestamp el bloqueo vence solo.
   bloqueadoHasta = performance.now() + duration * 1000 + ENFRIAMIENTO;
-  // Sin cola de frenado, el zoom llega lanzado al pase a ofertas (y la vuelta sale lanzada desde el interior).
+  // El cubic-out de CAMARA deja ~0,7s de arrastre subpíxel al final de los viajes largos y eso hace vibrar la pantalla.
   irA(destino, {
     lock: true,
     duration,
     force: false,
-    ...(esPasillo ? { easing: (t) => t } : {}),
+    easing: esPasillo ? (t) => t : (t) => 1 - (1 - t) ** 2,
   });
 };
 

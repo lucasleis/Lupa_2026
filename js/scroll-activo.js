@@ -7,6 +7,11 @@ const root = document.documentElement;
 let timer = 0;
 
 const alTerminar = () => {
+  // Durante un viaje programático los eventos llegan espaciados y la marca se prendía y apagaba, promoviendo y despromoviendo capas.
+  if (window.lenis?.isScrolling) {
+    timer = setTimeout(alTerminar, 180);
+    return;
+  }
   delete root.dataset.scrolling;
 };
 
