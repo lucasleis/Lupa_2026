@@ -3434,13 +3434,13 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     transform: none;
   }
 
-  /* Y 755.99 del frame - los 73.83 del panel. Misma caja que SALTAR INTRO
-     para que queden centrados sobre la misma línea. */
+  /* Entre el pie del pergamino 3 (549.92 + 4.33 + 135.33 = 689.58) y el borde
+     del papiro (726). Misma caja horizontal que SALTAR INTRO. */
   .acertijo-panel__desliza {
     display: block;
     position: absolute;
     z-index: 2;
-    top: calc(682.16 * var(--ud));
+    top: calc(697 * var(--ud));
     left: calc(496 * var(--ud));
     width: calc(344 * var(--ud));
     height: calc(19 * var(--ud));
