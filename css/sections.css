@@ -3203,8 +3203,6 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     line-height: calc(60 * var(--ud));
   }
 
-  .formulario__corte { display: none; }
-
   .formulario__header p {
     width: calc(636.42 * var(--ud));
     height: auto;
