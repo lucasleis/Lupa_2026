@@ -10,6 +10,7 @@ const vales = [
   { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/pan-dulcesol.webp',    titulo: 'Pan Dulcesol Burger Brioche pack 4',        peso: '340GR' },
   { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/pizza-dr-oetker.webp', titulo: 'Pizza Dr.Oetker Rústica borde relleno BBQ', peso: '495GR' },
   { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/tosta-rica.webp',      titulo: 'Galleta Cuétara Tosta Rica',                peso: '760GR' },
+  { frase: FRASE, prefijo: '2ª unidad', entero: '50',                                      centavos: '%',  unidad: 'DTO', descuentoTexto: 'Segunda unidad al 50% de descuento', imagen: 'img/vales/tonica-schweppes.webp', titulo: 'Tónica Schweppes lata',                     peso: '25CL' },
 ];
 
 const hexagono = (clase, fill) => `<svg class="vales__hexagono ${clase}" viewBox="0 0 131 118" aria-hidden="true" focusable="false"><path d="M120.198 23.7749L127.186 78.7861L72.222 114.173L10.1581 93.6508L3.17059 38.6396L58.1331 3.25324L120.198 23.7749Z" fill="${fill}" stroke="var(--color-gold)" stroke-width="5.9185"/></svg>`;
