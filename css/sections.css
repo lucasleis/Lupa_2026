@@ -1437,6 +1437,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   text-decoration-line: underline;
 }
 
+/* Solo escritorio. */
+.acertijo-panel__desliza { display: none; }
+
 /* Los tres top salian como estilo inline desde js/acertijo.js y por eso ninguna
    media query podia moverlos. Viven aca. */
 .acertijo-question {
@@ -3429,6 +3432,26 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     font-weight: 500;
     line-height: calc(26 * var(--ud));
     transform: none;
+  }
+
+  /* Y 755.99 del frame - los 73.83 del panel. Misma caja que SALTAR INTRO
+     para que queden centrados sobre la misma línea. */
+  .acertijo-panel__desliza {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: calc(682.16 * var(--ud));
+    left: calc(496 * var(--ud));
+    width: calc(344 * var(--ud));
+    height: calc(19 * var(--ud));
+    margin: 0;
+    color: var(--color-brown-dark);
+    font-family: var(--font-display);
+    font-size: calc(16 * var(--ud));
+    font-weight: 500;
+    line-height: calc(19 * var(--ud));
+    text-align: center;
+    white-space: nowrap;
   }
 
   /* En escritorio el pasillo no lo dispara la seccion .puerta: entra con la
