@@ -12,6 +12,7 @@ const ofertas = [
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',30', unidad: 'ud/€', precioTexto: '3,30 euros la unidad', imagen: 'img/ofertas/kh7.webp', titulo: 'Desengrasante KH-7 pistola', peso: '780ML' },
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '1', centavos: ',69', unidad: 'ud/€', precioTexto: '1,69 euros la unidad', imagen: 'img/ofertas/aceituna-la-espanola.webp', titulo: 'Aceituna La Española rellenas de anchoa', peso: '350GR' },
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',50', unidad: 'ud/€', precioTexto: '3,50 euros la unidad', imagen: 'img/ofertas/girasoli-rana.webp', titulo: 'Girasoli Rana Gourmet queso cabra&amp;cebolla caramelizada', peso: '250GR' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',95', unidad: 'ud/€', precioTexto: '3,95 euros la unidad', imagen: 'img/ofertas/chocolate-valor-almendra.webp', titulo: 'Chocolate Valor Puro Almendra', peso: '250GR' },
 ];
 
 const root = document.querySelector('.ofertas');
