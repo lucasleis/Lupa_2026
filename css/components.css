@@ -93,7 +93,7 @@
   .site-menu__columna--right { right: calc(-73.45 * var(--u)); }
   .site-menu__list { position: absolute; z-index: 3; top: calc(142.35 * var(--u)); left: 50%; width: calc(137 * var(--u)); gap: calc(23 * var(--u)); transform: translateX(-50%); }
   .site-menu__list a { font-size: calc(34 * var(--u)); line-height: 0.84; white-space: nowrap; }
-  .site-menu__ofertiti { z-index: 1; bottom: calc(53.4 * var(--u)); left: calc(50% - (93.3 * var(--u))); width: auto; height: calc(275.22 * var(--u)); transform: none; }
+  .site-menu__ofertiti { z-index: 1; top: calc(100% - 328.6 * var(--u)); bottom: auto; left: 50%; width: auto; height: calc(402 * var(--u)); transform: translateX(-50%); }
 }
 
 @media (min-width: 481px) and (max-width: 899px) {
