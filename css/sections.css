@@ -749,13 +749,17 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 /* El corte "para / continuar" es solo de escritorio. */
 .hero__prompt-corte { display: none; }
 
+/* En mobile el escenario puede ser más ancho que la pantalla: en el peor caso
+   se ven 354 de las 375 unidades (de 10.5 a 364.5, ver --u de .hero__stage).
+   330 centrado (22.5 a 352.5) deja margen en cualquier ancho. La altura
+   mantiene la proporción del globo (341.6 x 148.25). */
 .hero__riddle-group {
   position: absolute;
   z-index: 8;
   top: calc(122.3 * var(--u));
-  left: calc(10.57 * var(--u));
-  width: calc(341.6 * var(--u));
-  height: calc(148.25 * var(--u));
+  left: calc(22.5 * var(--u));
+  width: calc(330 * var(--u));
+  height: calc(143.21 * var(--u));
   transform: scale(calc(0.7 * var(--p-event) + 0.3 * var(--p-event) * var(--p-event) + 0.08 * var(--p-event) * (1 - var(--p-event))));
   transform-origin: center;
 }
