@@ -2252,6 +2252,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     clip-path: polygon(3.01% 9.08%, 94.75% 3.98%, 94.75% 94.25%, 3.01% 99.37%);
   }
 
+  /* En escritorio las hojas quedan siempre cerradas: no se funden con --entrada-p
+     (eso es solo de mobile). El pasillo entra encima y las tapa. */
+  .piramide-puerta .piramide-puerta__hoja {
+    opacity: 1;
+  }
+
   .piramide-puerta .piramide-puerta__interior {
     top: calc(-332.60 * var(--ud));
     left: calc(25.60 * var(--ud));

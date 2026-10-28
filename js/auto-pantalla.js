@@ -6,11 +6,21 @@ export const PANTALLAS_POR_SEGUNDO = 1.1;
 export const PANTALLAS_POR_SEGUNDO_PASILLO = 2.2;
 export const DURACION_MIN = 0.9;
 export const ENFRIAMIENTO = 350;
+export const VELOCIDAD_INTRO_ESCRITORIO = 1.25; // multiplicador del tramo pantalla 1 ↔ 2
+export const VELOCIDAD_SALIDA_PAPIROS_ESCRITORIO = 1.5; // multiplicador al salir de los papiros hacia adelante
+export const VELOCIDAD_PIRAMIDE_ESCRITORIO = 1 / 1.1; // multiplicador del tramo resultado ↔ Esfinge (10% más lento)
+
+const escritorio = window.matchMedia('(min-width: 481px)');
+const layoutEscritorio = window.matchMedia('(min-width: 900px)');
 const P_PRUEBA_SUPERADA = 0.6;
 
-const mobile = window.matchMedia('(max-width: 480px)');
 let bloqueadoHasta = 0;
 let gestoTactilConsumido = false;
+// La inercia del trackpad sigue mandando wheel 1-2s después del gesto; sin una pausa de
+// PAUSA_RUEDA ms entre eventos, todo cuenta como el mismo gesto (igual que gestoTactilConsumido).
+const PAUSA_RUEDA = 200;
+let ultimaRueda = 0;
+let gestoRuedaConsumido = false;
 let touchX = 0;
 let touchY = 0;
 let ejeTactil = null;
@@ -27,7 +37,7 @@ window.addEventListener('touchmove', (event) => {
   // Sin esto, el scroll nativo arranca en los primeros 10px (antes de
   // decidir el eje), los touchmove siguientes ya no son cancelables y la
   // inercia nativa pelea con el viaje de Lenis: toda la pantalla vibra.
-  if (mobile.matches && event.cancelable
+  if (event.cancelable
     && !/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement?.tagName)
     && !event.target.closest?.('.popup')) {
     event.preventDefault();
@@ -64,7 +74,8 @@ const paradas = () => {
     () => paradaDeRiel(document.querySelector('.acertijo-panel-rail--intro'), 1),
     ...['entrada', 'anuncio', 'quiz', 'resultado'].map((nombre) =>
       () => paradaDeRiel(document.querySelector(`.acertijo-panel-rail--${nombre}`), 1)),
-    () => paradaDeRiel(document.querySelector('.acertijo-panel-rail--piramide'), 1),
+    // Desktop: del resultado a la Esfinge es un solo viaje, sin parar adentro de la pirámide.
+    () => layoutEscritorio.matches ? null : paradaDeRiel(document.querySelector('.acertijo-panel-rail--piramide'), 1),
     () => paradaDeRiel(document.querySelector('.prueba-superada .escena-rail'), P_PRUEBA_SUPERADA),
     () => paradaDeRiel(document.querySelector('.interior .escena-rail'), 1),
     () => paradaDeRiel(document.querySelector('.ofertas .escena-rail'), 1),
@@ -84,7 +95,20 @@ const viajar = (destino) => {
   const esPasillo = interior !== null
     && (Math.abs(destino - interior) <= 2 || Math.abs(window.scrollY - interior) <= 2);
   const pantallasPorSegundo = esPasillo ? PANTALLAS_POR_SEGUNDO_PASILLO : PANTALLAS_POR_SEGUNDO;
-  const duration = Math.max(DURACION_MIN, Math.abs(destino - window.scrollY) / altoViewportSVH / pantallasPorSegundo);
+  const intro = paradaDeRiel(document.querySelector('.acertijo-panel-rail--intro'), 1);
+  const esTramoIntro = escritorio.matches && intro !== null
+    && Math.max(destino, window.scrollY) <= intro + 2;
+  const papiros = paradaDeRiel(document.querySelector('.prueba-superada .escena-rail'), P_PRUEBA_SUPERADA);
+  const saleDePapiros = escritorio.matches && papiros !== null
+    && Math.abs(window.scrollY - papiros) <= 2 && destino > window.scrollY;
+  const resultado = paradaDeRiel(document.querySelector('.acertijo-panel-rail--resultado'), 1);
+  const esTramoPiramide = layoutEscritorio.matches && resultado !== null && papiros !== null
+    && Math.abs(Math.min(destino, window.scrollY) - resultado) <= 2
+    && Math.abs(Math.max(destino, window.scrollY) - papiros) <= 2;
+  const duration = Math.max(DURACION_MIN, Math.abs(destino - window.scrollY) / altoViewportSVH
+    / (pantallasPorSegundo * (esTramoIntro ? VELOCIDAD_INTRO_ESCRITORIO
+      : saleDePapiros ? VELOCIDAD_SALIDA_PAPIROS_ESCRITORIO
+      : esTramoPiramide ? VELOCIDAD_PIRAMIDE_ESCRITORIO : 1)));
   // Si un salto del código interrumpe el viaje, Lenis no llama onComplete; con el timestamp el bloqueo vence solo.
   bloqueadoHasta = performance.now() + duration * 1000 + ENFRIAMIENTO;
   // El cubic-out de CAMARA deja ~0,7s de arrastre subpíxel al final de los viajes largos y eso hace vibrar la pantalla.
@@ -97,15 +121,23 @@ const viajar = (destino) => {
 };
 
 window.autoPantalla = ({ deltaY, event }) => {
+  const esRueda = event?.type === 'wheel';
+  if (esRueda) {
+    const ahora = performance.now();
+    if (ahora - ultimaRueda > PAUSA_RUEDA) gestoRuedaConsumido = false;
+    ultimaRueda = ahora;
+  }
   const lenis = window.lenis;
-  if (!mobile.matches || lenis.isStopped || lenis.isLocked) return true;
+  if (lenis.isStopped || lenis.isLocked) return true;
   const esTouch = event?.type?.startsWith('touch');
   if (esTouch && (!ejeTactil || ejeTactil === 'horizontal')) return true;
   if (/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement?.tagName)) return true;
 
-  if (esTouch && event.cancelable) event.preventDefault();
-  if (performance.now() < bloqueadoHasta || (esTouch && gestoTactilConsumido)) return false;
+  if (event?.cancelable) event.preventDefault();
+  if (performance.now() < bloqueadoHasta || (esTouch && gestoTactilConsumido)
+    || (esRueda && gestoRuedaConsumido)) return false;
   if (esTouch) gestoTactilConsumido = true;
+  if (esRueda) gestoRuedaConsumido = true;
 
   const direccion = Math.sign(deltaY);
   if (!direccion) return false;
@@ -135,7 +167,6 @@ window.autoPantalla = ({ deltaY, event }) => {
 };
 
 document.addEventListener('popup:cerrado', () => {
-  if (!mobile.matches) return;
   window.requestAnimationFrame(() => {
     const destino = paradaDeRiel(document.querySelector('.prueba-superada .escena-rail'), P_PRUEBA_SUPERADA);
     if (destino !== null && destino > window.scrollY + 2) viajar(destino);
