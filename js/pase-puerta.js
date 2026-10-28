@@ -52,6 +52,12 @@ let ultimoY = window.scrollY;
 
 const alSubir = () => {
   const y = window.scrollY;
+  // Un ancla que salta más allá de ofertas (LOS QUIERO → #formulario) nunca
+  // pasa por revelar(): sin la marca, la capa del pasillo queda encima de todo.
+  if (ofertas && !volviendo && document.body.dataset.puertaRevelada !== 'true'
+    && ofertas.getBoundingClientRect().top < 0) {
+    document.body.dataset.puertaRevelada = 'true';
+  }
   const subiendo = y < ultimoY;
   ultimoY = y;
   if (!subiendo || !ofertas) return;
