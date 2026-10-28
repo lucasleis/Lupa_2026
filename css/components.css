@@ -130,4 +130,87 @@
     top: 12px;
     right: 88px;
   }
+
+  .site-menu {
+    inset: 0;
+    z-index: 30;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    overflow: hidden;
+    background: var(--color-brown-dark);
+  }
+
+  .site-menu__cenefa, .site-menu__columna, .site-menu__ofertiti {
+    position: absolute;
+    display: block;
+    max-width: none;
+    pointer-events: none;
+  }
+
+  .site-menu__cenefa {
+    z-index: 2;
+    left: calc(-81 * var(--ud));
+    width: calc(100% + 89 * var(--ud));
+    height: calc(86.93 * var(--ud));
+    object-fit: cover;
+  }
+
+  .site-menu__cenefa--top { top: 0; }
+  .site-menu__cenefa--bottom { bottom: 0; }
+
+  .site-menu__columna {
+    z-index: 0;
+    top: calc(86.94 * var(--ud));
+    right: auto;
+    bottom: calc(24.6 * var(--ud));
+    left: auto;
+    width: calc(165.93 * var(--ud));
+    height: auto;
+    object-fit: fill;
+  }
+
+  .site-menu__columna--left { left: calc(6 * var(--ud)); }
+  .site-menu__columna--right { right: calc(6 * var(--ud)); }
+
+  .site-menu__list {
+    position: absolute;
+    z-index: 3;
+    top: calc(320 * var(--ud));
+    left: calc(50% - 309.74 * var(--ud));
+    width: calc(225 * var(--ud));
+    gap: calc(40 * var(--ud));
+    transform: translateX(-50%);
+  }
+
+  .site-menu__list a {
+    font-size: calc(56 * var(--ud));
+    line-height: calc(60 * var(--ud));
+    white-space: nowrap;
+  }
+
+  .site-menu__close {
+    top: calc(117.77 * var(--ud));
+    right: auto;
+    left: calc(50% + 422.48 * var(--ud));
+    width: calc(46 * var(--ud));
+    height: calc(45.84 * var(--ud));
+    border-width: calc(2.45 * var(--ud));
+    box-shadow: calc(0.84 * var(--ud)) calc(0.68 * var(--ud)) 0 var(--color-gold-mid);
+  }
+
+  .site-menu__close::before, .site-menu__close::after {
+    width: calc(26.3 * var(--ud));
+    height: calc(4.4 * var(--ud));
+  }
+
+  .site-menu__ofertiti {
+    z-index: 1;
+    top: calc(100% - 671.1 * var(--ud));
+    bottom: auto;
+    left: calc(50% + 225.84 * var(--ud));
+    width: auto;
+    height: calc(852.8 * var(--ud));
+    transform: translateX(-50%);
+  }
 }
