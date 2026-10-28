@@ -926,6 +926,18 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   justify-content: center;
 }
 
+/* Figma mobile: P Black 18/20, caja de 40 centrada en el globo. Solo el de
+   la intro: la regla base la comparte con .hero__riddle--answer. Desktop la
+   pisa con su propio selector, más específico. */
+.hero__riddle--intro {
+  top: calc(50% - 20 * var(--u));
+  left: 7.77%;
+  width: 84.46%;
+  height: calc(40 * var(--u));
+  font-size: calc(18 * var(--u));
+  line-height: calc(20 * var(--u));
+}
+
 .hero__sphinx-group {
   position: absolute;
   z-index: 5;
