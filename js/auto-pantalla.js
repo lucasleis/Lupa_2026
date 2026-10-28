@@ -6,6 +6,8 @@ export const PANTALLAS_POR_SEGUNDO = 1.1;
 export const PANTALLAS_POR_SEGUNDO_PASILLO = 2.2;
 export const DURACION_MIN = 0.9;
 export const ENFRIAMIENTO = 350;
+// Apareado con el transition de .escena__track en css/sections.css (1.1s).
+const DESLIZ_CUPONES = 1100;
 export const VELOCIDAD_INTRO_ESCRITORIO = 1.25; // multiplicador del tramo pantalla 1 ↔ 2
 export const VELOCIDAD_SALIDA_PAPIROS_ESCRITORIO = 1.5; // multiplicador al salir de los papiros hacia adelante
 export const VELOCIDAD_PIRAMIDE_ESCRITORIO = 1 / 1.1; // multiplicador del tramo resultado ↔ Esfinge (10% más lento)
@@ -142,6 +144,17 @@ window.autoPantalla = ({ deltaY, event }) => {
   const direccion = Math.sign(deltaY);
   if (!direccion) return false;
   const y = window.scrollY;
+
+  // Desde la Esfinge, el primer gesto hacia abajo abre los cupones en vez de viajar.
+  const esfinge = document.querySelector('.prueba-superada');
+  const papiros = paradaDeRiel(esfinge?.querySelector('.escena-rail'), P_PRUEBA_SUPERADA);
+  if (direccion > 0 && papiros !== null && Math.abs(y - papiros) <= 2
+    && esfinge.dataset.cupones !== 'true') {
+    esfinge.querySelector('.prueba-superada__cupones')?.click();
+    bloqueadoHasta = performance.now() + DESLIZ_CUPONES + ENFRIAMIENTO;
+    return false;
+  }
+
   const lista = paradas();
   const destino = direccion > 0
     ? lista.find((parada) => parada > y + 2)
