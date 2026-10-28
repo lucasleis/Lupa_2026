@@ -469,7 +469,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .formulario__header { position: relative; z-index: 1; display: flex; width: calc(294.6 * var(--u)); flex-direction: column; align-items: center; justify-content: center; gap: calc(16 * var(--u)); }
 .formulario__header h2 { width: calc(295 * var(--u)); height: auto; margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(28 * var(--u)); font-weight: 700; line-height: calc(23.52 * var(--u)); text-align: center; text-transform: uppercase; white-space: nowrap; }
 .formulario__header p { width: calc(293.01 * var(--u)); height: auto; margin: 0; color: var(--color-brown-dark); font-family: var(--font-display); font-size: calc(16 * var(--u)); font-weight: 400; line-height: calc(17.6 * var(--u)); text-align: center; }
-.formulario__form { position: relative; z-index: 1; display: flex; width: calc(342.24 * var(--u)); height: calc(435 * var(--u)); flex-direction: column; align-items: center; gap: calc(32 * var(--u)); }
+.formulario__form { position: relative; z-index: 1; display: flex; width: calc(342.24 * var(--u)); height: auto; flex-direction: column; align-items: center; gap: calc(32 * var(--u)); }
 .formulario__fields { display: flex; width: calc(342 * var(--u)); height: calc(296 * var(--u)); flex-direction: column; gap: calc(20 * var(--u)); }
 .formulario__field { position: relative; width: calc(342 * var(--u)); height: calc(59 * var(--u)); flex: 0 0 calc(59 * var(--u)); }
 .formulario__field-bg { position: absolute; inset: calc(0.5 * var(--u)) 0 auto; width: calc(342 * var(--u)); height: calc(58 * var(--u)); max-width: none; }
@@ -516,7 +516,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 .formulario__terms-text { white-space: nowrap; }
 .formulario__checkbox-label:has(.formulario__checkbox[aria-invalid="true"]) .formulario__terms-text { color: var(--color-error); }
 .formulario__terms-text a { color: var(--color-link); text-decoration: underline; }
-.formulario__submit { width: calc(239 * var(--u)); height: calc(55 * var(--u)); padding: 0; font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; }
+.formulario__submit { width: calc(239 * var(--u)); height: calc(55 * var(--u)); flex-shrink: 0; padding: 0; font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; }
 .formulario__submit:focus-visible { outline: calc(2 * var(--u)) solid var(--color-navy); outline-offset: calc(3 * var(--u)); }
 
 @media (min-width: 481px) and (max-width: 899px) {
@@ -3871,7 +3871,7 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
 
 /* Provisional: todavía no hay diseño de Figma para los estados del formulario. */
 .formulario__mensaje {
-  margin: 0 0 calc(16 * var(--u));
+  margin: calc(-16 * var(--u)) 0 0;
   color: var(--color-error);
   font-size: calc(16 * var(--u));
   line-height: calc(19 * var(--u));
