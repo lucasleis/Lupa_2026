@@ -291,6 +291,8 @@ body {
    Si cambia el texto y pasa a una o tres lineas, recalibrar los tres juntos. */
 .popup__title { position: absolute; top: calc(75.66 * var(--u)); left: calc(50% - (237.95 * var(--u)) / 2); width: calc(237.95 * var(--u)); margin: 0; color: var(--color-navy); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 800; line-height: calc(22 * var(--u)); text-align: center; }
 .popup__copy { position: absolute; top: calc(125.66 * var(--u)); left: calc(50% - (248.6 * var(--u)) / 2); width: calc(248.6 * var(--u)); height: calc(95 * var(--u)); margin: 0; color: var(--color-navy); font-family: var(--font-display); font-size: calc(16 * var(--u)); font-weight: 400; line-height: calc(19 * var(--u)); text-align: center; }
+.popup--registro .popup__title { top: calc(97 * var(--u)); }
+.popup--registro .popup__copy { top: calc(150 * var(--u)); }
 .popup__instagram { position: absolute; left: calc(50% - (239 * var(--u)) / 2); top: calc(230.66 * var(--u)); width: calc(239 * var(--u)); height: calc(55 * var(--u)); font-family: var(--font-display); font-size: calc(22 * var(--u)); font-weight: 600; text-decoration: none; pointer-events: auto; }
 .popup__close { position: absolute; top: calc(25.66 * var(--u)); left: calc(260.07 * var(--u)); width: calc(44 * var(--u)); height: calc(44 * var(--u)); padding: 0; border: 0; background: transparent; pointer-events: auto; }
 .popup__close img { position: absolute; left: calc(6.48 * var(--u)); top: calc(6.32 * var(--u)); width: calc(31.48 * var(--u)); height: calc(31.37 * var(--u)); border: 0; outline: none; }

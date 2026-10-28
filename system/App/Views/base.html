@@ -341,7 +341,7 @@
       <p class="acertijo-panel__desliza">DESLIZA HACIA ABAJO PARA CONTINUAR</p>
       <a class="acertijo-panel__skip" href="#cupones">SALTAR INTRO</a>
     </section>
-    <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-hidden="true" inert tabindex="-1">
+    <div class="popup" data-popup-evento="sala:final" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-hidden="true" inert tabindex="-1">
       <div class="popup__paper">
         <img class="popup__paper-body" src="img/popup/papel-papiro.svg" alt="" width="347" height="327">
         <img class="popup__roll popup__roll--izq" src="img/popup/papiro-rollo-izq.svg" alt="" width="62" height="318">
@@ -353,6 +353,22 @@
           <p class="popup__copy">Síguenos en redes y entra en el<br>sorteo de 1000€ para gastar en<br>tu Lupa gracias a Puleva.</p>
           <!-- Provisional: la URL de Instagram todavía no está definida. -->
           <a class="popup__instagram cta-layers" href="https://www.instagram.com/lupasupermercados/" target="_blank" rel="noopener noreferrer"><span>IR A INSTAGRAM</span></a>
+          <button class="popup__close" type="button" aria-label="Cerrar">
+            <img src="img/popup/cerrar.svg" alt="" width="31.48" height="31.37">
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="popup popup--registro" data-popup-evento="formulario:enviado" role="dialog" aria-modal="true" aria-labelledby="popup-registro-title" aria-hidden="true" inert tabindex="-1">
+      <div class="popup__paper">
+        <img class="popup__paper-body" src="img/popup/papel-papiro.svg" alt="" width="347" height="327">
+        <img class="popup__roll popup__roll--izq" src="img/popup/papiro-rollo-izq.svg" alt="" width="62" height="318">
+        <img class="popup__roll popup__roll--der" src="img/popup/papiro-rollo-der.svg" alt="" width="64" height="320">
+        <img class="popup__lazo popup__lazo--izq" src="img/popup/papiro-lazo-izq.svg" alt="" width="69" height="58">
+        <img class="popup__lazo popup__lazo--der" src="img/popup/papiro-lazo-der.svg" alt="" width="49" height="68">
+        <div class="popup__content">
+          <h2 class="popup__title" id="popup-registro-title">¡Tu aventura faraónica<br>acaba de empezar!</h2>
+          <p class="popup__copy">Ahora vigila tu correo como si<br>fuera un tesoro, porque mis<br>ofertas están de camino.<br>¡Que la suerte de Ofertiti te<br>acompañe!</p>
           <button class="popup__close" type="button" aria-label="Cerrar">
             <img src="img/popup/cerrar.svg" alt="" width="31.48" height="31.37">
           </button>

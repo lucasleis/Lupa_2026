@@ -69,6 +69,7 @@ if (form && message && submitButton) form.addEventListener('submit', async (even
         ? '¡Listo! Te enviamos los vales a tu correo. Si no los ves, revisa la carpeta de spam.'
         : '¡Listo! Tu registro quedó guardado.', 'info');
       form.querySelectorAll('input, button, select, textarea').forEach((control) => { control.disabled = true; });
+      document.dispatchEvent(new CustomEvent('formulario:enviado'));
       return;
     }
     if (data.already_registered) {
