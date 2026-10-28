@@ -1432,6 +1432,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 }
 
 .acertijo-panel__skip {
+  display: none;
   position: absolute;
   z-index: 2;
   top: calc(596.4 * var(--u));
@@ -1449,8 +1450,30 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   text-decoration-line: underline;
 }
 
-/* Solo escritorio. */
-.acertijo-panel__desliza { display: none; }
+/* En mobile ocupa el lugar de SALTAR INTRO. Aparece con los 3 pergaminos
+   abiertos (data-completo lo pone js/acertijo.js). */
+.acertijo-panel__desliza {
+  position: absolute;
+  z-index: 2;
+  top: calc(596.4 * var(--u));
+  left: 50%;
+  height: calc(35 * var(--u));
+  margin: 0;
+  transform: translateX(-50%);
+  color: var(--color-brown-dark);
+  font-family: var(--font-display);
+  font-size: calc(16 * var(--u));
+  font-weight: 500;
+  line-height: calc(35 * var(--u));
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.acertijo-panel[data-completo="true"] .acertijo-panel__desliza {
+  opacity: 1;
+}
 
 /* Los tres top salian como estilo inline desde js/acertijo.js y por eso ninguna
    media query podia moverlos. Viven aca. */
@@ -3436,6 +3459,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   /* Y 830 del frame - los 73.83 del panel. Queda 9px a la derecha del centro
      del papiro, por eso left explicito y no el translateX(-50%) del movil. */
   .acertijo-panel__skip {
+    display: block;
     top: calc(756.17 * var(--ud));
     left: calc(496 * var(--ud));
     width: calc(344 * var(--ud));
@@ -3466,10 +3490,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     white-space: nowrap;
     opacity: 0;
     transition: opacity 300ms ease-out;
-  }
-
-  .acertijo-panel[data-completo="true"] .acertijo-panel__desliza {
-    opacity: 1;
+    transform: none;
   }
 
   /* En escritorio el pasillo no lo dispara la seccion .puerta: entra con la
