@@ -3,6 +3,7 @@ export const SUAVIZADO = { lerp: 0.08 };
 
 const lenis = new Lenis({
   smoothWheel: true,
+  virtualScroll: (data) => window.autoPantalla?.(data) ?? true,
   // Sin variante de reduced motion (decisión de diseño, ver css/base.css): Lenis 1.3 la
   // aplica por defecto y forzaría saltos secos en todo scroll programático.
   respectReducedMotion: false,
@@ -15,9 +16,10 @@ export const CAMARA = {
   easing: (t) => 1 - (1 - t) ** 3,
 };
 
-// Anima siempre; quien necesite salto seco pasa { immediate: true } (anclas, pase a ofertas).
+// Los scrolls disparados por una acción del usuario le ganan a cualquier viaje en curso de auto-pantalla.
 export const irA = (top, opciones = {}) => lenis.scrollTo(top, {
   ...CAMARA,
+  force: true,
   ...opciones,
 });
 

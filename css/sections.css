@@ -1575,7 +1575,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   left: 50%;
   width: 100%;
   max-width: 480px;
-  transform: translateX(-50%);
+  --pasillo-zoom-cruce: 0.08; /* empujón mientras entra con el cruce */
+  --pasillo-zoom: 0.35; /* avance a lo largo del riel de .interior */
+  transform: translateX(-50%) scale(calc(1 + var(--pasillo-zoom-cruce) * var(--puerta-cruce-p, 0) + var(--pasillo-zoom) * var(--interior-zoom-p, 0)));
+  transform-origin: 50% 46%; /* centro del muro de jeroglíficos */
   background-color: var(--color-dark-bg);
   background-image: url("../img/interior.webp");
   background-repeat: no-repeat;
@@ -1588,6 +1591,33 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   .pase-puerta::before {
     max-width: none;
   }
+}
+
+@media (max-width: 899px) {
+  /* El pasillo no se apaga antes del salto: cruza directo con ofertas.
+     Antes se apagaba al 95% del riel de .interior y dejaba ver el stage
+     vacío (oscuro) + el fundido de ofertas sobre marrón. */
+  .pase-puerta {
+    opacity: var(--puerta-cruce-p, 0);
+  }
+  /* Ida: ofertas ya está pintada debajo; se va el pasillo encima. */
+  body[data-puerta-revelada="true"] .pase-puerta {
+    opacity: 0;
+    animation: pasillo-se-va 600ms ease;
+  }
+  body[data-puerta-revelada="true"] .ofertas__stage {
+    animation: none;
+  }
+  /* Vuelta (espejo): el pasillo reaparece sobre el interior. */
+  body[data-pase-volviendo="true"] .pase-puerta {
+    animation: ofertas-aparece 600ms ease;
+  }
+}
+
+/* Los 600ms están apareados con FUNDIDO de js/pase-puerta.js. */
+@keyframes pasillo-se-va {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 @media (min-width: 900px) {
@@ -3466,7 +3496,8 @@ html[data-scrolling] .hero__sphinx-ground,
 html[data-scrolling] .hero__riddle-group,
 html[data-scrolling] .hero__start,
 html[data-scrolling] .piramide-escena,
-html[data-scrolling] .puerta__escena {
+html[data-scrolling] .puerta__escena,
+html[data-scrolling] .pase-puerta::before {
   will-change: transform;
 }
 

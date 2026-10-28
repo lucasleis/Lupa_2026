@@ -64,6 +64,10 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
     }
     if (section.classList.contains('interior')) {
       fijar(document.body, '--interior-p', String(p));
+      // El zoom del pasillo en mobile corre sobre toda la sección (sticky + riel):
+      // --interior-p recién arranca cuando el riel asoma y dejaba 100svh quietos.
+      fijar(document.body, '--interior-zoom-p',
+        String(progresoDeRiel(section, { desdeElTope: true })));
       // Un salto (ancla) que deja el interior arriba también da p = 1: sin
       // esto dispararía el pase a ofertas y pisaría el destino del salto.
       if (p >= 0.999 && !interiorEnFinal && section.getBoundingClientRect().bottom > 0) {

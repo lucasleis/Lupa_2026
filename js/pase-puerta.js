@@ -9,7 +9,7 @@ let armada = false;
 // El fundido del pase dura lo mismo que las animaciones de 600ms de
 // css/sections.css. Mientras corre, el scroll queda fijo: si el usuario sigue
 // empujando, el fundido se ve a medias sobre una pantalla que ya se movio.
-const FUNDIDO = 600;
+export const FUNDIDO = 600;
 const fijarDurante = (ms) => {
   // En el frame siguiente, para no cortar el scrollTo que acaba de ejecutarse.
   window.requestAnimationFrame(() => {
@@ -31,12 +31,14 @@ const revelar = () => {
   fijarDurante(FUNDIDO);
 };
 
+const esperaPase = () => (window.matchMedia('(max-width: 480px)').matches ? 0 : 200);
+
 document.addEventListener('interior:final', () => {
   if (!cortina || armada) return;
   armada = true;
   window.setTimeout(() => {
     document.documentElement.style.overflow = 'hidden';
-    window.setTimeout(revelar, 200);
+    window.setTimeout(revelar, esperaPase());
   }, 0);
 });
 
@@ -52,10 +54,15 @@ const alSubir = () => {
   const y = window.scrollY;
   const subiendo = y < ultimoY;
   ultimoY = y;
-  if (!subiendo || volviendo || !interior || !ofertas) return;
+  if (!subiendo || !ofertas) return;
+  if (ofertas.getBoundingClientRect().top < 0) return;
+  volverAlInterior();
+};
+
+export const volverAlInterior = () => {
+  if (volviendo || !interior || !ofertas) return;
   // Solo si el salto de ida ya ocurrio y ofertas llego a su tope.
   if (document.body.dataset.puertaRevelada !== 'true') return;
-  if (ofertas.getBoundingClientRect().top < 0) return;
   volviendo = true;
   if ('puertaRevelada' in document.body.dataset) delete document.body.dataset.puertaRevelada;
   marcar(document.body, 'paseVolviendo', 'true');
