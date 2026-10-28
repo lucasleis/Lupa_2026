@@ -3840,3 +3840,13 @@ body[data-en-sala="true"] .sala-fondo { visibility: visible; }
 /* Las flechas dibujan un círculo con ::before; el anillo lo sigue. */
 :where(.carrusel__arrow):focus-visible { border-radius: 50%; }
 
+/* Cursor de marca en escritorio. El hotspot (24 14) es el centro de la pupila
+   en el PNG de 1x; si el clic se siente corrido, son esos dos números.
+   Los links y botones conservan la manito del navegador. */
+@media (min-width: 900px) {
+  html {
+    cursor: url("../img/puntero/ojo.png") 24 14, auto;
+    cursor: image-set(url("../img/puntero/ojo.png") 1x, url("../img/puntero/ojo@2x.png") 2x) 24 14, auto;
+  }
+}
+
