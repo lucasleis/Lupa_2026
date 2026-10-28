@@ -746,6 +746,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   justify-content: center;
 }
 
+/* El corte "para / continuar" es solo de escritorio. */
+.hero__prompt-corte { display: none; }
+
 .hero__riddle-group {
   position: absolute;
   z-index: 8;
@@ -2309,6 +2312,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     font-size: calc(32 * var(--ud));
     line-height: calc(34 * var(--ud));
   }
+
+  .hero__prompt-corte { display: inline; }
 
   .hero__stage[data-estado] > .hero__riddle-group {
     top: calc(221.13 * var(--ud));
