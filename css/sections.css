@@ -3206,14 +3206,14 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   }
 
   .formulario__header p {
-    width: calc(636.42 * var(--ud));
+    width: calc(800 * var(--ud));
     height: auto;
     margin-left: calc(1.7 * var(--ud));
     font-size: calc(20 * var(--ud));
     line-height: calc(26 * var(--ud));
   }
 
-  .formulario__header br { display: none; }
+  .formulario__header br:not(.formulario__salto) { display: none; }
 
   .formulario__form {
     position: absolute;
