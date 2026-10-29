@@ -553,8 +553,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 
 @media (max-width: 899px) {
   .footer {
-    /* Escala por el lado que limite: en pantallas cortas el footer pasaba de 100svh y la última parada cortaba el título. */
-    --u: min(calc(min(100vw, 480px) / 375), calc(100svh / 618.52));
+    /* Escala por el lado que limite. 659.52 es el alto real del contenido en flujo (cenefa 45 + título 116 + logo 110.52 + redes 59 + legales 164 + cenefa 45 + 5 gaps de 24), no el min-height de diseño: con 618.52 la banda de arriba quedaba fuera. */
+    --u: min(calc(min(100vw, 480px) / 375), calc(100svh / 659.52));
   }
 }
 
