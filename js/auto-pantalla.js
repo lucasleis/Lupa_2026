@@ -117,6 +117,10 @@ const viajar = (destino) => {
   // Tras cerrar el popup el viaje no sale de la parada de la pirámide sino de donde se abrió el popup; basta con salir de adentro de la pirámide.
   const esPasilloMovil = !layoutEscritorio.matches && resultado !== null && papiros !== null
     && Math.abs(destino - papiros) <= 2 && window.scrollY > resultado + 2 && window.scrollY < destino;
+  const piramide = paradaDeRiel(document.querySelector('.acertijo-panel-rail--piramide'), 1);
+  // El popup lo corta a mitad de la entrada (POPUP_SALA_EN): con ease-out el pasillo se ve frenando ahí.
+  const esPiramideMovil = !layoutEscritorio.matches && resultado !== null && piramide !== null
+    && Math.abs(window.scrollY - resultado) <= 2 && Math.abs(destino - piramide) <= 2;
   const duration = Math.max(DURACION_MIN, Math.abs(destino - window.scrollY) / altoViewportSVH
     / (pantallasPorSegundo * (esTramoIntro ? VELOCIDAD_INTRO_ESCRITORIO
       : saleDePapiros ? VELOCIDAD_SALIDA_PAPIROS_ESCRITORIO
@@ -130,7 +134,7 @@ const viajar = (destino) => {
     lock: true,
     duration,
     force: false,
-    easing: esPasillo ? (t) => t : (t) => 1 - (1 - t) ** 2,
+    easing: esPasillo || esPiramideMovil ? (t) => t : (t) => 1 - (1 - t) ** 2,
   });
 };
 
