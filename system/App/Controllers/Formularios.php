@@ -109,7 +109,7 @@ class Formularios extends \Core\Controller
 
             $mail->isHTML(true);                                  //Set email format to HTML
             //$mail->Subject = $asunto.' - Villalupa';
-            $mail->Subject = '¡Aquí están tus descuentos de Buscando con Lupa!';
+            $mail->Subject = 'Los dioses del Nilo te sonríen';
             
             return $mail->send();
         } catch (Exception $e) {
