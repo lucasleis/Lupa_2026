@@ -1386,7 +1386,8 @@ body[data-puerta-revelada="true"] .ofertas__stage {
   transform-origin: center;
 }
 
-@media (min-width: 481px) and (max-width: 899px) {
+@media (max-width: 899px) {
+  /* Escala por el lado que limite, como el hero: en pantallas cortas el panel no puede pasar de 100svh. */
   .acertijo-panel {
     --u: min(calc(min(100vw, 480px) / 375), calc(100svh / 667));
     left: calc((100vw - 375 * var(--u)) / 2 + 10.1 * var(--u));
