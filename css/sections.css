@@ -563,7 +563,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     width: 100vw;
     margin-left: calc((480px - 100vw) / 2);
   }
+}
 
+@media (max-width: 899px) {
   .footer__columna--izquierda {
     left: calc(-70.48 * var(--u));
   }
@@ -573,6 +575,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     right: calc(-77.53 * var(--u));
   }
 
+  /* Las cenefas en flujo se ubican con un translateX calibrado para la escala por ancho; con --u limitado por alto no llegan al borde. Las bandas ::before/::after cubren siempre el ancho completo. */
   .footer__cenefa { visibility: hidden; }
 
   .footer__title,
