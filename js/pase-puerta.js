@@ -10,6 +10,8 @@ let armada = false;
 // css/sections.css. Mientras corre, el scroll queda fijo: si el usuario sigue
 // empujando, el fundido se ve a medias sobre una pantalla que ya se movio.
 export const FUNDIDO = 600;
+// Vuelta: cuánto se frena el scroll antes de arrancar el viaje; el fundido sigue corriendo encima del movimiento.
+export const ESPERA_VUELTA = 150;
 const fijarDurante = (ms) => {
   // En el frame siguiente, para no cortar el scrollTo que acaba de ejecutarse.
   window.requestAnimationFrame(() => {
@@ -28,7 +30,7 @@ const revelar = () => {
   document.body.dataset.puertaRevelada = 'true';
   document.documentElement.style.overflow = '';
   irA(top, { lock: true, immediate: true });
-  fijarDurante(FUNDIDO);
+  fijarDurante(ESPERA_VUELTA);
 };
 
 const esperaPase = () => (window.matchMedia('(max-width: 480px)').matches ? 0 : 200);

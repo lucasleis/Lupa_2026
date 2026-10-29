@@ -1,6 +1,6 @@
 import { irA } from './lenis.js';
 import { altoViewportSVH } from './intro-scroll.js';
-import { volverAlInterior, FUNDIDO as FUNDIDO_PASE } from './pase-puerta.js';
+import { volverAlInterior, ESPERA_VUELTA } from './pase-puerta.js';
 
 export const PANTALLAS_POR_SEGUNDO = 1.1;
 export const PANTALLAS_POR_SEGUNDO_PASILLO = 2.2;
@@ -192,9 +192,9 @@ window.autoPantalla = ({ deltaY, event }) => {
       bloqueadoHasta = 0;
       const destinoVuelta = paradaDeRiel(
         document.querySelector('.prueba-superada .escena-rail'), P_PRUEBA_SUPERADA);
-      // +50: fijarDurante reanuda Lenis un frame después de los 600ms; antes viajar() sin force sería descartado.
+      // +50: fijarDurante reanuda Lenis un frame después de ESPERA_VUELTA; antes viajar() sin force sería descartado.
       if (destinoVuelta !== null && destinoVuelta < window.scrollY - 2) viajar(destinoVuelta);
-    }, FUNDIDO_PASE + 50);
+    }, ESPERA_VUELTA + 50);
     return false;
   }
 
