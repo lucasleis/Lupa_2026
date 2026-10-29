@@ -3193,7 +3193,7 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     left: 0;
     width: 100%;
     height: auto;
-    top: calc(var(--formulario-y0) + 113.04 * var(--ud));
+    top: calc(var(--formulario-y0) + 140 * var(--ud));
     gap: calc(11.52 * var(--ud));
   }
 
