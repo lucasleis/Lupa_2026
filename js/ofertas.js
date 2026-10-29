@@ -5,6 +5,7 @@ const ofertas = [
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '2', centavos: ',39', unidad: '6ud/€', precioTexto: '2,39 euros el pack de 6', imagen: 'img/ofertas/batido-puleva-chocolate.webp', titulo: 'Batido Puleva de chocolate pack 6 unds x 200 ml.', peso: '6 x 200ML' },
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '2', centavos: ',59', unidad: '6ud/€', precioTexto: '2,59 euros el pack de 6', imagen: 'img/ofertas/batido-puleva-zero.webp', titulo: 'Batido Puleva Choco Zero / Chocolate sin lactosa', peso: '6 x 200ML' },
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '1', centavos: ',99', unidad: 'L/€', precioTexto: '1,99 euros el litro', imagen: 'img/ofertas/batido-puleva-shake.webp', titulo: 'Batido Puleva Vainilla / Chocolate / Fresa', peso: '1L' },
+  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '1', centavos: ',00', unidad: 'ud/€', precioTexto: '1 euro la unidad', imagen: 'img/ofertas/batido-puleva-proteina.webp', titulo: 'Batido Puleva Proteína Vainilla o Chocolate', peso: '250ML' },
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',50', unidad: 'ud/€', precioTexto: '3,50 euros la unidad', imagen: 'img/ofertas/queso-le-rustique.webp', titulo: 'Queso Le Rustique Camembert', peso: '250GR' },
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '2', centavos: ',50', unidad: 'ud/€', precioTexto: '2,50 euros la unidad', imagen: 'img/ofertas/queso-caprice.webp', titulo: 'Queso Caprice des Dieux', peso: '125GR' },
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '5', centavos: ',40', unidad: 'ud/€', precioTexto: '5,40 euros la unidad', imagen: 'img/ofertas/queso-burgo-arias.webp', titulo: 'Queso Burgo Arias Original', peso: '500GR' },
@@ -13,7 +14,6 @@ const ofertas = [
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '1', centavos: ',69', unidad: 'ud/€', precioTexto: '1,69 euros la unidad', imagen: 'img/ofertas/aceituna-la-espanola.webp', titulo: 'Aceituna La Española rellenas de anchoa', peso: '350GR' },
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',50', unidad: 'ud/€', precioTexto: '3,50 euros la unidad', imagen: 'img/ofertas/girasoli-rana.webp', titulo: 'Girasoli Rana Gourmet queso cabra&amp;cebolla caramelizada', peso: '250GR' },
   { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '3', centavos: ',95', unidad: 'ud/€', precioTexto: '3,95 euros la unidad', imagen: 'img/ofertas/chocolate-valor-almendra.webp', titulo: 'Chocolate Valor Puro<br>Almendra', peso: '250GR' },
-  { etiqueta: 'img/ofertas/etiqueta-precio.svg', entero: '1', centavos: ',00', unidad: 'ud/€', precioTexto: '1 euro la unidad', imagen: 'img/ofertas/batido-puleva-proteina.webp', titulo: 'Batido Puleva Proteína Vainilla o Chocolate', peso: '250ML' },
 ];
 
 const root = document.querySelector('.ofertas');
