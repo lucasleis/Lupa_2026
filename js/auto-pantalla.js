@@ -98,7 +98,6 @@ const viajar = (destino) => {
   const interior = paradaDeRiel(document.querySelector('.interior .escena-rail'), 1);
   const esPasillo = interior !== null
     && (Math.abs(destino - interior) <= 2 || Math.abs(window.scrollY - interior) <= 2);
-  const pantallasPorSegundo = esPasillo ? PANTALLAS_POR_SEGUNDO_PASILLO : PANTALLAS_POR_SEGUNDO;
   const intro = paradaDeRiel(document.querySelector('.acertijo-panel-rail--intro'), 1);
   const esTramoIntro = escritorio.matches && intro !== null
     && Math.max(destino, window.scrollY) <= intro + 2;
@@ -118,9 +117,10 @@ const viajar = (destino) => {
   const esPasilloMovil = !layoutEscritorio.matches && resultado !== null && papiros !== null
     && Math.abs(destino - papiros) <= 2 && window.scrollY > resultado + 2 && window.scrollY < destino;
   const piramide = paradaDeRiel(document.querySelector('.acertijo-panel-rail--piramide'), 1);
-  // El popup lo corta a mitad de la entrada (POPUP_SALA_EN): con ease-out el pasillo se ve frenando ahí.
+  // Mismo movimiento que el pasillo del interior (lineal, PANTALLAS_POR_SEGUNDO_PASILLO): con ease-out el pasillo se asentaba antes del popup.
   const esPiramideMovil = !layoutEscritorio.matches && resultado !== null && piramide !== null
     && Math.abs(window.scrollY - resultado) <= 2 && Math.abs(destino - piramide) <= 2;
+  const pantallasPorSegundo = esPasillo || esPiramideMovil ? PANTALLAS_POR_SEGUNDO_PASILLO : PANTALLAS_POR_SEGUNDO;
   const duration = Math.max(DURACION_MIN, Math.abs(destino - window.scrollY) / altoViewportSVH
     / (pantallasPorSegundo * (esTramoIntro ? VELOCIDAD_INTRO_ESCRITORIO
       : saleDePapiros ? VELOCIDAD_SALIDA_PAPIROS_ESCRITORIO
