@@ -3632,10 +3632,10 @@ html[data-scrolling] .pase-puerta::before {
     calc(100svh - 0.76539 * var(--sala-h));
   visibility: hidden;
   pointer-events: none;
-  /* Smoothstep sobre el riel de prueba-superada: arranca en 0.12 (ya armada
-     detrás) y termina en 0.55, ~95svh. La curva t*t*(3-2t) suaviza los dos
+  /* Smoothstep sobre el riel de prueba-superada: arranca en 0.10 (el stage termina
+     de entrar) y termina en 0.40, ~66svh. La curva t*t*(3-2t) suaviza los dos
      extremos; con rampa lineal el principio y el final se leen como corte. */
-  --t: clamp(0, calc((0.55 - var(--sala-salida-p, 0)) / 0.43), 1);
+  --t: clamp(0, calc((0.40 - var(--sala-salida-p, 0)) / 0.30), 1);
   opacity: calc(var(--t) * var(--t) * (3 - 2 * var(--t)));
 }
 

@@ -12,6 +12,7 @@ export const VELOCIDAD_INTRO_ESCRITORIO = 1.25; // multiplicador del tramo panta
 export const VELOCIDAD_SALIDA_PAPIROS_ESCRITORIO = 1.5; // multiplicador al salir de los papiros hacia adelante
 export const VELOCIDAD_PIRAMIDE_ESCRITORIO = 1 / 1.1; // multiplicador del tramo resultado ↔ Esfinge (10% más lento)
 export const VELOCIDAD_SALIDA_PANEL_MOVIL = 1.5; // multiplicador del tramo papiros → quiz en mobile (salen los glifos, entra la nube)
+export const VELOCIDAD_PASILLO_MOVIL = 1.6; // multiplicador del viaje pirámide → Esfinge en mobile (pasillo quieto tras el popup)
 
 const escritorio = window.matchMedia('(min-width: 481px)');
 const layoutEscritorio = window.matchMedia('(min-width: 900px)');
@@ -113,11 +114,15 @@ const viajar = (destino) => {
   const esSalidaPanelMovil = !escritorio.matches && entrada !== null && quiz !== null
     && Math.abs(Math.min(destino, window.scrollY) - entrada) <= 2
     && Math.abs(Math.max(destino, window.scrollY) - quiz) <= 2;
+  // Tras cerrar el popup el viaje no sale de la parada de la pirámide sino de donde se abrió el popup; basta con salir de adentro de la pirámide.
+  const esPasilloMovil = !layoutEscritorio.matches && resultado !== null && papiros !== null
+    && Math.abs(destino - papiros) <= 2 && window.scrollY > resultado + 2 && window.scrollY < destino;
   const duration = Math.max(DURACION_MIN, Math.abs(destino - window.scrollY) / altoViewportSVH
     / (pantallasPorSegundo * (esTramoIntro ? VELOCIDAD_INTRO_ESCRITORIO
       : saleDePapiros ? VELOCIDAD_SALIDA_PAPIROS_ESCRITORIO
       : esTramoPiramide ? VELOCIDAD_PIRAMIDE_ESCRITORIO
-      : esSalidaPanelMovil ? VELOCIDAD_SALIDA_PANEL_MOVIL : 1)));
+      : esSalidaPanelMovil ? VELOCIDAD_SALIDA_PANEL_MOVIL
+      : esPasilloMovil ? VELOCIDAD_PASILLO_MOVIL : 1)));
   // Si un salto del código interrumpe el viaje, Lenis no llama onComplete; con el timestamp el bloqueo vence solo.
   bloqueadoHasta = performance.now() + duration * 1000 + ENFRIAMIENTO;
   // El cubic-out de CAMARA deja ~0,7s de arrastre subpíxel al final de los viajes largos y eso hace vibrar la pantalla.
