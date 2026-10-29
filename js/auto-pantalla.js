@@ -211,10 +211,3 @@ window.autoPantalla = ({ deltaY, event }) => {
   viajar(destino);
   return false;
 };
-
-document.addEventListener('sala:final', () => {
-  window.requestAnimationFrame(() => {
-    const destino = paradaDeRiel(document.querySelector('.prueba-superada .escena-rail'), P_PRUEBA_SUPERADA);
-    if (destino !== null && destino > window.scrollY + 2) viajar(destino);
-  });
-});

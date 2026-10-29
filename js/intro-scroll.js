@@ -430,11 +430,19 @@ if (heroTrack) {
   document.addEventListener('resultado:continuar', () => {
     if (!pyramidRail) return;
     pyramidRailEnabled = true;
-    habilitarRielYDesplazar(pyramidRail, {
-      propiedad: '--piramide-rail-height',
-      altura: RAIL_HEIGHTS.piramide,
-      progreso: 1,
-      duration: duracionSaltoPiramide,
+    // Un solo viaje hasta Ofertiti: antes el popup partía el movimiento en dos.
+    habilitarRiel(pyramidRail, '--piramide-rail-height', RAIL_HEIGHTS.piramide);
+    window.requestAnimationFrame(() => {
+      // Sin esto Lenis clampea el destino al largo del documento previo a habilitar el riel.
+      window.lenis?.resize?.();
+      const rail = document.querySelector('.prueba-superada .escena-rail');
+      const rect = rail?.getBoundingClientRect();
+      if (rect) {
+        // 0.6 = parada de reposo de Ofertiti (P_PRUEBA_SUPERADA en auto-pantalla.js).
+        const destino = window.scrollY + rect.top - altoViewportSVH + 0.6 * rect.height;
+        irA(destino, { lock: true, duration: duracionSaltoPiramide(Math.abs(destino - window.scrollY)) });
+      }
+      updateProgress();
     });
   });
 
