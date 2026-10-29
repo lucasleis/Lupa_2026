@@ -629,6 +629,10 @@ body[data-puerta-revelada="true"] .ofertas__stage {
       calc(100vw / 354)
     );
     width: calc(375 * var(--u));
+    /* Bordes del viewport en coordenadas del stage, igual que en 481–899: la arena los usa para sangrar. */
+    --stage-w: calc(375 * var(--u));
+    --vp-izq: calc((var(--stage-w) - 100vw) / 2);
+    --vp-der: calc((var(--stage-w) + 100vw) / 2);
   }
 }
 
@@ -1218,6 +1222,9 @@ body[data-puerta-revelada="true"] .ofertas__stage {
     width: calc(375 * var(--u));
   }
 
+}
+
+@media (max-width: 899px) {
   .hero__sphinx-ground {
     left: min(0px, var(--vp-izq));
     width: calc(max(calc(500.79 * var(--u)), var(--vp-der)) - min(0px, var(--vp-izq)));
