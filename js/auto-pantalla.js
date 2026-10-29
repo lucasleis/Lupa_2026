@@ -30,13 +30,14 @@ let touchX = 0;
 let touchY = 0;
 let ejeTactil = null;
 
+// capture: Lenis registra sus listeners antes y llama a autoPantalla en el mismo touchmove que cruza los 10px; sin capture, ejeTactil todavía es null y swipes cortos se pierden.
 window.addEventListener('touchstart', (event) => {
   const touch = event.changedTouches[0];
   touchX = touch.clientX;
   touchY = touch.clientY;
   ejeTactil = null;
   gestoTactilConsumido = false;
-}, { passive: true });
+}, { passive: true, capture: true });
 
 window.addEventListener('touchmove', (event) => {
   // Sin esto, el scroll nativo arranca en los primeros 10px (antes de
@@ -54,16 +55,16 @@ window.addEventListener('touchmove', (event) => {
   if (!ejeTactil && Math.max(Math.abs(dx), Math.abs(dy)) >= 10) {
     ejeTactil = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
   }
-}, { passive: false });
+}, { passive: false, capture: true });
 
 window.addEventListener('touchend', () => {
   gestoTactilConsumido = false;
   ejeTactil = null;
-}, { passive: true });
+}, { passive: true, capture: true });
 window.addEventListener('touchcancel', () => {
   gestoTactilConsumido = false;
   ejeTactil = null;
-}, { passive: true });
+}, { passive: true, capture: true });
 
 const paradaDeRiel = (rail, p) => {
   if (!rail || getComputedStyle(rail).display === 'none') return null;
@@ -156,7 +157,8 @@ window.autoPantalla = ({ deltaY, event }) => {
   if (/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement?.tagName)) return true;
 
   if (event?.cancelable) event.preventDefault();
-  if (performance.now() < bloqueadoHasta || (esTouch && gestoTactilConsumido)
+  // ENFRIAMIENTO es para la inercia de rueda/trackpad; en touch gestoTactilConsumido ya evita el doble viaje.
+  if (performance.now() < bloqueadoHasta - (esTouch ? ENFRIAMIENTO : 0) || (esTouch && gestoTactilConsumido)
     || (esRueda && gestoRuedaConsumido)) return false;
   if (esTouch) gestoTactilConsumido = true;
   if (esRueda) gestoRuedaConsumido = true;
