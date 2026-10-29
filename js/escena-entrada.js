@@ -47,6 +47,7 @@ document.querySelectorAll('.escena[data-entrada]').forEach((section) => {
         || Math.abs(dx) / Math.max(elapsed, 1) > 0.5)) setCouponsOpen(true);
     }, { passive: true });
     stagePanel.addEventListener('touchcancel', () => { axis = null; }, { passive: true });
+    document.addEventListener('cupones:cerrar', () => setCouponsOpen(false));
   }
   setCouponsOpen(false);
 

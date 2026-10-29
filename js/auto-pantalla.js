@@ -177,6 +177,14 @@ window.autoPantalla = ({ deltaY, event }) => {
     return false;
   }
 
+  // Con los cupones abiertos, el primer gesto hacia arriba los cierra en vez de viajar.
+  if (direccion < 0 && papiros !== null && Math.abs(y - papiros) <= 2
+    && esfinge.dataset.cupones === 'true') {
+    document.dispatchEvent(new CustomEvent('cupones:cerrar'));
+    bloqueadoHasta = performance.now() + DESLIZ_CUPONES + ENFRIAMIENTO;
+    return false;
+  }
+
   // Mobile: la parada de la pirámide solo sirve de ida (dispara el popup); de vuelta cortaba en el pasillo.
   const piramide = paradaDeRiel(document.querySelector('.acertijo-panel-rail--piramide'), 1);
   const lista = paradas().filter((parada) => direccion > 0 || layoutEscritorio.matches
