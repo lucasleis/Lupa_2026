@@ -566,6 +566,12 @@ body[data-puerta-revelada="true"] .ofertas__stage {
 }
 
 @media (max-width: 899px) {
+  /* Del borde superior (38.92u, bajo la banda de arriba) hasta la banda de abajo (45u): con alto fijo quedaban flotando. cover escala sin deformar y recorta los costados, que caen fuera de pantalla. */
+  .footer__columna {
+    height: calc(100% - (38.92 + 45) * var(--u));
+    object-fit: cover;
+  }
+
   .footer__columna--izquierda {
     left: calc(-70.48 * var(--u));
   }
