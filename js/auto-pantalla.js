@@ -13,6 +13,7 @@ export const VELOCIDAD_SALIDA_PAPIROS_ESCRITORIO = 1.5; // multiplicador al sali
 export const VELOCIDAD_PIRAMIDE_ESCRITORIO = 1 / 1.1; // multiplicador del tramo resultado ↔ Esfinge (10% más lento)
 export const VELOCIDAD_SALIDA_PANEL_MOVIL = 1.5; // multiplicador del tramo papiros → quiz en mobile (salen los glifos, entra la nube)
 export const VELOCIDAD_PASILLO_MOVIL = 1.6; // multiplicador del viaje pirámide → Esfinge en mobile (pasillo quieto tras el popup)
+export const VELOCIDAD_VUELTA_PIRAMIDE_MOVIL = 2; // multiplicador del viaje Esfinge → resultado en mobile (~770svh de una)
 
 const escritorio = window.matchMedia('(min-width: 481px)');
 const layoutEscritorio = window.matchMedia('(min-width: 900px)');
@@ -120,13 +121,16 @@ const viajar = (destino) => {
   // Mismo movimiento que el pasillo del interior (lineal, PANTALLAS_POR_SEGUNDO_PASILLO): con ease-out el pasillo se asentaba antes del popup.
   const esPiramideMovil = !layoutEscritorio.matches && resultado !== null && piramide !== null
     && Math.abs(window.scrollY - resultado) <= 2 && Math.abs(destino - piramide) <= 2;
+  const esVueltaPiramideMovil = !layoutEscritorio.matches && resultado !== null && papiros !== null
+    && Math.abs(destino - resultado) <= 2 && Math.abs(window.scrollY - papiros) <= 2;
   const pantallasPorSegundo = esPasillo || esPiramideMovil ? PANTALLAS_POR_SEGUNDO_PASILLO : PANTALLAS_POR_SEGUNDO;
   const duration = Math.max(DURACION_MIN, Math.abs(destino - window.scrollY) / altoViewportSVH
     / (pantallasPorSegundo * (esTramoIntro ? VELOCIDAD_INTRO_ESCRITORIO
       : saleDePapiros ? VELOCIDAD_SALIDA_PAPIROS_ESCRITORIO
       : esTramoPiramide ? VELOCIDAD_PIRAMIDE_ESCRITORIO
       : esSalidaPanelMovil ? VELOCIDAD_SALIDA_PANEL_MOVIL
-      : esPasilloMovil ? VELOCIDAD_PASILLO_MOVIL : 1)));
+      : esPasilloMovil ? VELOCIDAD_PASILLO_MOVIL
+      : esVueltaPiramideMovil ? VELOCIDAD_VUELTA_PIRAMIDE_MOVIL : 1)));
   // Si un salto del código interrumpe el viaje, Lenis no llama onComplete; con el timestamp el bloqueo vence solo.
   bloqueadoHasta = performance.now() + duration * 1000 + ENFRIAMIENTO;
   // El cubic-out de CAMARA deja ~0,7s de arrastre subpíxel al final de los viajes largos y eso hace vibrar la pantalla.
@@ -171,7 +175,10 @@ window.autoPantalla = ({ deltaY, event }) => {
     return false;
   }
 
-  const lista = paradas();
+  // Mobile: la parada de la pirámide solo sirve de ida (dispara el popup); de vuelta cortaba en el pasillo.
+  const piramide = paradaDeRiel(document.querySelector('.acertijo-panel-rail--piramide'), 1);
+  const lista = paradas().filter((parada) => direccion > 0 || layoutEscritorio.matches
+    || piramide === null || Math.abs(parada - piramide) > 2);
   const destino = direccion > 0
     ? lista.find((parada) => parada > y + 2)
     : [...lista].reverse().find((parada) => parada < y - 2);
