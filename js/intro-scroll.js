@@ -342,6 +342,7 @@ if (heroTrack) {
     altura,
     progreso = 1,
     duration = DURACION_SALTO_PANEL,
+    onComplete,
   }) => {
     habilitarRiel(rail, propiedad, altura);
     window.requestAnimationFrame(() => {
@@ -355,7 +356,7 @@ if (heroTrack) {
         const duracion = typeof duration === 'function'
           ? duration(Math.abs(targetScroll - window.scrollY))
           : duration;
-        irA(targetScroll, { lock: true, duration: duracion });
+        irA(targetScroll, { lock: true, duration: duracion, onComplete });
       }
       updateProgress();
     });
@@ -430,19 +431,14 @@ if (heroTrack) {
   document.addEventListener('resultado:continuar', () => {
     if (!pyramidRail) return;
     pyramidRailEnabled = true;
-    // Un solo viaje hasta Ofertiti: antes el popup partía el movimiento en dos.
-    habilitarRiel(pyramidRail, '--piramide-rail-height', RAIL_HEIGHTS.piramide);
-    window.requestAnimationFrame(() => {
-      // Sin esto Lenis clampea el destino al largo del documento previo a habilitar el riel.
-      window.lenis?.resize?.();
-      const rail = document.querySelector('.prueba-superada .escena-rail');
-      const rect = rail?.getBoundingClientRect();
-      if (rect) {
-        // 0.6 = parada de reposo de Ofertiti (P_PRUEBA_SUPERADA en auto-pantalla.js).
-        const destino = window.scrollY + rect.top - altoViewportSVH + 0.6 * rect.height;
-        irA(destino, { lock: true, duration: duracionSaltoPiramide(Math.abs(destino - window.scrollY)) });
-      }
-      updateProgress();
+    habilitarRielYDesplazar(pyramidRail, {
+      propiedad: '--piramide-rail-height',
+      altura: RAIL_HEIGHTS.piramide,
+      progreso: 1,
+      duration: duracionSaltoPiramide,
+      // Antes la parada en la pirámide la marcaba el popup; sin él, el viaje
+      // encadena solo hacia Ofertiti al terminar.
+      onComplete: () => document.dispatchEvent(new CustomEvent('piramide:final')),
     });
   });
 
