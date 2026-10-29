@@ -51,3 +51,13 @@ menu.addEventListener('keydown', (event) => {
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') cerrar();
 });
+
+const header = document.querySelector('.site-header');
+const esMobile = window.matchMedia('(max-width: 899px)');
+window.lenis.on('scroll', ({ scroll, direction }) => {
+  if (!esMobile.matches) {
+    header.classList.remove('site-header--hidden');
+    return;
+  }
+  header.classList.toggle('site-header--hidden', direction === 1 && scroll > 10);
+});

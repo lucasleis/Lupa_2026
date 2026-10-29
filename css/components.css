@@ -7,11 +7,11 @@
   max-width: 480px;
   height: calc(59 * var(--u));
   background: var(--color-white-warm);
-  transform: translateX(-50%) translateY(calc(-100% * clamp(0, calc(var(--intro-progress) / 0.2), 1)));
+  transform: translateX(-50%);
   transition: transform 300ms ease;
 }
 
-/* Preparado para ocultar el header durante el intro cinematográfico, cuando se confirme. */
+/* Headroom: se oculta al bajar y reaparece al subir en mobile. */
 .site-header--hidden {
   transform: translateX(-50%) translateY(-100%);
 }
