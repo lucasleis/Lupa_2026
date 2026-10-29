@@ -30,7 +30,7 @@ const revelar = () => {
   document.body.dataset.puertaRevelada = 'true';
   document.documentElement.style.overflow = '';
   irA(top, { lock: true, immediate: true });
-  fijarDurante(ESPERA_VUELTA);
+  fijarDurante(FUNDIDO);
 };
 
 const esperaPase = () => (window.matchMedia('(max-width: 480px)').matches ? 0 : 200);
@@ -75,7 +75,7 @@ export const volverAlInterior = () => {
   if ('puertaRevelada' in document.body.dataset) delete document.body.dataset.puertaRevelada;
   marcar(document.body, 'paseVolviendo', 'true');
   irA(interior.offsetTop + interior.offsetHeight - altoViewportSVH, { lock: true, immediate: true });
-  fijarDurante(FUNDIDO);
+  fijarDurante(ESPERA_VUELTA);
   window.setTimeout(() => {
     delete document.body.dataset.paseVolviendo;
     volviendo = false;
