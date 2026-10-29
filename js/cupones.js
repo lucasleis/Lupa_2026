@@ -4,8 +4,8 @@ const cupones = [
   { euros: '30', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/anchoa.webp',   titulo: 'Anchoa Consorcio Aceite de Oliva',        detalle: '29GR',      codigo: '000000000001' },
   { euros: '25', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/kombucha.webp', titulo: 'Kombucha KomVida Jengibre y limón',        detalle: '250ML',     codigo: '000000000002' },
   { euros: '30', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/pimiento.webp', titulo: 'Pimiento Cárcar morrón extra pack',        detalle: '3udsX80GR', codigo: '000000000003' },
-  { euros: '40', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/papel.webp',    titulo: 'Papel higiénico Natura Aloe Vera 3 Capas', detalle: '6 rollos',  codigo: '000000000004' },
-  { euros: '30', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/creatina.webp', titulo: 'Creatina Natur Tierra',                   detalle: '200GR',     codigo: '000000000005' },
+  { euros: '40', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/papel.webp',    titulo: 'Papel higiénico Nature Aloe Vera 3 Capas', detalle: '6 rollos',  codigo: '000000000004' },
+  { euros: '30', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/creatina.webp', titulo: 'Creatina NaturTierra',                     detalle: '200GR',     codigo: '000000000005' },
   { euros: '30', centavos: '%', unidad: 'DTO', imagen: 'img/cupones/caldo.webp',    titulo: 'Caldo Aneto Pollo 100% Natural brik',      detalle: '1L',        codigo: '000000000006' },
 ];
 
