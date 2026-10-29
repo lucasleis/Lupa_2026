@@ -104,7 +104,7 @@ class Formularios extends \Core\Controller
             $mail->addCustomHeader('List-Unsubscribe', '<mailto:' . \App\Config::MAIL_FROM . '?subject=baja>');
         
             //Content
-            $nlTemplate = __DIR__ . '/../Views/email/NL-Lupa-Vales-2025.html';
+            $nlTemplate = __DIR__ . '/../Views/email/NL-Lupa-Ofertiti-2026.html';
             $mail->msgHTML(file_get_contents($nlTemplate));
 
             $mail->isHTML(true);                                  //Set email format to HTML
