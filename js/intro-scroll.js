@@ -197,6 +197,8 @@ if (heroTrack) {
     // Desktop no tiene tramo de puerta: su zoom no usa --puerta-p y ese tramo era
     // escena quieta. Mobile sí hace el zoom a la puerta con --puerta-p.
     const FRENO_PIRAMIDE = panelRailsDesktop.matches ? 120 / 165 : 468 / 540; // Desktop: entrada 120-165svh. Mobile: puerta 300-468, entrada 468-540.
+    // Mobile: el vano ya cubre la pantalla al principio del tramo de entrada; esperar a 1 deja el pasillo quieto en la cola del ease-out.
+    const POPUP_SALA_EN = panelRailsDesktop.matches ? 0.999 : 0.5;
     const pyramidProgress = pyramidRailEnabled
       ? progresoDeRiel(pyramidRail, { desdeElTope: true, inicio: 0, fin: REPARTO_PIRAMIDE, destino: heroStage, propiedad: '--piramide-p' })
       : 0;
@@ -209,10 +211,10 @@ if (heroTrack) {
       // properties solo heredan hacia abajo: sin esto nunca ve --entrada-p.
       fijar(document.body, '--entrada-p', String(entradaProgress));
       marcar(document.body, 'enSala', String(entradaProgress >= 0.999));
-      if (entradaProgress >= 0.999 && !salaEnFinal && heroTrack?.getBoundingClientRect().bottom > 0) {
+      if (entradaProgress >= POPUP_SALA_EN && !salaEnFinal && heroTrack?.getBoundingClientRect().bottom > 0) {
         salaEnFinal = true;
         document.dispatchEvent(new CustomEvent('sala:final'));
-      } else if (entradaProgress < 0.9) {
+      } else if (entradaProgress < POPUP_SALA_EN - 0.1) {
         salaEnFinal = false;
       }
     }
